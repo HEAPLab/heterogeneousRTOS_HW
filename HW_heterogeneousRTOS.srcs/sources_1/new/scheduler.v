@@ -21,8 +21,7 @@
 
 
 module scheduler(
-    start,
-    aresetn,
+    //ram
     addra,
     dina,
     clka,
@@ -31,7 +30,14 @@ module scheduler(
     rsta,
     regcea,
     douta,
-    started
+    //scheduler
+    aresetn,
+    clock,
+    start,
+    schedControl,
+    schedData,
+    started,
+    resetdone
     );    
     
     //  Xilinx Single Port No Change RAM
@@ -53,7 +59,7 @@ module scheduler(
         depth = depth >> 1;
   endfunction */
  
-   input start;
+ //ram io________________________________________
    //input [clogb2(RAM_DEPTH-1)-1:0] addra;
    input [14:0] addra;
    input [RAM_WIDTH-1:0] dina;
@@ -64,11 +70,16 @@ module scheduler(
    input rsta;
    input regcea;
    output [RAM_WIDTH-1:0] douta;
-   output started;
-   
+   //scheduler io_________________________________
+   input start;
    input aresetn;
+   input clock;
+   input [7:0] schedControl;
+   input [7:0] schedData;  
+   output started;
+   output resetdone;
 
-
+//ram wire/reg______________________________________
   //wire [clogb2(RAM_DEPTH-1)-1:0] addra;  // Address bus, width determined from RAM_DEPTH
   wire [14:0] addra;
   wire [RAM_WIDTH-1:0] dina;           // RAM input data
@@ -83,7 +94,16 @@ module scheduler(
   reg [RAM_WIDTH-1:0] myRam [RAM_DEPTH-1:0];
   reg [RAM_WIDTH-1:0] ramData = {RAM_WIDTH{1'b0}};
   
-  reg started;
+  //scheduler wire/reg________________________________
+   wire start;
+   wire aresetn;
+   wire clock;
+   wire [7:0] schedControl;
+   wire [7:0] schedData;
+   reg started;
+   reg resetdone;
+  
+  //ram logic_________________________________
 
   // The following code either initializes the memory values to a specified file or to all zeros to match hardware
   generate
@@ -97,16 +117,7 @@ module scheduler(
           myRam[ram_index] = {RAM_WIDTH{1'b0}};
     end
   endgenerate
-/*
-  always @(negedge aresetn, posedge start) begin
-    if (aresetn) begin
-        if (start) begin
-            started<=1;
-            end
-    end else begin
-        started<=0;
-        end    
-  end*/
+
 
   always @(posedge clka)
     if (ena)
@@ -138,6 +149,36 @@ module scheduler(
 
     end
   endgenerate
+  
+  //scheduler logic_________________________________
+  /*
+  always @(posedge clka, negedge aresetn)
+  begin
+    if ( !aresetn ) begin //not reset
+        started<=0;
+    end else 
+    begin
+            if (start)
+            begin
+            started<=1;
+            end
+        end    
+  end*/
+ 
+  always @(posedge clock)
+    begin
+        if ( !aresetn ) begin //not reset
+            started<=0;
+            resetdone<=1;
+    end
+    else 
+    begin
+        if (start)
+            begin
+            started<=1;
+            end
+    end    
+  end
   
   
 endmodule

@@ -1,54 +1,56 @@
 {
    "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.708429",
-   "Default View_TopLeft":"-302,-1029",
+   "Default View_ScaleFactor":"0.717936",
+   "Default View_TopLeft":"741,-1079",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
 #  -string -flagsOSRD
-preplace port DDR -pg 1 -lvl 7 -x 2070 -y -330 -defaultsOSRD
-preplace port FIXED_IO -pg 1 -lvl 7 -x 2070 -y -130 -defaultsOSRD
-preplace port port-id_LED_BLUE_LED -pg 1 -lvl 7 -x 2070 -y -830 -defaultsOSRD
-preplace portBus LED_YELLOW_LED -pg 1 -lvl 7 -x 2070 -y -190 -defaultsOSRD
-preplace inst processing_system7_0 -pg 1 -lvl 5 -x 1420 -y -440 -defaultsOSRD
+preplace port DDR -pg 1 -lvl 7 -x 2170 -y -330 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -lvl 7 -x 2170 -y -130 -defaultsOSRD
+preplace portBus LED_BLUE_LED -pg 1 -lvl 7 -x 2170 -y -820 -defaultsOSRD
+preplace portBus LED_RED_LED -pg 1 -lvl 7 -x 2170 -y -940 -defaultsOSRD
+preplace portBus LED_YELLOW_LED -pg 1 -lvl 7 -x 2170 -y -880 -defaultsOSRD
+preplace inst processing_system7_0 -pg 1 -lvl 5 -x 1610 -y -430 -defaultsOSRD
 preplace inst proc_sys_reset_0 -pg 1 -lvl 1 -x -100 -y -600 -defaultsOSRD
-preplace inst axi_mem_interconnect -pg 1 -lvl 3 -x 570 -y -620 -defaultsOSRD
-preplace inst axi_gpio_0 -pg 1 -lvl 5 -x 1420 -y -60 -defaultsOSRD
-preplace inst axi_bram_ctrl_0 -pg 1 -lvl 4 -x 940 -y -870 -defaultsOSRD
-preplace inst axi_ps7_interconnect -pg 1 -lvl 3 -x 570 -y -270 -defaultsOSRD
-preplace inst axi_timer_0 -pg 1 -lvl 4 -x 940 -y 50 -defaultsOSRD
+preplace inst axi_mem_interconnect -pg 1 -lvl 3 -x 690 -y -610 -defaultsOSRD
+preplace inst axi_gpio_0 -pg 1 -lvl 5 -x 1610 -y -60 -defaultsOSRD
+preplace inst axi_bram_ctrl_0 -pg 1 -lvl 4 -x 1090 -y -870 -defaultsOSRD
+preplace inst axi_ps7_interconnect -pg 1 -lvl 3 -x 690 -y -270 -defaultsOSRD
+preplace inst axi_timer_0 -pg 1 -lvl 4 -x 1090 -y 50 -defaultsOSRD
 preplace inst axi_cdma_0 -pg 1 -lvl 2 -x 240 -y -900 -defaultsOSRD
-preplace inst xlconcat_0 -pg 1 -lvl 3 -x 570 -y -920 -defaultsOSRD
-preplace inst trueBlock_0 -pg 1 -lvl 6 -x 1900 -y -550 -defaultsOSRD
-preplace inst scheduler_0 -pg 1 -lvl 6 -x 1900 -y -840 -defaultsOSRD
-preplace netloc Net 1 0 6 -280 -700 80 -700 400 -440 770 -630 1160 -630 1660
-preplace netloc axi_bram_ctrl_0_bram_addr_a 1 4 2 NJ -920 1700
-preplace netloc axi_bram_ctrl_0_bram_clk_a 1 4 2 NJ -900 1720
-preplace netloc axi_bram_ctrl_0_bram_en_a 1 4 2 NJ -840 1700
-preplace netloc axi_bram_ctrl_0_bram_rst_a 1 4 2 NJ -820 1680
-preplace netloc axi_bram_ctrl_0_bram_we_a 1 4 2 NJ -800 1690
-preplace netloc axi_bram_ctrl_0_bram_wrdata_a 1 4 2 NJ -880 1680
-preplace netloc axi_cdma_0_cdma_introut 1 2 1 400 -910n
-preplace netloc axi_gpio_0_gpio_io_o 1 5 2 1710 -190 N
-preplace netloc axi_timer_0_interrupt 1 2 3 420 -780 760J -740 1110
-preplace netloc proc_sys_reset_0_interconnect_aresetn 1 1 2 N -580 390
-preplace netloc proc_sys_reset_0_peripheral_aresetn 1 1 5 90 -640 380 -430 740 -1010 1130 -910 1730
-preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 6 -280 -460 NJ -460 NJ -460 NJ -460 1170J -620 1650
-preplace netloc scheduler_0_douta 1 4 3 1140J -980 NJ -980 2040
-preplace netloc scheduler_0_started 1 6 1 N -830
-preplace netloc trueBlock_0_y 1 5 2 1730 -620 2040
-preplace netloc xlconcat_0_dout 1 3 2 720J -1000 1150
-preplace netloc S00_AXI_1 1 2 4 410 -1020 N -1020 N -1020 1670
-preplace netloc axi_cdma_0_M_AXI 1 2 1 390 -910n
-preplace netloc axi_mem_interconnect_M00_AXI 1 3 2 N -640 1180
-preplace netloc axi_mem_interconnect_M01_AXI 1 3 2 N -620 1140
-preplace netloc axi_mem_interconnect_M02_AXI 1 3 1 750 -890n
-preplace netloc axi_ps7_interconnect_M00_AXI 1 3 2 N -290 1120
-preplace netloc axi_ps7_interconnect_M01_AXI 1 3 1 730 -270n
-preplace netloc axi_ps7_interconnect_M02_AXI 1 1 3 100 -450 N -450 720
-preplace netloc processing_system7_0_DDR 1 5 2 1730 -610 2050
-preplace netloc processing_system7_0_FIXED_IO 1 5 2 1680 -490 2040
-levelinfo -pg 1 -300 -100 240 570 940 1420 1900 2070
-pagesize -pg 1 -db -bbox -sgen -300 -1260 2290 660
+preplace inst xlconcat_0 -pg 1 -lvl 3 -x 690 -y -920 -defaultsOSRD
+preplace inst trueBlock_0 -pg 1 -lvl 6 -x 2045 -y -550 -defaultsOSRD
+preplace inst scheduler_0 -pg 1 -lvl 5 -x 1610 -y -880 -defaultsOSRD
+preplace netloc Net 1 0 6 -290 -780 80 -780 390 -780 860 -1020 1330 -610 1840
+preplace netloc axi_bram_ctrl_0_bram_addr_a 1 4 1 1260J -990n
+preplace netloc axi_bram_ctrl_0_bram_clk_a 1 4 1 1290J -950n
+preplace netloc axi_bram_ctrl_0_bram_en_a 1 4 1 1340J -910n
+preplace netloc axi_bram_ctrl_0_bram_rst_a 1 4 1 1360J -890n
+preplace netloc axi_bram_ctrl_0_bram_we_a 1 4 1 1350J -930n
+preplace netloc axi_bram_ctrl_0_bram_wrdata_a 1 4 1 1280J -970n
+preplace netloc axi_cdma_0_cdma_introut 1 2 1 390 -910n
+preplace netloc axi_gpio_0_gpio_io_o 1 4 3 1370 -1050 1880 -940 N
+preplace netloc axi_timer_0_interrupt 1 2 3 420 -440 NJ -440 1260
+preplace netloc proc_sys_reset_0_interconnect_aresetn 1 1 2 N -580 400
+preplace netloc proc_sys_reset_0_peripheral_aresetn 1 1 4 90 -630 380 -430 870 -1010 1300
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 6 -280 -770 NJ -770 NJ -770 900J -700 NJ -700 1850
+preplace netloc scheduler_0_douta 1 4 2 1270J -1060 1840J
+preplace netloc trueBlock_0_y 1 4 3 1380 -710 N -710 2130
+preplace netloc xlconcat_0_dout 1 3 2 850J -1000 1320
+preplace netloc scheduler_0_started 1 5 2 NJ -880 NJ
+preplace netloc scheduler_0_resetdone 1 5 2 1890 -820 NJ
+preplace netloc S00_AXI_1 1 2 4 410 -1070 N -1070 N -1070 1860
+preplace netloc axi_cdma_0_M_AXI 1 2 1 380 -910n
+preplace netloc axi_mem_interconnect_M00_AXI 1 3 2 880 -460 N
+preplace netloc axi_mem_interconnect_M01_AXI 1 3 2 850 -450 1310
+preplace netloc axi_mem_interconnect_M02_AXI 1 3 1 890 -890n
+preplace netloc axi_ps7_interconnect_M00_AXI 1 3 2 N -290 1270
+preplace netloc axi_ps7_interconnect_M01_AXI 1 3 1 850 -270n
+preplace netloc axi_ps7_interconnect_M02_AXI 1 1 3 80 -990 N -990 840
+preplace netloc processing_system7_0_DDR 1 5 2 1890 -610 2140
+preplace netloc processing_system7_0_FIXED_IO 1 5 2 1870 -130 N
+levelinfo -pg 1 -310 -100 240 690 1090 1610 2045 2170
+pagesize -pg 1 -db -bbox -sgen -310 -1260 2390 660
 "
 }
 {
