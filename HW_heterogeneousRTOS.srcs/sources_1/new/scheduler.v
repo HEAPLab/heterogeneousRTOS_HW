@@ -144,40 +144,36 @@ module scheduler(
     end
   endgenerate
   
-  //scheduler logic_________________________________
-  /*
-  always @(posedge clka, negedge aresetn)
-  begin
-    if ( !aresetn ) begin //not reset
-        started<=0;
-    end else 
-    begin
-            if (start)
-            begin
-            started<=1;
-            end
-        end    
-  end*/
-//  reg [7:0] taskByteSize;
-  reg [7:0] numOfTasks;
-  
-  localparam[7:0] setTaskSizeAndTaskNum = 8'd1, startScheduler=8'd2, startTask=8'd3, suspendTask=8'd4;
-  
-  //localparam[2:0] uninitialized=3'd0, initialized=3'd1, running=3'd2, stopped=4'd3;
-  //reg [2:0] state_reg;
-  //reg [7:0] control_input_reg;
-  
-  //always @(control_input_reg) begin
+  //scheduler logic_________________________________  
+
+  //detect control input updates synchronous to clock and assign them to control_input_reg
+  reg [15:0] control_input_reg;
  
- reg[15:0] oldSchedControlBus;
   always @(posedge clock)
     begin
     if ( !aresetn ) begin //not reset
             started<=0;
             resetdone<=1;
         end
-    else if (schedControlBus != oldSchedControlBus) begin
-        case (schedControlBus[15:8])
+    else begin
+        control_input_reg<=schedControlBus;
+    end    
+  end
+    
+  //control signals
+  localparam[7:0] setTaskSizeAndTaskNum = 8'd1, startScheduler=8'd2, startTask=8'd3, suspendTask=8'd4;
+  
+  //FSM logic
+  localparam[2:0] uninitialized=3'd0, initialized=3'd1, running=3'd2, stopped=4'd3;
+  reg [2:0] state_reg;
+  
+  //______________
+  reg [7:0] numOfTasks;
+  
+  
+  always @(control_input_reg)
+    begin
+        case (control_input_reg[15:8])
             setTaskSizeAndTaskNum:
                 begin
                 //taskByteSize<=schedControlBus[15:8];
@@ -187,10 +183,8 @@ module scheduler(
                 begin
                 started<=1;
                 end
-            endcase
-        oldSchedControlBus<=schedControlBus;
-    end    
-  end
+        endcase
+    end
   
   
 endmodule
