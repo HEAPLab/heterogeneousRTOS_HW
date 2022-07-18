@@ -33,9 +33,7 @@ module scheduler(
     //scheduler
     aresetn,
     clock,
-    start,
-    schedControl,
-    schedData,
+    schedControlBus,
     started,
     resetdone
     );    
@@ -71,11 +69,9 @@ module scheduler(
    input regcea;
    output [RAM_WIDTH-1:0] douta;
    //scheduler io_________________________________
-   input start;
    input aresetn;
    input clock;
-   input [7:0] schedControl;
-   input [7:0] schedData;  
+   input [15:0] schedControlBus;
    output started;
    output resetdone;
 
@@ -95,11 +91,9 @@ module scheduler(
   reg [RAM_WIDTH-1:0] ramData = {RAM_WIDTH{1'b0}};
   
   //scheduler wire/reg________________________________
-   wire start;
    wire aresetn;
    wire clock;
-   wire [7:0] schedControl;
-   wire [7:0] schedData;
+   wire [15:0] schedControlBus;
    reg started;
    reg resetdone;
   
@@ -164,19 +158,36 @@ module scheduler(
             end
         end    
   end*/
+//  reg [7:0] taskByteSize;
+  reg [7:0] numOfTasks;
+  
+  localparam[7:0] setTaskSizeAndTaskNum = 8'd1, startScheduler=8'd2, startTask=8'd3, suspendTask=8'd4;
+  
+  //localparam[2:0] uninitialized=3'd0, initialized=3'd1, running=3'd2, stopped=4'd3;
+  //reg [2:0] state_reg;
+  //reg [7:0] control_input_reg;
+  
+  //always @(control_input_reg) begin
  
+ reg[15:0] oldSchedControlBus;
   always @(posedge clock)
     begin
-        if ( !aresetn ) begin //not reset
+    if ( !aresetn ) begin //not reset
             started<=0;
             resetdone<=1;
-    end
-    else 
-    begin
-        if (start)
-            begin
-            started<=1;
-            end
+        end
+    else if (schedControlBus != oldSchedControlBus) begin
+        case (schedControlBus[15:8])
+            setTaskSizeAndTaskNum:
+                begin
+                //taskByteSize<=schedControlBus[15:8];
+                numOfTasks<=schedControlBus[7:0];
+                end
+            startScheduler:
+                begin
+                started<=1;
+                end
+            endcase
     end    
   end
   
