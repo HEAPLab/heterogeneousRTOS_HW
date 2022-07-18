@@ -31,9 +31,10 @@ module design_1_wrapper
     FIXED_IO_ps_clk,
     FIXED_IO_ps_porb,
     FIXED_IO_ps_srstb,
-    LED_BLUE_LED,
-    LED_RED_LED,
-    LED_YELLOW_LED);
+    fa2_ta2_eb1_LED01,
+    fa2_ta2_eb1_LED02,
+    fa2_ta2_eb1_LED03,
+    fa2_ta2_eb1_LED04);
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -55,9 +56,10 @@ module design_1_wrapper
   inout FIXED_IO_ps_clk;
   inout FIXED_IO_ps_porb;
   inout FIXED_IO_ps_srstb;
-  output [0:0]LED_BLUE_LED;
-  output [0:0]LED_RED_LED;
-  output [0:0]LED_YELLOW_LED;
+  output fa2_ta2_eb1_LED01;
+  output fa2_ta2_eb1_LED02;
+  output fa2_ta2_eb1_LED03;
+  output fa2_ta2_eb1_LED04;
   
   wire [14:0]DDR_addr;
   wire [2:0]DDR_ba;
@@ -80,9 +82,10 @@ module design_1_wrapper
   wire FIXED_IO_ps_clk;
   wire FIXED_IO_ps_porb;
   wire FIXED_IO_ps_srstb;
-  wire [0:0]LED_BLUE_LED;
-  wire [0:0]LED_RED_LED;
-  wire [0:0]LED_YELLOW_LED;
+  wire fa2_ta2_eb1_LED01;
+  wire fa2_ta2_eb1_LED02;
+  wire fa2_ta2_eb1_LED03;
+  wire fa2_ta2_eb1_LED04;
   
   design_1 design_1_i
        (.DDR_addr(DDR_addr),
@@ -106,7 +109,8 @@ module design_1_wrapper
         .FIXED_IO_ps_clk(FIXED_IO_ps_clk),
         .FIXED_IO_ps_porb(FIXED_IO_ps_porb),
         .FIXED_IO_ps_srstb(FIXED_IO_ps_srstb),
-        .LED_YELLOW_LED(LED_YELLOW_LED),
-        .LED_RED_LED(LED_RED_LED),
-        .LED_BLUE_LED(LED_BLUE_LED));
+        .fa2_ta2_eb1_LED01(fa2_ta2_eb1_LED01),
+        .fa2_ta2_eb1_LED02(fa2_ta2_eb1_LED02),
+        .fa2_ta2_eb1_LED03(fa2_ta2_eb1_LED03),
+        .fa2_ta2_eb1_LED04(fa2_ta2_eb1_LED04));
 endmodule

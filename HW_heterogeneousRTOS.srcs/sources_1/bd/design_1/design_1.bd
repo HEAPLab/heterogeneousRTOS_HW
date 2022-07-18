@@ -1,13 +1,14 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xD55A30582625A4E8",
+      "boundary_crc": "0x76E3A3497D9240F7",
       "device": "xc7z100ffg900-1",
       "gen_directory": "../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1",
       "name": "design_1",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
       "synth_flow_mode": "Hierarchical",
-      "tool_version": "2021.2"
+      "tool_version": "2021.2",
+      "validated": "true"
     },
     "design_tree": {
       "processing_system7_0": "",
@@ -48,29 +49,82 @@
       "DDR": {
         "mode": "Master",
         "vlnv_bus_definition": "xilinx.com:interface:ddrx:1.0",
-        "vlnv": "xilinx.com:interface:ddrx_rtl:1.0"
+        "vlnv": "xilinx.com:interface:ddrx_rtl:1.0",
+        "parameters": {
+          "AXI_ARBITRATION_SCHEME": {
+            "value": "TDM",
+            "value_src": "default"
+          },
+          "BURST_LENGTH": {
+            "value": "8",
+            "value_src": "default"
+          },
+          "CAN_DEBUG": {
+            "value": "false",
+            "value_src": "default"
+          },
+          "CAS_LATENCY": {
+            "value": "11",
+            "value_src": "default"
+          },
+          "CAS_WRITE_LATENCY": {
+            "value": "11",
+            "value_src": "default"
+          },
+          "CS_ENABLED": {
+            "value": "true",
+            "value_src": "default"
+          },
+          "DATA_MASK_ENABLED": {
+            "value": "true",
+            "value_src": "default"
+          },
+          "DATA_WIDTH": {
+            "value": "8",
+            "value_src": "default"
+          },
+          "MEMORY_TYPE": {
+            "value": "COMPONENTS",
+            "value_src": "default"
+          },
+          "MEM_ADDR_MAP": {
+            "value": "ROW_COLUMN_BANK",
+            "value_src": "default"
+          },
+          "SLOT": {
+            "value": "Single",
+            "value_src": "default"
+          },
+          "TIMEPERIOD_PS": {
+            "value": "1250",
+            "value_src": "default"
+          }
+        }
       },
       "FIXED_IO": {
         "mode": "Master",
         "vlnv_bus_definition": "xilinx.com:display_processing_system7:fixedio:1.0",
-        "vlnv": "xilinx.com:display_processing_system7:fixedio_rtl:1.0"
+        "vlnv": "xilinx.com:display_processing_system7:fixedio_rtl:1.0",
+        "parameters": {
+          "CAN_DEBUG": {
+            "value": "false",
+            "value_src": "default"
+          }
+        }
       }
     },
     "ports": {
-      "LED_BLUE_LED": {
-        "direction": "O",
-        "left": "0",
-        "right": "0"
+      "fa2_ta2_eb1_LED04": {
+        "direction": "O"
       },
-      "LED_RED_LED": {
-        "direction": "O",
-        "left": "0",
-        "right": "0"
+      "fa2_ta2_eb1_LED03": {
+        "direction": "O"
       },
-      "LED_YELLOW_LED": {
-        "direction": "O",
-        "left": "0",
-        "right": "0"
+      "fa2_ta2_eb1_LED02": {
+        "direction": "O"
+      },
+      "fa2_ta2_eb1_LED01": {
+        "direction": "O"
       }
     },
     "components": {
@@ -2371,6 +2425,14 @@
               "ASSOCIATED_RESET": {
                 "value": "aresetn",
                 "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "50000000",
+                "value_src": "user_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "design_1_processing_system7_0_0_FCLK_CLK0",
+                "value_src": "default_prop"
               }
             }
           },
@@ -2379,10 +2441,16 @@
             "left": "15",
             "right": "0"
           },
-          "started": {
+          "uninitializedLed": {
             "direction": "O"
           },
-          "resetdone": {
+          "initializedLed": {
+            "direction": "O"
+          },
+          "runningLed": {
+            "direction": "O"
+          },
+          "invalidControlLed": {
             "direction": "O"
           }
         }
@@ -2567,16 +2635,28 @@
           "axi_bram_ctrl_0/bram_rddata_a"
         ]
       },
-      "scheduler_0_resetdone": {
+      "scheduler_0_invalidControlLed": {
         "ports": [
-          "scheduler_0/resetdone",
-          "LED_BLUE_LED"
+          "scheduler_0/invalidControlLed",
+          "fa2_ta2_eb1_LED01"
         ]
       },
-      "scheduler_0_started": {
+      "scheduler_0_led0": {
         "ports": [
-          "scheduler_0/started",
-          "LED_YELLOW_LED"
+          "scheduler_0/uninitializedLed",
+          "fa2_ta2_eb1_LED02"
+        ]
+      },
+      "scheduler_0_led1": {
+        "ports": [
+          "scheduler_0/initializedLed",
+          "fa2_ta2_eb1_LED03"
+        ]
+      },
+      "scheduler_0_led2": {
+        "ports": [
+          "scheduler_0/runningLed",
+          "fa2_ta2_eb1_LED04"
         ]
       },
       "trueBlock_0_y": {

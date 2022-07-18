@@ -34,8 +34,11 @@ module scheduler(
     aresetn,
     clock,
     schedControlBus,
-    started,
-    resetdone
+    
+    uninitializedLed,
+    initializedLed,
+    runningLed,
+    invalidControlLed
     );    
     
     //  Xilinx Single Port No Change RAM
@@ -72,8 +75,12 @@ module scheduler(
    input aresetn;
    input clock;
    input [15:0] schedControlBus;
-   output started;
-   output resetdone;
+   
+   output uninitializedLed;
+   output initializedLed;
+   output runningLed;
+   output invalidControlLed;
+
 
 //ram wire/reg______________________________________
   //wire [clogb2(RAM_DEPTH-1)-1:0] addra;  // Address bus, width determined from RAM_DEPTH
@@ -94,8 +101,13 @@ module scheduler(
    wire aresetn;
    wire clock;
    wire [15:0] schedControlBus;
-   reg started;
-   reg resetdone;
+   
+   //status leds
+   reg uninitializedLed;
+   reg initializedLed;
+   reg runningLed;
+   reg invalidControlLed;
+
   
   //ram logic_________________________________
 
@@ -146,45 +158,93 @@ module scheduler(
   
   //scheduler logic_________________________________  
 
-  //detect control input updates synchronous to clock and assign them to control_input_reg
-  reg [15:0] control_input_reg;
- 
-  always @(posedge clock)
-    begin
-    if ( !aresetn ) begin //not reset
-            started<=0;
-            resetdone<=1;
-        end
-    else begin
-        control_input_reg<=schedControlBus;
-    end    
-  end
-    
-  //control signals
-  localparam[7:0] setTaskSizeAndTaskNum = 8'd1, startScheduler=8'd2, startTask=8'd3, suspendTask=8'd4;
+  //reg which contains old control input code and data (8bit MSB control signal, 8bit LSB data related to control signal)
+  reg [15:0] oldSchedControlBus;
+  //control signals encoding
+  localparam[7:0] setTaskNum = 8'd1, startScheduler=8'd2, startTask=8'd3, suspendTask=8'd4;
   
-  //FSM logic
-  localparam[2:0] uninitialized=3'd0, initialized=3'd1, running=3'd2, stopped=4'd3;
+  
+  //FSM state reg
   reg [2:0] state_reg;
-  
-  //______________
+  //FSM states encoding
+  localparam[2:0] uninitialized=3'd1, initialized=3'd2, running=3'd3, stopped=3'd4;
+
+    
+  //number of tasks in RAM, initialised during uninistialised state, before scheduler startup
   reg [7:0] numOfTasks;
   
-  
-  always @(control_input_reg)
+  always @(posedge clock)
     begin
-        case (control_input_reg[15:8])
-            setTaskSizeAndTaskNum:
+    if ( !aresetn ) begin //reset
+            //uninitializedLed<=0;
+            //initializedLed<=0;
+            //runningLed<=0;
+            //invalidControlLed<=0;
+            state_reg<=uninitialized;
+        end
+    else begin //not reset
+        if (schedControlBus!=oldSchedControlBus)
+            begin
+            //new control signal supplied
+            
+            //FSM logic which reacts to control signal changes changing states
+            case (schedControlBus[15:8])
+            setTaskNum:
                 begin
-                //taskByteSize<=schedControlBus[15:8];
-                numOfTasks<=schedControlBus[7:0];
+                if (state_reg==uninitialized)
+                    begin
+                    numOfTasks<=schedControlBus[7:0];
+                    state_reg<=initialized;
+                
+                    invalidControlLed<=0;
+                    end
+                else
+                    invalidControlLed<=1;
                 end
             startScheduler:
                 begin
-                started<=1;
+                if (state_reg==initialized)
+                    begin
+                    state_reg<=running;
+                
+                    invalidControlLed<=0;
+                    end
+                else
+                    invalidControlLed<=1;
                 end
-        endcase
+            endcase
+            
+            oldSchedControlBus<=schedControlBus;
+            
+            end
+    end    
+  end
+    
+    //FSM logic which reacts to state changes
+    always @(state_reg)
+    begin    
+    case (state_reg)
+        uninitialized:
+            begin
+            uninitializedLed<=1;
+            initializedLed<=0;
+            runningLed<=0;
+            end
+        initialized:
+            begin
+            uninitializedLed<=0;
+            initializedLed<=1;
+            runningLed<=0;
+            end
+        running:
+            begin
+            uninitializedLed<=0;
+            initializedLed<=0;
+            runningLed<=1;
+            end
+    endcase
     end
-  
+    
+    //assign started = (state_reg == running) ? 1 : 0;
   
 endmodule
