@@ -188,6 +188,7 @@ module scheduler(
                 started<=1;
                 end
             endcase
+        oldSchedControlBus<=schedControlBus;
     end    
   end
   
