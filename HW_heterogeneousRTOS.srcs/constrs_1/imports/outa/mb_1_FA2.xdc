@@ -49,3 +49,5 @@ set_property IOSTANDARD LVCMOS15 [get_ports fa2_ta2_eb1_LED01]
 set_property IOSTANDARD LVCMOS15 [get_ports fa2_ta2_eb1_LED02]
 set_property IOSTANDARD LVCMOS15 [get_ports fa2_ta2_eb1_LED04]
 set_property IOSTANDARD LVCMOS15 [get_ports fa2_ta2_eb1_LED03]
+
+set_property IOSTANDARD LVCMOS15 [get_ports fa2_ta2_eb1_LED05]

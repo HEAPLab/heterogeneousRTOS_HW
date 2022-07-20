@@ -1,7 +1,7 @@
 {
    "ActiveEmotionalView":"Default View",
    "Default View_ScaleFactor":"0.811739",
-   "Default View_TopLeft":"939,-1078",
+   "Default View_TopLeft":"1030,-1051",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
 #  -string -flagsOSRD
@@ -10,7 +10,8 @@ preplace port FIXED_IO -pg 1 -lvl 7 -x 2200 -y -130 -defaultsOSRD
 preplace port port-id_fa2_ta2_eb1_LED04 -pg 1 -lvl 7 -x 2200 -y -820 -defaultsOSRD
 preplace port port-id_fa2_ta2_eb1_LED03 -pg 1 -lvl 7 -x 2200 -y -870 -defaultsOSRD
 preplace port port-id_fa2_ta2_eb1_LED02 -pg 1 -lvl 7 -x 2200 -y -900 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED01 -pg 1 -lvl 7 -x 2200 -y -840 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED01 -pg 1 -lvl 7 -x 2200 -y -800 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED05 -pg 1 -lvl 7 -x 2200 -y -850 -defaultsOSRD
 preplace inst processing_system7_0 -pg 1 -lvl 5 -x 1610 -y -430 -defaultsOSRD
 preplace inst proc_sys_reset_0 -pg 1 -lvl 1 -x -100 -y -600 -defaultsOSRD
 preplace inst axi_mem_interconnect -pg 1 -lvl 3 -x 690 -y -610 -defaultsOSRD
@@ -36,12 +37,13 @@ preplace netloc proc_sys_reset_0_interconnect_aresetn 1 1 2 N -580 400
 preplace netloc proc_sys_reset_0_peripheral_aresetn 1 1 4 90 -630 380 -430 880 -1010 1300
 preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 6 -290 -770 NJ -770 NJ -770 900J -730 NJ -730 1860
 preplace netloc scheduler_0_douta 1 4 2 1270J -1030 1840J
+preplace netloc scheduler_0_invalidControlLed 1 5 2 NJ -830 2120J
+preplace netloc scheduler_0_led0 1 5 2 1890 -900 NJ
+preplace netloc scheduler_0_led1 1 5 2 1890 -870 NJ
 preplace netloc trueBlock_0_y 1 4 3 1380 -720 N -720 2120
 preplace netloc xlconcat_0_dout 1 3 2 850J -1000 1310
-preplace netloc scheduler_0_led2 1 5 2 N -860 2120J
-preplace netloc scheduler_0_led1 1 5 2 1880 -870 NJ
-preplace netloc scheduler_0_led0 1 5 2 N -900 NJ
-preplace netloc scheduler_0_invalidControlLed 1 5 2 NJ -840 NJ
+preplace netloc scheduler_0_readyLed 1 5 2 1880 -860 2130J
+preplace netloc scheduler_0_runningLed 1 5 2 NJ -850 NJ
 preplace netloc S00_AXI_1 1 2 4 410 -440 910 -620 N -620 1850
 preplace netloc axi_cdma_0_M_AXI 1 2 1 380 -910n
 preplace netloc axi_mem_interconnect_M00_AXI 1 3 2 N -630 1320
@@ -50,7 +52,7 @@ preplace netloc axi_mem_interconnect_M02_AXI 1 3 1 890 -890n
 preplace netloc axi_ps7_interconnect_M00_AXI 1 3 2 860 -60 N
 preplace netloc axi_ps7_interconnect_M01_AXI 1 3 1 850 -270n
 preplace netloc axi_ps7_interconnect_M02_AXI 1 1 3 80 -990 N -990 840
-preplace netloc processing_system7_0_DDR 1 5 2 1880 -610 2130
+preplace netloc processing_system7_0_DDR 1 5 2 1890 -610 2130
 preplace netloc processing_system7_0_FIXED_IO 1 5 2 1880 -130 N
 levelinfo -pg 1 -310 -100 240 690 1090 1610 2038 2200
 pagesize -pg 1 -db -bbox -sgen -310 -1260 2390 660
