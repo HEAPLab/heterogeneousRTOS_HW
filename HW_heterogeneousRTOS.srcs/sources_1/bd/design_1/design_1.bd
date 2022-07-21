@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xA81D3342BC48DD2",
+      "boundary_crc": "0x76E3A3497D9240F7",
       "device": "xc7z100ffg900-1",
       "gen_directory": "../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1",
       "name": "design_1",
@@ -124,9 +124,6 @@
         "direction": "O"
       },
       "fa2_ta2_eb1_LED01": {
-        "direction": "O"
-      },
-      "fa2_ta2_eb1_LED05": {
         "direction": "O"
       }
     },
@@ -2447,9 +2444,6 @@
           "uninitializedLed": {
             "direction": "O"
           },
-          "initializedByPSLed": {
-            "direction": "O"
-          },
           "readyLed": {
             "direction": "O"
           },
@@ -2655,20 +2649,14 @@
       },
       "scheduler_0_led1": {
         "ports": [
-          "scheduler_0/initializedByPSLed",
-          "fa2_ta2_eb1_LED03"
-        ]
-      },
-      "scheduler_0_readyLed": {
-        "ports": [
           "scheduler_0/readyLed",
-          "fa2_ta2_eb1_LED04"
+          "fa2_ta2_eb1_LED03"
         ]
       },
       "scheduler_0_runningLed": {
         "ports": [
           "scheduler_0/runningLed",
-          "fa2_ta2_eb1_LED05"
+          "fa2_ta2_eb1_LED04"
         ]
       },
       "trueBlock_0_y": {

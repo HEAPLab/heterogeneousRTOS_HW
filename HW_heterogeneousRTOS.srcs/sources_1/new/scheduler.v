@@ -36,7 +36,6 @@ module scheduler(
     schedControlBus,
     
     uninitializedLed,
-    initializedByPSLed,
     readyLed,
     runningLed,
     invalidControlLed
@@ -78,7 +77,6 @@ module scheduler(
    input [15:0] schedControlBus;
    
    output uninitializedLed;
-   output initializedByPSLed;
    output readyLed;
    output runningLed;
    output invalidControlLed;
@@ -106,7 +104,6 @@ module scheduler(
    
    //status leds
    reg uninitializedLed;
-   reg initializedByPSLed;
    reg readyLed;
    reg runningLed;
    reg invalidControlLed;
@@ -115,6 +112,7 @@ module scheduler(
   //ram logic_________________________________
 
   // The following code either initializes the memory values to a specified file or to all zeros to match hardware
+  
   generate
     if (INIT_FILE != "") begin: use_init_file
       initial
@@ -127,14 +125,14 @@ module scheduler(
     end
   endgenerate
 
-
+/*
   always @(posedge clka)
     if (ena)
       if (wea[0])
         myRam[addra] <= dina;
       else
         ramData <= myRam[addra];
-
+*/
   //  The following code generates HIGH_PERFORMANCE (use output register) or LOW_LATENCY (no output register)
   generate
     if (RAM_PERFORMANCE == "LOW_LATENCY") begin: no_output_register
@@ -162,11 +160,23 @@ module scheduler(
   //scheduler logic_________________________________  
   
   parameter maxTasks = 128;
+  //parameter RTTask_tSizeInByte=20;
+   parameter RTTask_tSizeInWords=5;
+  
+  parameter [31:0] maxRTListAddr=maxTasks*RTTask_tSizeInWords;
+  
+  parameter [31:0] maxRQNumAddr=maxRTListAddr+maxTasks;
+  parameter [31:0] maxAQNumAddr=maxRQNumAddr+maxTasks; 
+  
+  parameter [31:0] maxRQDLAddr=maxAQNumAddr+maxTasks; 
+  parameter [31:0] maxRQActAddr=maxRQDLAddr+maxTasks;
+
+  
+  reg[31:0] tasksList [(maxTasks*RTTask_tSizeInWords)-1:0];
     reg[7:0] readyQNumDLASC [maxTasks-1:0];
-    reg[31:0] readyQDeadlineDLASC [maxTasks-1:0];
-    
     reg[7:0] activationQNumATASC [maxTasks-1:0];
-    reg[7:0] activationQActivationATASC [maxTasks-1:0];   
+    reg[31:0] readyQDeadlineDLASC [maxTasks-1:0];
+    reg[31:0] activationQActivationATASC [maxTasks-1:0];   
 
   //reg which contains old control input code and data (8bit MSB control signal, 8bit LSB data related to control signal)
   reg [15:0] oldSchedControlBus;
@@ -177,13 +187,18 @@ module scheduler(
   //FSM state reg
   reg [2:0] state_reg;
   //FSM states encoding
-  localparam[2:0] uninitialized=3'd1, initializedByPS=3'd2, ready=3'd3, running=3'd4, stopped=3'd5;
+  localparam[2:0] uninitialized=3'd1, ready=3'd2, running=3'd3, stopped=3'd4;
 
     
   //number of tasks in RAM, initialised during uninistialised state, before scheduler startup
   reg [7:0] numOfTasks;
-  
+  /*
   reg [7:0] copyIterator;
+  
+    localparam[7:0] list1copy = 8'd1, list2copy=8'd2, list3copy=8'd3, list4copy=8'd4, list5copy=8'd5;
+    reg[7:0] copyStatus;*/
+
+   reg memwritten;
   
   always @(posedge clock)
     begin
@@ -193,7 +208,9 @@ module scheduler(
             //runningLed<=0;
             //invalidControlLed<=0;
             state_reg<=uninitialized;
-            copyIterator<=0;
+            memwritten<=0;
+            //copyIterator<=0;
+            //copyStatus<=list1copy;
         end
     else begin //not reset
         if (schedControlBus!=oldSchedControlBus)
@@ -204,10 +221,10 @@ module scheduler(
             case (schedControlBus[15:8])
             setTaskNum:
                 begin
-                if (state_reg==uninitialized)
+                if (state_reg==uninitialized && memwritten==1)
                     begin
                     numOfTasks<=schedControlBus[7:0];
-                    state_reg<=initializedByPS;
+                    state_reg<=ready;
                 
                     invalidControlLed<=0;
                     end
@@ -230,19 +247,52 @@ module scheduler(
             oldSchedControlBus<=schedControlBus;
             
             end
-            else if (state_reg==initializedByPS)
+            case(state_reg)
+            uninitialized:
                 begin
-                if (copyIterator!=maxTasks)
-                    begin
-                    readyQNumDLASC[copyIterator]<=ramData[copyIterator];
+                if (ena)
+                    if (wea[0])
+                        begin
+                        if (addra<maxRTListAddr)
+                            tasksList[addra] <= dina;
+                        else if (addra<maxRQNumAddr)
+                            readyQNumDLASC[addra-maxRTListAddr]<= dina;
+                        else if (addra<maxAQNumAddr)
+                            activationQNumATASC[addra-maxRTListAddr-maxRQNumAddr]<= dina;
+                        else if (addra<maxRQDLAddr)
+                            readyQDeadlineDLASC[addra-maxRTListAddr-maxRQNumAddr-maxAQNumAddr]<= dina;
+                        else if (addra<maxRQActAddr)
+                            activationQActivationATASC[addra-maxRTListAddr-maxRQNumAddr-maxAQNumAddr-maxRQDLAddr]<= dina;
+                            if (addra==maxRQActAddr-1)
+                                memwritten<=1;
+                        else
+                            invalidControlLed<=1;
+                        end
+                else
+                    ramData <= myRam[addra];
+                end/*
+            ready:
+                begin
+                if (copyIterator!=maxIterator)
+                begin
+                    case(copyStatus)
+                    list1copy:
+                        begin
+                        tasksList[t1]<=myRam[copyIterator];
+                        
+                        end
+                    
+                    endcase
                     copyIterator<=copyIterator+1;
-                    end
+                end
                 else
                     begin
                     state_reg<=ready;
                     copyIterator<=0;
                     end
-                end
+                    
+                    end*/
+            endcase
     end    
   end
   
@@ -255,28 +305,18 @@ module scheduler(
         uninitialized:
             begin
             uninitializedLed<=1;
-            initializedByPSLed<=0;
             readyLed<=0;
             runningLed<=0;
-            end
-        initializedByPS:
-            begin
-            uninitializedLed<=0;
-            initializedByPSLed<=1;
-            readyLed<=0;
-            runningLed<=0;  
             end
         ready:
             begin
             uninitializedLed<=0;
-            initializedByPSLed<=0;
             readyLed<=1;           
             runningLed<=0;
             end
         running:
             begin
             uninitializedLed<=0;
-            initializedByPSLed<=0;
             readyLed<=0;
             runningLed<=1;
             end

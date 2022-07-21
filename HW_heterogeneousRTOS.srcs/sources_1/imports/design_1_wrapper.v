@@ -34,8 +34,7 @@ module design_1_wrapper
     fa2_ta2_eb1_LED01,
     fa2_ta2_eb1_LED02,
     fa2_ta2_eb1_LED03,
-    fa2_ta2_eb1_LED04,
-    fa2_ta2_eb1_LED05);
+    fa2_ta2_eb1_LED04);
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -61,7 +60,6 @@ module design_1_wrapper
   output fa2_ta2_eb1_LED02;
   output fa2_ta2_eb1_LED03;
   output fa2_ta2_eb1_LED04;
-  output fa2_ta2_eb1_LED05;
   
   wire [14:0]DDR_addr;
   wire [2:0]DDR_ba;
@@ -88,7 +86,6 @@ module design_1_wrapper
   wire fa2_ta2_eb1_LED02;
   wire fa2_ta2_eb1_LED03;
   wire fa2_ta2_eb1_LED04;
-  wire fa2_ta2_eb1_LED05;
   
   design_1 design_1_i
        (.DDR_addr(DDR_addr),
@@ -115,6 +112,5 @@ module design_1_wrapper
         .fa2_ta2_eb1_LED01(fa2_ta2_eb1_LED01),
         .fa2_ta2_eb1_LED02(fa2_ta2_eb1_LED02),
         .fa2_ta2_eb1_LED03(fa2_ta2_eb1_LED03),
-        .fa2_ta2_eb1_LED04(fa2_ta2_eb1_LED04),
-        .fa2_ta2_eb1_LED05(fa2_ta2_eb1_LED05));
+        .fa2_ta2_eb1_LED04(fa2_ta2_eb1_LED04));
 endmodule
