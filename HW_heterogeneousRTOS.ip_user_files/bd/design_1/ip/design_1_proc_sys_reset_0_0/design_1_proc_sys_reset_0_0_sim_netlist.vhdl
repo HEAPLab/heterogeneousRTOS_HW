@@ -1,10 +1,10 @@
 -- Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
--- Date        : Mon Apr 11 12:09:50 2022
--- Host        : HeapAsus running 64-bit Ubuntu 21.10
+-- Date        : Sun Jul 24 16:50:40 2022
+-- Host        : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
 -- Command     : write_vhdl -force -mode funcsim
---               /home/bosp/ZyncHW/ZyncHW.gen/sources_1/bd/design_1/ip/design_1_proc_sys_reset_0_0/design_1_proc_sys_reset_0_0_sim_netlist.vhdl
+--               /home/bosp/workspace/HW_heterogeneousRTOS/HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ip/design_1_proc_sys_reset_0_0/design_1_proc_sys_reset_0_0_sim_netlist.vhdl
 -- Design      : design_1_proc_sys_reset_0_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
