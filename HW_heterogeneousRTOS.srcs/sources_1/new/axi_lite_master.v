@@ -170,7 +170,10 @@ module axi_lite_master #   (
 
     // Read ready. This signal indicates that the master can
     // accept the read data and response information.
-    output wire M_AXI_RREADY
+    output wire M_AXI_RREADY,
+    
+        output reg statusRegOut
+    
 );
 
     //fedit dest address
@@ -276,9 +279,10 @@ reg [WAIT_COUNT_BITS-1:0] count;
     parameter [1:0] IDLE = 2'b00, // This state initializes the counter, ones
     // the counter reaches C_START_COUNT count,
     // the state machine changes state to INIT_WRITE
-    INIT_WRITE   = 2'b01; // This state initializes write transaction,
+    INIT_WRITE   = 2'b01, // This state initializes write transaction,
     // once writes are done, the state machine
     // changes state to INIT_READ
+    INIT_READ = 2'b10;
 
     reg [1:0] mst_exec_state;
 
@@ -553,38 +557,40 @@ reg [WAIT_COUNT_BITS-1:0] count;
  Modify these as desired for different address patterns.
  */
 
-    localparam[31:0] controlOffset = 32'h00, sourceAddr = 32'h18, destAddr = 32'h20, bytesToTransfer=32'h28;
+    localparam[31:0] controlOffset = 32'h00, sourceAddr = 32'h18, destAddr = 32'h20, bytesToTransfer=32'h28, statusReg=32'h04;
 
     //Write Addresses
     always @(write_index)
     begin
-        case(write_index)
-            0:
+        /*if (write_index==1)
             begin
-                axi_awaddr = controlOffset;
+                axi_awaddr <= controlOffset;
             end
-            1:
+            else */if (write_index==1)
+          
             begin
-                axi_awaddr = sourceAddr;
+                axi_awaddr <= sourceAddr;
             end
-            2:
+            else if (write_index==2)
             begin
-                axi_awaddr = destAddr;
+                axi_awaddr <= destAddr;
             end
-            3:
+            else if (write_index==3)
             begin
-                axi_awaddr = bytesToTransfer;
+                axi_awaddr <= bytesToTransfer;
             end
-        endcase
-    end
+            else
+                        begin
+                axi_awaddr = 0;
+            end  
+              end
 
-    /*
+    
 //Read Addresses
   always @(read_index)
   begin
-    axi_araddr = (read_index - 1) << (clogb2(`C_M_AXI_DATA_WIDTH/8) - 1);
+    if (read_index==1) axi_araddr = statusReg;
   end
-*/
 
 localparam [31:0] DMAconfig = { 
             8'h00, //IRQDelay
@@ -605,13 +611,15 @@ localparam [31:0] DMAconfig = {
     //Write data
     always @(write_index)
     begin
-        case (write_index)
-            1: axi_wdata = DMAconfig;//32'h11111111;
-            2: axi_wdata = 32'hC000_0004; //source address
-            3: axi_wdata = 32'h02000_0000; //destination address
-            4: axi_wdata = 32'd20; //byte size
-            default: axi_wdata <= DMAconfig;
-        endcase
+        /*if (write_index==1)
+           axi_wdata <= DMAconfig;//32'h11111111;
+           else */if (write_index==1)
+            axi_wdata <= 32'hC000_0000; //source address
+            else if (write_index==2)
+            axi_wdata <= 32'h02000_0000; //destination address
+            else if (write_index==3)
+            axi_wdata <= 32'd20; //byte size
+            else axi_wdata <= 0;
     end
 
     //implement master command interface state machine
@@ -638,7 +646,7 @@ localparam [31:0] DMAconfig = {
                     begin
                         if (start!=oldStart && start)
                         begin
-                            mst_exec_state <= INIT_WRITE;
+                            mst_exec_state <= INIT_READ;
                         end
                     end
 
@@ -672,7 +680,7 @@ localparam [31:0] DMAconfig = {
                                 end
                         end
 
-                        /*
+                        
           INIT_READ:
             // This state is responsible to issue start_single_read pulse to
             // initiate a read transaction. Read transactions will be
@@ -680,7 +688,7 @@ localparam [31:0] DMAconfig = {
              // read controller
              if (reads_done)
                begin
-                 mst_exec_state <= INIT_COMPARE;
+                 mst_exec_state <= INIT_WRITE;
                end
              else
                begin
@@ -699,7 +707,7 @@ localparam [31:0] DMAconfig = {
                    begin
                      start_single_read <= 1'b0; //Negate to generate a pulse
                    end
-               end*/
+               end
                     default :
                     begin
                         mst_exec_state  <= IDLE;
@@ -711,6 +719,19 @@ localparam [31:0] DMAconfig = {
     end //MASTER_EXECUTION_PROC
 
     //Terminal write count
+    
+    
+    always@(posedge M_AXI_ACLK)
+    begin
+        if (M_AXI_ARESETN == 0)
+      statusRegOut <= 1'b0;
+      else begin
+    if (M_AXI_RVALID && axi_rready)
+    begin
+    statusRegOut<=M_AXI_RDATA;
+    end
+    end
+    end
 
     always @(posedge M_AXI_ACLK)
     begin
@@ -755,7 +776,7 @@ localparam [31:0] DMAconfig = {
             last_read <= 1'b0;
 
             //The last read should be associated with a read address ready response
-        else if ((read_index == C_TRANSACTIONS_NUM) && (M_AXI_ARREADY) )
+        else if ((read_index == 1) && (M_AXI_ARREADY) ) //todo
             last_read <= 1'b1;
         else
             last_read <= last_read;

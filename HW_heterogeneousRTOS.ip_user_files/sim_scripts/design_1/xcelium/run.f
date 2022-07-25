@@ -118,27 +118,12 @@
   "../../../bd/design_1/ip/design_1_trueBlock_0_0/sim/design_1_trueBlock_0_0.v" \
   "../../../bd/design_1/ip/design_1_vio_0_0/sim/design_1_vio_0_0.v" \
   "../../../bd/design_1/ip/design_1_axi_lite_master_0_0/sim/design_1_axi_lite_master_0_0.v" \
-  "../../../bd/design_1/ip/design_1_scheduler_0_0/sim/design_1_scheduler_0_0.v" \
--endlib
--makelib xcelium_lib/axi_protocol_converter_v2_1_25 \
-  "../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/8fe4/hdl/axi_protocol_converter_v2_1_vl_rfs.v" \
--endlib
--makelib xcelium_lib/axi_clock_converter_v2_1_24 \
-  "../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/23c0/hdl/axi_clock_converter_v2_1_vl_rfs.v" \
--endlib
--makelib xcelium_lib/blk_mem_gen_v8_4_5 \
-  "../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/25a8/simulation/blk_mem_gen_v8_4.v" \
--endlib
--makelib xcelium_lib/axi_dwidth_converter_v2_1_25 \
-  "../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/38b4/hdl/axi_dwidth_converter_v2_1_vl_rfs.v" \
--endlib
--makelib xcelium_lib/xil_defaultlib \
-  "../../../bd/design_1/ip/design_1_auto_us_0/sim/design_1_auto_us_0.v" \
-  "../../../bd/design_1/ip/design_1_auto_pc_0/sim/design_1_auto_pc_0.v" \
-  "../../../bd/design_1/ip/design_1_auto_pc_1/sim/design_1_auto_pc_1.v" \
-  "../../../bd/design_1/ip/design_1_auto_ds_0/sim/design_1_auto_ds_0.v" \
-  "../../../bd/design_1/ip/design_1_auto_pc_2/sim/design_1_auto_pc_2.v" \
-  "../../../bd/design_1/sim/design_1.v" \
+  "/home/bosp/workspace/HW_heterogeneousRTOS/HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ip/design_1_scheduler_0_0/design_1_scheduler_0_0_sim_netlist.v" \
+  "../../../bd/design_1/ip/design_1_auto_us_0/design_1_auto_us_0_sim_netlist.v" \
+  "../../../bd/design_1/ip/design_1_auto_pc_0/design_1_auto_pc_0_sim_netlist.v" \
+  "../../../bd/design_1/ip/design_1_auto_pc_1/design_1_auto_pc_1_sim_netlist.v" \
+  "../../../bd/design_1/ip/design_1_auto_ds_0/design_1_auto_ds_0_sim_netlist.v" \
+  "../../../bd/design_1/ip/design_1_auto_pc_2/design_1_auto_pc_2_sim_netlist.v" \
 -endlib
 -makelib xcelium_lib/xil_defaultlib \
   glbl.v

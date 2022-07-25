@@ -26,10 +26,6 @@ vlib riviera/axi_datamover_v5_1_27
 vlib riviera/axi_sg_v4_1_14
 vlib riviera/axi_cdma_v4_1_25
 vlib riviera/xlconcat_v2_1_4
-vlib riviera/axi_protocol_converter_v2_1_25
-vlib riviera/axi_clock_converter_v2_1_24
-vlib riviera/blk_mem_gen_v8_4_5
-vlib riviera/axi_dwidth_converter_v2_1_25
 
 vmap xilinx_vip riviera/xilinx_vip
 vmap xpm riviera/xpm
@@ -56,10 +52,6 @@ vmap axi_datamover_v5_1_27 riviera/axi_datamover_v5_1_27
 vmap axi_sg_v4_1_14 riviera/axi_sg_v4_1_14
 vmap axi_cdma_v4_1_25 riviera/axi_cdma_v4_1_25
 vmap xlconcat_v2_1_4 riviera/xlconcat_v2_1_4
-vmap axi_protocol_converter_v2_1_25 riviera/axi_protocol_converter_v2_1_25
-vmap axi_clock_converter_v2_1_24 riviera/axi_clock_converter_v2_1_24
-vmap blk_mem_gen_v8_4_5 riviera/blk_mem_gen_v8_4_5
-vmap axi_dwidth_converter_v2_1_25 riviera/axi_dwidth_converter_v2_1_25
 
 vlog -work xilinx_vip  -sv2k12 "+incdir+/opt/Xilinx/Vivado/2021.2/data/xilinx_vip/include" \
 "/opt/Xilinx/Vivado/2021.2/data/xilinx_vip/hdl/axi4stream_vip_axi4streampc.sv" \
@@ -181,27 +173,12 @@ vlog -work xil_defaultlib  -v2k5 "+incdir+../../../../HW_heterogeneousRTOS.gen/s
 "../../../bd/design_1/ip/design_1_trueBlock_0_0/sim/design_1_trueBlock_0_0.v" \
 "../../../bd/design_1/ip/design_1_vio_0_0/sim/design_1_vio_0_0.v" \
 "../../../bd/design_1/ip/design_1_axi_lite_master_0_0/sim/design_1_axi_lite_master_0_0.v" \
-"../../../bd/design_1/ip/design_1_scheduler_0_0/sim/design_1_scheduler_0_0.v" \
-
-vlog -work axi_protocol_converter_v2_1_25  -v2k5 "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/ec67/hdl" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/3007/hdl" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/1b7e/hdl/verilog" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/122e/hdl/verilog" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/3cb1/hdl" "+incdir+/opt/Xilinx/Vivado/2021.2/data/xilinx_vip/include" \
-"../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/8fe4/hdl/axi_protocol_converter_v2_1_vl_rfs.v" \
-
-vlog -work axi_clock_converter_v2_1_24  -v2k5 "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/ec67/hdl" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/3007/hdl" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/1b7e/hdl/verilog" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/122e/hdl/verilog" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/3cb1/hdl" "+incdir+/opt/Xilinx/Vivado/2021.2/data/xilinx_vip/include" \
-"../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/23c0/hdl/axi_clock_converter_v2_1_vl_rfs.v" \
-
-vlog -work blk_mem_gen_v8_4_5  -v2k5 "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/ec67/hdl" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/3007/hdl" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/1b7e/hdl/verilog" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/122e/hdl/verilog" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/3cb1/hdl" "+incdir+/opt/Xilinx/Vivado/2021.2/data/xilinx_vip/include" \
-"../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/25a8/simulation/blk_mem_gen_v8_4.v" \
-
-vlog -work axi_dwidth_converter_v2_1_25  -v2k5 "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/ec67/hdl" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/3007/hdl" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/1b7e/hdl/verilog" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/122e/hdl/verilog" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/3cb1/hdl" "+incdir+/opt/Xilinx/Vivado/2021.2/data/xilinx_vip/include" \
-"../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/38b4/hdl/axi_dwidth_converter_v2_1_vl_rfs.v" \
-
-vlog -work xil_defaultlib  -v2k5 "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/ec67/hdl" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/3007/hdl" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/1b7e/hdl/verilog" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/122e/hdl/verilog" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/3cb1/hdl" "+incdir+/opt/Xilinx/Vivado/2021.2/data/xilinx_vip/include" \
-"../../../bd/design_1/ip/design_1_auto_us_0/sim/design_1_auto_us_0.v" \
-"../../../bd/design_1/ip/design_1_auto_pc_0/sim/design_1_auto_pc_0.v" \
-"../../../bd/design_1/ip/design_1_auto_pc_1/sim/design_1_auto_pc_1.v" \
-"../../../bd/design_1/ip/design_1_auto_ds_0/sim/design_1_auto_ds_0.v" \
-"../../../bd/design_1/ip/design_1_auto_pc_2/sim/design_1_auto_pc_2.v" \
-"../../../bd/design_1/sim/design_1.v" \
+"/home/bosp/workspace/HW_heterogeneousRTOS/HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ip/design_1_scheduler_0_0/design_1_scheduler_0_0_sim_netlist.v" \
+"../../../bd/design_1/ip/design_1_auto_us_0/design_1_auto_us_0_sim_netlist.v" \
+"../../../bd/design_1/ip/design_1_auto_pc_0/design_1_auto_pc_0_sim_netlist.v" \
+"../../../bd/design_1/ip/design_1_auto_pc_1/design_1_auto_pc_1_sim_netlist.v" \
+"../../../bd/design_1/ip/design_1_auto_ds_0/design_1_auto_ds_0_sim_netlist.v" \
+"../../../bd/design_1/ip/design_1_auto_pc_2/design_1_auto_pc_2_sim_netlist.v" \
 
 vlog -work xil_defaultlib \
 "glbl.v"

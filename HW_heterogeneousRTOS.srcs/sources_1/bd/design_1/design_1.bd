@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xCE46B3BA9F460BE0",
+      "boundary_crc": "0xCE46B3BA2008DE44",
       "device": "xc7z100ffg900-1",
       "gen_directory": "../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1",
       "name": "design_1",
@@ -45,8 +45,8 @@
       "xlconcat_0": "",
       "trueBlock_0": "",
       "vio_0": "",
-      "axi_lite_master_0": "",
-      "scheduler_0": ""
+      "scheduler_0": "",
+      "axi_lite_master_0": ""
     },
     "interface_ports": {
       "DDR": {
@@ -160,7 +160,17 @@
         "direction": "O"
       },
       "fa2_ta2_eb1_LED14": {
-        "direction": "O"
+        "direction": "O",
+        "parameters": {
+          "PortWidth": {
+            "value": "1",
+            "value_src": "default_prop"
+          },
+          "SENSITIVITY": {
+            "value": "LEVEL_HIGH",
+            "value_src": "const_prop"
+          }
+        }
       },
       "fa2_ta2_eb1_LED16": {
         "direction": "O"
@@ -2523,7 +2533,166 @@
         "vlnv": "xilinx.com:ip:vio:3.0",
         "xci_name": "design_1_vio_0_0",
         "xci_path": "ip/design_1_vio_0_0/design_1_vio_0_0.xci",
-        "inst_hier_path": "vio_0"
+        "inst_hier_path": "vio_0",
+        "parameters": {
+          "C_NUM_PROBE_IN": {
+            "value": "5"
+          },
+          "C_NUM_PROBE_OUT": {
+            "value": "0"
+          }
+        }
+      },
+      "scheduler_0": {
+        "vlnv": "xilinx.com:module_ref:scheduler:1.0",
+        "xci_name": "design_1_scheduler_0_0",
+        "xci_path": "ip/design_1_scheduler_0_0/design_1_scheduler_0_0.xci",
+        "inst_hier_path": "scheduler_0",
+        "parameters": {
+          "RAM_DEPTH": {
+            "value": "1152"
+          }
+        },
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "scheduler",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "addra": {
+            "direction": "I",
+            "left": "14",
+            "right": "0"
+          },
+          "dina": {
+            "direction": "I",
+            "left": "31",
+            "right": "0"
+          },
+          "clka": {
+            "direction": "I",
+            "parameters": {
+              "FREQ_HZ": {
+                "value": "50000000",
+                "value_src": "user_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "default_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "design_1_processing_system7_0_0_FCLK_CLK0",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "wea": {
+            "direction": "I",
+            "left": "3",
+            "right": "0"
+          },
+          "ena": {
+            "direction": "I"
+          },
+          "rsta": {
+            "direction": "I"
+          },
+          "regcea": {
+            "direction": "I"
+          },
+          "douta": {
+            "direction": "O",
+            "left": "31",
+            "right": "0"
+          },
+          "taskReady": {
+            "direction": "O"
+          },
+          "taskWriteComplete_IN": {
+            "direction": "I"
+          },
+          "aresetn": {
+            "type": "rst",
+            "direction": "I",
+            "parameters": {
+              "POLARITY": {
+                "value": "ACTIVE_LOW",
+                "value_src": "constant"
+              }
+            }
+          },
+          "clock": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "aresetn",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "50000000",
+                "value_src": "user_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "design_1_processing_system7_0_0_FCLK_CLK0",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "schedControlBus": {
+            "direction": "I",
+            "left": "15",
+            "right": "0"
+          },
+          "uninitializedLed": {
+            "direction": "O"
+          },
+          "readyLed": {
+            "direction": "O"
+          },
+          "runningLed": {
+            "direction": "O"
+          },
+          "invalidControlLed": {
+            "direction": "O"
+          },
+          "invalidAddressLed": {
+            "direction": "O"
+          },
+          "led1": {
+            "direction": "O"
+          },
+          "led2": {
+            "direction": "O"
+          },
+          "led3": {
+            "direction": "O"
+          },
+          "led4": {
+            "direction": "O"
+          },
+          "led5": {
+            "direction": "O"
+          },
+          "led6": {
+            "direction": "O"
+          },
+          "led7": {
+            "direction": "O"
+          },
+          "led8": {
+            "direction": "O"
+          },
+          "led9": {
+            "direction": "O"
+          },
+          "led10": {
+            "direction": "O"
+          },
+          "led11": {
+            "direction": "O"
+          }
+        }
       },
       "axi_lite_master_0": {
         "vlnv": "xilinx.com:module_ref:axi_lite_master:1.0",
@@ -2787,6 +2956,9 @@
                 "value_src": "constant"
               }
             }
+          },
+          "statusRegOut": {
+            "direction": "O"
           }
         },
         "addressing": {
@@ -2795,130 +2967,6 @@
               "range": "4G",
               "width": "32"
             }
-          }
-        }
-      },
-      "scheduler_0": {
-        "vlnv": "xilinx.com:module_ref:scheduler:1.0",
-        "xci_name": "design_1_scheduler_0_0",
-        "xci_path": "ip/design_1_scheduler_0_0/design_1_scheduler_0_0.xci",
-        "inst_hier_path": "scheduler_0",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "scheduler",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "addra": {
-            "direction": "I",
-            "left": "14",
-            "right": "0"
-          },
-          "dina": {
-            "direction": "I",
-            "left": "31",
-            "right": "0"
-          },
-          "clka": {
-            "direction": "I"
-          },
-          "wea": {
-            "direction": "I",
-            "left": "3",
-            "right": "0"
-          },
-          "ena": {
-            "direction": "I"
-          },
-          "rsta": {
-            "direction": "I"
-          },
-          "regcea": {
-            "direction": "I"
-          },
-          "douta": {
-            "direction": "O",
-            "left": "31",
-            "right": "0"
-          },
-          "taskReady": {
-            "direction": "O"
-          },
-          "taskWriteComplete_IN": {
-            "direction": "I"
-          },
-          "aresetn": {
-            "type": "rst",
-            "direction": "I",
-            "parameters": {
-              "POLARITY": {
-                "value": "ACTIVE_LOW",
-                "value_src": "constant"
-              }
-            }
-          },
-          "clock": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "ASSOCIATED_RESET": {
-                "value": "aresetn",
-                "value_src": "constant"
-              }
-            }
-          },
-          "schedControlBus": {
-            "direction": "I",
-            "left": "15",
-            "right": "0"
-          },
-          "uninitializedLed": {
-            "direction": "O"
-          },
-          "readyLed": {
-            "direction": "O"
-          },
-          "runningLed": {
-            "direction": "O"
-          },
-          "invalidControlLed": {
-            "direction": "O"
-          },
-          "invalidAddressLed": {
-            "direction": "O"
-          },
-          "led1": {
-            "direction": "O"
-          },
-          "led2": {
-            "direction": "O"
-          },
-          "led3": {
-            "direction": "O"
-          },
-          "led4": {
-            "direction": "O"
-          },
-          "led5": {
-            "direction": "O"
-          },
-          "led6": {
-            "direction": "O"
-          },
-          "led7": {
-            "direction": "O"
-          },
-          "led8": {
-            "direction": "O"
-          },
-          "led9": {
-            "direction": "O"
-          },
-          "led10": {
-            "direction": "O"
-          },
-          "led11": {
-            "direction": "O"
           }
         }
       }
@@ -3015,22 +3063,16 @@
           "axi_timer_0/s_axi_aclk",
           "axi_cdma_0/m_axi_aclk",
           "axi_ps7_interconnect/S01_ACLK",
+          "vio_0/clk",
+          "scheduler_0/clka",
+          "scheduler_0/clock",
           "axi_lite_master_0/M_AXI_ACLK"
         ]
       },
       "axi_bram_ctrl_0_bram_addr_a": {
         "ports": [
           "axi_bram_ctrl_0/bram_addr_a",
-          "vio_0/probe_in0",
           "scheduler_0/addra"
-        ]
-      },
-      "axi_bram_ctrl_0_bram_clk_a": {
-        "ports": [
-          "axi_bram_ctrl_0/bram_clk_a",
-          "vio_0/clk",
-          "scheduler_0/clka",
-          "scheduler_0/clock"
         ]
       },
       "axi_bram_ctrl_0_bram_en_a": {
@@ -3042,8 +3084,7 @@
       "axi_bram_ctrl_0_bram_rst_a": {
         "ports": [
           "axi_bram_ctrl_0/bram_rst_a",
-          "scheduler_0/rsta",
-          "scheduler_0/aresetn"
+          "scheduler_0/rsta"
         ]
       },
       "axi_bram_ctrl_0_bram_we_a": {
@@ -3061,7 +3102,8 @@
       "axi_cdma_0_cdma_introut": {
         "ports": [
           "axi_cdma_0/cdma_introut",
-          "xlconcat_0/In1"
+          "xlconcat_0/In1",
+          "fa2_ta2_eb1_LED14"
         ]
       },
       "axi_gpio_0_gpio_io_o": {
@@ -3070,10 +3112,40 @@
           "scheduler_0/schedControlBus"
         ]
       },
+      "axi_lite_master_0_M_AXI_AWADDR": {
+        "ports": [
+          "axi_lite_master_0/M_AXI_AWADDR",
+          "vio_0/probe_in0"
+        ]
+      },
+      "axi_lite_master_0_M_AXI_AWVALID": {
+        "ports": [
+          "axi_lite_master_0/M_AXI_AWVALID",
+          "vio_0/probe_in2"
+        ]
+      },
+      "axi_lite_master_0_M_AXI_WDATA": {
+        "ports": [
+          "axi_lite_master_0/M_AXI_WDATA",
+          "vio_0/probe_in1"
+        ]
+      },
+      "axi_lite_master_0_M_AXI_WVALID": {
+        "ports": [
+          "axi_lite_master_0/M_AXI_WVALID",
+          "vio_0/probe_in3"
+        ]
+      },
       "axi_lite_master_0_WCOMPLETE": {
         "ports": [
           "axi_lite_master_0/WCOMPLETE",
           "scheduler_0/taskWriteComplete_IN"
+        ]
+      },
+      "axi_lite_master_0_statusReg": {
+        "ports": [
+          "axi_lite_master_0/statusRegOut",
+          "vio_0/probe_in4"
         ]
       },
       "axi_timer_0_interrupt": {
@@ -3105,6 +3177,7 @@
           "axi_ps7_interconnect/M02_ARESETN",
           "axi_bram_ctrl_0/s_axi_aresetn",
           "axi_ps7_interconnect/S01_ARESETN",
+          "scheduler_0/aresetn",
           "axi_lite_master_0/M_AXI_ARESETN"
         ]
       },
@@ -3178,12 +3251,6 @@
         "ports": [
           "scheduler_0/led8",
           "fa2_ta2_eb1_LED13"
-        ]
-      },
-      "scheduler_0_led9": {
-        "ports": [
-          "scheduler_0/led9",
-          "fa2_ta2_eb1_LED14"
         ]
       },
       "scheduler_0_led10": {

@@ -126,7 +126,7 @@ module scheduler(
     wire regcea; // Output register enable
     wire [RAM_WIDTH-1:0] douta; // RAM output data
 
-    reg [RAM_WIDTH-1:0] myRam [RAM_DEPTH-1:0];
+    //reg [RAM_WIDTH-1:0] myRam [RAM_DEPTH-1:0];
     reg [RAM_WIDTH-1:0] ramData = {RAM_WIDTH{1'b0}};
 
     //scheduler wire/reg________________________________
@@ -152,13 +152,13 @@ module scheduler(
     reg led7;
     reg led8;
     reg led9;
-    reg led10;
-    reg led11;
+    wire led10;
+    wire led11;
 
     //ram logic_________________________________
 
     // The following code either initializes the memory values to a specified file or to all zeros to match hardware
-
+    /*
     generate
         if (INIT_FILE != "") begin: use_init_file
             initial
@@ -169,7 +169,7 @@ module scheduler(
             for (ram_index = 0; ram_index < RAM_DEPTH; ram_index = ram_index + 1)
                 myRam[ram_index] = {RAM_WIDTH{1'b0}};
         end
-    endgenerate
+    endgenerate*/
 
     /*
     always @(posedge clka)
@@ -238,7 +238,7 @@ module scheduler(
 
     //number of tasks in RAM, initialised during uninistialised state, before scheduler startup
     reg [7:0] numOfTasks;
-    
+
     /*
   reg [7:0] copyIterator;
   
@@ -249,7 +249,7 @@ module scheduler(
 
     always @(posedge clock)
     begin
-        if ( aresetn ) begin //reset
+        if ( ! aresetn ) begin //reset
         //uninitializedLed<=0;
         //initializedLed<=0;
         //runningLed<=0;
@@ -312,7 +312,7 @@ module scheduler(
                     if (ena)
                         if (wea[0])
                             begin
-                                led1<=addrInWords[0];
+                                /*led1<=addrInWords[0];
                                 led2<=addrInWords[1];
                                 led3<=addrInWords[2];
                                 led4<=addrInWords[3];
@@ -322,7 +322,7 @@ module scheduler(
                                 led8<=addrInWords[7];
                                 led9<=addrInWords[8];
                                 led10<=addrInWords[9];
-                                led11<=addrInWords[10];
+                                led11<=addrInWords[10];*/
                                 if (addrInWords<maxRTListAddr)
                                     tasksList[addrInWords] <= dina;
                                 else if (addrInWords<maxRQNumAddr)
@@ -353,21 +353,24 @@ module scheduler(
                                 else if (addrInWords<maxRQNumAddr)
                                     ramData <= readyQNumDLASC[addrInWords-maxRTListAddr];
                                 else if (addrInWords<maxAQNumAddr)
-                                    ramData <= activationQNumATASC[addrInWords-maxRTListAddr-maxRQNumAddr];
+                                    ramData <= activationQNumATASC[addrInWords-maxRQNumAddr];
                                 else if (addrInWords<maxRQDLAddr)
-                                    ramData <=readyQDeadlineDLASC[addrInWords-maxRTListAddr-maxRQNumAddr-maxAQNumAddr];
+                                    ramData <=readyQDeadlineDLASC[addrInWords-maxAQNumAddr];
                                 else if (addrInWords<maxRQActAddr)
-                                    ramData <= activationQActivationATASC[addrInWords-maxRTListAddr-maxRQNumAddr-maxAQNumAddr-maxRQDLAddr];
+                                    ramData <= activationQActivationATASC[addrInWords-maxRQDLAddr];
                                 else
                                     invalidAddressLed<=1;
                             end
                 end
                 running:
                 begin
-                    if(taskWriteComplete_IN)
-                        taskReady<=0;
-                    else
-                        taskReady<=1;
+                    tasksList[0]<=32'b0;
+                    tasksList[1]<=32'b0;
+                    tasksList[2]<=32'b0;
+                    tasksList[3]<=32'b0;
+                    tasksList[4]<=32'b0;
+
+                    taskReady<=1;
                 end
             endcase
 
@@ -400,7 +403,12 @@ module scheduler(
             end
         endcase
     end
+
+    assign led11 = taskWriteComplete_IN;
+    assign led10 = taskReady;
 endmodule
+
+
 
 /*
 
