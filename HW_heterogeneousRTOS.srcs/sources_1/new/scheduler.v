@@ -32,7 +32,9 @@ module scheduler(
     douta,
     //scheduler
     taskReady,
+    taskPtr,
     taskWriteComplete_IN,
+    taskWriteStarted_IN,
     aresetn,
     clock,
     schedControlBus,
@@ -89,6 +91,8 @@ module scheduler(
     output [RAM_WIDTH-1:0] douta;
     //scheduler io_________________________________
     output taskReady;
+    input taskWriteStarted_IN;
+    output [31:0] taskPtr;
     input taskWriteComplete_IN;
     input aresetn;
     input clock;
@@ -131,7 +135,10 @@ module scheduler(
 
     //scheduler wire/reg________________________________
     reg taskReady;
+    reg [31:0] taskPtr;
+
     wire taskWriteComplete_IN;
+    wire taskWriteStarted_IN;
     wire aresetn;
     wire clock;
     wire [15:0] schedControlBus;
@@ -246,6 +253,7 @@ module scheduler(
     reg[7:0] copyStatus;*/
 
     reg memwritten;
+    reg firstrun;
 
     always @(posedge clock)
     begin
@@ -253,15 +261,60 @@ module scheduler(
         //uninitializedLed<=0;
         //initializedLed<=0;
         //runningLed<=0;
+            taskPtr<=32'd0;
             invalidControlLed<=0;
             state_reg<=uninitialized;
             memwritten<=0;
             invalidAddressLed<=0;
             taskReady<=0;
+            firstrun<=1;
             //copyIterator<=0;
             //copyStatus<=list1copy;
         end
         else begin //not reset
+            if (ena)
+                if (wea[0])
+                    begin
+                        if (addrInWords<maxRTListAddr)
+                            tasksList[addrInWords] <= dina;
+                        else if (addrInWords<maxRQNumAddr)
+                            readyQNumDLASC[addrInWords-maxRTListAddr]<= dina[7:0];
+                        else if (addrInWords<maxAQNumAddr)
+                            activationQNumATASC[addrInWords-maxRQNumAddr]<= dina[7:0];
+                        else if (addrInWords<maxRQDLAddr)
+                            readyQDeadlineDLASC[addrInWords-maxAQNumAddr]<= dina;
+                        else if (addrInWords<maxRQActAddr)
+                            begin
+                                activationQActivationATASC[addrInWords-maxRQDLAddr]<= dina;
+                                if (addrInWords==maxRQActAddr-1)
+                                    memwritten<=1;
+                            end
+                        else
+                            begin
+                                //if (invalidAddressLed==0)                                  
+                                //begin                                                      
+                                invalidAddressLed<=1;
+                                //end                                                        
+                            end
+                    end
+                else
+                    begin
+                        //ramData <= myRam[addrInWords];                                     
+                        if (addrInWords<maxRTListAddr)
+                            ramData <= tasksList[addrInWords];
+                        else if (addrInWords<maxRQNumAddr)
+                            ramData <= readyQNumDLASC[addrInWords-maxRTListAddr];
+                        else if (addrInWords<maxAQNumAddr)
+                            ramData <= activationQNumATASC[addrInWords-maxRQNumAddr];
+                        else if (addrInWords<maxRQDLAddr)
+                            ramData <=readyQDeadlineDLASC[addrInWords-maxAQNumAddr];
+                        else if (addrInWords<maxRQActAddr)
+                            ramData <= activationQActivationATASC[addrInWords-maxRQDLAddr];
+                        else
+                            invalidAddressLed<=1;
+                    end
+
+
             if (schedControlBus!=oldSchedControlBus)
             begin
                 //new control signal supplied
@@ -298,70 +351,6 @@ module scheduler(
 
 
             case(state_reg)
-                uninitialized:
-                begin
-                    /*if (ena)
-                        if (wea[0])
-                            begin
-                                myRam[addrInWords] <= dina;
-                                if (addrInWords==maxRQActAddr-1)
-                                    memwritten<=1;
-                            end
-                        else
-                            ramData <= myRam[addrInWords];*/
-                    if (ena)
-                        if (wea[0])
-                            begin
-                                /*led1<=addrInWords[0];
-                                led2<=addrInWords[1];
-                                led3<=addrInWords[2];
-                                led4<=addrInWords[3];
-                                led5<=addrInWords[4];
-                                led6<=addrInWords[5];
-                                led7<=addrInWords[6];
-                                led8<=addrInWords[7];
-                                led9<=addrInWords[8];
-                                led10<=addrInWords[9];
-                                led11<=addrInWords[10];*/
-                                if (addrInWords<maxRTListAddr)
-                                    tasksList[addrInWords] <= dina;
-                                else if (addrInWords<maxRQNumAddr)
-                                    readyQNumDLASC[addrInWords-maxRTListAddr]<= dina[7:0];
-                                else if (addrInWords<maxAQNumAddr)
-                                    activationQNumATASC[addrInWords-maxRQNumAddr]<= dina[7:0];
-                                else if (addrInWords<maxRQDLAddr)
-                                    readyQDeadlineDLASC[addrInWords-maxAQNumAddr]<= dina;
-                                else if (addrInWords<maxRQActAddr)
-                                    begin
-                                        activationQActivationATASC[addrInWords-maxRQDLAddr]<= dina;
-                                        if (addrInWords==maxRQActAddr-1)
-                                            memwritten<=1;
-                                    end
-                                else
-                                    begin
-                                        //if (invalidAddressLed==0)
-                                        //begin
-                                        invalidAddressLed<=1;
-                                        //end
-                                    end
-                            end
-                        else
-                            begin
-                                //ramData <= myRam[addrInWords];
-                                if (addrInWords<maxRTListAddr)
-                                    ramData <= tasksList[addrInWords];
-                                else if (addrInWords<maxRQNumAddr)
-                                    ramData <= readyQNumDLASC[addrInWords-maxRTListAddr];
-                                else if (addrInWords<maxAQNumAddr)
-                                    ramData <= activationQNumATASC[addrInWords-maxRQNumAddr];
-                                else if (addrInWords<maxRQDLAddr)
-                                    ramData <=readyQDeadlineDLASC[addrInWords-maxAQNumAddr];
-                                else if (addrInWords<maxRQActAddr)
-                                    ramData <= activationQActivationATASC[addrInWords-maxRQDLAddr];
-                                else
-                                    invalidAddressLed<=1;
-                            end
-                end
                 running:
                 begin
                     tasksList[0]<=32'b0;
@@ -370,7 +359,20 @@ module scheduler(
                     tasksList[3]<=32'b0;
                     tasksList[4]<=32'b0;
 
-                    taskReady<=1;
+                    //                        taskPtr<=32'd512;
+                    //                        taskReady<=1;
+                    if (firstrun)
+                    begin
+                        taskPtr<=32'd512;
+                        taskReady<=1;
+                        firstrun<=0;
+                    end
+
+                    if(taskReady) //&& taskWriteStarted_IN)
+                    begin
+                        taskReady<=0;
+                        taskPtr<=0;
+                    end
                 end
             endcase
 
@@ -402,6 +404,8 @@ module scheduler(
                 runningLed<=1;
             end
         endcase
+
+
     end
 
     assign led11 = taskWriteComplete_IN;

@@ -9,74 +9,42 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="438"></ZoomStartTime>
-      <ZoomEndTime time="1,165"></ZoomEndTime>
-      <Cursor1Time time="559"></Cursor1Time>
+      <ZoomStartTime time="0"></ZoomStartTime>
+      <ZoomEndTime time="1,025"></ZoomEndTime>
+      <Cursor1Time time="0"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="410"></NameColumnWidth>
-      <ValueColumnWidth column_width="126"></ValueColumnWidth>
+      <ValueColumnWidth column_width="106"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="42" />
+   <WVObjectSize size="10" />
    <wave_markers>
    </wave_markers>
-   <wvobject type="array" fp_name="design_1_i/axi_cdma_0_M_AXI_ARADDR">
+   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0/DATAVALID">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_cdma_0_M_AXI_ARADDR[31:0]</obj_property>
-      <obj_property name="ObjectShortName">axi_cdma_0_M_AXI_ARADDR[31:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/DATAVALID</obj_property>
+      <obj_property name="ObjectShortName">DATAVALID</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="design_1_i/axi_cdma_0_M_AXI_AWADDR">
+   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0/DONE">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_cdma_0_M_AXI_AWADDR[31:0]</obj_property>
-      <obj_property name="ObjectShortName">axi_cdma_0_M_AXI_AWADDR[31:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/DONE</obj_property>
+      <obj_property name="ObjectShortName">DONE</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="other" fp_name="design_1_i/axi_lite_master_0/inst/axi_awvalid_i_1_n_0">
+   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0/INIT_AXI_TXN">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/inst/axi_awvalid_i_1_n_0</obj_property>
-      <obj_property name="ObjectShortName">axi_awvalid_i_1_n_0</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0/inst/axi_awvalid_i_2_n_0">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/inst/axi_awvalid_i_2_n_0</obj_property>
-      <obj_property name="ObjectShortName">axi_awvalid_i_2_n_0</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0/inst/error_reg">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/inst/error_reg</obj_property>
-      <obj_property name="ObjectShortName">error_reg</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="design_1_i/axi_lite_master_0/inst/write_index">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/inst/write_index[2:0]</obj_property>
-      <obj_property name="ObjectShortName">write_index[2:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0/inst/writes_done">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/inst/writes_done</obj_property>
-      <obj_property name="ObjectShortName">writes_done</obj_property>
+      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/INIT_AXI_TXN</obj_property>
+      <obj_property name="ObjectShortName">INIT_AXI_TXN</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="design_1_i/axi_lite_master_0/M_AXI_AWADDR">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/M_AXI_AWADDR[5:3]</obj_property>
-      <obj_property name="ObjectShortName">M_AXI_AWADDR[5:3]</obj_property>
+      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/M_AXI_AWADDR[29:29]</obj_property>
+      <obj_property name="ObjectShortName">M_AXI_AWADDR[29:29]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
@@ -102,14 +70,6 @@
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="design_1_i/axi_lite_master_0/M_AXI_BRESP">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/M_AXI_BRESP[1:1]</obj_property>
-      <obj_property name="ObjectShortName">M_AXI_BRESP[1:1]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
    <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0/M_AXI_BVALID">
       <obj_property name="DisplayName">FullPathName</obj_property>
       <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/M_AXI_BVALID</obj_property>
@@ -117,72 +77,10 @@
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0/M_AXI_RREADY">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/M_AXI_RREADY</obj_property>
-      <obj_property name="ObjectShortName">M_AXI_RREADY</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="design_1_i/axi_lite_master_0/M_AXI_RRESP">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/M_AXI_RRESP[1:1]</obj_property>
-      <obj_property name="ObjectShortName">M_AXI_RRESP[1:1]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0/M_AXI_RVALID">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/M_AXI_RVALID</obj_property>
-      <obj_property name="ObjectShortName">M_AXI_RVALID</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
    <wvobject type="array" fp_name="design_1_i/axi_lite_master_0/M_AXI_WDATA">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/M_AXI_WDATA[31:29]</obj_property>
-      <obj_property name="ObjectShortName">M_AXI_WDATA[31:29]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="design_1_i/axi_lite_master_0/M_AXI_WDATA_1">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/M_AXI_WDATA_1[2:2]</obj_property>
-      <obj_property name="ObjectShortName">M_AXI_WDATA_1[2:2]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="design_1_i/axi_lite_master_0/M_AXI_WDATA_2">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/M_AXI_WDATA_2[4:4]</obj_property>
-      <obj_property name="ObjectShortName">M_AXI_WDATA_2[4:4]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="design_1_i/axi_lite_master_0/M_AXI_WDATA_3">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/M_AXI_WDATA_3[12:12]</obj_property>
-      <obj_property name="ObjectShortName">M_AXI_WDATA_3[12:12]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="design_1_i/axi_lite_master_0/M_AXI_WDATA_4">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/M_AXI_WDATA_4[14:14]</obj_property>
-      <obj_property name="ObjectShortName">M_AXI_WDATA_4[14:14]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="design_1_i/axi_lite_master_0/M_AXI_WDATA_5">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/M_AXI_WDATA_5[16:16]</obj_property>
-      <obj_property name="ObjectShortName">M_AXI_WDATA_5[16:16]</obj_property>
+      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/M_AXI_WDATA[10:10]</obj_property>
+      <obj_property name="ObjectShortName">M_AXI_WDATA[10:10]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
@@ -191,146 +89,6 @@
       <obj_property name="DisplayName">FullPathName</obj_property>
       <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/M_AXI_WREADY</obj_property>
       <obj_property name="ObjectShortName">M_AXI_WREADY</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0/M_AXI_WVALID">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/M_AXI_WVALID</obj_property>
-      <obj_property name="ObjectShortName">M_AXI_WVALID</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0/start">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/start</obj_property>
-      <obj_property name="ObjectShortName">start</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0/WCOMPLETE">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/WCOMPLETE</obj_property>
-      <obj_property name="ObjectShortName">WCOMPLETE</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="design_1_i/axi_lite_master_0_M_AXI_AWADDR">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0_M_AXI_AWADDR[5:3]</obj_property>
-      <obj_property name="ObjectShortName">axi_lite_master_0_M_AXI_AWADDR[5:3]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0_M_AXI_AWREADY">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0_M_AXI_AWREADY</obj_property>
-      <obj_property name="ObjectShortName">axi_lite_master_0_M_AXI_AWREADY</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0_M_AXI_AWVALID">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0_M_AXI_AWVALID</obj_property>
-      <obj_property name="ObjectShortName">axi_lite_master_0_M_AXI_AWVALID</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0_M_AXI_BREADY">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0_M_AXI_BREADY</obj_property>
-      <obj_property name="ObjectShortName">axi_lite_master_0_M_AXI_BREADY</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0_M_AXI_BVALID">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0_M_AXI_BVALID</obj_property>
-      <obj_property name="ObjectShortName">axi_lite_master_0_M_AXI_BVALID</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="design_1_i/axi_lite_master_0_M_AXI_RDATA">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0_M_AXI_RDATA[0:0]</obj_property>
-      <obj_property name="ObjectShortName">axi_lite_master_0_M_AXI_RDATA[0:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0_M_AXI_RREADY">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0_M_AXI_RREADY</obj_property>
-      <obj_property name="ObjectShortName">axi_lite_master_0_M_AXI_RREADY</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0_M_AXI_RVALID">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0_M_AXI_RVALID</obj_property>
-      <obj_property name="ObjectShortName">axi_lite_master_0_M_AXI_RVALID</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="design_1_i/axi_lite_master_0_M_AXI_WDATA">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0_M_AXI_WDATA[30:29]</obj_property>
-      <obj_property name="ObjectShortName">axi_lite_master_0_M_AXI_WDATA[30:29]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="design_1_i/axi_lite_master_0_M_AXI_WDATA_2">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0_M_AXI_WDATA_2[2:2]</obj_property>
-      <obj_property name="ObjectShortName">axi_lite_master_0_M_AXI_WDATA_2[2:2]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="design_1_i/axi_lite_master_0_M_AXI_WDATA_3">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0_M_AXI_WDATA_3[4:4]</obj_property>
-      <obj_property name="ObjectShortName">axi_lite_master_0_M_AXI_WDATA_3[4:4]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="design_1_i/axi_lite_master_0_M_AXI_WDATA_4">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0_M_AXI_WDATA_4[12:12]</obj_property>
-      <obj_property name="ObjectShortName">axi_lite_master_0_M_AXI_WDATA_4[12:12]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0_M_AXI_WREADY">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0_M_AXI_WREADY</obj_property>
-      <obj_property name="ObjectShortName">axi_lite_master_0_M_AXI_WREADY</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0_M_AXI_WVALID">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0_M_AXI_WVALID</obj_property>
-      <obj_property name="ObjectShortName">axi_lite_master_0_M_AXI_WVALID</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0_WCOMPLETE">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0_WCOMPLETE</obj_property>
-      <obj_property name="ObjectShortName">axi_lite_master_0_WCOMPLETE</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="u_ila_0_axi_lite_master_0_M_AXI_RDATA">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">u_ila_0_axi_lite_master_0_M_AXI_RDATA[31:1]</obj_property>
-      <obj_property name="ObjectShortName">u_ila_0_axi_lite_master_0_M_AXI_RDATA[31:1]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
