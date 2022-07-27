@@ -1,7 +1,7 @@
 {
    "ActiveEmotionalView":"Default View",
    "Default View_ScaleFactor":"0.724921",
-   "Default View_TopLeft":"538,-875",
+   "Default View_TopLeft":"643,-875",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
 #  -string -flagsOSRD
@@ -32,8 +32,8 @@ preplace inst axi_ps7_interconnect -pg 1 -lvl 3 -x 490 -y -270 -defaultsOSRD
 preplace inst xlconcat_0 -pg 1 -lvl 3 -x 490 -y -920 -defaultsOSRD
 preplace inst trueBlock_0 -pg 1 -lvl 7 -x 3240 -y -550 -defaultsOSRD
 preplace inst axi_cdma_0 -pg 1 -lvl 2 -x 90 -y -610 -defaultsOSRD
-preplace inst axi_lite_master_0 -pg 1 -lvl 4 -x 960 -y -530 -defaultsOSRD
 preplace inst scheduler_0 -pg 1 -lvl 5 -x 1550 -y -470 -defaultsOSRD
+preplace inst axi_lite_master_0 -pg 1 -lvl 4 -x 960 -y -530 -defaultsOSRD
 preplace netloc Net 1 0 7 -480 -700 -120 -700 250 -460 660 -630 1170 -730 1880 -610 3110
 preplace netloc axi_bram_ctrl_0_bram_addr_a 1 4 2 1190 -190 1740
 preplace netloc axi_bram_ctrl_0_bram_en_a 1 4 2 1200 80 1760J

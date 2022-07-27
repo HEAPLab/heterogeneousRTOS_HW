@@ -435,6 +435,9 @@ set_property MARK_DEBUG false [get_nets {design_1_i/axi_lite_master_0/nextTaskPt
 set_property MARK_DEBUG false [get_nets {design_1_i/axi_lite_master_0/nextTaskPtr[10]}]
 set_property MARK_DEBUG false [get_nets {design_1_i/axi_lite_master_0/nextTaskPtr[11]}]
 
+connect_debug_port u_ila_0/probe0 [get_nets [list {design_1_i/axi_lite_master_0/M_AXI_AWADDR[29]}]]
+connect_debug_port u_ila_0/probe2 [get_nets [list design_1_i/axi_lite_master_0/DATAVALID]]
+
 create_debug_core u_ila_0 ila
 set_property ALL_PROBE_SAME_MU true [get_debug_cores u_ila_0]
 set_property ALL_PROBE_SAME_MU_CNT 1 [get_debug_cores u_ila_0]
@@ -448,43 +451,39 @@ set_property port_width 1 [get_debug_ports u_ila_0/clk]
 connect_debug_port u_ila_0/clk [get_nets [list design_1_i/processing_system7_0/inst/FCLK_CLK0]]
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe0]
 set_property port_width 1 [get_debug_ports u_ila_0/probe0]
-connect_debug_port u_ila_0/probe0 [get_nets [list {design_1_i/axi_lite_master_0/M_AXI_AWADDR[29]}]]
+connect_debug_port u_ila_0/probe0 [get_nets [list {design_1_i/axi_lite_master_0/M_AXI_WDATA[10]}]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe1]
 set_property port_width 1 [get_debug_ports u_ila_0/probe1]
-connect_debug_port u_ila_0/probe1 [get_nets [list {design_1_i/axi_lite_master_0/M_AXI_WDATA[10]}]]
+connect_debug_port u_ila_0/probe1 [get_nets [list design_1_i/axi_lite_master_0/DONE]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe2]
 set_property port_width 1 [get_debug_ports u_ila_0/probe2]
-connect_debug_port u_ila_0/probe2 [get_nets [list design_1_i/axi_lite_master_0/DATAVALID]]
+connect_debug_port u_ila_0/probe2 [get_nets [list design_1_i/axi_lite_master_0/INIT_AXI_TXN]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe3]
 set_property port_width 1 [get_debug_ports u_ila_0/probe3]
-connect_debug_port u_ila_0/probe3 [get_nets [list design_1_i/axi_lite_master_0/DONE]]
+connect_debug_port u_ila_0/probe3 [get_nets [list design_1_i/axi_lite_master_0/M_AXI_AWREADY]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe4]
 set_property port_width 1 [get_debug_ports u_ila_0/probe4]
-connect_debug_port u_ila_0/probe4 [get_nets [list design_1_i/axi_lite_master_0/INIT_AXI_TXN]]
+connect_debug_port u_ila_0/probe4 [get_nets [list design_1_i/axi_lite_master_0/M_AXI_AWVALID]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe5]
 set_property port_width 1 [get_debug_ports u_ila_0/probe5]
-connect_debug_port u_ila_0/probe5 [get_nets [list design_1_i/axi_lite_master_0/M_AXI_AWREADY]]
+connect_debug_port u_ila_0/probe5 [get_nets [list design_1_i/axi_lite_master_0/M_AXI_BREADY]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe6]
 set_property port_width 1 [get_debug_ports u_ila_0/probe6]
-connect_debug_port u_ila_0/probe6 [get_nets [list design_1_i/axi_lite_master_0/M_AXI_AWVALID]]
+connect_debug_port u_ila_0/probe6 [get_nets [list design_1_i/axi_lite_master_0/M_AXI_BVALID]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe7]
 set_property port_width 1 [get_debug_ports u_ila_0/probe7]
-connect_debug_port u_ila_0/probe7 [get_nets [list design_1_i/axi_lite_master_0/M_AXI_BREADY]]
+connect_debug_port u_ila_0/probe7 [get_nets [list design_1_i/axi_lite_master_0/M_AXI_WREADY]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe8]
 set_property port_width 1 [get_debug_ports u_ila_0/probe8]
-connect_debug_port u_ila_0/probe8 [get_nets [list design_1_i/axi_lite_master_0/M_AXI_BVALID]]
-create_debug_port u_ila_0 probe
-set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe9]
-set_property port_width 1 [get_debug_ports u_ila_0/probe9]
-connect_debug_port u_ila_0/probe9 [get_nets [list design_1_i/axi_lite_master_0/M_AXI_WREADY]]
+connect_debug_port u_ila_0/probe8 [get_nets [list design_1_i/axi_lite_master_0/M_AXI_WVALID]]
 set_property C_CLK_INPUT_FREQ_HZ 300000000 [get_debug_cores dbg_hub]
 set_property C_ENABLE_CLK_DIVIDER false [get_debug_cores dbg_hub]
 set_property C_USER_SCAN_CHAIN 1 [get_debug_cores dbg_hub]
