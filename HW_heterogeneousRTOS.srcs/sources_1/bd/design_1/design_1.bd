@@ -7,8 +7,7 @@
       "name": "design_1",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
       "synth_flow_mode": "Hierarchical",
-      "tool_version": "2021.2",
-      "validated": "true"
+      "tool_version": "2021.2"
     },
     "design_tree": {
       "processing_system7_0": "",
@@ -48,74 +47,18 @@
       "trueBlock_0": "",
       "axi_cdma_0": "",
       "scheduler_0": "",
-      "axi_lite_master_0": ""
+      "next_task_handler_0": ""
     },
     "interface_ports": {
       "DDR": {
         "mode": "Master",
         "vlnv_bus_definition": "xilinx.com:interface:ddrx:1.0",
-        "vlnv": "xilinx.com:interface:ddrx_rtl:1.0",
-        "parameters": {
-          "AXI_ARBITRATION_SCHEME": {
-            "value": "TDM",
-            "value_src": "default"
-          },
-          "BURST_LENGTH": {
-            "value": "8",
-            "value_src": "default"
-          },
-          "CAN_DEBUG": {
-            "value": "false",
-            "value_src": "default"
-          },
-          "CAS_LATENCY": {
-            "value": "11",
-            "value_src": "default"
-          },
-          "CAS_WRITE_LATENCY": {
-            "value": "11",
-            "value_src": "default"
-          },
-          "CS_ENABLED": {
-            "value": "true",
-            "value_src": "default"
-          },
-          "DATA_MASK_ENABLED": {
-            "value": "true",
-            "value_src": "default"
-          },
-          "DATA_WIDTH": {
-            "value": "8",
-            "value_src": "default"
-          },
-          "MEMORY_TYPE": {
-            "value": "COMPONENTS",
-            "value_src": "default"
-          },
-          "MEM_ADDR_MAP": {
-            "value": "ROW_COLUMN_BANK",
-            "value_src": "default"
-          },
-          "SLOT": {
-            "value": "Single",
-            "value_src": "default"
-          },
-          "TIMEPERIOD_PS": {
-            "value": "1250",
-            "value_src": "default"
-          }
-        }
+        "vlnv": "xilinx.com:interface:ddrx_rtl:1.0"
       },
       "FIXED_IO": {
         "mode": "Master",
         "vlnv_bus_definition": "xilinx.com:display_processing_system7:fixedio:1.0",
-        "vlnv": "xilinx.com:display_processing_system7:fixedio_rtl:1.0",
-        "parameters": {
-          "CAN_DEBUG": {
-            "value": "false",
-            "value_src": "default"
-          }
-        }
+        "vlnv": "xilinx.com:display_processing_system7:fixedio_rtl:1.0"
       }
     },
     "ports": {
@@ -162,17 +105,7 @@
         "direction": "O"
       },
       "fa2_ta2_eb1_LED14": {
-        "direction": "O",
-        "parameters": {
-          "PortWidth": {
-            "value": "1",
-            "value_src": "default_prop"
-          },
-          "SENSITIVITY": {
-            "value": "LEVEL_HIGH",
-            "value_src": "const_prop"
-          }
-        }
+        "direction": "O"
       },
       "fa2_ta2_eb1_LED16": {
         "direction": "O"
@@ -2720,14 +2653,14 @@
           }
         }
       },
-      "axi_lite_master_0": {
-        "vlnv": "xilinx.com:module_ref:axi_lite_master:1.0",
-        "xci_name": "design_1_axi_lite_master_0_0",
-        "xci_path": "ip/design_1_axi_lite_master_0_0/design_1_axi_lite_master_0_0.xci",
-        "inst_hier_path": "axi_lite_master_0",
+      "next_task_handler_0": {
+        "vlnv": "xilinx.com:module_ref:next_task_handler:1.0",
+        "xci_name": "design_1_next_task_handler_0_0",
+        "xci_path": "ip/design_1_next_task_handler_0_0_1/design_1_next_task_handler_0_0.xci",
+        "inst_hier_path": "next_task_handler_0",
         "reference_info": {
           "ref_type": "hdl",
-          "ref_name": "axi_lite_master",
+          "ref_name": "next_task_handler",
           "boundary_crc": "0x0"
         },
         "interface_ports": {
@@ -2743,10 +2676,6 @@
               "PROTOCOL": {
                 "value": "AXI4LITE",
                 "value_src": "constant"
-              },
-              "FREQ_HZ": {
-                "value": "5e+07",
-                "value_src": "user_prop"
               },
               "ID_WIDTH": {
                 "value": "0",
@@ -2831,10 +2760,6 @@
               "MAX_BURST_LENGTH": {
                 "value": "1",
                 "value_src": "auto"
-              },
-              "CLK_DOMAIN": {
-                "value": "design_1_processing_system7_0_0_FCLK_CLK0",
-                "value_src": "default_prop"
               }
             },
             "address_space_ref": "M_AXI",
@@ -2970,14 +2895,6 @@
               "ASSOCIATED_RESET": {
                 "value": "M_AXI_ARESETN",
                 "value_src": "constant"
-              },
-              "FREQ_HZ": {
-                "value": "5e+07",
-                "value_src": "user_prop"
-              },
-              "CLK_DOMAIN": {
-                "value": "design_1_processing_system7_0_0_FCLK_CLK0",
-                "value_src": "default_prop"
               }
             }
           },
@@ -3009,16 +2926,16 @@
           "processing_system7_0/M_AXI_GP0"
         ]
       },
+      "S01_AXI_1": {
+        "interface_ports": [
+          "axi_mem_interconnect/S01_AXI",
+          "next_task_handler_0/M_AXI"
+        ]
+      },
       "axi_cdma_0_M_AXI": {
         "interface_ports": [
           "axi_cdma_0/M_AXI",
           "axi_mem_interconnect/S00_AXI"
-        ]
-      },
-      "axi_lite_master_0_M_AXI": {
-        "interface_ports": [
-          "axi_lite_master_0/M_AXI",
-          "axi_mem_interconnect/S01_AXI"
         ]
       },
       "axi_mem_interconnect_M00_AXI": {
@@ -3088,7 +3005,7 @@
           "axi_mem_interconnect/S01_ACLK",
           "scheduler_0/clka",
           "scheduler_0/clock",
-          "axi_lite_master_0/M_AXI_ACLK"
+          "next_task_handler_0/M_AXI_ACLK"
         ]
       },
       "axi_bram_ctrl_0_bram_addr_a": {
@@ -3133,16 +3050,16 @@
           "scheduler_0/schedControlBus"
         ]
       },
-      "axi_lite_master_0_WCOMPLETE": {
+      "next_task_handler_0_DATAVALID": {
         "ports": [
-          "axi_lite_master_0/DONE",
-          "scheduler_0/taskWriteComplete_IN"
+          "next_task_handler_0/DATAVALID",
+          "scheduler_0/taskWriteStarted_IN"
         ]
       },
-      "axi_lite_master_0_init_txn_pulse": {
+      "next_task_handler_0_DONE": {
         "ports": [
-          "axi_lite_master_0/DATAVALID",
-          "scheduler_0/taskWriteStarted_IN"
+          "next_task_handler_0/DONE",
+          "scheduler_0/taskWriteComplete_IN"
         ]
       },
       "proc_sys_reset_0_interconnect_aresetn": {
@@ -3167,7 +3084,7 @@
           "axi_cdma_0/s_axi_lite_aresetn",
           "axi_mem_interconnect/S01_ARESETN",
           "scheduler_0/aresetn",
-          "axi_lite_master_0/M_AXI_ARESETN"
+          "next_task_handler_0/M_AXI_ARESETN"
         ]
       },
       "processing_system7_0_FCLK_RESET0_N": {
@@ -3272,16 +3189,11 @@
           "fa2_ta2_eb1_LED05"
         ]
       },
-      "scheduler_0_taskPtr": {
-        "ports": [
-          "scheduler_0/taskPtr",
-          "axi_lite_master_0/nextTaskPtr"
-        ]
-      },
       "scheduler_0_taskReady": {
         "ports": [
           "scheduler_0/taskReady",
-          "axi_lite_master_0/INIT_AXI_TXN"
+          "next_task_handler_0/INIT_AXI_TXN",
+          "next_task_handler_0/nextTaskPtr"
         ]
       },
       "scheduler_0_uninitializedLed": {
@@ -3345,7 +3257,7 @@
           }
         }
       },
-      "/axi_lite_master_0": {
+      "/next_task_handler_0": {
         "address_spaces": {
           "M_AXI": {
             "segments": {

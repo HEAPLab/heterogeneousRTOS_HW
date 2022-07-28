@@ -69,7 +69,7 @@
 // where the width of the data bus is C_M_AXI_DATA_WIDTH
 `define C_M_AXI_DATA_WIDTH 32
 
-module axi_lite_master #   (
+module next_task_handler #   (
     // Transaction number is the number of write and read transactions the master
     // will perform as a part of this example memory test.
     parameter integer C_M_AXI_DATA_WIDTH=32,
@@ -145,7 +145,6 @@ module axi_lite_master #   (
 );
 
 
-
     // function called clogb2 that returns an integer which has the
     // value of the ceiling of the log base 2
 
@@ -171,10 +170,10 @@ module axi_lite_master #   (
     INIT_WRITE   = 2'b01, // This state initializes write transaction,
     // once writes are done, the state machine 
     // changes state to INIT_READ 
-    INIT_READ = 2'b10, // This state initializes read transaction
+    INIT_READ = 2'b10; // This state initializes read transaction
     // once reads are done, the state machine 
     // changes state to INIT_COMPARE 
-    INIT_COMPARE = 2'b11; // This state issues the status of comparison 
+//    INIT_COMPARE = 2'b11; // This state issues the status of comparison 
     // of the written data with the read data	
 
     reg [1:0] mst_exec_state;
@@ -334,13 +333,22 @@ module axi_lite_master #   (
     begin
         if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1)
             begin
-                write_index <= 0;
+                write_index = 0;
+                axi_awaddr = 0;
+                axi_wdata = 0;
             end
             // Signals a new write address/ write data is                            
             // available by user logic                                               
         else if (start_single_write)
         begin
-            write_index <= write_index + 1;
+            write_index = write_index + 1;
+            case (write_index)
+                1: begin
+                    axi_awaddr = 32'h0;
+                    axi_wdata = nextTaskPtr;
+                end
+                default: axi_awaddr=0;
+            endcase
         end
     end
 
@@ -420,41 +428,41 @@ module axi_lite_master #   (
     //start_single_read triggers a new read transaction. read_index is a counter to
     //keep track with number of read transaction issued/initiated
 
-    always @(posedge M_AXI_ACLK)
-    begin
-        if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1)
-            begin
-                read_index <= 0;
-            end
-            // Signals a new read address is                                               
-            // available by user logic                                                     
-        else if (start_single_read)
-        begin
-            read_index <= read_index + 1;
-        end
-    end
+    //    always @(posedge M_AXI_ACLK)
+    //    begin
+    //        if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1)
+    //            begin
+    //                read_index <= 0;
+    //            end
+    //            // Signals a new read address is                                               
+    //            // available by user logic                                                     
+    //        else if (start_single_read)
+    //        begin
+    //            read_index <= read_index + 1;
+    //        end
+    //    end
 
     // A new axi_arvalid is asserted when there is a valid read address              
     // available by the master. start_single_read triggers a new read                
-    // transaction                                                                   
-    always @(posedge M_AXI_ACLK)
-    begin
-        if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1)
-            begin
-                axi_arvalid <= 1'b0;
-            end
-            //Signal a new read address command is available by user logic                 
-        else if (start_single_read)
-            begin
-                axi_arvalid <= 1'b1;
-            end
-            //RAddress accepted by interconnect/slave (issue of M_AXI_ARREADY by slave)    
-        else if (M_AXI_ARREADY && axi_arvalid)
-        begin
-            axi_arvalid <= 1'b0;
-        end
-        // retain the previous value                                                   
-    end
+    //    // transaction                                                                   
+    //    always @(posedge M_AXI_ACLK)
+    //    begin
+    //        if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1)
+    //            begin
+    //                axi_arvalid <= 1'b0;
+    //            end
+    //            //Signal a new read address command is available by user logic                 
+    //        else if (start_single_read)
+    //            begin
+    //                axi_arvalid <= 1'b1;
+    //            end
+    //            //RAddress accepted by interconnect/slave (issue of M_AXI_ARREADY by slave)    
+    //        else if (M_AXI_ARREADY && axi_arvalid)
+    //        begin
+    //            axi_arvalid <= 1'b0;
+    //        end
+    //        // retain the previous value                                                   
+    //    end
 
 
     //--------------------------------
@@ -467,28 +475,28 @@ module axi_lite_master #   (
     //While not necessary per spec, it is advisable to reset READY signals in
     //case of differing reset latencies between master/slave.
 
-    always @(posedge M_AXI_ACLK)
-    begin
-        if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1)
-            begin
-                axi_rready <= 1'b0;
-            end
-            // accept/acknowledge rdata/rresp with axi_rready by the master     
-            // when M_AXI_RVALID is asserted by slave                           
-        else if (M_AXI_RVALID && ~axi_rready)
-            begin
-                axi_rready <= 1'b1;
-            end
-            // deassert after one clock cycle                                   
-        else if (axi_rready)
-        begin
-            axi_rready <= 1'b0;
-        end
-        // retain the previous value                                        
-    end
+//    always @(posedge M_AXI_ACLK)
+//    begin
+//        if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1)
+//            begin
+//                axi_rready <= 1'b0;
+//            end
+//            // accept/acknowledge rdata/rresp with axi_rready by the master     
+//            // when M_AXI_RVALID is asserted by slave                           
+//        else if (M_AXI_RVALID && ~axi_rready)
+//            begin
+//                axi_rready <= 1'b1;
+//            end
+//            // deassert after one clock cycle                                   
+//        else if (axi_rready)
+//        begin
+//            axi_rready <= 1'b0;
+//        end
+//        // retain the previous value                                        
+//    end
 
-    //Flag write errors                                                     
-    assign read_resp_error = (axi_rready & M_AXI_RVALID & M_AXI_RRESP[1]);
+//    //Flag write errors                                                     
+//    assign read_resp_error = (axi_rready & M_AXI_RVALID & M_AXI_RRESP[1]);
 
 
     //--------------------------------
@@ -503,89 +511,91 @@ module axi_lite_master #   (
 
     //Write Addresses
 
-    localparam[31:0] controlOffset = 32'h00, sourceAddr = 32'h18, destAddr = 32'h20, bytesToTransfer=32'h28, statusReg=32'h04;
-    always @(posedge M_AXI_ACLK)
-    begin
-        if (M_AXI_ARESETN == 0  || init_txn_pulse == 1'b1)
-            begin
-                axi_awaddr <= 0;
-            end
-            // Signals a new write address/ write data is         
-            // available by user logic                            
-        else if (axi_awvalid) //M_AXI_AWREADY && 
-        begin
-            case (write_index)
-                //0: axi_awaddr <= 0;
-                1: axi_awaddr <= 32'h0;
-                //                1: axi_awaddr <= controlOffset;
-                //                2: axi_awaddr <= sourceAddr;
-                //                3: axi_awaddr <= destAddr;
-                //                4: axi_awaddr <= bytesToTransfer;
-                default: axi_awaddr<=0;
-            endcase
-        end
-    end
+//    localparam[31:0] controlOffset = 32'h00, sourceAddr = 32'h18, destAddr = 32'h20, bytesToTransfer=32'h28, statusReg=32'h04;
+    //    always @(posedge M_AXI_ACLK)
+    //    begin
+    //        if (M_AXI_ARESETN == 0  || init_txn_pulse == 1'b1)
+    //            begin
+    //                axi_awaddr <= 0;
+    //            end
+    //            // Signals a new write address/ write data is         
+    //            // available by user logic                            
+    //        else if (axi_awvalid) //M_AXI_AWREADY && 
+    //    always @(write_index)
+    //    begin
+    //        case (write_index)
+    //            //0: axi_awaddr <= 0;
+    //            1: axi_awaddr <= 32'h0;
+    //            //                1: axi_awaddr <= controlOffset;
+    //            //                2: axi_awaddr <= sourceAddr;
+    //            //                3: axi_awaddr <= destAddr;
+    //            //                4: axi_awaddr <= bytesToTransfer;
+    //            default: axi_awaddr<=0;
+    //        endcase
+    //    end
+    //    end
 
-    reg [31:0] controlRegVal;
+    //reg [31:0] controlRegVal;
     // Write data generation                                      
-    always @(posedge M_AXI_ACLK)
-    begin
-        if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1 )
-            begin
-                axi_wdata <= 0;
-            end
-            // Signals a new write address/ write data is           
-            // available by user logic                              
-        else if (axi_wvalid) //&& M_AXI_WREADY
-        begin
-            case(write_index)
-                1: axi_wdata <= 32'h400;
+    //    always @(posedge M_AXI_ACLK)
+    //    begin
+    //        if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1 )
+    //            begin
+    //                axi_wdata <= 0;
+    //            end
+    //            // Signals a new write address/ write data is           
+    //            // available by user logic                              
+    //        else if (axi_wvalid) //&& M_AXI_WREADY
+    //    always @(write_index)
+    //    begin
+    //        case(write_index)
+    //            1: axi_wdata <= nextTaskPtr;
 
-                //                1: axi_wdata <= {controlRegVal[31:13], 1'b1, controlRegVal[11:0]}; /*
-                //                    axi_wdata <= {
-                //                    8'h00, //IRQDelay
-                //                    8'h01, //IRQThreshold
-                //                    1'b0, //Reserved
-                //                    1'b1, //Err_IrqEn
-                //                    1'b0, //Dly_IrqEn
-                //                    1'b1, //IOC_IrqEn
-                //                    5'd0, //Reserved
-                //                    1'b0, //Cyclic BD Enable
-                //                    1'b0, //Key Hole Write
-                //                    1'b0, //Key Hole Read
-                //                    1'b0, //SGMode
-                //                    1'b0, //Reset
-                //                    1'b0, //TailPntrEn
-                //                    1'b0 //Reserved
-                //                    };*/
-                //                2: axi_wdata <= 32'hC000_0000;
-                //                3: axi_wdata <= 32'h02000_0000;
-                //                4: axi_wdata <= 32'd20;
-                default
-                axi_wdata<=0;
-            endcase
-        end
-    end
+    //            //                1: axi_wdata <= {controlRegVal[31:13], 1'b1, controlRegVal[11:0]}; /*
+    //            //                    axi_wdata <= {
+    //            //                    8'h00, //IRQDelay
+    //            //                    8'h01, //IRQThreshold
+    //            //                    1'b0, //Reserved
+    //            //                    1'b1, //Err_IrqEn
+    //            //                    1'b0, //Dly_IrqEn
+    //            //                    1'b1, //IOC_IrqEn
+    //            //                    5'd0, //Reserved
+    //            //                    1'b0, //Cyclic BD Enable
+    //            //                    1'b0, //Key Hole Write
+    //            //                    1'b0, //Key Hole Read
+    //            //                    1'b0, //SGMode
+    //            //                    1'b0, //Reset
+    //            //                    1'b0, //TailPntrEn
+    //            //                    1'b0 //Reserved
+    //            //                    };*/
+    //            //                2: axi_wdata <= 32'hC000_0000;
+    //            //                3: axi_wdata <= 32'h02000_0000;
+    //            //                4: axi_wdata <= 32'd20;
+    //            default
+    //            axi_wdata<=0;
+    //        endcase
+    //    end
+    //    end
 
-    //Read Addresses                                              
-    always @(posedge M_AXI_ACLK)
-    begin
-        if (M_AXI_ARESETN == 0  || init_txn_pulse == 1'b1)
-            begin
-                axi_araddr <= 0;
-            end
-            // Signals a new write address/ write data is         
-            // available by user logic                            
-        else if (M_AXI_ARREADY && axi_arvalid)
-        begin
-            case(read_index)
-                0: axi_araddr<= 0;
-                1: axi_araddr<=statusReg;
-                2: axi_araddr<=controlOffset;
-                default: axi_araddr<=0;
-            endcase
-        end
-    end
+    //    //Read Addresses                                              
+    //    always @(posedge M_AXI_ACLK)
+    //    begin
+    //        if (M_AXI_ARESETN == 0  || init_txn_pulse == 1'b1)
+    //            begin
+    //                axi_araddr <= 0;
+    //            end
+    //            // Signals a new write address/ write data is         
+    //            // available by user logic                            
+    //        else if (M_AXI_ARREADY && axi_arvalid)
+    //        begin
+    //            case(read_index)
+    //                0: axi_araddr<= 0;
+    //                1: axi_araddr<=statusReg;
+    //                2: axi_araddr<=controlOffset;
+    //                default: axi_araddr<=0;
+    //            endcase
+    //        end
+    //    end
 
 
 
@@ -664,33 +674,33 @@ module axi_lite_master #   (
                                 end
                         end
 
-                    INIT_READ:
-                    // This state is responsible to issue start_single_read pulse to        
-                    // initiate a read transaction. Read transactions will be               
-                    // issued until last_read signal is asserted.                           
-                    // read controller                                                     
-                    if (reads_done)
-                        begin
-                            mst_exec_state <= IDLE;
-                        end
-                    else
-                        begin
-                            mst_exec_state  <= INIT_READ;
+                        //                    INIT_READ:
+                        //                    // This state is responsible to issue start_single_read pulse to        
+                        //                    // initiate a read transaction. Read transactions will be               
+                        //                    // issued until last_read signal is asserted.                           
+                        //                    // read controller                                                     
+                        //                    if (reads_done)
+                        //                        begin
+                        //                            mst_exec_state <= IDLE;
+                        //                        end
+                        //                    else
+                        //                        begin
+                        //                            mst_exec_state  <= INIT_READ;
 
-                            if (~axi_arvalid && ~M_AXI_RVALID && ~last_read && ~start_single_read && ~read_issued)
-                                begin
-                                    start_single_read <= 1'b1;
-                                    read_issued  <= 1'b1;
-                                end
-                            else if (axi_rready)
-                                begin
-                                    read_issued  <= 1'b0;
-                                end
-                            else
-                                begin
-                                    start_single_read <= 1'b0; //Negate to generate a pulse        
-                                end
-                        end
+                        //                            if (~axi_arvalid && ~M_AXI_RVALID && ~last_read && ~start_single_read && ~read_issued)
+                        //                                begin
+                        //                                    start_single_read <= 1'b1;
+                        //                                    read_issued  <= 1'b1;
+                        //                                end
+                        //                            else if (axi_rready)
+                        //                                begin
+                        //                                    read_issued  <= 1'b0;
+                        //                                end
+                        //                            else
+                        //                                begin
+                        //                                    start_single_read <= 1'b0; //Negate to generate a pulse        
+                        //                                end
+                        //                        end
 
                         /*INIT_COMPARE:
                     begin
@@ -745,48 +755,77 @@ module axi_lite_master #   (
     //Read example                                                                      
     //------------------                                                                
 
-    //Terminal Read Count                                                               
+    //    //Terminal Read Count                                                               
 
-    always @(posedge M_AXI_ACLK)
-    begin
-        if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1)
-            last_read <= 1'b0;
+    //    always @(posedge M_AXI_ACLK)
+    //    begin
+    //        if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1)
+    //            last_read <= 1'b0;
 
-            //The last read should be associated with a read address ready response         
-        else if ((read_index == C_READS_TRANSACTIONS) && (M_AXI_ARREADY) )
-            last_read <= 1'b1;
-        else
-            last_read <= last_read;
-    end
+    //            //The last read should be associated with a read address ready response         
+    //        else if ((read_index == C_READS_TRANSACTIONS) && (M_AXI_ARREADY) )
+    //            last_read <= 1'b1;
+    //        else
+    //            last_read <= last_read;
+    //    end
 
-    /*                                                                                  
-	 Check for last read completion.                                                    
-	                                                                                    
-	 This logic is to qualify the last read count with the final read                   
-	 response/data.                                                                     
-	 */
-    always @(posedge M_AXI_ACLK)
-    begin
-        if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1)
-            reads_done <= 1'b0;
+    //    /*                                                                                  
+    //	 Check for last read completion.                                                    
 
-            //The reads_done should be associated with a read ready response                
-        else if (last_read && M_AXI_RVALID && axi_rready)
-            reads_done <= 1'b1;
-        else
-            reads_done <= reads_done;
-    end
+    //	 This logic is to qualify the last read count with the final read                   
+    //	 response/data.                                                                     
+    //	 */
+    //    always @(posedge M_AXI_ACLK)
+    //    begin
+    //        if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1)
+    //            reads_done <= 1'b0;
+
+    //            //The reads_done should be associated with a read ready response                
+    //        else if (last_read && M_AXI_RVALID && axi_rready)
+    //            reads_done <= 1'b1;
+    //        else
+    //            reads_done <= reads_done;
+    //    end
 
 
-    always @(posedge M_AXI_ACLK)
-    begin
-        if (M_AXI_ARESETN == 0  || init_txn_pulse == 1'b1)
-            controlRegVal <= 32'b0;
+    //    always @(posedge M_AXI_ACLK)
+    //    begin
+    //        if (M_AXI_ARESETN == 0  || init_txn_pulse == 1'b1)
+    //            controlRegVal <= 32'b0;
 
-            //The read data when available (on axi_rready) is compared with the expected data
-        else if ((M_AXI_RVALID && axi_rready) && (read_index==2))
-            controlRegVal<=M_AXI_RDATA;
-    end
+    //            //The read data when available (on axi_rready) is compared with the expected data
+    //        else if ((M_AXI_RVALID && axi_rready) && (read_index==2))
+    //            controlRegVal<=M_AXI_RDATA;
+    //    end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //-----------------------------                                                     
     //Example design error register                                                     

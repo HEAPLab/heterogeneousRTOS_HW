@@ -1,85 +1,84 @@
 {
    "ActiveEmotionalView":"Default View",
    "Default View_ScaleFactor":"0.724921",
-   "Default View_TopLeft":"643,-875",
+   "Default View_TopLeft":"640,-808",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
 #  -string -flagsOSRD
-preplace port DDR -pg 1 -lvl 8 -x 3410 -y -330 -defaultsOSRD
-preplace port FIXED_IO -pg 1 -lvl 8 -x 3410 -y -130 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED04 -pg 1 -lvl 8 -x 3410 -y -680 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED03 -pg 1 -lvl 8 -x 3410 -y -980 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED02 -pg 1 -lvl 8 -x 3410 -y -960 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED01 -pg 1 -lvl 8 -x 3410 -y -700 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED05 -pg 1 -lvl 8 -x 3410 -y -940 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED06 -pg 1 -lvl 8 -x 3410 -y -920 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED15 -pg 1 -lvl 8 -x 3410 -y -1000 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED07 -pg 1 -lvl 8 -x 3410 -y -900 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED08 -pg 1 -lvl 8 -x 3410 -y -880 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED09 -pg 1 -lvl 8 -x 3410 -y -860 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED10 -pg 1 -lvl 8 -x 3410 -y -840 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED11 -pg 1 -lvl 8 -x 3410 -y -820 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED12 -pg 1 -lvl 8 -x 3410 -y -800 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED13 -pg 1 -lvl 8 -x 3410 -y -780 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED14 -pg 1 -lvl 8 -x 3410 -y -760 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED16 -pg 1 -lvl 8 -x 3410 -y -730 -defaultsOSRD
-preplace inst processing_system7_0 -pg 1 -lvl 6 -x 2880 -y -430 -defaultsOSRD
+preplace port DDR -pg 1 -lvl 9 -x 3830 -y -330 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -lvl 9 -x 3830 -y -130 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED04 -pg 1 -lvl 9 -x 3830 -y -660 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED03 -pg 1 -lvl 9 -x 3830 -y -980 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED02 -pg 1 -lvl 9 -x 3830 -y -960 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED01 -pg 1 -lvl 9 -x 3830 -y -700 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED05 -pg 1 -lvl 9 -x 3830 -y -940 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED06 -pg 1 -lvl 9 -x 3830 -y -920 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED15 -pg 1 -lvl 9 -x 3830 -y -1000 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED07 -pg 1 -lvl 9 -x 3830 -y -900 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED08 -pg 1 -lvl 9 -x 3830 -y -880 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED09 -pg 1 -lvl 9 -x 3830 -y -860 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED10 -pg 1 -lvl 9 -x 3830 -y -840 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED11 -pg 1 -lvl 9 -x 3830 -y -820 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED12 -pg 1 -lvl 9 -x 3830 -y -800 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED13 -pg 1 -lvl 9 -x 3830 -y -780 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED14 -pg 1 -lvl 9 -x 3830 -y -760 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED16 -pg 1 -lvl 9 -x 3830 -y -730 -defaultsOSRD
+preplace inst processing_system7_0 -pg 1 -lvl 5 -x 1310 -y -1070 -defaultsOSRD
 preplace inst proc_sys_reset_0 -pg 1 -lvl 1 -x -300 -y -600 -defaultsOSRD
-preplace inst axi_mem_interconnect -pg 1 -lvl 3 -x 490 -y -660 -defaultsOSRD
-preplace inst axi_gpio_0 -pg 1 -lvl 6 -x 2880 -y -180 -defaultsOSRD
-preplace inst axi_bram_ctrl_0 -pg 1 -lvl 5 -x 1550 -y 220 -defaultsOSRD
-preplace inst axi_ps7_interconnect -pg 1 -lvl 3 -x 490 -y -270 -defaultsOSRD
-preplace inst xlconcat_0 -pg 1 -lvl 3 -x 490 -y -920 -defaultsOSRD
-preplace inst trueBlock_0 -pg 1 -lvl 7 -x 3240 -y -550 -defaultsOSRD
+preplace inst axi_mem_interconnect -pg 1 -lvl 3 -x 480 -y -660 -defaultsOSRD
+preplace inst axi_gpio_0 -pg 1 -lvl 7 -x 2970 -y -180 -defaultsOSRD
+preplace inst axi_bram_ctrl_0 -pg 1 -lvl 6 -x 1860 -y 220 -defaultsOSRD
+preplace inst axi_ps7_interconnect -pg 1 -lvl 3 -x 480 -y -270 -defaultsOSRD
+preplace inst xlconcat_0 -pg 1 -lvl 3 -x 480 -y -920 -defaultsOSRD
+preplace inst trueBlock_0 -pg 1 -lvl 8 -x 3530 -y -550 -defaultsOSRD
 preplace inst axi_cdma_0 -pg 1 -lvl 2 -x 90 -y -610 -defaultsOSRD
-preplace inst scheduler_0 -pg 1 -lvl 5 -x 1550 -y -470 -defaultsOSRD
-preplace inst axi_lite_master_0 -pg 1 -lvl 4 -x 960 -y -530 -defaultsOSRD
-preplace netloc Net 1 0 7 -480 -700 -120 -700 250 -460 660 -630 1170 -730 1880 -610 3110
-preplace netloc axi_bram_ctrl_0_bram_addr_a 1 4 2 1190 -190 1740
-preplace netloc axi_bram_ctrl_0_bram_en_a 1 4 2 1200 80 1760J
-preplace netloc axi_bram_ctrl_0_bram_rst_a 1 4 2 1210 90 1750
-preplace netloc axi_bram_ctrl_0_bram_we_a 1 4 2 1230 -210 1810J
-preplace netloc axi_bram_ctrl_0_bram_wrdata_a 1 4 2 1210 -720 1780J
+preplace inst scheduler_0 -pg 1 -lvl 6 -x 1860 -y -630 -defaultsOSRD
+preplace inst next_task_handler_0 -pg 1 -lvl 4 -x 900 -y -620 -defaultsOSRD
+preplace netloc Net 1 0 7 -490 -700 -120 -700 250 -460 650 -890 1070 -890 1570 -180 N
+preplace netloc axi_bram_ctrl_0_bram_addr_a 1 5 2 1620 -240 2060
+preplace netloc axi_bram_ctrl_0_bram_en_a 1 5 2 1630 -230 2080J
+preplace netloc axi_bram_ctrl_0_bram_rst_a 1 5 2 1640 -220 2070
+preplace netloc axi_bram_ctrl_0_bram_we_a 1 5 2 1650 -250 2180J
+preplace netloc axi_bram_ctrl_0_bram_wrdata_a 1 5 2 1610 -210 2050J
 preplace netloc axi_cdma_0_cdma_introut 1 2 1 230 -920n
-preplace netloc axi_gpio_0_gpio_io_o 1 4 3 1180 -740 N -740 3130
-preplace netloc axi_lite_master_0_WCOMPLETE 1 4 1 1150 -500n
-preplace netloc axi_lite_master_0_init_txn_pulse 1 4 1 1160 -540n
-preplace netloc proc_sys_reset_0_interconnect_aresetn 1 1 2 -120 -520 270
-preplace netloc proc_sys_reset_0_peripheral_aresetn 1 1 5 -110 -510 260 -440 690 -440 1120 100 1950
-preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 7 -490 -850 NJ -850 NJ -850 NJ -850 1220 -840 NJ -840 3140
-preplace netloc scheduler_0_douta 1 5 1 1770 -650n
-preplace netloc scheduler_0_invalidAddressLed 1 5 3 1930 -670 NJ -670 3360J
-preplace netloc scheduler_0_invalidControlLed 1 5 3 1830 -750 NJ -750 3350J
-preplace netloc scheduler_0_led1 1 5 3 1900 -730 NJ -730 3340J
-preplace netloc scheduler_0_led2 1 5 3 1800 -900 NJ -900 NJ
-preplace netloc scheduler_0_led3 1 5 3 1810 -880 NJ -880 NJ
-preplace netloc scheduler_0_led4 1 5 3 1820 -860 NJ -860 NJ
-preplace netloc scheduler_0_led5 1 5 3 1860 -830 NJ -830 3350J
-preplace netloc scheduler_0_led6 1 5 3 1890 -820 NJ -820 NJ
-preplace netloc scheduler_0_led7 1 5 3 1910 -800 NJ -800 NJ
-preplace netloc scheduler_0_led8 1 5 3 1940 -780 NJ -780 NJ
-preplace netloc scheduler_0_led9 1 5 3 1950 -760 NJ -760 N
-preplace netloc scheduler_0_led10 1 5 3 1850 -1000 NJ -1000 NJ
-preplace netloc scheduler_0_led11 1 5 3 1960 -720 NJ -720 3370J
-preplace netloc scheduler_0_readyLed 1 5 3 1870 -680 NJ -680 NJ
-preplace netloc scheduler_0_runningLed 1 5 3 1790 -940 NJ -940 NJ
-preplace netloc scheduler_0_taskPtr 1 3 3 700 -750 NJ -750 1740
-preplace netloc scheduler_0_taskReady 1 3 3 690 -760 N -760 1750
-preplace netloc scheduler_0_uninitializedLed 1 5 3 1840 -710 NJ -710 3330J
-preplace netloc trueBlock_0_y 1 4 4 1220 -710 1770 -700 N -700 3330
-preplace netloc xlconcat_0_dout 1 3 3 NJ -920 N -920 1920
-preplace netloc S00_AXI_1 1 2 5 280 -860 N -860 N -860 1780 -850 3120
+preplace netloc axi_gpio_0_gpio_io_o 1 5 3 1670 -370 NJ -370 3130
+preplace netloc proc_sys_reset_0_interconnect_aresetn 1 1 2 -120J -520 270
+preplace netloc proc_sys_reset_0_peripheral_aresetn 1 1 6 -110 -510 260 -440 670J -460 N -460 1600 -160 N
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 6 -490 -450 NJ -450 NJ -450 NJ -450 N -450 1540
+preplace netloc scheduler_0_douta 1 6 1 2090 -810n
+preplace netloc scheduler_0_invalidAddressLed 1 6 3 2110 -780 NJ -780 3640J
+preplace netloc scheduler_0_invalidControlLed 1 6 3 2160J -650 NJ -650 3780J
+preplace netloc scheduler_0_led1 1 6 3 2130 -760 NJ -760 3660J
+preplace netloc scheduler_0_led2 1 6 3 2140J -750 NJ -750 3670J
+preplace netloc scheduler_0_led3 1 6 3 2150J -740 NJ -740 3680J
+preplace netloc scheduler_0_led4 1 6 3 2190J -730 NJ -730 3700J
+preplace netloc scheduler_0_led5 1 6 3 2200 -720 NJ -720 3720J
+preplace netloc scheduler_0_led6 1 6 3 2210 -710 NJ -710 3730J
+preplace netloc scheduler_0_led7 1 6 3 2220 -700 NJ -700 3740J
+preplace netloc scheduler_0_led8 1 6 3 2230 -690 NJ -690 3750J
+preplace netloc scheduler_0_led9 1 6 3 2240 -680 NJ -680 3760J
+preplace netloc scheduler_0_led10 1 6 3 2170 -800 NJ -800 3620J
+preplace netloc scheduler_0_led11 1 6 3 2250 -670 NJ -670 3770J
+preplace netloc scheduler_0_readyLed 1 6 3 2180 -660 NJ -660 NJ
+preplace netloc scheduler_0_runningLed 1 6 3 2120 -770 NJ -770 3650J
+preplace netloc scheduler_0_uninitializedLed 1 6 3 2100 -790 NJ -790 3630J
+preplace netloc trueBlock_0_y 1 5 4 1660 -380 N -380 NJ -380 3630
+preplace netloc xlconcat_0_dout 1 3 2 NJ -920 1060
+preplace netloc next_task_handler_0_DATAVALID 1 4 2 N -630 1580
+preplace netloc next_task_handler_0_DONE 1 4 2 1070 -600 N
+preplace netloc scheduler_0_taskReady 1 3 4 670 -710 NJ -710 1590 -390 2050
+preplace netloc S00_AXI_1 1 2 4 280 -410 NJ -410 N -410 1550
 preplace netloc axi_cdma_0_M_AXI 1 2 1 240 -790n
-preplace netloc axi_lite_master_0_M_AXI 1 2 3 290 -470 670 -620 1120
-preplace netloc axi_mem_interconnect_M00_AXI 1 3 3 680 -230 N -230 1970
-preplace netloc axi_mem_interconnect_M01_AXI 1 3 3 650 -220 N -220 1980
-preplace netloc axi_mem_interconnect_M02_AXI 1 3 2 N -640 1140
-preplace netloc axi_ps7_interconnect_M00_AXI 1 3 3 N -280 1130 -200 N
-preplace netloc axi_ps7_interconnect_M01_AXI 1 1 3 -100 -450 N -450 640
-preplace netloc processing_system7_0_DDR 1 6 2 3150 -610 3360
-preplace netloc processing_system7_0_FIXED_IO 1 6 2 3150 -130 N
-levelinfo -pg 1 -510 -300 90 490 960 1550 2880 3240 3410
-pagesize -pg 1 -db -bbox -sgen -510 -1370 3600 1070
+preplace netloc axi_mem_interconnect_M00_AXI 1 3 2 630 -1100 N
+preplace netloc axi_mem_interconnect_M01_AXI 1 3 2 640 -1080 N
+preplace netloc axi_mem_interconnect_M02_AXI 1 3 3 660J -720 N -720 1560
+preplace netloc axi_ps7_interconnect_M00_AXI 1 3 4 NJ -280 N -280 1540 -200 N
+preplace netloc axi_ps7_interconnect_M01_AXI 1 1 3 -100 -430 NJ -430 650
+preplace netloc processing_system7_0_DDR 1 5 4 1660 -890 N -890 3130 -820 3710J
+preplace netloc processing_system7_0_FIXED_IO 1 5 4 1650 -870 N -870 3120 -810 3690J
+preplace netloc S01_AXI_1 1 2 3 280 -470 N -470 1060
+levelinfo -pg 1 -510 -300 90 480 900 1310 1860 2970 3530 3830
+pagesize -pg 1 -db -bbox -sgen -510 -1370 4020 1070
 "
 }
 {

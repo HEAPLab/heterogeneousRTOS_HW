@@ -363,12 +363,12 @@ module scheduler(
                     //                        taskReady<=1;
                     if (firstrun)
                     begin
-                        taskPtr<=32'd512;
+                        taskPtr<=32'd2000;
                         taskReady<=1;
                         firstrun<=0;
                     end
 
-                    if(taskReady) //&& taskWriteStarted_IN)
+                    if(taskReady && taskWriteStarted_IN)
                     begin
                         taskReady<=0;
                         taskPtr<=0;
