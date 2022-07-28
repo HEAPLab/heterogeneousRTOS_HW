@@ -410,6 +410,8 @@ connect_debug_port u_ila_0/probe2 [get_nets [list design_1_i/next_task_handler_0
 connect_debug_port u_ila_0/probe1 [get_nets [list design_1_i/next_task_handler_0/DATAVALID]]
 
 set_property MARK_DEBUG true [get_nets design_1_i/next_task_handler_0/inst/write_index]
+connect_debug_port u_ila_0/probe8 [get_nets [list design_1_i/next_task_handler_0/M_AXI_WVALID]]
+
 create_debug_core u_ila_0 ila
 set_property ALL_PROBE_SAME_MU true [get_debug_cores u_ila_0]
 set_property ALL_PROBE_SAME_MU_CNT 1 [get_debug_cores u_ila_0]
@@ -422,40 +424,40 @@ set_property C_TRIGOUT_EN false [get_debug_cores u_ila_0]
 set_property port_width 1 [get_debug_ports u_ila_0/clk]
 connect_debug_port u_ila_0/clk [get_nets [list design_1_i/processing_system7_0/inst/FCLK_CLK0]]
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe0]
-set_property port_width 1 [get_debug_ports u_ila_0/probe0]
-connect_debug_port u_ila_0/probe0 [get_nets [list {design_1_i/next_task_handler_0/M_AXI_WDATA[10]}]]
+set_property port_width 32 [get_debug_ports u_ila_0/probe0]
+connect_debug_port u_ila_0/probe0 [get_nets [list {design_1_i/next_task_handler_0/M_AXI_WDATA[0]} {design_1_i/next_task_handler_0/M_AXI_WDATA[1]} {design_1_i/next_task_handler_0/M_AXI_WDATA[2]} {design_1_i/next_task_handler_0/M_AXI_WDATA[3]} {design_1_i/next_task_handler_0/M_AXI_WDATA[4]} {design_1_i/next_task_handler_0/M_AXI_WDATA[5]} {design_1_i/next_task_handler_0/M_AXI_WDATA[6]} {design_1_i/next_task_handler_0/M_AXI_WDATA[7]} {design_1_i/next_task_handler_0/M_AXI_WDATA[8]} {design_1_i/next_task_handler_0/M_AXI_WDATA[9]} {design_1_i/next_task_handler_0/M_AXI_WDATA[10]} {design_1_i/next_task_handler_0/M_AXI_WDATA[11]} {design_1_i/next_task_handler_0/M_AXI_WDATA[12]} {design_1_i/next_task_handler_0/M_AXI_WDATA[13]} {design_1_i/next_task_handler_0/M_AXI_WDATA[14]} {design_1_i/next_task_handler_0/M_AXI_WDATA[15]} {design_1_i/next_task_handler_0/M_AXI_WDATA[16]} {design_1_i/next_task_handler_0/M_AXI_WDATA[17]} {design_1_i/next_task_handler_0/M_AXI_WDATA[18]} {design_1_i/next_task_handler_0/M_AXI_WDATA[19]} {design_1_i/next_task_handler_0/M_AXI_WDATA[20]} {design_1_i/next_task_handler_0/M_AXI_WDATA[21]} {design_1_i/next_task_handler_0/M_AXI_WDATA[22]} {design_1_i/next_task_handler_0/M_AXI_WDATA[23]} {design_1_i/next_task_handler_0/M_AXI_WDATA[24]} {design_1_i/next_task_handler_0/M_AXI_WDATA[25]} {design_1_i/next_task_handler_0/M_AXI_WDATA[26]} {design_1_i/next_task_handler_0/M_AXI_WDATA[27]} {design_1_i/next_task_handler_0/M_AXI_WDATA[28]} {design_1_i/next_task_handler_0/M_AXI_WDATA[29]} {design_1_i/next_task_handler_0/M_AXI_WDATA[30]} {design_1_i/next_task_handler_0/M_AXI_WDATA[31]}]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe1]
 set_property port_width 1 [get_debug_ports u_ila_0/probe1]
-connect_debug_port u_ila_0/probe1 [get_nets [list design_1_i/next_task_handler_0/DONE]]
+connect_debug_port u_ila_0/probe1 [get_nets [list design_1_i/next_task_handler_0/DATAVALID]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe2]
 set_property port_width 1 [get_debug_ports u_ila_0/probe2]
-connect_debug_port u_ila_0/probe2 [get_nets [list design_1_i/next_task_handler_0/INIT_AXI_TXN]]
+connect_debug_port u_ila_0/probe2 [get_nets [list design_1_i/next_task_handler_0/DONE]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe3]
 set_property port_width 1 [get_debug_ports u_ila_0/probe3]
-connect_debug_port u_ila_0/probe3 [get_nets [list design_1_i/next_task_handler_0/M_AXI_AWREADY]]
+connect_debug_port u_ila_0/probe3 [get_nets [list design_1_i/next_task_handler_0/INIT_AXI_TXN]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe4]
 set_property port_width 1 [get_debug_ports u_ila_0/probe4]
-connect_debug_port u_ila_0/probe4 [get_nets [list design_1_i/next_task_handler_0/M_AXI_AWVALID]]
+connect_debug_port u_ila_0/probe4 [get_nets [list design_1_i/next_task_handler_0/M_AXI_AWREADY]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe5]
 set_property port_width 1 [get_debug_ports u_ila_0/probe5]
-connect_debug_port u_ila_0/probe5 [get_nets [list design_1_i/next_task_handler_0/M_AXI_BREADY]]
+connect_debug_port u_ila_0/probe5 [get_nets [list design_1_i/next_task_handler_0/M_AXI_AWVALID]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe6]
 set_property port_width 1 [get_debug_ports u_ila_0/probe6]
-connect_debug_port u_ila_0/probe6 [get_nets [list design_1_i/next_task_handler_0/M_AXI_BVALID]]
+connect_debug_port u_ila_0/probe6 [get_nets [list design_1_i/next_task_handler_0/M_AXI_BREADY]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe7]
 set_property port_width 1 [get_debug_ports u_ila_0/probe7]
-connect_debug_port u_ila_0/probe7 [get_nets [list design_1_i/next_task_handler_0/M_AXI_WREADY]]
+connect_debug_port u_ila_0/probe7 [get_nets [list design_1_i/next_task_handler_0/M_AXI_BVALID]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe8]
 set_property port_width 1 [get_debug_ports u_ila_0/probe8]
-connect_debug_port u_ila_0/probe8 [get_nets [list design_1_i/next_task_handler_0/M_AXI_WVALID]]
+connect_debug_port u_ila_0/probe8 [get_nets [list design_1_i/next_task_handler_0/M_AXI_WREADY]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe9]
 set_property port_width 1 [get_debug_ports u_ila_0/probe9]
