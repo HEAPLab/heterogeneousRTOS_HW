@@ -1,0 +1,110 @@
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Fri Jul 29 17:13:15 2022
+| Host         : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
+| Command      : report_control_sets -verbose -file next_task_handler_v1_0_control_sets_placed.rpt
+| Design       : next_task_handler_v1_0
+| Device       : xc7z100
+---------------------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |    32 |
+|    Minimum number of control sets                        |    32 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |    74 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |    32 |
+| >= 0 to < 4        |     9 |
+| >= 4 to < 6        |     2 |
+| >= 6 to < 8        |     2 |
+| >= 8 to < 10       |    17 |
+| >= 10 to < 12      |     0 |
+| >= 12 to < 14      |     0 |
+| >= 14 to < 16      |     0 |
+| >= 16              |     2 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |               5 |            1 |
+| No           | No                    | Yes                    |               0 |            0 |
+| No           | Yes                   | No                     |              26 |           10 |
+| Yes          | No                    | No                     |               0 |            0 |
+| Yes          | No                    | Yes                    |               0 |            0 |
+| Yes          | Yes                   | No                     |             207 |           59 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++----------------------------+--------------------------------------------------------------------------------+--------------------------------------------------------------------------------+------------------+----------------+--------------+
+|        Clock Signal        |                                  Enable Signal                                 |                                Set/Reset Signal                                | Slice Load Count | Bel Load Count | Bels / Slice |
++----------------------------+--------------------------------------------------------------------------------+--------------------------------------------------------------------------------+------------------+----------------+--------------+
+|  s_axi_intr_aclk_IBUF_BUFG | next_task_handler_v1_0_S_AXI_INTR_inst/reg_intr_en0                            | next_task_handler_v1_0_S_AXI_INTR_inst/reg_data_out0                           |                1 |              1 |         1.00 |
+|  s_axi_intr_aclk_IBUF_BUFG | next_task_handler_v1_0_S_AXI_INTR_inst/reg_intr_ack0                           | next_task_handler_v1_0_S_AXI_INTR_inst/gen_intr_reg[0].reg_intr_ack[0]_i_1_n_0 |                1 |              1 |         1.00 |
+|  s_axi_intr_aclk_IBUF_BUFG | next_task_handler_v1_0_S_AXI_INTR_inst/reg_global_intr_en0                     | next_task_handler_v1_0_S_AXI_INTR_inst/reg_data_out0                           |                1 |              1 |         1.00 |
+|  s_axi_intr_aclk_IBUF_BUFG | next_task_handler_v1_0_S_AXI_INTR_inst/intr_reg_rden                           | next_task_handler_v1_0_S_AXI_INTR_inst/reg_data_out0                           |                1 |              1 |         1.00 |
+|  s_axi_intr_aclk_IBUF_BUFG | next_task_handler_v1_0_S_AXI_INTR_inst/gen_intr_detection[0].s_irq_lvl_i_2_n_0 | next_task_handler_v1_0_S_AXI_INTR_inst/gen_intr_detection[0].s_irq_lvl_i_1_n_0 |                1 |              1 |         1.00 |
+|  s00_axi_aclk_IBUF_BUFG    | next_task_handler_v1_0_S00_AXI_inst/axi_awready0                               | next_task_handler_v1_0_S00_AXI_inst/axi_wready_i_1__0_n_0                      |                1 |              2 |         2.00 |
+|  s00_axi_aclk_IBUF_BUFG    | next_task_handler_v1_0_S00_AXI_inst/axi_arready0                               | next_task_handler_v1_0_S00_AXI_inst/axi_wready_i_1__0_n_0                      |                1 |              2 |         2.00 |
+|  s_axi_intr_aclk_IBUF_BUFG | next_task_handler_v1_0_S_AXI_INTR_inst/axi_arready0                            | next_task_handler_v1_0_S_AXI_INTR_inst/reg_data_out0                           |                1 |              3 |         3.00 |
+|  s_axi_intr_aclk_IBUF_BUFG | next_task_handler_v1_0_S_AXI_INTR_inst/axi_awready0                            | next_task_handler_v1_0_S_AXI_INTR_inst/reg_data_out0                           |                1 |              3 |         3.00 |
+|  M_AXI_ACLK_IBUF_BUFG      |                                                                                | init_txn_ff_i_1_n_0                                                            |                1 |              5 |         5.00 |
+|  s_axi_intr_aclk_IBUF_BUFG |                                                                                |                                                                                |                1 |              5 |         5.00 |
+|  M_AXI_ACLK_IBUF_BUFG      |                                                                                | axi_bready_i_1_n_0                                                             |                1 |              6 |         6.00 |
+|  s00_axi_aclk_IBUF_BUFG    |                                                                                | next_task_handler_v1_0_S00_AXI_inst/axi_wready_i_1__0_n_0                      |                4 |              6 |         1.50 |
+|  s00_axi_aclk_IBUF_BUFG    | next_task_handler_v1_0_S00_AXI_inst/slv_reg0[7]_i_1_n_0                        | next_task_handler_v1_0_S00_AXI_inst/axi_wready_i_1__0_n_0                      |                2 |              8 |         4.00 |
+|  s00_axi_aclk_IBUF_BUFG    | next_task_handler_v1_0_S00_AXI_inst/p_1_in[7]                                  | next_task_handler_v1_0_S00_AXI_inst/axi_wready_i_1__0_n_0                      |                2 |              8 |         4.00 |
+|  s00_axi_aclk_IBUF_BUFG    | next_task_handler_v1_0_S00_AXI_inst/p_1_in[15]                                 | next_task_handler_v1_0_S00_AXI_inst/axi_wready_i_1__0_n_0                      |                1 |              8 |         8.00 |
+|  s00_axi_aclk_IBUF_BUFG    | next_task_handler_v1_0_S00_AXI_inst/slv_reg1[7]_i_1_n_0                        | next_task_handler_v1_0_S00_AXI_inst/axi_wready_i_1__0_n_0                      |                3 |              8 |         2.67 |
+|  s00_axi_aclk_IBUF_BUFG    | next_task_handler_v1_0_S00_AXI_inst/slv_reg2[31]_i_1_n_0                       | next_task_handler_v1_0_S00_AXI_inst/axi_wready_i_1__0_n_0                      |                2 |              8 |         4.00 |
+|  s00_axi_aclk_IBUF_BUFG    | next_task_handler_v1_0_S00_AXI_inst/slv_reg2[7]_i_1_n_0                        | next_task_handler_v1_0_S00_AXI_inst/axi_wready_i_1__0_n_0                      |                3 |              8 |         2.67 |
+|  s00_axi_aclk_IBUF_BUFG    | next_task_handler_v1_0_S00_AXI_inst/slv_reg0[15]_i_1_n_0                       | next_task_handler_v1_0_S00_AXI_inst/axi_wready_i_1__0_n_0                      |                1 |              8 |         8.00 |
+|  s00_axi_aclk_IBUF_BUFG    | next_task_handler_v1_0_S00_AXI_inst/slv_reg2[15]_i_1_n_0                       | next_task_handler_v1_0_S00_AXI_inst/axi_wready_i_1__0_n_0                      |                1 |              8 |         8.00 |
+|  s00_axi_aclk_IBUF_BUFG    | next_task_handler_v1_0_S00_AXI_inst/slv_reg2[23]_i_1_n_0                       | next_task_handler_v1_0_S00_AXI_inst/axi_wready_i_1__0_n_0                      |                2 |              8 |         4.00 |
+|  s00_axi_aclk_IBUF_BUFG    | next_task_handler_v1_0_S00_AXI_inst/slv_reg0[23]_i_1_n_0                       | next_task_handler_v1_0_S00_AXI_inst/axi_wready_i_1__0_n_0                      |                2 |              8 |         4.00 |
+|  s00_axi_aclk_IBUF_BUFG    | next_task_handler_v1_0_S00_AXI_inst/p_1_in[31]                                 | next_task_handler_v1_0_S00_AXI_inst/axi_wready_i_1__0_n_0                      |                3 |              8 |         2.67 |
+|  s00_axi_aclk_IBUF_BUFG    | next_task_handler_v1_0_S00_AXI_inst/p_1_in[23]                                 | next_task_handler_v1_0_S00_AXI_inst/axi_wready_i_1__0_n_0                      |                2 |              8 |         4.00 |
+|  s00_axi_aclk_IBUF_BUFG    | next_task_handler_v1_0_S00_AXI_inst/slv_reg1[31]_i_1_n_0                       | next_task_handler_v1_0_S00_AXI_inst/axi_wready_i_1__0_n_0                      |                3 |              8 |         2.67 |
+|  s00_axi_aclk_IBUF_BUFG    | next_task_handler_v1_0_S00_AXI_inst/slv_reg1[23]_i_1_n_0                       | next_task_handler_v1_0_S00_AXI_inst/axi_wready_i_1__0_n_0                      |                2 |              8 |         4.00 |
+|  s00_axi_aclk_IBUF_BUFG    | next_task_handler_v1_0_S00_AXI_inst/slv_reg1[15]_i_1_n_0                       | next_task_handler_v1_0_S00_AXI_inst/axi_wready_i_1__0_n_0                      |                1 |              8 |         8.00 |
+|  s00_axi_aclk_IBUF_BUFG    | next_task_handler_v1_0_S00_AXI_inst/slv_reg0[31]_i_1_n_0                       | next_task_handler_v1_0_S00_AXI_inst/axi_wready_i_1__0_n_0                      |                2 |              8 |         4.00 |
+|  s_axi_intr_aclk_IBUF_BUFG |                                                                                | next_task_handler_v1_0_S_AXI_INTR_inst/reg_data_out0                           |                4 |              9 |         2.25 |
+|  s00_axi_aclk_IBUF_BUFG    | next_task_handler_v1_0_S00_AXI_inst/slv_reg_rden__0                            | next_task_handler_v1_0_S00_AXI_inst/axi_wready_i_1__0_n_0                      |               10 |             32 |         3.20 |
+|  M_AXI_ACLK_IBUF_BUFG      | axi_wdata[31]_i_1_n_0                                                          | axi_bready_i_1_n_0                                                             |                8 |             32 |         4.00 |
++----------------------------+--------------------------------------------------------------------------------+--------------------------------------------------------------------------------+------------------+----------------+--------------+
+
+
