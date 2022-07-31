@@ -86,5 +86,6 @@ void SCHEDULER_EnableInterrupt(void * baseaddr_p);
 void SCHEDULER_ACKInterrupt(void * baseaddr_p);
 u32 SCHEDULER_getStatus(void * baseaddr_p);
 void SCHEDULER_sendControl(void * baseaddr_p, u16 control_instr, u16 instr_payload);
+void SCHEDULER_copyTaskSet(void * baseaddr_p, const void * source, u32 size);
 
 #endif // SCHEDULER_H

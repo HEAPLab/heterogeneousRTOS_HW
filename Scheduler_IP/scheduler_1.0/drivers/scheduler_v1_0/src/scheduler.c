@@ -32,7 +32,7 @@ u32 SCHEDULER_getStatus(void * baseaddr_p)
 {
   u32 baseaddr;
   baseaddr = (u32) baseaddr_p;
-  return SCHEDULER_mReadReg(baseaddr, SCHEDULER_S_AXI_SLV_STATUS_OFFSET)
+  return SCHEDULER_mReadReg(baseaddr, SCHEDULER_S_AXI_SLV_STATUS_OFFSET);
 }
 
 void SCHEDULER_sendControl(void * baseaddr_p, u16 control_instr, u16 instr_payload)
