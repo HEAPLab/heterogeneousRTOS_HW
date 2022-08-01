@@ -9,69 +9,50 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0"></ZoomStartTime>
-      <ZoomEndTime time="8"></ZoomEndTime>
-      <Cursor1Time time="0"></Cursor1Time>
+      <ZoomStartTime time="505"></ZoomStartTime>
+      <ZoomEndTime time="570"></ZoomEndTime>
+      <Cursor1Time time="543"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="410"></NameColumnWidth>
-      <ValueColumnWidth column_width="82"></ValueColumnWidth>
+      <ValueColumnWidth column_width="78"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="8" />
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0/DONE">
+   <WVObjectSize size="5" />
+   <wave_markers>
+   </wave_markers>
+   <wvobject type="logic" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/addrInWords">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/DONE</obj_property>
-      <obj_property name="ObjectShortName">DONE</obj_property>
+      <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/addrInWords</obj_property>
+      <obj_property name="ObjectShortName">addrInWords</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0/INIT_AXI_TXN">
+   <wvobject type="logic" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg[7]_i_1_n_0">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/INIT_AXI_TXN</obj_property>
-      <obj_property name="ObjectShortName">INIT_AXI_TXN</obj_property>
+      <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg[7]_i_1_n_0</obj_property>
+      <obj_property name="ObjectShortName">slv_control_reg[7]_i_1_n_0</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0/M_AXI_AWREADY">
+   <wvobject type="logic" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/tasksList">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/M_AXI_AWREADY</obj_property>
-      <obj_property name="ObjectShortName">M_AXI_AWREADY</obj_property>
+      <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/tasksList</obj_property>
+      <obj_property name="ObjectShortName">tasksList</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0/M_AXI_AWVALID">
+   <wvobject type="array" fp_name="design_1_i/scheduler_0/s_axi_wdata">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/M_AXI_AWVALID</obj_property>
-      <obj_property name="ObjectShortName">M_AXI_AWVALID</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0/M_AXI_BREADY">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/M_AXI_BREADY</obj_property>
-      <obj_property name="ObjectShortName">M_AXI_BREADY</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0/M_AXI_BVALID">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/M_AXI_BVALID</obj_property>
-      <obj_property name="ObjectShortName">M_AXI_BVALID</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="design_1_i/axi_lite_master_0/M_AXI_WDATA">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/M_AXI_WDATA[10:10]</obj_property>
-      <obj_property name="ObjectShortName">M_AXI_WDATA[10:10]</obj_property>
+      <obj_property name="ElementShortName">design_1_i/scheduler_0/s_axi_wdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axi_wdata[31:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/axi_lite_master_0/M_AXI_WREADY">
+   <wvobject type="logic" fp_name="design_1_i/scheduler_0/s_axi_wvalid">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/axi_lite_master_0/M_AXI_WREADY</obj_property>
-      <obj_property name="ObjectShortName">M_AXI_WREADY</obj_property>
+      <obj_property name="ElementShortName">design_1_i/scheduler_0/s_axi_wvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axi_wvalid</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>

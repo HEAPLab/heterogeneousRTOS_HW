@@ -14,7 +14,6 @@
       "proc_sys_reset_0": "",
       "processing_system7_0": "",
       "xlconcat_0": "",
-      "scheduler_0": "",
       "axi_mem_intercon": {
         "xbar": "",
         "s00_couplers": {
@@ -28,7 +27,8 @@
         "s00_couplers": {
           "auto_pc": ""
         }
-      }
+      },
+      "scheduler_0": ""
     },
     "interface_ports": {
       "DDR": {
@@ -2035,32 +2035,6 @@
           }
         }
       },
-      "scheduler_0": {
-        "vlnv": "user.org:user:scheduler:1.0",
-        "xci_name": "design_1_scheduler_0_1",
-        "xci_path": "ip/design_1_scheduler_0_1/design_1_scheduler_0_1.xci",
-        "inst_hier_path": "scheduler_0",
-        "interface_ports": {
-          "M_AXI": {
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "mode": "Master",
-            "address_space_ref": "M_AXI",
-            "base_address": {
-              "minimum": "0x00000000",
-              "maximum": "0xFFFFFFFF",
-              "width": "32"
-            }
-          }
-        },
-        "addressing": {
-          "address_spaces": {
-            "M_AXI": {
-              "range": "4G",
-              "width": "32"
-            }
-          }
-        }
-      },
       "axi_mem_intercon": {
         "vlnv": "xilinx.com:ip:axi_interconnect:2.1",
         "xci_path": "ip/design_1_axi_mem_intercon_0/design_1_axi_mem_intercon_0.xci",
@@ -2229,8 +2203,8 @@
             "components": {
               "auto_pc": {
                 "vlnv": "xilinx.com:ip:axi_protocol_converter:2.1",
-                "xci_name": "design_1_auto_pc_7",
-                "xci_path": "ip/design_1_auto_pc_7/design_1_auto_pc_7.xci",
+                "xci_name": "design_1_auto_pc_0",
+                "xci_path": "ip/design_1_auto_pc_0/design_1_auto_pc_0.xci",
                 "inst_hier_path": "axi_mem_intercon/s00_couplers/auto_pc",
                 "parameters": {
                   "MI_PROTOCOL": {
@@ -2252,8 +2226,8 @@
               },
               "auto_us": {
                 "vlnv": "xilinx.com:ip:axi_dwidth_converter:2.1",
-                "xci_name": "design_1_auto_us_2",
-                "xci_path": "ip/design_1_auto_us_2/design_1_auto_us_2.xci",
+                "xci_name": "design_1_auto_us_0",
+                "xci_path": "ip/design_1_auto_us_0/design_1_auto_us_0.xci",
                 "inst_hier_path": "axi_mem_intercon/s00_couplers/auto_us",
                 "parameters": {
                   "MI_DATA_WIDTH": {
@@ -2609,8 +2583,8 @@
             "components": {
               "auto_pc": {
                 "vlnv": "xilinx.com:ip:axi_protocol_converter:2.1",
-                "xci_name": "design_1_auto_pc_8",
-                "xci_path": "ip/design_1_auto_pc_8/design_1_auto_pc_8.xci",
+                "xci_name": "design_1_auto_pc_1",
+                "xci_path": "ip/design_1_auto_pc_1/design_1_auto_pc_1.xci",
                 "inst_hier_path": "ps7_0_axi_periph/s00_couplers/auto_pc",
                 "parameters": {
                   "MI_PROTOCOL": {
@@ -2701,6 +2675,32 @@
             ]
           }
         }
+      },
+      "scheduler_0": {
+        "vlnv": "user.org:user:scheduler:1.0",
+        "xci_name": "design_1_scheduler_0_1",
+        "xci_path": "ip/design_1_scheduler_0_1/design_1_scheduler_0_1.xci",
+        "inst_hier_path": "scheduler_0",
+        "interface_ports": {
+          "M_AXI": {
+            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
+            "mode": "Master",
+            "address_space_ref": "M_AXI",
+            "base_address": {
+              "minimum": "0x00000000",
+              "maximum": "0xFFFFFFFF",
+              "width": "32"
+            }
+          }
+        },
+        "addressing": {
+          "address_spaces": {
+            "M_AXI": {
+              "range": "4G",
+              "width": "32"
+            }
+          }
+        }
       }
     },
     "interface_nets": {
@@ -2756,28 +2756,28 @@
           "processing_system7_0/S_AXI_HP0_ACLK",
           "processing_system7_0/S_AXI_HP2_ACLK",
           "axi_mem_intercon/M00_ACLK",
-          "scheduler_0/m_axi_aclk",
           "axi_mem_intercon/S00_ACLK",
           "axi_mem_intercon/ACLK",
           "axi_mem_intercon/M01_ACLK",
           "ps7_0_axi_periph/S00_ACLK",
-          "scheduler_0/s_axi_aclk",
           "ps7_0_axi_periph/M00_ACLK",
-          "ps7_0_axi_periph/ACLK"
+          "ps7_0_axi_periph/ACLK",
+          "scheduler_0/s_axi_aclk",
+          "scheduler_0/m_axi_aclk"
         ]
       },
       "proc_sys_reset_0_peripheral_aresetn": {
         "ports": [
           "proc_sys_reset_0/peripheral_aresetn",
           "axi_mem_intercon/M00_ARESETN",
-          "scheduler_0/m_axi_aresetn",
           "axi_mem_intercon/S00_ARESETN",
           "axi_mem_intercon/ARESETN",
           "axi_mem_intercon/M01_ARESETN",
           "ps7_0_axi_periph/S00_ARESETN",
-          "scheduler_0/s_axi_aresetn",
           "ps7_0_axi_periph/M00_ARESETN",
-          "ps7_0_axi_periph/ARESETN"
+          "ps7_0_axi_periph/ARESETN",
+          "scheduler_0/s_axi_aresetn",
+          "scheduler_0/m_axi_aresetn"
         ]
       },
       "processing_system7_0_FCLK_RESET0_N": {
