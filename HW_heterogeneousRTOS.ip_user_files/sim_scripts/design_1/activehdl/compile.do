@@ -83,10 +83,6 @@ vlog -work xlconcat_v2_1_4  -v2k5 "+incdir+../../../../HW_heterogeneousRTOS.gen/
 
 vlog -work xil_defaultlib  -v2k5 "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/ec67/hdl" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/3007/hdl" "+incdir+/opt/Xilinx/Vivado/2021.2/data/xilinx_vip/include" \
 "../../../bd/design_1/ip/design_1_xlconcat_0_0/sim/design_1_xlconcat_0_0.v" \
-"../../../bd/design_1/ipshared/e359/hdl/scheduler_v1_0_M_AXI.v" \
-"../../../bd/design_1/ipshared/e359/hdl/scheduler_v1_0_S_AXI.v" \
-"../../../bd/design_1/ipshared/e359/hdl/scheduler_v1_0.v" \
-"../../../bd/design_1/ip/design_1_scheduler_0_1/sim/design_1_scheduler_0_1.v" \
 
 vlog -work generic_baseblocks_v2_1_0  -v2k5 "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/ec67/hdl" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/3007/hdl" "+incdir+/opt/Xilinx/Vivado/2021.2/data/xilinx_vip/include" \
 "../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/b752/hdl/generic_baseblocks_v2_1_vl_rfs.v" \
@@ -111,6 +107,10 @@ vlog -work axi_crossbar_v2_1_26  -v2k5 "+incdir+../../../../HW_heterogeneousRTOS
 
 vlog -work xil_defaultlib  -v2k5 "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/ec67/hdl" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/3007/hdl" "+incdir+/opt/Xilinx/Vivado/2021.2/data/xilinx_vip/include" \
 "../../../bd/design_1/ip/design_1_xbar_2/sim/design_1_xbar_2.v" \
+"../../../bd/design_1/ipshared/d309/hdl/scheduler_v1_0_M_AXI.v" \
+"../../../bd/design_1/ipshared/d309/hdl/scheduler_v1_0_S_AXI.v" \
+"../../../bd/design_1/ipshared/d309/hdl/scheduler_v1_0.v" \
+"../../../bd/design_1/ip/design_1_scheduler_0_1/sim/design_1_scheduler_0_1.v" \
 
 vlog -work axi_protocol_converter_v2_1_25  -v2k5 "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/ec67/hdl" "+incdir+../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/3007/hdl" "+incdir+/opt/Xilinx/Vivado/2021.2/data/xilinx_vip/include" \
 "../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/8fe4/hdl/axi_protocol_converter_v2_1_vl_rfs.v" \

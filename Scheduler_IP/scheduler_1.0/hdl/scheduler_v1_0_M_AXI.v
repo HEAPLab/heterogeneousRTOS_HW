@@ -25,7 +25,7 @@
 )
 	(
     // Users to add ports here
-    input wire taskPtr,
+    input wire [31:0] taskPtr,
 
     // User ports ends
     // Do not modify the ports beyond this line
