@@ -1,28 +1,28 @@
 {
    "ActiveEmotionalView":"Default View",
    "Default View_ScaleFactor":"0.669737",
-   "Default View_TopLeft":"-105,1",
+   "Default View_TopLeft":"-90,1",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
 #  -string -flagsOSRD
-preplace port DDR -pg 1 -lvl 4 -x 1250 -y 60 -defaultsOSRD
-preplace port FIXED_IO -pg 1 -lvl 4 -x 1250 -y 80 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED04 -pg 1 -lvl 4 -x 1250 -y 590 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED03 -pg 1 -lvl 4 -x 1250 -y 570 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED02 -pg 1 -lvl 4 -x 1250 -y 550 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED01 -pg 1 -lvl 4 -x 1250 -y 530 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED05 -pg 1 -lvl 4 -x 1250 -y 20 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED06 -pg 1 -lvl 4 -x 1250 -y 40 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED15 -pg 1 -lvl 4 -x 1250 -y 260 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED07 -pg 1 -lvl 4 -x 1250 -y 100 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED08 -pg 1 -lvl 4 -x 1250 -y 120 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED09 -pg 1 -lvl 4 -x 1250 -y 140 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED10 -pg 1 -lvl 4 -x 1250 -y 160 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED11 -pg 1 -lvl 4 -x 1250 -y 180 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED12 -pg 1 -lvl 4 -x 1250 -y 200 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED13 -pg 1 -lvl 4 -x 1250 -y 220 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED14 -pg 1 -lvl 4 -x 1250 -y 240 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED16 -pg 1 -lvl 4 -x 1250 -y 280 -defaultsOSRD
+preplace port DDR -pg 1 -lvl 4 -x 1280 -y 60 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -lvl 4 -x 1280 -y 80 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED04 -pg 1 -lvl 4 -x 1280 -y 590 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED03 -pg 1 -lvl 4 -x 1280 -y 570 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED02 -pg 1 -lvl 4 -x 1280 -y 550 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED01 -pg 1 -lvl 4 -x 1280 -y 530 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED05 -pg 1 -lvl 4 -x 1280 -y 20 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED06 -pg 1 -lvl 4 -x 1280 -y 40 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED15 -pg 1 -lvl 4 -x 1280 -y 260 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED07 -pg 1 -lvl 4 -x 1280 -y 100 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED08 -pg 1 -lvl 4 -x 1280 -y 120 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED09 -pg 1 -lvl 4 -x 1280 -y 140 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED10 -pg 1 -lvl 4 -x 1280 -y 160 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED11 -pg 1 -lvl 4 -x 1280 -y 180 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED12 -pg 1 -lvl 4 -x 1280 -y 200 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED13 -pg 1 -lvl 4 -x 1280 -y 220 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED14 -pg 1 -lvl 4 -x 1280 -y 240 -defaultsOSRD
+preplace port port-id_fa2_ta2_eb1_LED16 -pg 1 -lvl 4 -x 1280 -y 280 -defaultsOSRD
 preplace inst proc_sys_reset_0 -pg 1 -lvl 1 -x 210 -y 470 -defaultsOSRD
 preplace inst processing_system7_0 -pg 1 -lvl 3 -x 980 -y 180 -defaultsOSRD
 preplace inst xlconcat_0 -pg 1 -lvl 2 -x 570 -y 680 -defaultsOSRD
@@ -38,6 +38,7 @@ preplace netloc scheduler_0_readyLed 1 3 1 NJ 550
 preplace netloc scheduler_0_runningLed 1 3 1 NJ 570
 preplace netloc scheduler_0_uninitializedLed 1 3 1 NJ 530
 preplace netloc xlconcat_0_dout 1 2 1 730J 250n
+preplace netloc scheduler_0_memwritten 1 3 1 N 20
 preplace netloc axi_mem_intercon_M00_AXI 1 2 1 N 150
 preplace netloc axi_mem_intercon_M01_AXI 1 2 1 N 170
 preplace netloc processing_system7_0_DDR 1 3 1 NJ 60
@@ -45,8 +46,8 @@ preplace netloc processing_system7_0_FIXED_IO 1 3 1 NJ 80
 preplace netloc processing_system7_0_M_AXI_GP0 1 1 3 420 360 NJ 360 1220
 preplace netloc ps7_0_axi_periph_M00_AXI 1 2 1 N 520
 preplace netloc scheduler_0_M_AXI 1 1 3 410 380 NJ 380 1210
-levelinfo -pg 1 0 210 570 980 1250
-pagesize -pg 1 -db -bbox -sgen 0 0 1440 760
+levelinfo -pg 1 0 210 570 980 1280
+pagesize -pg 1 -db -bbox -sgen 0 0 1470 760
 "
 }
 {

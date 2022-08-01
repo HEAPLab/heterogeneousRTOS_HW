@@ -42,9 +42,9 @@
 -endlib
 -makelib xcelium_lib/xil_defaultlib \
   "../../../bd/design_1/ip/design_1_xlconcat_0_0/sim/design_1_xlconcat_0_0.v" \
-  "../../../bd/design_1/ipshared/119e/hdl/scheduler_v1_0_M_AXI.v" \
-  "../../../bd/design_1/ipshared/119e/hdl/scheduler_v1_0_S_AXI.v" \
-  "../../../bd/design_1/ipshared/119e/hdl/scheduler_v1_0.v" \
+  "../../../bd/design_1/ipshared/e359/hdl/scheduler_v1_0_M_AXI.v" \
+  "../../../bd/design_1/ipshared/e359/hdl/scheduler_v1_0_S_AXI.v" \
+  "../../../bd/design_1/ipshared/e359/hdl/scheduler_v1_0.v" \
   "../../../bd/design_1/ip/design_1_scheduler_0_1/sim/design_1_scheduler_0_1.v" \
 -endlib
 -makelib xcelium_lib/generic_baseblocks_v2_1_0 \

@@ -2798,6 +2798,11 @@
           "fa2_ta2_eb1_LED04"
         ]
       },
+      "scheduler_0_memwritten": {
+        "ports": [
+          "fa2_ta2_eb1_LED05"
+        ]
+      },
       "scheduler_0_readyLed": {
         "ports": [
           "scheduler_0/readyLed",

@@ -156,7 +156,8 @@
 
     reg [C_S_AXI_DATA_WIDTH-1:0]	slv_control_reg;
     reg new_slv_control_reg;
-    localparam[(C_S_AXI_DATA_WIDTH/2)-1:0] control_setTaskNum = C_S_AXI_DATA_WIDTH/2'd1, control_startScheduler=C_S_AXI_DATA_WIDTH/2'd2, control_startTask=C_S_AXI_DATA_WIDTH/2'd3, control_suspendTask=C_S_AXI_DATA_WIDTH/2'd4;
+    localparam[(C_S_AXI_DATA_WIDTH/2)-1:0] control_setTaskNum = 1, control_startScheduler=2, control_startTask=3, control_suspendTask=4;
+    //    localparam[(C_S_AXI_DATA_WIDTH/2)-1:0] control_setTaskNum = C_S_AXI_DATA_WIDTH/2'd1, control_startScheduler=C_S_AXI_DATA_WIDTH/2'd2, control_startTask=C_S_AXI_DATA_WIDTH/2'd3, control_suspendTask=C_S_AXI_DATA_WIDTH/2'd4;
 
     //FSM status reg
     reg [3:0]	slv_status_reg;
@@ -362,20 +363,19 @@
     // These registers are cleared when reset (active low) is applied.
     // Slave register write enable is asserted when valid address and data are available
     // and the slave is ready to accept the write address and write data.
-    localparam [OPT_MEM_ADDR_BITS:0] tasksOffset= 4'd7;
-    wire [OPT_MEM_ADDR_BITS:0] addrInWords;
-    assign addrInWords=axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset;
+    localparam [OPT_MEM_ADDR_BITS:0] tasksOffset= 7;
+    //    wire [OPT_MEM_ADDR_BITS:0] addrInWords;
+    //    assign addrInWords=axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset;
     reg memwritten;
-
 
     always @( posedge S_AXI_ACLK )
     begin
         if ( S_AXI_ARESETN == 1'b0 )
             begin
                 slv_control_reg <= 0;
-                new_slv_control_reg <= 0;
+                new_slv_control_reg <= 1'b0;
 
-                memwritten <= 0;
+                memwritten <= 1'b0;
             end
         else begin
             if (slv_reg_wren)
@@ -390,14 +390,14 @@
                                         // Slave register 5
                                         slv_control_reg[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
 
-                                        new_slv_control_reg <= 1;
+                                        new_slv_control_reg <= 1'b1;
                                     end
                                 3'h6:
                                 begin
                                     slv_control_reg <= slv_control_reg;
                                     slv_status_reg <= slv_status_reg;
 
-                                    new_slv_control_reg <= 0;
+                                    new_slv_control_reg <= 1'b0;
                                     /*for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
                             if ( S_AXI_WSTRB[byte_index] == 1 ) begin
                                 // Respective byte enables are asserted as per write strobes 
@@ -411,13 +411,13 @@
                                     slv_control_reg <= slv_control_reg;
                                     slv_status_reg <= slv_status_reg;
 
-                                    new_slv_control_reg <= 0;
+                                    new_slv_control_reg <= 1'b0;
                                 end
                             endcase
                         end
                     else
                         begin
-                            new_slv_control_reg <= 0;
+                            new_slv_control_reg <= 1'b0;
 
                             if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRTListAddr)
                                 tasksList[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)] <= S_AXI_WDATA;
@@ -431,12 +431,12 @@
                             begin
                                 activationQActivationATASC[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQDLAddr]<= S_AXI_WDATA;
                                 if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)==maxRQActAddr-1)
-                                    memwritten<=1;
+                                    memwritten<=1'b1;
                             end
                         end
                 end
             else
-                new_slv_control_reg <= 0;
+                new_slv_control_reg <= 1'b0;
         end
     end
 
@@ -946,12 +946,12 @@
                 //new control signal supplied
 
                 //FSM logic which reacts to control signal changes changing states
-                case (slv_control_reg[15:8])
+                case (slv_control_reg[31:16])
                     control_setTaskNum:
                     begin
-                        if (slv_status_reg==state_uninitialized && memwritten==1)
+                        if (slv_status_reg==state_uninitialized && memwritten)
                         begin
-                            numOfTasks<=slv_control_reg[7:0];
+                            numOfTasks<=slv_control_reg[15:0];
                             slv_status_reg<=state_ready;
                         end
                     end

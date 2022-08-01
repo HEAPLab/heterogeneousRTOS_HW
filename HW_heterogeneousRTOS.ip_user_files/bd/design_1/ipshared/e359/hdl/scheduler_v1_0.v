@@ -26,6 +26,7 @@
     output wire uninitializedLed,
     output wire readyLed,
     output wire runningLed,
+
     //    output wire invalidControlLed,
     //    output wire invalidAddressLed,
 
