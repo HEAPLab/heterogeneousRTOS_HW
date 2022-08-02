@@ -44,7 +44,27 @@ void SCHEDULER_sendControl(void * baseaddr_p, u16 control_instr, u16 instr_paylo
   SCHEDULER_mWriteReg(baseaddr, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, controlword); 
 }
 
-void SCHEDULER_copyTaskSet(void * baseaddr_p, const void * source, u32 size)
+void SCHEDULER_copyTaskSet(void * baseaddr_p, const void * source)
 {
-  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TASKSET_OFFSET), source, size);
+  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TASKSET_OFFSET), source, configMAX_RT_TASKS*TASKSIZEINBYTE);
+}
+
+void SCHEDULER_copyOrderedDeadlineQIndex(void * baseaddr_p, const void * source)
+{
+  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TASKSET_OFFSET+(configMAX_RT_TASKS*TASKSIZEINBYTE)), source, configMAX_RT_TASKS*DEADLINEQINDEXELEMENTSIZEINBYTE);
+}
+
+void SCHEDULER_copyOrderedActivationQIndex(void * baseaddr_p, const void * source)
+{
+  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TASKSET_OFFSET+configMAX_RT_TASKS*(TASKSIZEINBYTE+DEADLINEQINDEXELEMENTSIZEINBYTE)), source, configMAX_RT_TASKS*ACTIVATIONQINDEXELEMENTSIZEINBYTE);
+}
+
+void SCHEDULER_copyOrderedDeadlineQ(void * baseaddr_p, const void * source)
+{
+  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TASKSET_OFFSET+configMAX_RT_TASKS*(TASKSIZEINBYTE+DEADLINEQINDEXELEMENTSIZEINBYTE+ACTIVATIONQINDEXELEMENTSIZEINBYTE)), source, configMAX_RT_TASKS*DEADLINEQELEMENTSIZEINBYTE);
+}
+
+void SCHEDULER_copyOrderedActivationQ(void * baseaddr_p, const void * source)
+{
+  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TASKSET_OFFSET+configMAX_RT_TASKS*(TASKSIZEINBYTE+DEADLINEQINDEXELEMENTSIZEINBYTE+ACTIVATIONQINDEXELEMENTSIZEINBYTE+DEADLINEQELEMENTSIZEINBYTE)), source, configMAX_RT_TASKS*ACTIVATIONQELEMENTSIZEINBYTE);
 }

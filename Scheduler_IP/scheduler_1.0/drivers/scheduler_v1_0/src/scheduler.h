@@ -9,6 +9,16 @@
 #include "xil_io.h"
 #include "xil_mem.h"
 
+#ifndef configMAX_RT_TASKS
+#define configMAX_RT_TASKS (128)
+#endif
+
+#define TASKSIZEINBYTE 20
+#define DEADLINEQINDEXELEMENTSIZEINBYTE 4
+#define ACTIVATIONQINDEXELEMENTSIZEINBYTE 4
+#define DEADLINEQELEMENTSIZEINBYTE 4
+#define ACTIVATIONQELEMENTSIZEINBYTE 4
+
 #define SCHEDULER_S_AXI_SLV_REG0_OFFSET 0
 #define SCHEDULER_S_AXI_SLV_REG1_OFFSET 4
 #define SCHEDULER_S_AXI_SLV_REG2_OFFSET 8
@@ -86,6 +96,10 @@ void SCHEDULER_EnableInterrupt(void * baseaddr_p);
 void SCHEDULER_ACKInterrupt(void * baseaddr_p);
 u32 SCHEDULER_getStatus(void * baseaddr_p);
 void SCHEDULER_sendControl(void * baseaddr_p, u16 control_instr, u16 instr_payload);
-void SCHEDULER_copyTaskSet(void * baseaddr_p, const void * source, u32 size);
+void SCHEDULER_copyTaskSet(void * baseaddr_p, const void * source);
+void SCHEDULER_copyOrderedDeadlineQIndex(void * baseaddr_p, const void * source);
+void SCHEDULER_copyOrderedActivationQIndex(void * baseaddr_p, const void * source);
+void SCHEDULER_copyOrderedDeadlineQ(void * baseaddr_p, const void * source);
+void SCHEDULER_copyOrderedActivationQ(void * baseaddr_p, const void * source);
 
 #endif // SCHEDULER_H
