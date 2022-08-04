@@ -1,6 +1,296 @@
 Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 ------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Thu Aug  4 06:32:58 2022
+| Host         : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
+| Command      : upgrade_ip
+| Device       : xc7z100ffg900-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 42) to (Rev. 43)
+
+
+
+
+
+
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Thu Aug  4 05:36:25 2022
+| Host         : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
+| Command      : upgrade_ip
+| Device       : xc7z100ffg900-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 41) to (Rev. 42)
+
+
+
+
+
+
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Thu Aug  4 04:05:09 2022
+| Host         : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
+| Command      : upgrade_ip
+| Device       : xc7z100ffg900-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 39) to (Rev. 41)
+
+
+
+
+
+
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Thu Aug  4 03:48:41 2022
+| Host         : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
+| Command      : upgrade_ip
+| Device       : xc7z100ffg900-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 37) to (Rev. 39)
+
+
+
+
+
+
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Thu Aug  4 03:27:43 2022
+| Host         : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
+| Command      : upgrade_ip
+| Device       : xc7z100ffg900-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 36) to (Rev. 37)
+
+
+
+
+
+
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Thu Aug  4 03:26:42 2022
+| Host         : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
+| Command      : upgrade_ip
+| Device       : xc7z100ffg900-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the conversion of design_1_scheduler_0_1 (user.org:user:scheduler:1.0 (Rev. 36)) to Vivado generation flows.
+
+
+
+
+
+
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Thu Aug  4 03:20:29 2022
+| Host         : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
+| Command      : upgrade_ip
+| Device       : xc7z100ffg900-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 35) to (Rev. 36)
+
+
+
+
+
+
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Thu Aug  4 02:52:00 2022
+| Host         : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
+| Command      : upgrade_ip
+| Device       : xc7z100ffg900-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the conversion of design_1_scheduler_0_1 (user.org:user:scheduler:1.0 (Rev. 35)) to Vivado generation flows.
+
+
+
+
+
+
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Thu Aug  4 02:46:36 2022
+| Host         : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
+| Command      : upgrade_ip
+| Device       : xc7z100ffg900-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+CAUTION (success, with warnings) in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 34) to (Rev. 35)
+
+After upgrade, an IP may have parameter and port differences compared to the original customization. Please review the parameters within the IP customization GUI to ensure proper functionality. Also, please review the updated IP instantiation template to ensure proper connectivity, and update your design if required.
+
+2. Connection Warnings
+----------------------
+
+Detected external port differences while upgrading 'design_1_scheduler_0_1'. These changes may impact your design.
+
+
+-Upgrade has added port 'led1'
+
+-Upgrade has added port 'led2'
+
+-Upgrade has added port 'led3'
+
+-Upgrade has added port 'led4'
+
+-Upgrade has added port 'led5'
+
+
+
+
+
+
+
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Thu Aug  4 02:30:13 2022
+| Host         : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
+| Command      : upgrade_ip
+| Device       : xc7z100ffg900-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 33) to (Rev. 34)
+
+
+
+
+
+
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Wed Aug  3 19:53:08 2022
+| Host         : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
+| Command      : upgrade_ip
+| Device       : xc7z100ffg900-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+CAUTION (success, with warnings) in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 43) to (Rev. 33)
+
+After upgrade, an IP may have parameter and port differences compared to the original customization. Please review the parameters within the IP customization GUI to ensure proper functionality. Also, please review the updated IP instantiation template to ensure proper connectivity, and update your design if required.
+
+2. Connection Warnings
+----------------------
+
+Detected external port differences while upgrading 'design_1_scheduler_0_1'. These changes may impact your design.
+
+
+-Upgrade has removed port 'led1'
+
+-Upgrade has removed port 'led2'
+
+-Upgrade has removed port 'led3'
+
+-Upgrade has removed port 'led4'
+
+-Upgrade has removed port 'led5'
+
+
+
+
+
+
+
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Wed Aug  3 19:45:06 2022
+| Host         : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
+| Command      : upgrade_ip
+| Device       : xc7z100ffg900-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 32) to (Rev. 43)
+
+
+
+
+
+
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
 | Date         : Mon Aug  1 21:03:18 2022
 | Host         : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
 | Command      : upgrade_ip

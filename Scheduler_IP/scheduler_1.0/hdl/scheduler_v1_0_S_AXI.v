@@ -35,6 +35,13 @@
     output reg uninitializedLed,
     output reg readyLed,
     output reg runningLed,
+
+    output wire led1,
+    output wire led2,
+    output wire led3,
+    output wire led4,
+    output wire led5,
+
     //    output reg invalidControlLed,
     //    output reg invalidAddressLed,
 
@@ -152,15 +159,16 @@
     //----------------------------------------------
     /* //-- Signals for user logic register space example*/
     //------------------------------------------------
-    //-- Number of Slave Registers 7
+    //-- Number of Slave Registers 8
 
     reg [C_S_AXI_DATA_WIDTH-1:0]	slv_control_reg;
     reg new_slv_control_reg;
-    localparam[(C_S_AXI_DATA_WIDTH/2)-1:0] control_setTaskNum = 1, control_startScheduler=2, control_startTask=3, control_suspendTask=4;
+    localparam[(C_S_AXI_DATA_WIDTH/2)-1:0] control_startScheduler=1, control_stopScheduler=2, control_resumeTask=3, control_taskEnded=4, control_taskSuspended=5;
     //    localparam[(C_S_AXI_DATA_WIDTH/2)-1:0] control_setTaskNum = C_S_AXI_DATA_WIDTH/2'd1, control_startScheduler=C_S_AXI_DATA_WIDTH/2'd2, control_startTask=C_S_AXI_DATA_WIDTH/2'd3, control_suspendTask=C_S_AXI_DATA_WIDTH/2'd4;
 
     //FSM status reg
     reg [3:0]	slv_status_reg;
+    reg [C_S_AXI_DATA_WIDTH-1:0] slv_number_of_tasks_reg;
     //FSM states encoding
     localparam[2:0] state_uninitialized=3'd1, state_ready=3'd2, state_running=3'd3, state_stopped=3'd4;
 
@@ -175,8 +183,8 @@
     localparam [OPT_MEM_ADDR_BITS:0] maxRQActAddr=maxRQDLAddr+maxTasks;
 
     reg[C_S_AXI_DATA_WIDTH:0] tasksList [(maxTasks*RTTask_tSizeInWords)-1:0];
-    reg[7:0] readyQNumDLASC [maxTasks-1:0];
-    reg[7:0] activationQNumATASC [maxTasks-1:0];
+    reg[16:0] readyQNumDLASC [maxTasks-1:0];
+    reg[16:0] activationQNumATASC [maxTasks-1:0];
     reg[C_S_AXI_DATA_WIDTH:0] readyQDeadlineDLASC [maxTasks-1:0];
     reg[C_S_AXI_DATA_WIDTH:0] activationQActivationATASC [maxTasks-1:0];
 
@@ -363,19 +371,34 @@
     // These registers are cleared when reset (active low) is applied.
     // Slave register write enable is asserted when valid address and data are available
     // and the slave is ready to accept the write address and write data.
-    localparam [OPT_MEM_ADDR_BITS:0] tasksOffset= 7;
+    localparam [OPT_MEM_ADDR_BITS:0] tasksOffset= 8;
     //    wire [OPT_MEM_ADDR_BITS:0] addrInWords;
     //    assign addrInWords=axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset;
-    reg memwritten;
+    reg taskSetWritten;
+    reg DLqIndexWritten;
+    reg ACTqIndexWritten;
+    reg DLqWritten;
+    reg ACTqWritten;
+
+    assign led1=taskSetWritten;
+    assign led2=DLqIndexWritten;
+    assign led3=ACTqIndexWritten;
+    assign led4=DLqWritten;
+    assign led5=ACTqWritten;
 
     always @( posedge S_AXI_ACLK )
     begin
         if ( S_AXI_ARESETN == 1'b0 )
             begin
                 slv_control_reg <= 0;
+                slv_number_of_tasks_reg<=0;
                 new_slv_control_reg <= 1'b0;
 
-                memwritten <= 1'b0;
+                taskSetWritten<=1'b0;
+                DLqIndexWritten<=1'b0;
+                ACTqIndexWritten<=1'b0;
+                DLqWritten<=1'b0;
+                ACTqWritten<=1'b0;
             end
         else begin
             if (slv_reg_wren)
@@ -392,24 +415,36 @@
 
                                         new_slv_control_reg <= 1'b1;
                                     end
-                                3'h6:
+                                    //                                3'h6:
+                                    //                                begin
+                                    //                                    slv_control_reg <= slv_control_reg;
+                                    //                                    //slv_status_reg <= slv_status_reg;
+
+                                    //                                    new_slv_control_reg <= 1'b0;
+                                    //                                    /*for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
+                                    //                            if ( S_AXI_WSTRB[byte_index] == 1 ) begin
+                                    //                                // Respective byte enables are asserted as per write strobes 
+                                    //                                // Slave register 6
+                                    //                                slv_status_reg[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
+                                    //                                new_slv_control_reg <= 0;
+
+                                    //                            end*/
+                                    //                                end
+                                3'h7:
+                                if (slv_status_reg == state_uninitialized)
                                 begin
-                                    slv_control_reg <= slv_control_reg;
-                                    slv_status_reg <= slv_status_reg;
+                                    for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
+                                        if ( S_AXI_WSTRB[byte_index] == 1 ) begin
+                                            // Respective byte enables are asserted as per write strobes 
+                                            // Slave register 5
+                                            slv_number_of_tasks_reg[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
 
-                                    new_slv_control_reg <= 1'b0;
-                                    /*for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-                            if ( S_AXI_WSTRB[byte_index] == 1 ) begin
-                                // Respective byte enables are asserted as per write strobes 
-                                // Slave register 6
-                                slv_status_reg[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
-                                new_slv_control_reg <= 0;
-
-                            end*/
+                                            new_slv_control_reg <= 1'b0;
+                                        end
                                 end
                                 default : begin
-                                    slv_control_reg <= slv_control_reg;
-                                    slv_status_reg <= slv_status_reg;
+                                    //slv_control_reg <= slv_control_reg;
+                                    //slv_status_reg <= slv_status_reg;
 
                                     new_slv_control_reg <= 1'b0;
                                 end
@@ -419,19 +454,46 @@
                         begin
                             new_slv_control_reg <= 1'b0;
 
-                            if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRTListAddr)
-                                tasksList[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)] <= S_AXI_WDATA;
-                            else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQNumAddr)
-                                readyQNumDLASC[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRTListAddr]<= S_AXI_WDATA[7:0];
-                            else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxAQNumAddr)
-                                activationQNumATASC[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQNumAddr]<= S_AXI_WDATA[7:0];
-                            else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQDLAddr)
-                                readyQDeadlineDLASC[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAQNumAddr]<= S_AXI_WDATA;
-                            else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQActAddr)
+                            if (slv_status_reg == state_uninitialized)
                             begin
-                                activationQActivationATASC[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQDLAddr]<= S_AXI_WDATA;
-                                if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)==maxRQActAddr-1)
-                                    memwritten<=1'b1;
+                                if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRTListAddr)
+                                    tasksList[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)] <= S_AXI_WDATA;
+                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQNumAddr)
+                                    readyQNumDLASC[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRTListAddr]<= S_AXI_WDATA[15:0];
+                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxAQNumAddr)
+                                    activationQNumATASC[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQNumAddr]<= S_AXI_WDATA[15:0];
+                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQDLAddr)
+                                    readyQDeadlineDLASC[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAQNumAddr]<= S_AXI_WDATA;
+                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQActAddr)
+                                    activationQActivationATASC[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQDLAddr]<= S_AXI_WDATA;
+
+                                    //                                if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)==(maxRTListAddr-1))
+                                    //                                    taskSetWritten<=1'b1;
+                                    //                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)==(maxRQNumAddr-1))
+                                    //                                    DLqIndexWritten<=1'b1;
+                                    //                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)==(maxAQNumAddr-1))
+                                    //                                    ACTqIndexWritten<=1'b1;
+                                    //                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)==(maxRQDLAddr-1))
+                                    //                                    DLqWritten<=1'b1;
+                                    //                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)==(maxRQActAddr-1))
+                                    //                                    ACTqWritten<=1'b1;
+
+                                case (axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)
+                                    (maxRTListAddr-1):
+                                    taskSetWritten<=1'b1;
+
+                                    (maxRQNumAddr-1):
+                                    DLqIndexWritten<=1'b1;
+
+                                    (maxAQNumAddr-1):
+                                    ACTqIndexWritten<=1'b1;
+
+                                    (maxRQDLAddr-1):
+                                    DLqWritten<=1'b1;
+
+                                    (maxRQActAddr-1):
+                                    ACTqWritten<=1'b1;
+                                endcase
                             end
                         end
                 end
@@ -557,6 +619,7 @@
                             3'h4   : reg_data_out <= reg_intr_pending;
                             3'h5   : reg_data_out <= slv_control_reg;
                             3'h6   : reg_data_out <= slv_status_reg;
+                            3'h7   : reg_data_out <= slv_number_of_tasks_reg;
                             default :
                             begin
                                 reg_data_out <= 0;
@@ -924,8 +987,6 @@
     // Add user logic here
 
 
-    reg [7:0] numOfTasks;
-
     //control signals encoding
 
     reg firstrun;
@@ -941,20 +1002,13 @@
             slv_status_reg<=state_uninitialized;
         end
         else begin //not reset
+
             if (new_slv_control_reg)
             begin
                 //new control signal supplied
 
                 //FSM logic which reacts to control signal changes changing states
                 case (slv_control_reg[31:16])
-                    control_setTaskNum:
-                    begin
-                        if (slv_status_reg==state_uninitialized && memwritten)
-                        begin
-                            numOfTasks<=slv_control_reg[15:0];
-                            slv_status_reg<=state_ready;
-                        end
-                    end
                     control_startScheduler:
                     begin
                         if (slv_status_reg==state_ready)
@@ -967,10 +1021,16 @@
 
 
             case(slv_status_reg)
+                state_uninitialized:
+                begin
+                    if ( taskSetWritten && DLqIndexWritten && ACTqIndexWritten && DLqWritten && ACTqWritten && slv_number_of_tasks_reg!=0 )
+                    begin
+                        slv_status_reg<=state_ready;
+                    end
+                 end
+
                 state_running:
                 begin
-                    //                        taskPtr<=32'd512;
-                    //                        taskReady<=1;
                     if (firstrun)
                         begin
                             taskPtr<=tasksList[1];
@@ -988,6 +1048,13 @@
         end
     end
 
+//    always @*
+//    begin
+//        if ( S_AXI_ARESETN == 1'b1 && slv_status_reg==state_uninitialized && taskSetWritten && DLqIndexWritten && ACTqIndexWritten && DLqWritten && ACTqWritten ) //&& slv_number_of_tasks_reg!= 0 )
+//        begin
+//            slv_status_reg<=state_ready;
+//        end
+//    end
 
     //FSM logic which reacts to state changes    
 

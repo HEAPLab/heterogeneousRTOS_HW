@@ -9,6 +9,17 @@
 #include "xil_io.h"
 #include "xil_mem.h"
 
+#define SCHEDULER_S_AXI_SLV_GLOBAL_INTR_ENABLE_OFFSET 0
+#define SCHEDULER_S_AXI_SLV_NEW_TASK_INTR_ENABLE_OFFSET 4
+#define SCHEDULER_S_AXI_SLV_NEW_TASK_INTR_STATUS_OFFSET 8
+#define SCHEDULER_S_AXI_SLV_NEW_TASK_INTR_ACK_OFFSET 12
+#define SCHEDULER_S_AXI_SLV_NEW_TASK_PEDNING_OFFSET 16
+#define SCHEDULER_S_AXI_SLV_CONTROL_OFFSET 20
+#define SCHEDULER_S_AXI_SLV_STATUS_OFFSET 24
+#define SCHEDULER_S_AXI_SLV_NUMOFTASKS_OFFSET 28
+#define SCHEDULER_S_AXI_SLV_TASKSET_OFFSET 32 /* TaskSet offset */
+/* Next queues offsets are calculated dynamically based on the following parameters: */
+
 #ifndef configMAX_RT_TASKS
 #define configMAX_RT_TASKS (128)
 #endif
@@ -18,16 +29,6 @@
 #define ACTIVATIONQINDEXELEMENTSIZEINBYTE 4
 #define DEADLINEQELEMENTSIZEINBYTE 4
 #define ACTIVATIONQELEMENTSIZEINBYTE 4
-
-#define SCHEDULER_S_AXI_SLV_REG0_OFFSET 0
-#define SCHEDULER_S_AXI_SLV_REG1_OFFSET 4
-#define SCHEDULER_S_AXI_SLV_REG2_OFFSET 8
-#define SCHEDULER_S_AXI_SLV_REG3_OFFSET 12
-#define SCHEDULER_S_AXI_SLV_REG4_OFFSET 16
-#define SCHEDULER_S_AXI_SLV_CONTROL_OFFSET 20 //control reg
-#define SCHEDULER_S_AXI_SLV_STATUS_OFFSET 24 //status reg
-#define SCHEDULER_S_AXI_SLV_TASKSET_OFFSET 28 //first tasksblock reg
-
 
 
 /**************************** Type Definitions *****************************/
@@ -92,10 +93,24 @@
  *
  */
 XStatus SCHEDULER_Reg_SelfTest(void * baseaddr_p);
+
+/* interrupt */
 void SCHEDULER_EnableInterrupt(void * baseaddr_p);
 void SCHEDULER_ACKInterrupt(void * baseaddr_p);
+
+/* status */
 u32 SCHEDULER_getStatus(void * baseaddr_p);
+
+//control signals
 void SCHEDULER_sendControl(void * baseaddr_p, u16 control_instr, u16 instr_payload);
+void SCHEDULER_start(void * baseaddr_p);
+void SCHEDULER_stop(void * baseaddr_p);
+void SCHEDULER_resumeTask(void * baseaddr_p,  u16 uxTaskNumber);
+void SCHEDULER_signalTaskEnded(void * baseaddr_p, u16 uxTaskNumber);
+void SCHEDULER_signalTaskSuspended(void * baseaddr_p, u16 uxTaskNumber);
+
+//data structures
+void SCHEDULER_setNumberOfTasks(void * baseaddr_p,  u32 numberOfTasks);
 void SCHEDULER_copyTaskSet(void * baseaddr_p, const void * source);
 void SCHEDULER_copyOrderedDeadlineQIndex(void * baseaddr_p, const void * source);
 void SCHEDULER_copyOrderedActivationQIndex(void * baseaddr_p, const void * source);

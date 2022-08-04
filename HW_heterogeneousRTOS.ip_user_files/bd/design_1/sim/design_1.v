@@ -1,7 +1,7 @@
 //Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
-//Date        : Mon Aug  1 21:03:50 2022
+//Date        : Thu Aug  4 06:33:23 2022
 //Host        : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
 //Command     : generate_target design_1.bd
 //Design      : design_1
@@ -9,7 +9,7 @@
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CORE_GENERATION_INFO = "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=14,numReposBlks=8,numNonXlnxBlks=1,numHierBlks=6,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=11,da_clkrst_cnt=7,da_ps7_cnt=1,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "design_1.hwdef" *) 
+(* CORE_GENERATION_INFO = "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=13,numReposBlks=7,numNonXlnxBlks=1,numHierBlks=6,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=11,da_clkrst_cnt=7,da_ps7_cnt=1,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "design_1.hwdef" *) 
 module design_1
    (DDR_addr,
     DDR_ba,
@@ -253,16 +253,25 @@ module design_1
   wire [3:0]scheduler_0_M_AXI_WSTRB;
   wire scheduler_0_M_AXI_WVALID;
   wire scheduler_0_irq;
+  wire scheduler_0_led2;
+  wire scheduler_0_led3;
+  wire scheduler_0_led4;
+  wire scheduler_0_led5;
   wire scheduler_0_m_axi_error;
+  wire scheduler_0_memwritten;
   wire scheduler_0_readyLed;
   wire scheduler_0_runningLed;
   wire scheduler_0_uninitializedLed;
-  wire [0:0]xlconcat_0_dout;
 
   assign fa2_ta2_eb1_LED01 = scheduler_0_uninitializedLed;
   assign fa2_ta2_eb1_LED02 = scheduler_0_readyLed;
   assign fa2_ta2_eb1_LED03 = scheduler_0_runningLed;
   assign fa2_ta2_eb1_LED04 = scheduler_0_m_axi_error;
+  assign fa2_ta2_eb1_LED05 = scheduler_0_memwritten;
+  assign fa2_ta2_eb1_LED06 = scheduler_0_led2;
+  assign fa2_ta2_eb1_LED07 = scheduler_0_led3;
+  assign fa2_ta2_eb1_LED08 = scheduler_0_led4;
+  assign fa2_ta2_eb1_LED09 = scheduler_0_led5;
   design_1_axi_mem_intercon_0 axi_mem_intercon
        (.ACLK(Net),
         .ARESETN(proc_sys_reset_0_peripheral_aresetn),
@@ -367,7 +376,8 @@ module design_1
   (* BMM_INFO_PROCESSOR = "arm > design_1 axi_bram_ctrl_0" *) 
   (* KEEP_HIERARCHY = "yes" *) 
   design_1_processing_system7_0_0 processing_system7_0
-       (.DDR_Addr(DDR_addr[14:0]),
+       (.Core0_nFIQ(scheduler_0_irq),
+        .DDR_Addr(DDR_addr[14:0]),
         .DDR_BankAddr(DDR_ba[2:0]),
         .DDR_CAS_n(DDR_cas_n),
         .DDR_CKE(DDR_cke),
@@ -386,7 +396,6 @@ module design_1
         .DDR_WEB(DDR_we_n),
         .FCLK_CLK0(Net),
         .FCLK_RESET0_N(processing_system7_0_FCLK_RESET0_N),
-        .IRQ_F2P(xlconcat_0_dout),
         .MIO(FIXED_IO_mio[53:0]),
         .M_AXI_GP0_ACLK(Net),
         .M_AXI_GP0_ARADDR(processing_system7_0_M_AXI_GP0_ARADDR),
@@ -575,6 +584,11 @@ module design_1
         .S00_AXI_wvalid(processing_system7_0_M_AXI_GP0_WVALID));
   design_1_scheduler_0_1 scheduler_0
        (.irq(scheduler_0_irq),
+        .led1(scheduler_0_memwritten),
+        .led2(scheduler_0_led2),
+        .led3(scheduler_0_led3),
+        .led4(scheduler_0_led4),
+        .led5(scheduler_0_led5),
         .m_axi_aclk(Net),
         .m_axi_araddr(scheduler_0_M_AXI_ARADDR),
         .m_axi_aresetn(proc_sys_reset_0_peripheral_aresetn),
@@ -621,9 +635,6 @@ module design_1
         .s_axi_wstrb(ps7_0_axi_periph_M00_AXI_WSTRB),
         .s_axi_wvalid(ps7_0_axi_periph_M00_AXI_WVALID),
         .uninitializedLed(scheduler_0_uninitializedLed));
-  design_1_xlconcat_0_0 xlconcat_0
-       (.In0(scheduler_0_irq),
-        .dout(xlconcat_0_dout));
 endmodule
 
 module design_1_axi_mem_intercon_0

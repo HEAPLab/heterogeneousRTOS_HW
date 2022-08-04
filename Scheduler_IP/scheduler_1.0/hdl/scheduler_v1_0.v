@@ -27,6 +27,13 @@
     output wire readyLed,
     output wire runningLed,
 
+    output wire led1,
+    output wire led2,
+    output wire led3,
+    output wire led4,
+    output wire led5,
+
+
     //    output wire invalidControlLed,
     //    output wire invalidAddressLed,
 
@@ -117,6 +124,12 @@
         .uninitializedLed(uninitializedLed),
         .readyLed(readyLed),
         .runningLed(runningLed),
+
+        .led1(led1),
+        .led2(led2),
+        .led3(led3),
+        .led4(led4),
+        .led5(led5),
 
         .S_AXI_ACLK(s_axi_aclk),
         .S_AXI_ARESETN(s_axi_aresetn),

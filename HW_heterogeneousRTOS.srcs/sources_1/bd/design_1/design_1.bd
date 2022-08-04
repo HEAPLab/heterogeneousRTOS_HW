@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xCE46B3BA2008DE44",
+      "boundary_crc": "0xCE46B3BA9F460BE0",
       "device": "xc7z100ffg900-1",
       "gen_directory": "../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1",
       "name": "design_1",
@@ -141,17 +141,7 @@
         "direction": "O"
       },
       "fa2_ta2_eb1_LED14": {
-        "direction": "O",
-        "parameters": {
-          "PortWidth": {
-            "value": "1",
-            "value_src": "default_prop"
-          },
-          "SENSITIVITY": {
-            "value": "LEVEL_HIGH",
-            "value_src": "const_prop"
-          }
-        }
+        "direction": "O"
       },
       "fa2_ta2_eb1_LED16": {
         "direction": "O"
@@ -2774,6 +2764,30 @@
           "processing_system7_0/Core0_nFIQ"
         ]
       },
+      "scheduler_0_led2": {
+        "ports": [
+          "scheduler_0/led2",
+          "fa2_ta2_eb1_LED06"
+        ]
+      },
+      "scheduler_0_led3": {
+        "ports": [
+          "scheduler_0/led3",
+          "fa2_ta2_eb1_LED07"
+        ]
+      },
+      "scheduler_0_led4": {
+        "ports": [
+          "scheduler_0/led4",
+          "fa2_ta2_eb1_LED08"
+        ]
+      },
+      "scheduler_0_led5": {
+        "ports": [
+          "scheduler_0/led5",
+          "fa2_ta2_eb1_LED09"
+        ]
+      },
       "scheduler_0_m_axi_error": {
         "ports": [
           "scheduler_0/m_axi_error",
@@ -2782,6 +2796,7 @@
       },
       "scheduler_0_memwritten": {
         "ports": [
+          "scheduler_0/led1",
           "fa2_ta2_eb1_LED05"
         ]
       },
