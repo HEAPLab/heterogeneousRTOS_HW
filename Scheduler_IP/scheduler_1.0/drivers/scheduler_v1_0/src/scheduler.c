@@ -19,6 +19,19 @@ void SCHEDULER_EnableInterrupt(void * baseaddr_p)
    */
   SCHEDULER_mWriteReg(baseaddr, SCHEDULER_S_AXI_SLV_GLOBAL_INTR_ENABLE_OFFSET, 0x1);
 }
+void SCHEDULER_DisableInterrupt(void* baseaddr_p)
+{
+	u32 baseaddr;
+	baseaddr = (u32)baseaddr_p;
+	/*
+	 * Enable all interrupt source from user logic.
+	 */
+	SCHEDULER_mWriteReg(baseaddr, SCHEDULER_S_AXI_SLV_NEW_TASK_INTR_ENABLE_OFFSET, 0x0);
+	/*
+	 * Set global interrupt enable.
+	 */
+	SCHEDULER_mWriteReg(baseaddr, SCHEDULER_S_AXI_SLV_GLOBAL_INTR_ENABLE_OFFSET, 0x0);
+}
 void SCHEDULER_ACKInterrupt(void * baseaddr_p)
 {
   SCHEDULER_mWriteReg((u32) baseaddr_p, 0xc, 0x1);
