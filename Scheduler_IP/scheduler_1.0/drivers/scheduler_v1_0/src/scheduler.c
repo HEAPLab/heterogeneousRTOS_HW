@@ -73,6 +73,11 @@ void SCHEDULER_signalTaskSuspended(void * baseaddr_p, u16 uxTaskNumber)
   u32 controlword= ( (0x00050000) | ((u32)uxTaskNumber) & (0x0000FFFF));
   SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, controlword);
 }
+void SCHEDULER_signalJobEnded(void * baseaddr_p, u16 uxTaskNumber)
+{
+  u32 controlword= ( (0x00060000) | ((u32)uxTaskNumber) & (0x0000FFFF));
+  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, controlword);
+}
 
 /* data structures */
 void SCHEDULER_setNumberOfTasks(void * baseaddr_p,  u32 numberOfTasks)
