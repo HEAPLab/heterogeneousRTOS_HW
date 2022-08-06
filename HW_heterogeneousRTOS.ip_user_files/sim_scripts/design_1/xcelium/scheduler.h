@@ -96,6 +96,7 @@ XStatus SCHEDULER_Reg_SelfTest(void * baseaddr_p);
 
 /* interrupt */
 void SCHEDULER_EnableInterrupt(void * baseaddr_p);
+void SCHEDULER_DisableInterrupt(void* baseaddr_p);
 void SCHEDULER_ACKInterrupt(void * baseaddr_p);
 
 /* status */
@@ -108,6 +109,7 @@ void SCHEDULER_stop(void * baseaddr_p);
 void SCHEDULER_resumeTask(void * baseaddr_p,  u16 uxTaskNumber);
 void SCHEDULER_signalTaskEnded(void * baseaddr_p, u16 uxTaskNumber);
 void SCHEDULER_signalTaskSuspended(void * baseaddr_p, u16 uxTaskNumber);
+void SCHEDULER_signalJobEnded(void * baseaddr_p, u16 uxTaskNumber);
 
 //data structures
 void SCHEDULER_setNumberOfTasks(void * baseaddr_p,  u32 numberOfTasks);

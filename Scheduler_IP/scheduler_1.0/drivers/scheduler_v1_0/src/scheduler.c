@@ -60,23 +60,19 @@ void SCHEDULER_stop(void * baseaddr_p) {
 }
 void SCHEDULER_resumeTask(void * baseaddr_p,  u16 uxTaskNumber)
 {
-  u32 controlword= ( (0x00030000) | ((u32)uxTaskNumber) & (0x0000FFFF));
-  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, controlword);
+  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, (u32) ((0x00030000) | (((u32)uxTaskNumber) & (0x0000FFFF))));
 }
 void SCHEDULER_signalTaskEnded(void * baseaddr_p, u16 uxTaskNumber)
 {
-  u32 controlword= ( (0x00040000) | ((u32)uxTaskNumber) & (0x0000FFFF));
-  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, controlword);
+  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, (u32) ((0x00040000) | (((u32)uxTaskNumber) & (0x0000FFFF))));
 }
 void SCHEDULER_signalTaskSuspended(void * baseaddr_p, u16 uxTaskNumber)
 {
-  u32 controlword= ( (0x00050000) | ((u32)uxTaskNumber) & (0x0000FFFF));
-  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, controlword);
+  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, (u32) ((0x00050000) | (((u32)uxTaskNumber) & (0x0000FFFF))));
 }
 void SCHEDULER_signalJobEnded(void * baseaddr_p, u16 uxTaskNumber)
 {
-  u32 controlword= ( (0x00060000) | ((u32)uxTaskNumber) & (0x0000FFFF));
-  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, controlword);
+  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, (u32) ((0x00060000) | (((u32)uxTaskNumber) & (0x0000FFFF))));
 }
 
 /* data structures */
