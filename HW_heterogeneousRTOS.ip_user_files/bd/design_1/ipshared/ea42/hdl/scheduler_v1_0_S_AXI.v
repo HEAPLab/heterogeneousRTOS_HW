@@ -1,10 +1,13 @@
 
 `timescale 1 ns / 1 ps
 
-	module scheduler_v1_0_S_AXI #
+    localparam[1:0] schedulerClkSameAxiClk=2'd0, schedulerClkHigherAxiClk=3'd1, schedulerClkLowerAxiClk=3'd2;
+
+module scheduler_v1_0_S_AXI #
 	(
     // Users to add parameters here
     parameter maxTasks = 128,
+    parameter [1:0] schedulerClkVsAxiClk=schedulerClkSameAxiClk,
 
     // User parameters ends
     // Do not modify the parameters beyond this line
@@ -30,7 +33,7 @@
     input wire taskWriteDone,
     input wire taskWriteStarted,
     output reg taskReady,
-    output wire [31:0] taskPtr,
+    output reg [31:0] taskPtr,
 
     output reg uninitializedLed,
     output reg readyLed,
@@ -172,6 +175,7 @@
     //FSM states encoding
     localparam[2:0] state_uninitialized=3'd1, state_ready=3'd2, state_running=3'd3, state_stopped=3'd4;
 
+
     localparam RTTask_tSizeInWords=5;
 
     localparam [OPT_MEM_ADDR_BITS:0] maxRTListAddr=(maxTasks*RTTask_tSizeInWords);
@@ -187,6 +191,9 @@
     reg[15:0] activationQIndexAXI [maxTasks-1:0]; //activation queue index ordered by next activation ascending
     reg[C_S_AXI_DATA_WIDTH-1:0] readyQDeadlineAXI [maxTasks-1:0]; //ready queue ordered by deadline ascending
     reg[C_S_AXI_DATA_WIDTH-1:0] activationQActivationAXI [maxTasks-1:0]; //activation queue index ordered by next activation ascending
+    reg controlPending;
+    reg schedulerBitFlip;
+    reg oldSchedulerBitFlip;
 
     integer	 byte_index;
     //________________________
@@ -268,7 +275,7 @@
             end
         else
             begin
-                if (~axi_wready && S_AXI_WVALID && S_AXI_AWVALID && aw_en)
+                if (~axi_wready && S_AXI_WVALID && S_AXI_AWVALID && aw_en && !controlPending)
                     begin
                         // slave is ready to accept write data when 
                         // there is a valid write address and write data
@@ -392,7 +399,9 @@
             begin
                 slv_control_reg <= 0;
                 slv_number_of_tasks_reg<=0;
-                new_slv_control_reg <= 1'b0;
+                //new_slv_control_reg <= 1'b0;
+                controlPending <= 1'b0;
+                oldSchedulerBitFlip<=1'b0;
 
                 taskSetWritten<=1'b0;
                 DLqIndexWritten<=1'b0;
@@ -413,7 +422,9 @@
                                         // Slave register 5
                                         slv_control_reg[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
 
-                                        new_slv_control_reg <= 1'b1;
+                                        //new_slv_control_reg <= 1'b1;
+                                        if (schedulerClkVsAxiClk==schedulerClkLowerAxiClk)
+                                            controlPending <= 1'b1;
                                     end
                                     //                                3'h6:
                                     //                                begin
@@ -439,20 +450,20 @@
                                             // Slave register 5
                                             slv_number_of_tasks_reg[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
 
-                                            new_slv_control_reg <= 1'b0;
+                                            //new_slv_control_reg <= 1'b0;
                                         end
                                 end
-                                default : begin
-                                    //slv_control_reg <= slv_control_reg;
-                                    //slv_status_reg <= slv_status_reg;
+                                //default : begin
+                                //slv_control_reg <= slv_control_reg;
+                                //slv_status_reg <= slv_status_reg;
 
-                                    new_slv_control_reg <= 1'b0;
-                                end
+                                //new_slv_control_reg <= 1'b0;
+                                //end
                             endcase
                         end
                     else
                         begin
-                            new_slv_control_reg <= 1'b0;
+                            //new_slv_control_reg <= 1'b0;
 
                             if (slv_status_reg == state_uninitialized)
                             begin
@@ -497,8 +508,14 @@
                             end
                         end
                 end
-            else
-                new_slv_control_reg <= 1'b0;
+            else begin
+                //new_slv_control_reg <= 1'b0;
+                if (controlPending && schedulerBitFlip != oldSchedulerBitFlip) //&& schedulerClkVsAxiClk==schedulerClkLowerAxiClk
+                begin
+                    controlPending <= 1'b0;
+                end
+            end
+            oldSchedulerBitFlip<=schedulerBitFlip;
         end
     end
 
@@ -1009,6 +1026,8 @@
     reg copyIterator;
     reg startPending;
 
+    reg oldSlv_control_reg;
+
 
     always @(posedge S_AXI_ACLK)
     begin
@@ -1020,14 +1039,19 @@
             copyIterator<=0;
             startPending<=0;
 
+            schedulerBitFlip<=0;
+
+            oldSlv_control_reg<=0;
+
             //taskPtr<=32'd0;
             //taskReady<=0;
 
             slv_status_reg<=state_uninitialized;
         end
         else begin //not reset
+            schedulerBitFlip<=!schedulerBitFlip;
 
-            if (new_slv_control_reg)
+            if (slv_control_reg != oldSlv_control_reg)
             begin
                 //new control signal supplied
 
@@ -1133,7 +1157,7 @@
                             newAbsDeadline=newAbsActivation+tasksList[(activationIndex*RTTask_tSizeInWords)+4];
                             // se è giunto il momento di una nuova attivazione, il task è già stato rimosso dalla ready list, altrimenti deadline miss, da gestire
 
-                            if(new_slv_control_reg && slv_control_reg[31:16]==control_jobEnded)
+                            if(slv_control_reg != oldSlv_control_reg && slv_control_reg[31:16]==control_jobEnded)
                                 begin
                                     //integer ib;
                                     for (ib=0; ib<maxTasks-1; ib=ib+1)
@@ -1188,7 +1212,7 @@
                                     end
                                 end
                         end
-                    else if (new_slv_control_reg && slv_control_reg[31:16]==control_jobEnded)
+                    else if (slv_control_reg != oldSlv_control_reg && slv_control_reg[31:16]==control_jobEnded)
                     begin
                         number_of_ready_tasks_reg=number_of_ready_tasks_reg-1;
                         //                       integer id;
@@ -1200,41 +1224,126 @@
                     end
                 end
             endcase
+            oldSlv_control_reg<=slv_control_reg;
         end
     end
 
 
+    reg oldAck;
+    reg oldReadyIndex;
+    reg oldTaskWriteDone1;
 
-    reg oldTaskWriteStarted;
-    reg newTaskPending;
-    assign taskPtr=tasksList[(readyQIndex[0]*RTTask_tSizeInWords)+1];
-    always @(readyQIndex[0], taskWriteStarted, slv_status_reg, S_AXI_ARESETN)
+    wire newAck;
+    wire newReadyIndex;
+    wire newTaskWriteDone;
+    assign newAck=oldAck!=reg_intr_ack[0];
+    assign newReadyIndex=readyQIndex[0]!=oldReadyIndex;
+    assign newTaskWriteDone=taskWriteDone!=oldTaskWriteDone1;
+
+    reg waitingAck;
+    reg [15:0] nextRunningTaskIndex;
+    reg[15:0] runningTaskIndex;
+    reg[31:0] runningTaskTime;
+    reg taskPending;
+
+    always @(S_AXI_ACLK)
     begin
         if (S_AXI_ARESETN == 1'b1)
             begin
-                taskReady<=0;
-                oldTaskWriteStarted<=0;
-                newTaskPending<=0;
+                oldAck<=0;
+                oldReadyIndex<=0;
+                oldTaskWriteDone1<=0;
+
+                waitingAck<=0;
+                taskPending<=1;
+                runningTaskIndex<=16'hFFFF;
             end
         else
             begin
                 if(slv_status_reg==state_running)
                 begin
-                    oldTaskWriteStarted<=taskWriteStarted;
-                    if (taskWriteStarted)
+                    if (waitingAck)
                         begin
-                            taskReady<=0;
-                            if (oldTaskWriteStarted)
-                                newTaskPending<=1;
+                            if (newAck && reg_intr_ack[0]) //&& waitingAck)
+                                begin
+                                    waitingAck<=0;
+                                    runningTaskIndex<=nextRunningTaskIndex;
+                                end
+                            else if (taskWriteDone && newTaskWriteDone)
+                            begin
+                                runningTaskIndex<=16'hFFFF;
+                                taskReady<=0;
+                            end
+
+                            if (newReadyIndex)
+                                taskPending<=1;
                         end
-                    else if (!oldTaskWriteStarted || newTaskPending)
+                    else if (newReadyIndex || taskPending)
                     begin
+                        nextRunningTaskIndex<=readyQIndex[0];
+                        taskPtr<=tasksList[(readyQIndex[0]*RTTask_tSizeInWords)+1];
                         taskReady<=1;
-                        newTaskPending<=0;
+                        waitingAck<=1;
                     end
+
+                    oldReadyIndex<=readyQIndex[0];
                 end
+                oldAck<=reg_intr_ack[0];
+                oldTaskWriteDone1<=taskWriteDone;
             end
     end
+
+    reg [15:0] oldRunningIndexForExecutionCounter;
+    always @(S_AXI_ACLK) //scheduler clock
+    begin
+        if (!S_AXI_ARESETN)
+            begin
+                oldRunningIndexForExecutionCounter<=16'hFFFF;
+            end
+        else if (runningTaskIndex != 16'hFFFF) begin
+            if (oldRunningIndexForExecutionCounter != runningTaskIndex)
+                begin
+                    runningTaskTime<=0;
+                end
+            else
+                begin
+                    runningTaskTime<=runningTaskTime+1;
+                end
+        end
+    end
+
+
+    //    reg oldTaskWriteStarted;
+    //    reg newTaskPending;
+    //    //assign taskPtr=tasksList[(readyQIndex[0]*RTTask_tSizeInWords)+1];
+    //    always @(readyQIndex[0], taskWriteStarted, slv_status_reg, S_AXI_ARESETN)
+    //    begin
+    //        if (S_AXI_ARESETN == 1'b1)
+    //            begin
+    //                taskReady<=0;
+    //                oldTaskWriteStarted<=0;
+    //                newTaskPending<=0;
+    //            end
+    //        else
+    //            begin
+    //                if(slv_status_reg==state_running)
+    //                begin
+    //                    oldTaskWriteStarted<=taskWriteStarted;
+    //                    if (taskWriteStarted)
+    //                        begin
+    //                            taskReady<=0;
+    //                            if (oldTaskWriteStarted)
+    //                                newTaskPending<=1;
+    //                        end
+    //                    else if (!oldTaskWriteStarted || newTaskPending)
+    //                    begin
+    //                        taskReady<=1;
+    //                        taskPtr<=tasksList[(readyQIndex[0]*RTTask_tSizeInWords)+1];
+    //                        newTaskPending<=0;
+    //                    end
+    //                end
+    //            end
+    //    end
 
     //    always @(taskWriteStarted)
     //    begin
