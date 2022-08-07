@@ -658,6 +658,9 @@
           "PCW_IRQ_F2P_INTR": {
             "value": "0"
           },
+          "PCW_IRQ_F2P_MODE": {
+            "value": "DIRECT"
+          },
           "PCW_MIO_0_IOTYPE": {
             "value": "LVCMOS 1.8V"
           },
