@@ -183,10 +183,10 @@
     localparam [OPT_MEM_ADDR_BITS:0] maxRQActAddr=maxRQDLAddr+maxTasks;
 
     reg[C_S_AXI_DATA_WIDTH-1:0] tasksList [(maxTasks*RTTask_tSizeInWords)-1:0];
-    reg[16:0] readyQIndex [maxTasks-1:0]; //ready queue index ordered by deadline ascending
-    reg[16:0] activationQIndex [maxTasks-1:0]; //activation queue index ordered by next activation ascending
-    reg[C_S_AXI_DATA_WIDTH-1:0] readyQDeadline [maxTasks-1:0]; //ready queue ordered by deadline ascending
-    reg[C_S_AXI_DATA_WIDTH-1:0] activationQActivation [maxTasks-1:0]; //activation queue index ordered by next activation ascending
+    reg[15:0] readyQIndexAXI [maxTasks-1:0]; //ready queue index ordered by deadline ascending
+    reg[15:0] activationQIndexAXI [maxTasks-1:0]; //activation queue index ordered by next activation ascending
+    reg[C_S_AXI_DATA_WIDTH-1:0] readyQDeadlineAXI [maxTasks-1:0]; //ready queue ordered by deadline ascending
+    reg[C_S_AXI_DATA_WIDTH-1:0] activationQActivationAXI [maxTasks-1:0]; //activation queue index ordered by next activation ascending
 
     integer	 byte_index;
     //________________________
@@ -459,13 +459,13 @@
                                 if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRTListAddr)
                                     tasksList[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)] <= S_AXI_WDATA;
                                 else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQNumAddr)
-                                    readyQIndex[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRTListAddr]<= S_AXI_WDATA[15:0];
+                                    readyQIndexAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRTListAddr]<= S_AXI_WDATA[15:0];
                                 else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxAQNumAddr)
-                                    activationQIndex[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQNumAddr]<= S_AXI_WDATA[15:0];
+                                    activationQIndexAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQNumAddr]<= S_AXI_WDATA[15:0];
                                 else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQDLAddr)
-                                    readyQDeadline[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAQNumAddr]<= S_AXI_WDATA;
+                                    readyQDeadlineAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAQNumAddr]<= S_AXI_WDATA;
                                 else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQActAddr)
-                                    activationQActivation[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQDLAddr]<= S_AXI_WDATA;
+                                    activationQActivationAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQDLAddr]<= S_AXI_WDATA;
 
                                     //                                if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)==(maxRTListAddr-1))
                                     //                                    taskSetWritten<=1'b1;
@@ -1002,6 +1002,12 @@
     integer ic;
     integer id;
 
+    reg[15:0] readyQIndex [maxTasks-1:0]; //ready queue index ordered by deadline ascending
+    reg[15:0] activationQIndex [maxTasks-1:0]; //activation queue index ordered by next activation ascending
+    reg[C_S_AXI_DATA_WIDTH-1:0] readyQDeadline [maxTasks-1:0]; //ready queue ordered by deadline ascending
+    reg[C_S_AXI_DATA_WIDTH-1:0] activationQActivation [maxTasks-1:0]; //activation queue index ordered by next activation ascending
+    reg copyIterator;
+    reg startPending;
 
 
     always @(posedge S_AXI_ACLK)
@@ -1011,8 +1017,11 @@
 
             number_of_ready_tasks_reg<=0;
 
+            copyIterator<=0;
+            startPending<=0;
+
             //taskPtr<=32'd0;
-            taskReady<=0;
+            //taskReady<=0;
 
             slv_status_reg<=state_uninitialized;
         end
@@ -1028,12 +1037,12 @@
                     begin
                         if (slv_status_reg==state_ready)
                         begin
-                            slv_status_reg<=state_running;
+                            //slv_status_reg<=state_running;
+                            startPending<=1;
                         end
                     end
                 endcase
             end
-
 
             case(slv_status_reg)
                 state_uninitialized:
@@ -1044,13 +1053,31 @@
                         slv_status_reg<=state_ready;
                     end
                 end
+                state_ready:
+                begin
+                    if ( copyIterator < maxTasks )
+                        begin
+
+                            readyQIndex[copyIterator]<=readyQIndexAXI[copyIterator];
+                            activationQIndex[copyIterator]<=activationQIndexAXI[copyIterator];
+                            readyQDeadline[copyIterator]<=readyQDeadlineAXI[copyIterator];
+                            activationQActivation[copyIterator]<=activationQActivationAXI[copyIterator];
+
+                            copyIterator<=copyIterator+1;
+                        end
+                    else if (startPending)
+                    begin
+                        slv_status_reg<=state_running;
+                        startPending<=0;
+                    end
+                end
                 state_running:
                 begin
                     if (firstrun)
                         begin
                             schedulerTick=0;
                             firstrun<=0;
-                            taskReady<=1;
+                            //taskReady<=1;
                         end
                     else
                         begin
@@ -1176,7 +1203,80 @@
         end
     end
 
-    //    always @*
+
+
+    reg oldTaskWriteStarted;
+    reg newTaskPending;
+    assign taskPtr=tasksList[(readyQIndex[0]*RTTask_tSizeInWords)+1];
+    always @(readyQIndex[0], taskWriteStarted, slv_status_reg, S_AXI_ARESETN)
+    begin
+        if (S_AXI_ARESETN == 1'b1)
+            begin
+                taskReady<=0;
+                oldTaskWriteStarted<=0;
+                newTaskPending<=0;
+            end
+        else
+            begin
+                if(slv_status_reg==state_running)
+                begin
+                    oldTaskWriteStarted<=taskWriteStarted;
+                    if (taskWriteStarted)
+                        begin
+                            taskReady<=0;
+                            if (oldTaskWriteStarted)
+                                newTaskPending<=1;
+                        end
+                    else if (!oldTaskWriteStarted || newTaskPending)
+                    begin
+                        taskReady<=1;
+                        newTaskPending<=0;
+                    end
+                end
+            end
+    end
+
+    //    always @(taskWriteStarted)
+    //    begin
+    //        if(slv_status_reg==state_running && taskWriteStarted && taskReady)
+    //        begin
+    //            taskReady<=0;
+    //            //taskPtr<=0; useless
+    //        end
+    //    end
+
+    always @(slv_status_reg)
+    begin
+        case (slv_status_reg)
+            state_uninitialized:
+            begin
+                uninitializedLed<=1;
+                readyLed<=0;
+                runningLed<=0;
+            end
+            state_ready:
+            begin
+                uninitializedLed<=0;
+                readyLed<=1;
+                runningLed<=0;
+            end
+            state_running:
+            begin
+                uninitializedLed<=0;
+                readyLed<=0;
+                runningLed<=1;
+            end
+        endcase
+
+
+    end
+
+    // User logic ends
+
+endmodule
+
+
+ //    always @*
     //    begin
     //        if ( S_AXI_ARESETN == 1'b1 && slv_status_reg==state_uninitialized && taskSetWritten && DLqIndexWritten && ACTqIndexWritten && DLqWritten && ACTqWritten ) //&& slv_number_of_tasks_reg!= 0 )
     //        begin
@@ -1296,83 +1396,3 @@
 
     //        end
     //    end
-
-
-    reg oldTaskWriteStarted;
-    reg newTaskPending;
-    assign taskPtr=tasksList[(readyQIndex[0]*RTTask_tSizeInWords)+1];
-    always @(readyQIndex[0], taskWriteStarted, slv_status_reg)
-    begin
-        if (S_AXI_ARESETN == 1'b1)
-            begin
-                taskReady<=0;
-                oldTaskWriteStarted<=0;
-                newTaskPending<=0;
-            end
-        else
-            begin
-                if(slv_status_reg==state_running)
-                begin
-                    oldTaskWriteStarted<=taskWriteStarted;
-                    if (taskWriteStarted)
-                        begin
-                            taskReady<=0;
-                            if (oldTaskWriteStarted)
-                                newTaskPending<=1;
-                        end
-                    else if (!oldTaskWriteStarted || newTaskPending)
-                    begin
-                        taskReady<=1;
-                        newTaskPending<=0;
-                    end
-                end
-            end
-    end
-
-    //    always @(taskWriteStarted)
-    //    begin
-    //        if(slv_status_reg==state_running && taskWriteStarted && taskReady)
-    //        begin
-    //            taskReady<=0;
-    //            //taskPtr<=0; useless
-    //        end
-    //    end
-
-    always @(slv_status_reg)
-    begin
-        case (slv_status_reg)
-            state_uninitialized:
-            begin
-                uninitializedLed<=1;
-                readyLed<=0;
-                runningLed<=0;
-            end
-            state_ready:
-            begin
-                uninitializedLed<=0;
-                readyLed<=1;
-                runningLed<=0;
-            end
-            state_running:
-            begin
-                uninitializedLed<=0;
-                readyLed<=0;
-                runningLed<=1;
-            end
-        endcase
-
-
-    end
-
-    // User logic ends
-
-    //                                    if (i>=1)
-    //                                    begin
-    //                                        activationQIndex[0:i-1] <= activationQIndex[1:i];
-    //                                        activationQActivation[0:i-1] <= activationQActivation[1:i];
-    //                                    end
-
-    //                                    activationQIndex[i]=activationIndex;
-    //                                    activationQActivation[i]=newAbsActivation;
-
-endmodule
