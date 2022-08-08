@@ -51,6 +51,8 @@
     <Object name="design_1_i/axi_lite_master_0_WCOMPLETE" gui_info="hw_vios/hw_vio_1=1"/>
     <Object name="design_1_i/axi_lite_master_0_statusReg" gui_info="hw_vios/hw_vio_1=4"/>
     <Object name="design_1_i/axi_lite_master_0_statusReg[3:0]" gui_info="hw_vios/hw_vio_1=6"/>
+    <Object name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[31:0]" gui_info=""/>
+    <Object name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newReadyIndex" gui_info=""/>
     <Object name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/new_slv_control_reg__5" gui_info="Trigger Setup=0"/>
     <Object name="design_1_i/scheduler_0/s_axi_wvalid" gui_info="Trigger Setup=0"/>
     <Object name="design_1_i/vio_0/probe_out0[0:0]" gui_info="hw_vios/hw_vio_1=2"/>
@@ -1960,6 +1962,58 @@
         <net name="design_1_i/scheduler_0/addra_1[0]"/>
       </nets>
     </probe>
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq32&apos;hXXXX_XXXX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq32&apos;hXXXX_XXXX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe4[31:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq32&apos;hXXXX_XXXX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[31]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[30]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[29]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[28]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[27]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[26]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[25]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[24]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[23]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[22]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[21]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[20]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[19]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[18]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[17]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[16]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[15]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[14]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[13]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[12]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[11]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[10]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[9]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[8]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[7]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[6]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[5]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[4]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[3]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[2]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[1]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[0]"/>
+      </nets>
+    </probe>
     <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
@@ -1991,6 +2045,194 @@
         <Option Id="DISPLAY_VISIBILITY" value=""/>
         <Option Id="HW_ILA" value="hw_ila_1"/>
         <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe6[0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/highestPriorityTask"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq32&apos;hXXXX_XXXX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq32&apos;hXXXX_XXXX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe3[31:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq32&apos;hXXXX_XXXX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[31]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[30]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[29]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[28]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[27]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[26]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[25]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[24]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[23]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[22]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[21]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[20]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[19]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[18]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[17]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[16]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[15]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[14]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[13]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[12]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[11]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[10]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[9]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[8]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[7]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[6]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[5]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[4]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[3]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[2]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[1]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsActivation[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq32&apos;hXXXX_XXXX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq32&apos;hXXXX_XXXX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe2[31:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq32&apos;hXXXX_XXXX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[31]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[30]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[29]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[28]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[27]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[26]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[25]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[24]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[23]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[22]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[21]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[20]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[19]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[18]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[17]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[16]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[15]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[14]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[13]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[12]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[11]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[10]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[9]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[8]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[7]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[6]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[5]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[4]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[3]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[2]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[1]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAbsDeadline[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe7[0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newAck"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe8[0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newReadyIndex"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe9[0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/newTaskWriteDone"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
         <Option Id="MAP" value="probe1[0]"/>
         <Option Id="NAME.CUSTOM" value=""/>
         <Option Id="NAME.SELECT" value="Long"/>
@@ -2003,6 +2245,114 @@
       </nets>
     </probe>
     <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq8&apos;hXX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq8&apos;hXX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe5[7:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq8&apos;hXX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/nextRunningTaskIndex[7]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/nextRunningTaskIndex[6]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/nextRunningTaskIndex[5]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/nextRunningTaskIndex[4]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/nextRunningTaskIndex[3]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/nextRunningTaskIndex[2]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/nextRunningTaskIndex[1]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/nextRunningTaskIndex[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq8&apos;hXX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq8&apos;hXX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe1[7:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq8&apos;hXX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskIndex[7]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskIndex[6]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskIndex[5]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskIndex[4]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskIndex[3]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskIndex[2]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskIndex[1]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskIndex[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq32&apos;hXXXX_XXXX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq32&apos;hXXXX_XXXX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe0[31:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq32&apos;hXXXX_XXXX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[31]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[30]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[29]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[28]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[27]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[26]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[25]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[24]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[23]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[22]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[21]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[20]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[19]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[18]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[17]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[16]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[15]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[14]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[13]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[12]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[11]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[10]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[9]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[8]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[7]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[6]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[5]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[4]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[3]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[2]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[1]"/>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/runningTaskTime[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq6&apos;hXX"/>
         <Option Id="COMPARE_VALUE.0" value="eq6&apos;hXX"/>
@@ -2175,7 +2525,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg[7]_i_1_n_0"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq2&apos;hX"/>
         <Option Id="COMPARE_VALUE.0" value="eq2&apos;hX"/>
@@ -2197,7 +2547,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg[8]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2218,7 +2568,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[0]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2239,7 +2589,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[14]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2260,7 +2610,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[15]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2281,7 +2631,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[16]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2302,7 +2652,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[17]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2323,7 +2673,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[18]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2344,7 +2694,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[19]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2365,7 +2715,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[1]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2386,7 +2736,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[20]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2407,7 +2757,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[21]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2428,7 +2778,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[22]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2449,7 +2799,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[23]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2470,7 +2820,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[24]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2491,7 +2841,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[25]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2512,7 +2862,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[26]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2533,7 +2883,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[27]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2554,7 +2904,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[28]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2575,7 +2925,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[29]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2596,7 +2946,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[2]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2617,7 +2967,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[30]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2638,7 +2988,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[31]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2659,7 +3009,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[3]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2680,7 +3030,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[4]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2701,7 +3051,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[5]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2722,7 +3072,7 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/slv_control_reg_reg_n_0_[6]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
@@ -2753,6 +3103,27 @@
         <Option Id="DISPLAY_VISIBILITY" value=""/>
         <Option Id="HW_ILA" value="hw_ila_1"/>
         <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe10[0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/taskPending"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
         <Option Id="MAP" value="probe37[0]"/>
         <Option Id="NAME.CUSTOM" value=""/>
         <Option Id="NAME.SELECT" value="Long"/>
@@ -2764,7 +3135,28 @@
         <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/tasksList"/>
       </nets>
     </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe11[0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/waitingAck"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq32&apos;hXXXX_XXXX"/>
         <Option Id="COMPARE_VALUE.0" value="eq32&apos;hXXXX_XXXX"/>

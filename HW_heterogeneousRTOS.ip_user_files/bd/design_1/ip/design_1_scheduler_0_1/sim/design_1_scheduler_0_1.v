@@ -48,7 +48,7 @@
 
 
 // IP VLNV: user.org:user:scheduler:1.0
-// IP Revision: 54
+// IP Revision: 65
 
 `timescale 1ns/1ps
 
@@ -222,7 +222,7 @@ output wire irq;
     // The master issues write data and accept read data where the width of the data bus is C_M_AXI_DATA_WIDTH
     .C_S_AXI_DATA_WIDTH(32),  // Width of S_AXI data bus
     .C_S_AXI_ADDR_WIDTH(14),  // Width of S_AXI address bus
-    .maxTasks(128)
+    .maxTasks(4)
   ) inst (
     .uninitializedLed(uninitializedLed),
     .readyLed(readyLed),

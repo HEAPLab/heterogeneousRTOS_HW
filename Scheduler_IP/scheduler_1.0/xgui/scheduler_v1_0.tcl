@@ -11,6 +11,8 @@ proc init_gui { IPINST } {
   ipgui::add_param $IPINST -name "C_S_AXI_BASEADDR" -parent ${Page_0}
   ipgui::add_param $IPINST -name "C_S_AXI_HIGHADDR" -parent ${Page_0}
 
+  set maxTasks [ipgui::add_param $IPINST -name "maxTasks"]
+  set_property tooltip {maximum number of tasks} ${maxTasks}
 
 }
 

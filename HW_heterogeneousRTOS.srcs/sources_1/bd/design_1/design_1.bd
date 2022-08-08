@@ -2656,6 +2656,11 @@
         "xci_name": "design_1_scheduler_0_1",
         "xci_path": "ip/design_1_scheduler_0_1/design_1_scheduler_0_1.xci",
         "inst_hier_path": "scheduler_0",
+        "parameters": {
+          "maxTasks": {
+            "value": "4"
+          }
+        },
         "interface_ports": {
           "M_AXI": {
             "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
