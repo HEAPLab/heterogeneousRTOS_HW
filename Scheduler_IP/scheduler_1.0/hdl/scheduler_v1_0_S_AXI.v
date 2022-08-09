@@ -191,10 +191,10 @@ module scheduler_v1_0_S_AXI #
     localparam [OPT_MEM_ADDR_BITS:0] maxRQActAddr=maxRQDLAddr+maxTasks;
 
     reg[C_S_AXI_DATA_WIDTH-1:0] tasksList [(maxTasks*RTTask_tSizeInWords)-1:0];
-    reg[7:0] readyQIndexAXI [maxTasks-1:0]; //ready queue index ordered by deadline ascending
-    reg[7:0] activationQIndexAXI [maxTasks-1:0]; //activation queue index ordered by next activation ascending
-    reg[C_S_AXI_DATA_WIDTH-1:0] readyQDeadlineAXI [maxTasks-1:0]; //ready queue ordered by deadline ascending
-    reg[C_S_AXI_DATA_WIDTH-1:0] activationQActivationAXI [maxTasks-1:0]; //activation queue index ordered by next activation ascending
+    reg[7:0] readyQAXI [maxTasks-1:0]; //ready queue index ordered by deadline ascending
+    reg[7:0] activationQAXI [maxTasks-1:0]; //activation queue index ordered by next activation ascending
+    reg[C_S_AXI_DATA_WIDTH-1:0] AbsDeadlinesAXI [maxTasks-1:0]; //ready queue ordered by deadline ascending
+    reg[C_S_AXI_DATA_WIDTH-1:0] AbsActivationsAXI [maxTasks-1:0]; //activation queue index ordered by next activation ascending
     reg controlPending;
     reg schedulerBitFlip;
     reg oldSchedulerBitFlip;
@@ -477,13 +477,13 @@ module scheduler_v1_0_S_AXI #
                                 if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRTListAddr)
                                     tasksList[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)] <= S_AXI_WDATA;
                                 else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQNumAddr)
-                                    readyQIndexAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRTListAddr]<= S_AXI_WDATA[7:0];
+                                    readyQAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRTListAddr]<= S_AXI_WDATA[7:0];
                                 else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxAQNumAddr)
-                                    activationQIndexAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQNumAddr]<= S_AXI_WDATA[7:0];
+                                    activationQAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQNumAddr]<= S_AXI_WDATA[7:0];
                                 else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQDLAddr)
-                                    readyQDeadlineAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAQNumAddr]<= S_AXI_WDATA;
+                                    AbsDeadlinesAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAQNumAddr]<= S_AXI_WDATA;
                                 else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQActAddr)
-                                    activationQActivationAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQDLAddr]<= S_AXI_WDATA;
+                                    AbsActivationsAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQDLAddr]<= S_AXI_WDATA;
 
                                     //                                if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)==(maxRTListAddr-1))
                                     //                                    taskSetWritten<=1'b1;
@@ -655,13 +655,13 @@ module scheduler_v1_0_S_AXI #
                         if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRTListAddr)
                             reg_data_out <= tasksList[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)];
                         else if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQNumAddr)
-                            reg_data_out <= readyQIndex[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRTListAddr];
+                            reg_data_out <= readyQ[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRTListAddr];
                         else if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxAQNumAddr)
-                            reg_data_out <= activationQIndex[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQNumAddr];
+                            reg_data_out <= activationQ[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQNumAddr];
                         else if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQDLAddr)
-                            reg_data_out <= readyQDeadline[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAQNumAddr];
+                            reg_data_out <= AbsDeadlines[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAQNumAddr];
                         else if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQActAddr)
-                            reg_data_out <= activationQActivation[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQDLAddr];
+                            reg_data_out <= AbsActivations[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQDLAddr];
                         else
                             reg_data_out <= 32'd0;
                     end
@@ -1025,10 +1025,10 @@ module scheduler_v1_0_S_AXI #
     integer ic;
     integer id;
 
-    (* mark_debug = "true" *) reg[7:0] readyQIndex [maxTasks-1:0]; //ready queue index ordered by deadline ascending
-    (* mark_debug = "true" *) reg[7:0] activationQIndex [maxTasks-1:0]; //activation queue index ordered by next activation ascending
-    (* mark_debug = "true" *) reg[C_S_AXI_DATA_WIDTH-1:0] readyQDeadline [maxTasks-1:0]; //ready queue ordered by deadline ascending
-    (* mark_debug = "true" *) reg[C_S_AXI_DATA_WIDTH-1:0] activationQActivation [maxTasks-1:0]; //activation queue index ordered by next activation ascending
+    (* mark_debug = "true" *) reg[7:0] readyQ [maxTasks-1:0]; //ready queue index ordered by deadline ascending
+    (* mark_debug = "true" *) reg[7:0] activationQ [maxTasks-1:0]; //activation queue index ordered by next activation ascending
+    (* mark_debug = "true" *) reg[C_S_AXI_DATA_WIDTH-1:0] AbsDeadlines [maxTasks-1:0]; //ready queue ordered by deadline ascending
+    (* mark_debug = "true" *) reg[C_S_AXI_DATA_WIDTH-1:0] AbsActivations [maxTasks-1:0]; //activation queue index ordered by next activation ascending
     reg[7:0] copyIterator;
     reg startPending;
     reg[31:0] partctr;
@@ -1050,7 +1050,7 @@ module scheduler_v1_0_S_AXI #
             startPending<=1'b0;
 
             partctr<=0;
-            
+
             oldDeadlineMiss<=0;
 
 
@@ -1100,10 +1100,10 @@ module scheduler_v1_0_S_AXI #
                     if ( copyIterator < maxTasks )
                         begin
 
-                            readyQIndex[copyIterator]<=readyQIndexAXI[copyIterator];
-                            activationQIndex[copyIterator]<=activationQIndexAXI[copyIterator];
-                            readyQDeadline[copyIterator]<=readyQDeadlineAXI[copyIterator];
-                            activationQActivation[copyIterator]<=activationQActivationAXI[copyIterator];
+                            readyQ[copyIterator]<=readyQAXI[copyIterator];
+                            activationQ[copyIterator]<=activationQAXI[copyIterator];
+                            AbsDeadlines[copyIterator]<=AbsDeadlinesAXI[copyIterator];
+                            AbsActivations[copyIterator]<=AbsActivationsAXI[copyIterator];
 
                             copyIterator<=copyIterator+1;
                         end
@@ -1129,41 +1129,40 @@ module scheduler_v1_0_S_AXI #
                         if (runningTaskIndex==8'hFF)
                             deadlineMiss=1'b0;
                         else
-                            deadlineMiss=(runningTaskTime>=tasksList[(runningTaskIndex*RTTask_tSizeInWords)+2]); //&& readyQIndex[0]==runningTaskIndex);
-                        
+                            deadlineMiss=(runningTaskTime>=tasksList[(runningTaskIndex*RTTask_tSizeInWords)+2]); //&& readyQ[0]==runningTaskIndex);
+
                         deadlineMissPulse=deadlineMiss && !oldDeadlineMiss;
                         oldDeadlineMiss<=deadlineMiss;
 
-                        if (schedulerTick>=activationQActivation[0])
+                        if (schedulerTick>=AbsActivations[activationQ[0]])
                             begin
                                 //new task activation
 
-                                activationIndex=activationQIndex[0];
-                                newAbsActivation=activationQActivation[0]+tasksList[(activationIndex*RTTask_tSizeInWords)+1];
+                                activationIndex=activationQ[0];
+                                newAbsActivation=AbsActivations[0]+tasksList[(activationIndex*RTTask_tSizeInWords)+1];
 
                                 //integer ia;
                                 for (ia=0; ia<(maxTasks-1); ia=ia+1)
                                     begin
-                                        if(ia<(slv_number_of_tasks_reg-1)) //&& activationQActivation[i]<=newAbsActivation && ) //&& (activationQActivation[i+1]>newAbsActivation || i==slv_number_of_tasks_reg-2)) //trovato elemento appena superiore al corrente
+                                        if(ia<(slv_number_of_tasks_reg-1)) //&& AbsActivations[i]<=newAbsActivation && ) //&& (AbsActivations[i+1]>newAbsActivation || i==slv_number_of_tasks_reg-2)) //trovato elemento appena superiore al corrente
                                         begin //shifta indietro di uno gli elementi da 1 fino a i-1 e assegna il task appena attivato alla posizione i-1
-                                            if (activationQActivation[ia+1]<=newAbsActivation)
+                                            if (AbsActivations[activationQ[ia+1]]<=newAbsActivation)
                                                 begin
-                                                    activationQIndex[ia]<=activationQIndex[ia+1];
-                                                    activationQActivation[ia]<=activationQActivation[ia+1];
+                                                    activationQ[ia]<=activationQ[ia+1];
                                                 end
-                                            else if (activationQActivation[ia]<=newAbsActivation)
+                                            else if (AbsActivations[activationQ[ia]]<=newAbsActivation)
                                             begin
-                                                activationQIndex[ia]<=activationIndex;
-                                                activationQActivation[ia]<=newAbsActivation;
+                                                activationQ[ia]<=activationIndex;
                                             end
                                         end
                                     end
 
-                                if (activationQActivation[slv_number_of_tasks_reg-1]<=newAbsActivation)
+                                if (AbsActivations[activationQ[slv_number_of_tasks_reg-1]]<=newAbsActivation)
                                 begin
-                                    activationQIndex[slv_number_of_tasks_reg-1]<=activationIndex;
-                                    activationQActivation[slv_number_of_tasks_reg-1]<=newAbsActivation;
+                                    activationQ[slv_number_of_tasks_reg-1]<=activationIndex;
                                 end
+
+                                AbsActivations[activationIndex]<=newAbsActivation;
 
                                 newAbsDeadline=newAbsActivation+tasksList[(activationIndex*RTTask_tSizeInWords)+3];
 
@@ -1172,25 +1171,22 @@ module scheduler_v1_0_S_AXI #
                                         //integer ib;
                                         for (ib=0; ib<maxTasks-1; ib=ib+1)
                                             begin
-                                                if(ib<(number_of_ready_tasks_reg-1)) //&& activationQActivation[i]<=newAbsActivation && ) //&& (activationQActivation[i+1]>newAbsActivation || i==slv_number_of_tasks_reg-2)) //trovato elemento appena superiore al corrente
+                                                if(ib<(number_of_ready_tasks_reg-1)) //&& AbsActivations[i]<=newAbsActivation && ) //&& (AbsActivations[i+1]>newAbsActivation || i==slv_number_of_tasks_reg-2)) //trovato elemento appena superiore al corrente
                                                 begin //shifta indietro di uno gli elementi da 1 fino a i-1 e assegna il task appena attivato alla posizione i-1
-                                                    if (readyQDeadline[ib+1]<=newAbsDeadline)
+                                                    if (AbsDeadlines[readyQ[ib+1]]<=newAbsDeadline)
                                                         begin
-                                                            readyQIndex[ib]<=readyQIndex[ib+1];
-                                                            readyQDeadline[ib]<=readyQDeadline[ib+1];
+                                                            readyQ[ib]<=readyQ[ib+1];
                                                         end
-                                                    else if (readyQDeadline[ib]<=newAbsDeadline)
+                                                    else if (AbsDeadlines[readyQ[ib]]<=newAbsDeadline)
                                                     begin
-                                                        readyQIndex[ib]<=activationIndex;
-                                                        readyQDeadline[ib]<=newAbsDeadline;
+                                                        readyQ[ib]<=activationIndex;
                                                     end
                                                 end
                                             end
 
-                                        if (readyQDeadline[number_of_ready_tasks_reg-1]<=newAbsDeadline)
+                                        if (AbsDeadlines[readyQ[number_of_ready_tasks_reg-1]]<=newAbsDeadline)
                                         begin
-                                            readyQIndex[number_of_ready_tasks_reg-1]<=activationIndex;
-                                            readyQDeadline[number_of_ready_tasks_reg-1]<=newAbsDeadline;
+                                            readyQ[number_of_ready_tasks_reg-1]<=activationIndex;
                                         end
                                     end
                                 else
@@ -1200,27 +1196,27 @@ module scheduler_v1_0_S_AXI #
                                         //integer ic;
                                         for (ic=maxTasks-1; ic>0; ic=ic-1)
                                             begin
-                                                if(ic<=(number_of_ready_tasks_reg-1)) //&& activationQActivation[i]<=newAbsActivation && ) //&& (activationQActivation[i+1]>newAbsActivation || i==slv_number_of_tasks_reg-2)) //trovato elemento appena superiore al corrente
+                                                if(ic<=(number_of_ready_tasks_reg-1)) //&& AbsActivations[i]<=newAbsActivation && ) //&& (AbsActivations[i+1]>newAbsActivation || i==slv_number_of_tasks_reg-2)) //trovato elemento appena superiore al corrente
                                                 begin //shifta indietro di uno gli elementi da 1 fino a i-1 e assegna il task appena attivato alla posizione i-1
-                                                    if (readyQDeadline[ic-1]>newAbsDeadline)
+                                                    if (AbsDeadlines[readyQ[ic-1]]>newAbsDeadline)
                                                         begin
-                                                            readyQIndex[ic]<=readyQIndex[ic-1];
-                                                            readyQDeadline[ic]<=readyQDeadline[ic-1];
+                                                            readyQ[ic]<=readyQ[ic-1];
                                                         end
-                                                    else if (readyQDeadline[ic]>newAbsDeadline || ic==(number_of_ready_tasks_reg-1))
+                                                    else if (AbsDeadlines[readyQ[ic]]>newAbsDeadline || ic==(number_of_ready_tasks_reg-1))
                                                     begin
-                                                        readyQIndex[ic]<=activationIndex;
-                                                        readyQDeadline[ic]<=newAbsDeadline;
+                                                        readyQ[ic]<=activationIndex;
                                                     end
                                                 end
                                             end
 
-                                        if (readyQDeadline[0]>newAbsDeadline)
+                                        if (AbsDeadlines[readyQ[0]]>newAbsDeadline)
                                         begin
-                                            readyQIndex[0]<=activationIndex;
-                                            readyQDeadline[0]<=newAbsDeadline;
+                                            readyQ[0]<=activationIndex;
                                         end
                                     end
+
+                                AbsDeadlines[activationIndex]<=newAbsDeadline;
+
                             end
                         else if ( deadlineMissPulse || (slv_control_reg != oldSlv_control_reg && slv_control_reg[31:16]==control_jobEnded && (slv_control_reg[7:0]-1)==runningTaskIndex))
                         begin
@@ -1228,8 +1224,8 @@ module scheduler_v1_0_S_AXI #
                             //                       integer id;
                             for (id=0; id<maxTasks-1; id=id+1)
                                 begin
-                                    readyQIndex[id]<=readyQIndex[id+1];
-                                    readyQDeadline[id]<=readyQDeadline[id+1];
+                                    readyQ[id]<=readyQ[id+1];
+                                    //AbsDeadlines[id]<=AbsDeadlines[id+1];
                                 end
                         end
                         oldSlv_control_reg<=slv_control_reg;
@@ -1248,7 +1244,7 @@ module scheduler_v1_0_S_AXI #
     //    (* mark_debug = "true" *) wire newReadyIndex;
     //    (* mark_debug = "true" *)wire newTaskWriteDone;
     //    assign newAck= (oldIntrStatus==1'b1 && det_intr[0]==1'b0);
-    //    assign newReadyIndex= (readyQIndex[0]!=oldReadyIndex);
+    //    assign newReadyIndex= (readyQ[0]!=oldReadyIndex);
     //    assign newTaskWriteDone= (taskWriteDone!=oldTaskWriteDone1);
 
     (* mark_debug = "true" *) reg waitingAck;
@@ -1286,19 +1282,19 @@ module scheduler_v1_0_S_AXI #
                                 taskReady<=1'b0;
                             end
 
-                            if (readyQIndex[0]!=oldReadyIndex)
+                            if (readyQ[0]!=oldReadyIndex)
                                 taskPending<=1'b1;
                         end
-                    else if (readyQIndex[0]!=oldReadyIndex || taskPending)
+                    else if (readyQ[0]!=oldReadyIndex || taskPending)
                     begin
-                        nextRunningTaskIndex<=readyQIndex[0];
-                        taskPtr<=tasksList[(readyQIndex[0]*RTTask_tSizeInWords)];
+                        nextRunningTaskIndex<=readyQ[0];
+                        taskPtr<=tasksList[(readyQ[0]*RTTask_tSizeInWords)];
                         taskReady<=1'b1;
                         waitingAck<=1'b1;
                         taskPending<=1'b0;
                     end
 
-                    oldReadyIndex<=readyQIndex[0];
+                    oldReadyIndex<=readyQ[0];
                 end
                 oldIntrStatus<=det_intr[0];
                 oldTaskWriteDone1<=taskWriteDone;
@@ -1329,8 +1325,8 @@ module scheduler_v1_0_S_AXI #
 
     //                                    if (newReadyIndex || taskPending) //not needed, for performance pursposes only
     //                                        begin
-    //                                            nextRunningTaskIndex<=readyQIndex[0];
-    //                                            taskPtr<=tasksList[(readyQIndex[0]*RTTask_tSizeInWords)+1];
+    //                                            nextRunningTaskIndex<=readyQ[0];
+    //                                            taskPtr<=tasksList[(readyQ[0]*RTTask_tSizeInWords)+1];
     //                                            taskReady<=1'b1;
     //                                            waitingAck<=1'b1;
     //                                            taskPending<=1'b0;
@@ -1351,14 +1347,14 @@ module scheduler_v1_0_S_AXI #
     //                        end
     //                    else if (newReadyIndex) //|| taskPending)
     //                    begin
-    //                        nextRunningTaskIndex<=readyQIndex[0];
-    //                        taskPtr<=tasksList[(readyQIndex[0]*RTTask_tSizeInWords)+1];
+    //                        nextRunningTaskIndex<=readyQ[0];
+    //                        taskPtr<=tasksList[(readyQ[0]*RTTask_tSizeInWords)+1];
     //                        taskReady<=1'b1;
     //                        waitingAck<=1'b1;
     //                        taskPending<=1'b0;
     //                    end
 
-    //                    oldReadyIndex<=readyQIndex[0];
+    //                    oldReadyIndex<=readyQ[0];
     //                end
     //                oldAck<=reg_intr_ack[0];
     //                oldTaskWriteDone1<=taskWriteDone;
@@ -1390,8 +1386,8 @@ module scheduler_v1_0_S_AXI #
 
     //    reg oldTaskWriteStarted;
     //    reg newTaskPending;
-    //    //assign taskPtr=tasksList[(readyQIndex[0]*RTTask_tSizeInWords)+1];
-    //    always @(readyQIndex[0], taskWriteStarted, slv_status_reg, S_AXI_ARESETN)
+    //    //assign taskPtr=tasksList[(readyQ[0]*RTTask_tSizeInWords)+1];
+    //    always @(readyQ[0], taskWriteStarted, slv_status_reg, S_AXI_ARESETN)
     //    begin
     //        if (S_AXI_ARESETN == 1'b1)
     //            begin
@@ -1413,7 +1409,7 @@ module scheduler_v1_0_S_AXI #
     //                    else if (!oldTaskWriteStarted || newTaskPending)
     //                    begin
     //                        taskReady<=1;
-    //                        taskPtr<=tasksList[(readyQIndex[0]*RTTask_tSizeInWords)+1];
+    //                        taskPtr<=tasksList[(readyQ[0]*RTTask_tSizeInWords)+1];
     //                        newTaskPending<=0;
     //                    end
     //                end
@@ -1476,8 +1472,8 @@ endmodule
     //        begin
     //            if(new_slv_control_reg && slv_control_reg[31:16]==control_jobEnded)
     //            begin
-    //                readyQIndex[0:maxTasks-1] = readyQIndex[1:maxTasks];
-    //                readyQIndex[maxTasks] = 0;
+    //                readyQ[0:maxTasks-1] = readyQ[1:maxTasks];
+    //                readyQ[maxTasks] = 0;
     //                readyQDeadline[0:maxTasks-1] = readyQDeadline[1:maxTasks];
     //                readyQDeadline[maxTasks] = 0;
 
@@ -1488,9 +1484,9 @@ endmodule
 
 
     //            //                    if (taskReady)
-    //            //                        taskPtr<=tasksList[(readyQIndex[0]*RTTask_tSizeInWords)+1];
+    //            //                        taskPtr<=tasksList[(readyQ[0]*RTTask_tSizeInWords)+1];
 
-    //            if (schedulerTick==activationQActivation[0])
+    //            if (schedulerTick==AbsActivations[0])
     //            begin
     //                //new task activation
 
@@ -1498,31 +1494,31 @@ endmodule
     //                reg [C_S_AXI_DATA_WIDTH-1:0] newAbsActivation;
     //                reg [C_S_AXI_DATA_WIDTH-1:0] activationIndex;
 
-    //                activationIndex=activationQIndex[0];
-    //                newAbsActivation=activationQActivation[0]+tasksList[(activationIndex*RTTask_tSizeInWords)+2];
+    //                activationIndex=activationQ[0];
+    //                newAbsActivation=AbsActivations[0]+tasksList[(activationIndex*RTTask_tSizeInWords)+2];
     //                number_of_ready_tasks_reg++;
 
     //                for (i=0; i<(maxTasks-1); i++)
     //                    begin
-    //                        if(i<(slv_number_of_tasks_reg-1)) //&& activationQActivation[i]<=newAbsActivation && ) //&& (activationQActivation[i+1]>newAbsActivation || i==slv_number_of_tasks_reg-2)) //trovato elemento appena superiore al corrente
+    //                        if(i<(slv_number_of_tasks_reg-1)) //&& AbsActivations[i]<=newAbsActivation && ) //&& (AbsActivations[i+1]>newAbsActivation || i==slv_number_of_tasks_reg-2)) //trovato elemento appena superiore al corrente
     //                        begin //shifta indietro di uno gli elementi da 1 fino a i-1 e assegna il task appena attivato alla posizione i-1
-    //                            if (activationQActivation[i+1]<=newAbsActivation)
+    //                            if (AbsActivations[i+1]<=newAbsActivation)
     //                                begin
-    //                                    activationQIndex[i]<=activationQIndex[i+1];
-    //                                    activationQActivation[i]<=activationQActivation[i+1];
+    //                                    activationQ[i]<=activationQ[i+1];
+    //                                    AbsActivations[i]<=AbsActivations[i+1];
     //                                end
     //                            else
     //                                begin
-    //                                    activationQIndex[i]<=activationIndex;
-    //                                    activationQActivation[i]<=newAbsActivation;
+    //                                    activationQ[i]<=activationIndex;
+    //                                    AbsActivations[i]<=newAbsActivation;
     //                                end
     //                        end
     //                    end
 
-    //                if (activationQActivation[slv_number_of_tasks_reg-1]<=newAbsActivation)
+    //                if (AbsActivations[slv_number_of_tasks_reg-1]<=newAbsActivation)
     //                begin
-    //                    activationQIndex[slv_number_of_tasks_reg-1]<=activationIndex;
-    //                    activationQActivation[slv_number_of_tasks_reg-1]<=newAbsActivation;
+    //                    activationQ[slv_number_of_tasks_reg-1]<=activationIndex;
+    //                    AbsActivations[slv_number_of_tasks_reg-1]<=newAbsActivation;
     //                end
 
     //                reg [C_S_AXI_DATA_WIDTH-1:0] newAbsDeadline;
@@ -1533,16 +1529,16 @@ endmodule
 
     //                for (i=(maxTasks-1); i>0; i++)
     //                    begin
-    //                        if(i<(number_of_ready_tasks_reg-1)) //&& activationQActivation[i]<=newAbsActivation && ) //&& (activationQActivation[i+1]>newAbsActivation || i==slv_number_of_tasks_reg-2)) //trovato elemento appena superiore al corrente
+    //                        if(i<(number_of_ready_tasks_reg-1)) //&& AbsActivations[i]<=newAbsActivation && ) //&& (AbsActivations[i+1]>newAbsActivation || i==slv_number_of_tasks_reg-2)) //trovato elemento appena superiore al corrente
     //                        begin //shifta indietro di uno gli elementi da 1 fino a i-1 e assegna il task appena attivato alla posizione i-1
     //                            if (readyQDeadline[i-1]>newAbsDeadline)
     //                                begin
-    //                                    readyQIndex[i]<=readyQIndex[i-1];
+    //                                    readyQ[i]<=readyQ[i-1];
     //                                    readyQDeadline[i]<=readyQDeadline[i-1];
     //                                end
     //                            else
     //                                begin
-    //                                    readyQIndex[i]<=activationIndex;
+    //                                    readyQ[i]<=activationIndex;
     //                                    readyQDeadline[i]<=newAbsDeadline;
     //                                end
     //                        end
@@ -1550,7 +1546,7 @@ endmodule
 
     //                if (readyQDeadline[0]>newAbsDeadline)
     //                begin
-    //                    readyQIndex[0]<=activationIndex;
+    //                    readyQ[0]<=activationIndex;
     //                    readyQDeadline[0]<=newAbsDeadline;
     //                end
 
@@ -1561,11 +1557,11 @@ endmodule
     //                //                                begin //shifta avanti gli elementi da i e assegna il task appena attivato alla posizione i-1
     //                //                                    if (i>=2)
     //                //                                    begin
-    //                //                                        readyQIndex[0:i-2] = readyQIndex[1:i-1];
+    //                //                                        readyQ[0:i-2] = readyQ[1:i-1];
     //                //                                        readyQDeadline[0:i-2] = readyQDeadline[1:i-1];
     //                //                                    end
 
-    //                //                                    readyQIndex[i-1]=activationIndex;
+    //                //                                    readyQ[i-1]=activationIndex;
     //                //                                    readyQDeadline[i-1]=newAbsDeadline;
 
     //                //                                    runningTask<=readyQNumDLASC[0];

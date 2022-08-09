@@ -1036,6 +1036,10 @@ module scheduler_v1_0_S_AXI #
     reg[31:0] oldSlv_control_reg;
 
 
+    reg oldDeadlineMiss;
+    (* mark_debug = "true" *) reg deadlineMiss;
+    (* mark_debug = "true" *) reg deadlineMissPulse;
+
     always @(posedge S_AXI_ACLK)
     begin
         if ( ! S_AXI_ARESETN ) begin //reset
@@ -1046,6 +1050,10 @@ module scheduler_v1_0_S_AXI #
             startPending<=1'b0;
 
             partctr<=0;
+            
+            oldDeadlineMiss<=0;
+
+
 
 
             schedulerBitFlip<=1'b0;
@@ -1113,14 +1121,22 @@ module scheduler_v1_0_S_AXI #
                             partctr<=0;
                         end
                     else partctr<=partctr+1;
+
                     if (!waitingAck)
                     begin
                         schedulerBitFlip<=!schedulerBitFlip;
+
+                        if (runningTaskIndex==8'hFF)
+                            deadlineMiss=1'b0;
+                        else
+                            deadlineMiss=(runningTaskTime>=tasksList[(runningTaskIndex*RTTask_tSizeInWords)+2]); //&& readyQIndex[0]==runningTaskIndex);
+                        
+                        deadlineMissPulse=deadlineMiss && !oldDeadlineMiss;
+                        oldDeadlineMiss<=deadlineMiss;
+
                         if (schedulerTick>=activationQActivation[0])
                             begin
                                 //new task activation
-
-
 
                                 activationIndex=activationQIndex[0];
                                 newAbsActivation=activationQActivation[0]+tasksList[(activationIndex*RTTask_tSizeInWords)+1];
@@ -1151,7 +1167,7 @@ module scheduler_v1_0_S_AXI #
 
                                 newAbsDeadline=newAbsActivation+tasksList[(activationIndex*RTTask_tSizeInWords)+3];
 
-                                if(slv_control_reg != oldSlv_control_reg && slv_control_reg[31:16]==control_jobEnded && (slv_control_reg[7:0]-1)==runningTaskIndex)
+                                if(deadlineMissPulse || (slv_control_reg != oldSlv_control_reg && slv_control_reg[31:16]==control_jobEnded && (slv_control_reg[7:0]-1)==runningTaskIndex))
                                     begin
                                         //integer ib;
                                         for (ib=0; ib<maxTasks-1; ib=ib+1)
@@ -1206,7 +1222,7 @@ module scheduler_v1_0_S_AXI #
                                         end
                                     end
                             end
-                        else if (slv_control_reg != oldSlv_control_reg && slv_control_reg[31:16]==control_jobEnded && (slv_control_reg[7:0]-1)==runningTaskIndex)
+                        else if ( deadlineMissPulse || (slv_control_reg != oldSlv_control_reg && slv_control_reg[31:16]==control_jobEnded && (slv_control_reg[7:0]-1)==runningTaskIndex))
                         begin
                             number_of_ready_tasks_reg=number_of_ready_tasks_reg-1;
                             //                       integer id;
@@ -1350,7 +1366,7 @@ module scheduler_v1_0_S_AXI #
     //    end
 
     reg [7:0] oldRunningIndexForExecutionCounter;
-    always @(posedge S_AXI_ACLK) //scheduler clock
+    always @(schedulerTick, S_AXI_ARESETN) //scheduler clock
     begin
         if (!S_AXI_ARESETN)
             begin
