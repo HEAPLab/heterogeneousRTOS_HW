@@ -30,10 +30,11 @@ module scheduler_v1_0_S_AXI #
 	(
     // Users to add ports here
 
-    input wire taskWriteDone,
-    input wire taskWriteStarted,
-    output reg taskReady,
+    (* mark_debug = "true" *)  input wire taskWriteDone,
+    (* mark_debug = "true" *)  input wire taskWriteStarted,
+    (* mark_debug = "true" *)  output reg taskReady,
     output reg [31:0] taskPtr,
+
 
     output reg uninitializedLed,
     output reg readyLed,
@@ -150,6 +151,9 @@ module scheduler_v1_0_S_AXI #
     reg intr_all_ff;
     reg intr_ack_all_ff;
     reg aw_en;
+
+    (* mark_debug = "true" *)  wire detintr_dbg;
+    assign detintr_dbg=det_intr[0];
     //_____________________________________
     // Example-specific design signals
     // local parameter for addressing 32 bit / 64 bit C_S_AXI_DATA_WIDTH
@@ -195,7 +199,10 @@ module scheduler_v1_0_S_AXI #
     reg schedulerBitFlip;
     reg oldSchedulerBitFlip;
 
-    integer	 byte_index;
+    (* mark_debug = "true" *) wire [31:0] taskPtr_dbg;
+    assign taskPtr_dbg=taskPtr;
+
+    integer byte_index;
     //________________________
     // I/O Connections assignments
 
@@ -645,36 +652,18 @@ module scheduler_v1_0_S_AXI #
                     end
                 else
                     begin
-                        if (slv_status_reg==state_running)
-                            begin
-                                if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRTListAddr)
-                                    reg_data_out <= tasksList[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)];
-                                else if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQNumAddr)
-                                    reg_data_out <= readyQIndex[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRTListAddr];
-                                else if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxAQNumAddr)
-                                    reg_data_out <= activationQIndex[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQNumAddr];
-                                else if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQDLAddr)
-                                    reg_data_out <= readyQDeadline[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAQNumAddr];
-                                else if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQActAddr)
-                                    reg_data_out <= activationQActivation[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQDLAddr];
-                                else
-                                    reg_data_out <= 32'd0;
-                            end
+                        if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRTListAddr)
+                            reg_data_out <= tasksList[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)];
+                        else if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQNumAddr)
+                            reg_data_out <= readyQIndex[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRTListAddr];
+                        else if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxAQNumAddr)
+                            reg_data_out <= activationQIndex[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQNumAddr];
+                        else if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQDLAddr)
+                            reg_data_out <= readyQDeadline[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAQNumAddr];
+                        else if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQActAddr)
+                            reg_data_out <= activationQActivation[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQDLAddr];
                         else
-                            begin
-                                if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRTListAddr)
-                                    reg_data_out <= tasksList[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)];
-                                else if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQNumAddr)
-                                    reg_data_out <= readyQIndexAXI[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRTListAddr];
-                                else if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxAQNumAddr)
-                                    reg_data_out <= activationQIndexAXI[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQNumAddr];
-                                else if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQDLAddr)
-                                    reg_data_out <= readyQDeadlineAXI[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAQNumAddr];
-                                else if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQActAddr)
-                                    reg_data_out <= activationQActivationAXI[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQDLAddr];
-                                else
-                                    reg_data_out <= 32'd0;
-                            end
+                            reg_data_out <= 32'd0;
                     end
             end
     end
@@ -1024,7 +1013,6 @@ module scheduler_v1_0_S_AXI #
 
     //control signals encoding
 
-    reg firstrun;
     reg [C_S_AXI_DATA_WIDTH-1:0] number_of_ready_tasks_reg;
     (* mark_debug = "true" *)    reg [C_S_AXI_DATA_WIDTH-1:0] newAbsActivation;
     (* mark_debug = "true" *)    reg [C_S_AXI_DATA_WIDTH-1:0] activationIndex;
@@ -1043,6 +1031,7 @@ module scheduler_v1_0_S_AXI #
     reg[C_S_AXI_DATA_WIDTH-1:0] activationQActivation [maxTasks-1:0]; //activation queue index ordered by next activation ascending
     reg[7:0] copyIterator;
     reg startPending;
+    reg[31:0] partctr;
 
     reg[31:0] oldSlv_control_reg;
 
@@ -1053,14 +1042,19 @@ module scheduler_v1_0_S_AXI #
     always @(posedge S_AXI_ACLK)
     begin
         if ( ! S_AXI_ARESETN ) begin //reset
-            firstrun<=1;
 
             number_of_ready_tasks_reg<=0;
 
             copyIterator<=8'b0;
             startPending<=1'b0;
 
+            partctr<=0;
+
+
             schedulerBitFlip<=1'b0;
+
+            schedulerTick=32'b0;
+
 
             oldSlv_control_reg<=32'b0;
 
@@ -1118,31 +1112,14 @@ module scheduler_v1_0_S_AXI #
                 end
                 state_running:
                 begin
-                    if (firstrun)
+                    if (partctr==1000)
                         begin
-                            schedulerTick=32'b0;
-                            firstrun<=1'b0;
-                            //taskReady<=1;
+                            schedulerTick<=schedulerTick+1;
+                            partctr<=0;
                         end
-                    else
-                        begin
-                            schedulerTick=schedulerTick+1;
-                        end
+                    else partctr<=partctr+1;
 
-                        //                    begin
-                        //                        readyQIndex[0:maxTasks-1] = readyQIndex[1:maxTasks];
-                        //                        readyQIndex[maxTasks] = 0;
-                        //                        readyQDeadline[0:maxTasks-1] = readyQDeadline[1:maxTasks];
-                        //                        readyQDeadline[maxTasks] = 0;
-
-                        //                        number_of_ready_tasks_reg--;
-                        //                    end
-
-
-                        //                    if (taskReady)
-                        //                        taskPtr<=tasksList[(readyQIndex[0]*RTTask_tSizeInWords)+1];
-
-                    if (schedulerTick==activationQActivation[0])
+                    if (schedulerTick>=activationQActivation[0])
                         begin
                             //new task activation
 
@@ -1250,16 +1227,16 @@ module scheduler_v1_0_S_AXI #
     end
 
 
-    reg oldAck;
+    reg oldIntrStatus;
     reg [7:0] oldReadyIndex;
     reg oldTaskWriteDone1;
 
-    (* mark_debug = "true" *) wire newAck;
-    (* mark_debug = "true" *) wire newReadyIndex;
-    (* mark_debug = "true" *)wire newTaskWriteDone;
-    assign newAck=oldAck!=reg_intr_ack[0];
-    assign newReadyIndex=readyQIndex[0]!=oldReadyIndex;
-    assign newTaskWriteDone=taskWriteDone!=oldTaskWriteDone1;
+    //    (* mark_debug = "true" *) wire newAck;
+    //    (* mark_debug = "true" *) wire newReadyIndex;
+    //    (* mark_debug = "true" *)wire newTaskWriteDone;
+    //    assign newAck= (oldIntrStatus==1'b1 && det_intr[0]==1'b0);
+    //    assign newReadyIndex= (readyQIndex[0]!=oldReadyIndex);
+    //    assign newTaskWriteDone= (taskWriteDone!=oldTaskWriteDone1);
 
     (* mark_debug = "true" *) reg waitingAck;
     (* mark_debug = "true" *)reg [7:0] nextRunningTaskIndex;
@@ -1267,11 +1244,11 @@ module scheduler_v1_0_S_AXI #
     (* mark_debug = "true" *) reg[31:0] runningTaskTime;
     (* mark_debug = "true" *) reg taskPending;
 
-    always @(S_AXI_ACLK)
+    always @(posedge S_AXI_ACLK)
     begin
         if ( !S_AXI_ARESETN )
             begin
-                oldAck<=1'b0;
+                oldIntrStatus<=1'b0;
                 oldReadyIndex<=8'hFF;
                 oldTaskWriteDone1<=1'b0;
 
@@ -1285,21 +1262,21 @@ module scheduler_v1_0_S_AXI #
                 begin
                     if (waitingAck)
                         begin
-                            if (newAck && reg_intr_ack[0]) //&& waitingAck)
+                            if (oldIntrStatus && !det_intr[0]) //&& waitingAck)
                                 begin
                                     waitingAck<=1'b0;
                                     runningTaskIndex<=nextRunningTaskIndex;
                                 end
-                            else if (taskWriteDone && newTaskWriteDone)
+                            else if (taskWriteDone && taskWriteDone!=oldTaskWriteDone1)
                             begin
                                 runningTaskIndex<=8'hFF;
                                 taskReady<=1'b0;
                             end
 
-                            if (newReadyIndex)
+                            if (readyQIndex[0]!=oldReadyIndex)
                                 taskPending<=1'b1;
                         end
-                    else if (newReadyIndex || taskPending)
+                    else if (readyQIndex[0]!=oldReadyIndex || taskPending)
                     begin
                         nextRunningTaskIndex<=readyQIndex[0];
                         taskPtr<=tasksList[(readyQIndex[0]*RTTask_tSizeInWords)];
@@ -1310,7 +1287,7 @@ module scheduler_v1_0_S_AXI #
 
                     oldReadyIndex<=readyQIndex[0];
                 end
-                oldAck<=reg_intr_ack[0];
+                oldIntrStatus<=det_intr[0];
                 oldTaskWriteDone1<=taskWriteDone;
             end
     end
@@ -1376,21 +1353,24 @@ module scheduler_v1_0_S_AXI #
     //    end
 
     reg [7:0] oldRunningIndexForExecutionCounter;
-    always @(S_AXI_ACLK) //scheduler clock
+    always @(posedge S_AXI_ACLK) //scheduler clock
     begin
         if (!S_AXI_ARESETN)
             begin
                 oldRunningIndexForExecutionCounter<=8'hFF;
             end
-        else if (runningTaskIndex != 8'hFF) begin
-            if (oldRunningIndexForExecutionCounter != runningTaskIndex)
-                begin
-                    runningTaskTime<=0;
-                end
-            else
-                begin
-                    runningTaskTime<=runningTaskTime+1;
-                end
+        else begin
+            if (runningTaskIndex != 8'hFF) begin
+                if (oldRunningIndexForExecutionCounter != runningTaskIndex)
+                    begin
+                        runningTaskTime<=0;
+                    end
+                else
+                    begin
+                        runningTaskTime<=runningTaskTime+1;
+                    end
+                oldRunningIndexForExecutionCounter<=runningTaskIndex;
+            end
         end
     end
 

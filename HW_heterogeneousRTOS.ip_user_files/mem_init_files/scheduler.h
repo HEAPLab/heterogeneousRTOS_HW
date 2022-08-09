@@ -21,7 +21,7 @@
 /* Next queues offsets are calculated dynamically based on the following parameters: */
 
 #ifndef configMAX_RT_TASKS
-#define configMAX_RT_TASKS (32)
+#define configMAX_RT_TASKS (4)
 #endif
 
 #define TASKSIZEINBYTE 16
