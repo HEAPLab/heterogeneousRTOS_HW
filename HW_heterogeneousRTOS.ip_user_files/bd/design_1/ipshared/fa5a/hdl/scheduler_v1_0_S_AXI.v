@@ -1035,13 +1035,11 @@ module scheduler_v1_0_S_AXI #
     reg[7:0] copyIterator;
     reg startPending;
     //    reg[31:0] partctr;
+    reg[31:0] executionTimes [maxTasks-1];
 
     reg[31:0] oldSlv_control_reg;
 
-
-    reg oldWCETexceeded;
     (* mark_debug = "true" *) reg WCETexceeded;
-    (* mark_debug = "true" *) reg WCETexceededPulse;
 
     always @(posedge SCHEDULER_CLK)
     begin
@@ -1053,8 +1051,6 @@ module scheduler_v1_0_S_AXI #
             startPending<=1'b0;
 
             //            partctr<=0;
-
-            oldWCETexceeded<=0;
 
             schedulerBitFlip<=1'b0;
 
@@ -1099,11 +1095,12 @@ module scheduler_v1_0_S_AXI #
                 begin
                     if ( copyIterator < maxTasks )
                         begin
-
                             readyQ[copyIterator]<=readyQAXI[copyIterator];
                             activationQ[copyIterator]<=activationQAXI[copyIterator];
                             AbsDeadlines[copyIterator]<=AbsDeadlinesAXI[copyIterator];
                             AbsActivations[copyIterator]<=AbsActivationsAXI[copyIterator];
+
+                            executionTimes[copyIterator]<=0;
 
                             copyIterator<=copyIterator+1;
                         end
@@ -1122,118 +1119,117 @@ module scheduler_v1_0_S_AXI #
                     //                        end
                     //                    else partctr<=partctr+1;
 
-                    if (!waitingAck)
-                    begin
-                        schedulerBitFlip<=!schedulerBitFlip;
+                    //                    if (!waitingAck)
+                    //                    begin
+                    schedulerBitFlip<=!schedulerBitFlip;
 
-                        if (runningTaskIndex==8'hFF)
-                            WCETexceeded=1'b0;
-                        else
-                            WCETexceeded=(runningTaskTime>=tasksList[(runningTaskIndex*RTTask_tSizeInWords)+2]); //&& readyQ[0]==runningTaskIndex);
+                    if (runningTaskIndex==8'hFF)
+                        WCETexceeded=1'b0;
+                    else //todo think about it
+                        WCETexceeded=(executionTimes[readyQ[0]]>tasksList[(readyQ[0]*RTTask_tSizeInWords)+2]); //&& readyQ[0]==runningTaskIndex);
 
-                        WCETexceededPulse=WCETexceeded && !oldWCETexceeded;
-                        oldWCETexceeded<=WCETexceeded;
-
-                        if (AbsActivations[activationQ[0]]==0)
-                            begin
-                                //new task activation
-
-                                activationIndex=activationQ[0];
-                                newAbsActivation=tasksList[(activationIndex*RTTask_tSizeInWords)+1];
-                                newAbsDeadline=tasksList[(activationIndex*RTTask_tSizeInWords)+3];
-
-                                //integer ia;
-                                for (ia=0; ia<(maxTasks-1); ia=ia+1)
-                                    begin
-                                        if(ia<(slv_number_of_tasks_reg-1)) //&& AbsActivations[i]<=newAbsActivation && ) //&& (AbsActivations[i+1]>newAbsActivation || i==slv_number_of_tasks_reg-2)) //trovato elemento appena superiore al corrente
-                                        begin //shifta indietro di uno gli elementi da 1 fino a i-1 e assegna il task appena attivato alla posizione i-1
-                                            if (AbsActivations[activationQ[ia+1]]<newAbsActivation || (AbsActivations[activationQ[ia+1]]==newAbsActivation && AbsDeadlines[activationQ[ia+1]]<=newAbsDeadline))
-                                                begin
-                                                    activationQ[ia]<=activationQ[ia+1];
-                                                end
-                                            else if (AbsActivations[activationQ[ia]]<newAbsActivation || (AbsActivations[activationQ[ia]]==newAbsActivation && AbsDeadlines[activationQ[ia]]<newAbsDeadline))
-                                            begin
-                                                activationQ[ia]<=activationIndex;
-                                            end
-                                        end
-                                    end
-
-                                if (AbsActivations[activationQ[slv_number_of_tasks_reg-1]]<newAbsActivation || (AbsActivations[activationQ[slv_number_of_tasks_reg-1]]==newAbsActivation && AbsDeadlines[activationQ[slv_number_of_tasks_reg-1]]<newAbsDeadline))
-                                begin
-                                    activationQ[slv_number_of_tasks_reg-1]<=activationIndex;
-                                end
-
-                                AbsActivations[activationIndex]<=newAbsActivation;
-
-
-                                if(WCETexceededPulse || (slv_control_reg != oldSlv_control_reg && slv_control_reg[31:16]==control_jobEnded && (slv_control_reg[7:0]-1)==runningTaskIndex))
-                                    begin
-                                        //integer ib;
-                                        AbsDeadlines[0]=32'hFFFF;
-
-                                        for (ib=0; ib<maxTasks-1; ib=ib+1)
-                                            begin
-                                                if(ib<(number_of_ready_tasks_reg-1)) //&& AbsActivations[i]<=newAbsActivation && ) //&& (AbsActivations[i+1]>newAbsActivation || i==slv_number_of_tasks_reg-2)) //trovato elemento appena superiore al corrente
-                                                begin //shifta indietro di uno gli elementi da 1 fino a i-1 e assegna il task appena attivato alla posizione i-1
-                                                    if (AbsDeadlines[readyQ[ib+1]]<=newAbsDeadline)
-                                                        begin
-                                                            readyQ[ib]<=readyQ[ib+1];
-                                                        end
-                                                    else if (AbsDeadlines[readyQ[ib]]<=newAbsDeadline)
-                                                    begin
-                                                        readyQ[ib]<=activationIndex;
-                                                    end
-                                                end
-                                            end
-
-                                        if (AbsDeadlines[readyQ[number_of_ready_tasks_reg-1]]<=newAbsDeadline)
-                                        begin
-                                            readyQ[number_of_ready_tasks_reg-1]<=activationIndex;
-                                        end
-                                    end
-                                else
-                                    begin
-                                        number_of_ready_tasks_reg=number_of_ready_tasks_reg+1;
-
-                                        //integer ic;
-                                        for (ic=maxTasks-1; ic>0; ic=ic-1)
-                                            begin
-                                                if(ic<=(number_of_ready_tasks_reg-1)) //&& AbsActivations[i]<=newAbsActivation && ) //&& (AbsActivations[i+1]>newAbsActivation || i==slv_number_of_tasks_reg-2)) //trovato elemento appena superiore al corrente
-                                                begin //shifta indietro di uno gli elementi da 1 fino a i-1 e assegna il task appena attivato alla posizione i-1
-                                                    if (AbsDeadlines[readyQ[ic-1]]>newAbsDeadline)
-                                                        begin
-                                                            readyQ[ic]<=readyQ[ic-1];
-                                                        end
-                                                    else if (AbsDeadlines[readyQ[ic]]>newAbsDeadline || ic==(number_of_ready_tasks_reg-1))
-                                                    begin
-                                                        readyQ[ic]<=activationIndex;
-                                                    end
-                                                end
-                                            end
-
-                                        if (AbsDeadlines[readyQ[0]]>newAbsDeadline)
-                                        begin
-                                            readyQ[0]<=activationIndex;
-                                        end
-                                    end
-
-                                AbsDeadlines[activationIndex]<=newAbsDeadline;
-
-                            end
-                        else if ( WCETexceededPulse || (slv_control_reg != oldSlv_control_reg && slv_control_reg[31:16]==control_jobEnded && (slv_control_reg[7:0]-1)==runningTaskIndex))
+                    if (AbsActivations[activationQ[0]]==0)
                         begin
-                            number_of_ready_tasks_reg=number_of_ready_tasks_reg-1;
-                            //                       integer id;
-                            AbsDeadlines[0]=32'hFFFF;
+                            //new task activation
 
-                            for (id=0; id<maxTasks-1; id=id+1)
+                            activationIndex=activationQ[0];
+                            newAbsActivation=tasksList[(activationIndex*RTTask_tSizeInWords)+1];
+                            newAbsDeadline=tasksList[(activationIndex*RTTask_tSizeInWords)+3];
+
+                            //integer ia;
+                            for (ia=0; ia<(maxTasks-1); ia=ia+1)
                                 begin
-                                    readyQ[id]<=readyQ[id+1];
-                                    //AbsDeadlines[id]<=AbsDeadlines[id+1];
+                                    if(ia<(slv_number_of_tasks_reg-1)) //&& AbsActivations[i]<=newAbsActivation && ) //&& (AbsActivations[i+1]>newAbsActivation || i==slv_number_of_tasks_reg-2)) //trovato elemento appena superiore al corrente
+                                    begin //shifta indietro di uno gli elementi da 1 fino a i-1 e assegna il task appena attivato alla posizione i-1
+                                        if (AbsActivations[activationQ[ia+1]]<newAbsActivation || (AbsActivations[activationQ[ia+1]]==newAbsActivation && AbsDeadlines[activationQ[ia+1]]<=newAbsDeadline))
+                                            begin
+                                                activationQ[ia]<=activationQ[ia+1];
+                                            end
+                                        else if (AbsActivations[activationQ[ia]]<newAbsActivation || (AbsActivations[activationQ[ia]]==newAbsActivation && AbsDeadlines[activationQ[ia]]<newAbsDeadline))
+                                        begin
+                                            activationQ[ia]<=activationIndex;
+                                        end
+                                    end
                                 end
+
+                            if (AbsActivations[activationQ[slv_number_of_tasks_reg-1]]<newAbsActivation || (AbsActivations[activationQ[slv_number_of_tasks_reg-1]]==newAbsActivation && AbsDeadlines[activationQ[slv_number_of_tasks_reg-1]]<newAbsDeadline))
+                            begin
+                                activationQ[slv_number_of_tasks_reg-1]<=activationIndex;
+                            end
+
+                            AbsActivations[activationIndex]<=newAbsActivation;
+
+
+                            if(WCETexceeded || (slv_control_reg != oldSlv_control_reg && slv_control_reg[31:16]==control_jobEnded && (slv_control_reg[7:0]-1)==runningTaskIndex))
+                                begin
+                                    //integer ib;
+                                    AbsDeadlines[readyQ[0]]=32'hFFFF;
+                                    executionTimes[readyQ[0]]<=0;
+
+                                    for (ib=0; ib<maxTasks-1; ib=ib+1)
+                                        begin
+                                            if(ib<(number_of_ready_tasks_reg-1)) //&& AbsActivations[i]<=newAbsActivation && ) //&& (AbsActivations[i+1]>newAbsActivation || i==slv_number_of_tasks_reg-2)) //trovato elemento appena superiore al corrente
+                                            begin //shifta indietro di uno gli elementi da 1 fino a i-1 e assegna il task appena attivato alla posizione i-1
+                                                if (AbsDeadlines[readyQ[ib+1]]<=newAbsDeadline)
+                                                    begin
+                                                        readyQ[ib]<=readyQ[ib+1];
+                                                    end
+                                                else if (AbsDeadlines[readyQ[ib]]<=newAbsDeadline)
+                                                begin
+                                                    readyQ[ib]<=activationIndex;
+                                                end
+                                            end
+                                        end
+
+                                    if (AbsDeadlines[readyQ[number_of_ready_tasks_reg-1]]<=newAbsDeadline)
+                                    begin
+                                        readyQ[number_of_ready_tasks_reg-1]<=activationIndex;
+                                    end
+                                end
+                            else
+                                begin
+                                    number_of_ready_tasks_reg=number_of_ready_tasks_reg+1;
+
+                                    //integer ic;
+                                    for (ic=maxTasks-1; ic>0; ic=ic-1)
+                                        begin
+                                            if(ic<=(number_of_ready_tasks_reg-1)) //&& AbsActivations[i]<=newAbsActivation && ) //&& (AbsActivations[i+1]>newAbsActivation || i==slv_number_of_tasks_reg-2)) //trovato elemento appena superiore al corrente
+                                            begin //shifta indietro di uno gli elementi da 1 fino a i-1 e assegna il task appena attivato alla posizione i-1
+                                                if (AbsDeadlines[readyQ[ic-1]]>newAbsDeadline)
+                                                    begin
+                                                        readyQ[ic]<=readyQ[ic-1];
+                                                    end
+                                                else if (AbsDeadlines[readyQ[ic]]>newAbsDeadline || ic==(number_of_ready_tasks_reg-1))
+                                                begin
+                                                    readyQ[ic]<=activationIndex;
+                                                end
+                                            end
+                                        end
+
+                                    if (AbsDeadlines[readyQ[0]]>newAbsDeadline)
+                                    begin
+                                        readyQ[0]<=activationIndex;
+                                    end
+                                end
+
+                            AbsDeadlines[activationIndex]<=newAbsDeadline;
+
                         end
-                        oldSlv_control_reg<=slv_control_reg;
+                    else if ( WCETexceeded || (slv_control_reg != oldSlv_control_reg && slv_control_reg[31:16]==control_jobEnded && (slv_control_reg[7:0]-1)==runningTaskIndex))
+                    begin
+                        number_of_ready_tasks_reg=number_of_ready_tasks_reg-1;
+                        //                       integer id;
+                        AbsDeadlines[readyQ[0]]=32'hFFFF;
+                        executionTimes[readyQ[0]]<=0;
+
+                        for (id=0; id<maxTasks-1; id=id+1)
+                            begin
+                                readyQ[id]<=readyQ[id+1];
+                                //AbsDeadlines[id]<=AbsDeadlines[id+1];
+                            end
                     end
+                    oldSlv_control_reg<=slv_control_reg;
+                    //                    end
                     for (ie=0; ie<maxTasks; ie=ie+1)
                         begin
                             if (AbsActivations[ie]!=0 && AbsActivations[ie]!=32'hFFFF && ie!=activationIndex)
@@ -1242,6 +1238,9 @@ module scheduler_v1_0_S_AXI #
                                 AbsDeadlines[ie]<=AbsDeadlines[ie]-1;
                         end
                     activationIndex=8'hFF;
+
+
+                    executionTimes[runningTaskIndex]<=executionTimes[runningTaskIndex]+1;
                 end
             endcase
         end
@@ -1295,7 +1294,7 @@ module scheduler_v1_0_S_AXI #
                             //                            if (readyQ[0]!=oldReadyIndex)
                             //                                taskPending<=1'b1;
                         end
-                    else if (readyQ[0]!=runningTaskIndex)
+                    else if (readyQ[0]!=runningTaskIndex && executionTimes[readyQ[0]]<=tasksList[(readyQ[0]*RTTask_tSizeInWords)+2])
                     begin
                         nextRunningTaskIndex<=readyQ[0];
                         taskPtr<=tasksList[(readyQ[0]*RTTask_tSizeInWords)];

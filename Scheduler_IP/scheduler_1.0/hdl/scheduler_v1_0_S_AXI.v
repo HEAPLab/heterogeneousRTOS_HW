@@ -1035,7 +1035,7 @@ module scheduler_v1_0_S_AXI #
     reg[7:0] copyIterator;
     reg startPending;
     //    reg[31:0] partctr;
-    reg[31:0] executionTimes [maxTasks-1];
+    reg[31:0] executionTimes [maxTasks-1:0];
 
     reg[31:0] oldSlv_control_reg;
 
