@@ -1174,10 +1174,12 @@ module scheduler_v1_0_S_AXI #
                                         if (AbsActivations[activationQ[ia+1]]<newAbsActivation || (AbsActivations[activationQ[ia+1]]==newAbsActivation && tasksList[(activationIndex*RTTask_tSizeInWords)+3]<=newAbsDeadline))
                                             begin
                                                 activationQ[ia]<=activationQ[ia+1];
+                                                lookupActivationQ[activationQ[ia+1]]<=ia;
                                             end
                                         else if (AbsActivations[activationQ[ia]]<newAbsActivation || (AbsActivations[activationQ[ia]]==newAbsActivation && tasksList[(activationIndex*RTTask_tSizeInWords)+3]<=newAbsDeadline))
                                         begin
                                             activationQ[ia]<=activationIndex;
+                                            lookupActivationQ[activationIndex]<=ia;
                                         end
                                     end
                                 end
@@ -1185,6 +1187,7 @@ module scheduler_v1_0_S_AXI #
                             if (AbsActivations[activationQ[slv_number_of_tasks_reg-1]]<newAbsActivation || (AbsActivations[activationQ[slv_number_of_tasks_reg-1]]==newAbsActivation && tasksList[((slv_number_of_tasks_reg-1)*RTTask_tSizeInWords)+3]<=newAbsDeadline))
                             begin
                                 activationQ[slv_number_of_tasks_reg-1]<=activationIndex;
+                                lookupActivationQ[activationIndex]<=(slv_number_of_tasks_reg-1);
                             end
 
                             AbsActivations[activationIndex]<=newAbsActivation;
@@ -1196,6 +1199,8 @@ module scheduler_v1_0_S_AXI #
                                     AbsDeadlines[readyQ[0]]=32'hFFFF_FFFF;
                                     executionTimes[readyQ[0]]<=0;
 
+                                    lookupReadyQ[readyQ[0]]<=8'hFF;
+
                                     for (ib=0; ib<maxTasks-1; ib=ib+1)
                                         begin
                                             if(ib<(number_of_ready_tasks_reg-1)) //&& AbsActivations[i]<=newAbsActivation && ) //&& (AbsActivations[i+1]>newAbsActivation || i==slv_number_of_tasks_reg-2)) //trovato elemento appena superiore al corrente
@@ -1203,10 +1208,12 @@ module scheduler_v1_0_S_AXI #
                                                 if (AbsDeadlines[readyQ[ib+1]]<=newAbsDeadline)
                                                     begin
                                                         readyQ[ib]<=readyQ[ib+1];
+                                                        lookupReadyQ[readyQ[ib+1]]<=ib;
                                                     end
                                                 else if (AbsDeadlines[readyQ[ib]]<=newAbsDeadline)
                                                 begin
                                                     readyQ[ib]<=activationIndex;
+                                                    lookupReadyQ[activationIndex]<=ib;
                                                 end
                                             end
                                         end
@@ -1214,6 +1221,7 @@ module scheduler_v1_0_S_AXI #
                                     if (AbsDeadlines[readyQ[number_of_ready_tasks_reg-1]]<=newAbsDeadline)
                                     begin
                                         readyQ[number_of_ready_tasks_reg-1]<=activationIndex;
+                                        lookupReadyQ[activationIndex]<=(number_of_ready_tasks_reg-1);
                                     end
                                 end
                             else
@@ -1228,10 +1236,12 @@ module scheduler_v1_0_S_AXI #
                                                 if (AbsDeadlines[readyQ[ic-1]]>newAbsDeadline)
                                                     begin
                                                         readyQ[ic]<=readyQ[ic-1];
+                                                        lookupReadyQ[readyQ[ic-1]]<=ic;
                                                     end
                                                 else if (AbsDeadlines[readyQ[ic]]>newAbsDeadline || ic==(number_of_ready_tasks_reg-1))
                                                 begin
                                                     readyQ[ic]<=activationIndex;
+                                                    lookupReadyQ[activationIndex]<=ic;
                                                 end
                                             end
                                         end
@@ -1239,6 +1249,7 @@ module scheduler_v1_0_S_AXI #
                                     if (AbsDeadlines[readyQ[0]]>newAbsDeadline)
                                     begin
                                         readyQ[0]<=activationIndex;
+                                        lookupReadyQ[activationIndex]<=0;
                                     end
                                 end
 
@@ -1252,9 +1263,12 @@ module scheduler_v1_0_S_AXI #
                         AbsDeadlines[readyQ[0]]=32'hFFFF_FFFF;
                         executionTimes[readyQ[0]]<=0;
 
+                        lookupReadyQ[readyQ[0]]<=8'hFF;
+
                         for (id=0; id<maxTasks-1; id=id+1)
                             begin
                                 readyQ[id]<=readyQ[id+1];
+                                lookupReadyQ[readyQ[id+1]]<=id;
                                 //AbsDeadlines[id]<=AbsDeadlines[id+1];
                             end
                     end

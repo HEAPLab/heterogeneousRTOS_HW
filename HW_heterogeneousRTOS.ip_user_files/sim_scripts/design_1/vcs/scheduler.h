@@ -29,6 +29,8 @@
 #define ACTIVATIONQINDEXELEMENTSIZEINBYTE 4
 #define DEADLINEQELEMENTSIZEINBYTE 4
 #define ACTIVATIONQELEMENTSIZEINBYTE 4
+#define DEADLINEQREVERSEINDEXELEMENTSIZEINBYTE 4
+#define ACTIVATIONQREVERSEINDEXELEMENTSIZEINBYTE 4
 
 
 /**************************** Type Definitions *****************************/
@@ -118,5 +120,7 @@ void SCHEDULER_copyOrderedDeadlineQIndex(void * baseaddr_p, const void * source)
 void SCHEDULER_copyOrderedActivationQIndex(void * baseaddr_p, const void * source);
 void SCHEDULER_copyOrderedDeadlineQ(void * baseaddr_p, const void * source);
 void SCHEDULER_copyOrderedActivationQ(void * baseaddr_p, const void * source);
+void SCHEDULER_copyOrderedDeadlineQReverseIndex(void * baseaddr_p, const void * source);
+void SCHEDULER_copyOrderedActivationQReverseIndex(void * baseaddr_p, const void * source);
 
 #endif // SCHEDULER_H
