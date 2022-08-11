@@ -2742,6 +2742,7 @@
           "ps7_0_axi_periph/S00_ACLK",
           "ps7_0_axi_periph/M00_ACLK",
           "ps7_0_axi_periph/ACLK",
+          "scheduler_0/SCHEDULER_CLK",
           "scheduler_0/s_axi_aclk",
           "scheduler_0/m_axi_aclk"
         ]
@@ -2756,6 +2757,7 @@
           "ps7_0_axi_periph/S00_ARESETN",
           "ps7_0_axi_periph/M00_ARESETN",
           "ps7_0_axi_periph/ARESETN",
+          "scheduler_0/SCHEDULER_ARESETN",
           "scheduler_0/s_axi_aresetn",
           "scheduler_0/m_axi_aresetn"
         ]

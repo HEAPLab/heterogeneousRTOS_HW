@@ -4,7 +4,7 @@
 	module scheduler_v1_0 #
 	(
     // Users to add parameters here
-    parameter maxTasks = 128,
+    parameter maxTasks = 16,
 
     // User parameters ends
     // Do not modify the parameters beyond this line
@@ -21,6 +21,9 @@
 )
 	(
     // Users to add ports here
+    input wire SCHEDULER_CLK,
+    input wire SCHEDULER_ARESETN,
+
 
     //status leds
     output wire uninitializedLed,
@@ -115,6 +118,8 @@
     .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH),
     .C_S_AXI_ADDR_WIDTH(C_S_AXI_ADDR_WIDTH)
     ) scheduler_v1_0_S_AXI_inst (
+        .SCHEDULER_CLK(SCHEDULER_CLK),
+        .SCHEDULER_ARESETN(SCHEDULER_ARESETN),
 
         .taskWriteDone(taskWriteDone),
         .taskWriteStarted(taskWriteStarted),

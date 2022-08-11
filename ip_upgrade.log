@@ -1,6 +1,177 @@
 Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 ------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Thu Aug 11 03:03:01 2022
+| Host         : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
+| Command      : upgrade_ip
+| Device       : xc7z100ffg900-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 91) to (Rev. 92)
+
+
+
+
+
+
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Thu Aug 11 01:48:20 2022
+| Host         : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
+| Command      : upgrade_ip
+| Device       : xc7z100ffg900-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 90) to (Rev. 91)
+
+
+
+
+
+
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Thu Aug 11 01:18:00 2022
+| Host         : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
+| Command      : upgrade_ip
+| Device       : xc7z100ffg900-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 89) to (Rev. 90)
+
+
+
+
+
+
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Wed Aug 10 23:21:02 2022
+| Host         : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
+| Command      : upgrade_ip
+| Device       : xc7z100ffg900-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 88) to (Rev. 89)
+
+
+
+
+
+
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Wed Aug 10 16:16:07 2022
+| Host         : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
+| Command      : upgrade_ip
+| Device       : xc7z100ffg900-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 87) to (Rev. 88)
+
+
+
+
+
+
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Wed Aug 10 15:54:35 2022
+| Host         : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
+| Command      : upgrade_ip
+| Device       : xc7z100ffg900-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+CAUTION (success, with warnings) in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 86) to (Rev. 87)
+
+After upgrade, an IP may have parameter and port differences compared to the original customization. Please review the parameters within the IP customization GUI to ensure proper functionality. Also, please review the updated IP instantiation template to ensure proper connectivity, and update your design if required.
+
+2. Interface Information
+------------------------
+
+Detected external interface differences while upgrading 'design_1_scheduler_0_1'.
+
+
+-Upgrade has added interface 'SCHEDULER_ASESETN' (xilinx.com:signal:reset:1.0)
+
+-Upgrade has added interface 'SCHEDULER_CLK' (xilinx.com:signal:clock:1.0)
+
+
+3. Connection Warnings
+----------------------
+
+Detected external port differences while upgrading 'design_1_scheduler_0_1'. These changes may impact your design.
+
+
+-Upgrade has added port 'SCHEDULER_ARESETN'
+
+-Upgrade has added port 'SCHEDULER_CLK'
+
+
+
+
+
+
+
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Wed Aug 10 05:39:27 2022
+| Host         : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
+| Command      : upgrade_ip
+| Device       : xc7z100ffg900-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 83) to (Rev. 86)
+
+
+
+
+
+
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
 | Date         : Tue Aug  9 16:10:01 2022
 | Host         : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
 | Command      : upgrade_ip

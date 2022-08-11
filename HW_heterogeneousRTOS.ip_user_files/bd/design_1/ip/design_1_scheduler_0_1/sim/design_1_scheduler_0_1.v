@@ -48,12 +48,14 @@
 
 
 // IP VLNV: user.org:user:scheduler:1.0
-// IP Revision: 83
+// IP Revision: 92
 
 `timescale 1ns/1ps
 
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module design_1_scheduler_0_1 (
+  SCHEDULER_CLK,
+  SCHEDULER_ARESETN,
   uninitializedLed,
   readyLed,
   runningLed,
@@ -108,6 +110,12 @@ module design_1_scheduler_0_1 (
   irq
 );
 
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SCHEDULER_CLK, ASSOCIATED_RESET SCHEDULER_ARESETN:SCHEDULER_ASESETN, FREQ_HZ 5e+07, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *)
+(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 SCHEDULER_CLK CLK" *)
+input wire SCHEDULER_CLK;
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SCHEDULER_ASESETN, POLARITY ACTIVE_LOW, INSERT_VIP 0" *)
+(* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 SCHEDULER_ASESETN RST" *)
+input wire SCHEDULER_ARESETN;
 output wire uninitializedLed;
 output wire readyLed;
 output wire runningLed;
@@ -224,6 +232,8 @@ output wire irq;
     .C_S_AXI_ADDR_WIDTH(14),  // Width of S_AXI address bus
     .maxTasks(4)
   ) inst (
+    .SCHEDULER_CLK(SCHEDULER_CLK),
+    .SCHEDULER_ARESETN(SCHEDULER_ARESETN),
     .uninitializedLed(uninitializedLed),
     .readyLed(readyLed),
     .runningLed(runningLed),

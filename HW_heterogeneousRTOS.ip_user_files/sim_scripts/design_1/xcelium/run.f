@@ -60,9 +60,9 @@
 -endlib
 -makelib xcelium_lib/xil_defaultlib \
   "../../../bd/design_1/ip/design_1_xbar_2/sim/design_1_xbar_2.v" \
-  "../../../bd/design_1/ipshared/7962/hdl/scheduler_v1_0_M_AXI.v" \
-  "../../../bd/design_1/ipshared/7962/hdl/scheduler_v1_0_S_AXI.v" \
-  "../../../bd/design_1/ipshared/7962/hdl/scheduler_v1_0.v" \
+  "../../../bd/design_1/ipshared/b17c/hdl/scheduler_v1_0_M_AXI.v" \
+  "../../../bd/design_1/ipshared/b17c/hdl/scheduler_v1_0_S_AXI.v" \
+  "../../../bd/design_1/ipshared/b17c/hdl/scheduler_v1_0.v" \
   "../../../bd/design_1/ip/design_1_scheduler_0_1/sim/design_1_scheduler_0_1.v" \
 -endlib
 -makelib xcelium_lib/axi_protocol_converter_v2_1_25 \
