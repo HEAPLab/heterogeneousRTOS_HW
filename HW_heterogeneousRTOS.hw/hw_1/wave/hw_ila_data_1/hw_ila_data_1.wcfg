@@ -9,37 +9,21 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="901"></ZoomStartTime>
-      <ZoomEndTime time="963"></ZoomEndTime>
-      <Cursor1Time time="938"></Cursor1Time>
+      <ZoomStartTime time="256"></ZoomStartTime>
+      <ZoomEndTime time="863"></ZoomEndTime>
+      <Cursor1Time time="544"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="383"></NameColumnWidth>
-      <ValueColumnWidth column_width="152"></ValueColumnWidth>
+      <ValueColumnWidth column_width="144"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="31" />
+   <WVObjectSize size="30" />
    <wave_markers>
    </wave_markers>
-   <wvobject type="array" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationQ[0]__0">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationQ[0]__0[7:0]</obj_property>
-      <obj_property name="ObjectShortName">activationQ[0]__0[7:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
    <wvobject type="array" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/AbsActivations[0]__0">
       <obj_property name="DisplayName">FullPathName</obj_property>
       <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/AbsActivations[0]__0[31:0]</obj_property>
       <obj_property name="ObjectShortName">AbsActivations[0]__0[31:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationQ[1]__0">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationQ[1]__0[7:0]</obj_property>
-      <obj_property name="ObjectShortName">activationQ[1]__0[7:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
@@ -52,26 +36,10 @@
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationQ[2]__0">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationQ[2]__0[7:0]</obj_property>
-      <obj_property name="ObjectShortName">activationQ[2]__0[7:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
    <wvobject type="array" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/AbsActivations[2]__0">
       <obj_property name="DisplayName">FullPathName</obj_property>
       <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/AbsActivations[2]__0[31:0]</obj_property>
       <obj_property name="ObjectShortName">AbsActivations[2]__0[31:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationQ[3]__0">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationQ[3]__0[7:0]</obj_property>
-      <obj_property name="ObjectShortName">activationQ[3]__0[7:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
@@ -84,26 +52,10 @@
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/readyQ[0]__0">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/readyQ[0]__0[7:0]</obj_property>
-      <obj_property name="ObjectShortName">readyQ[0]__0[7:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
    <wvobject type="array" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/AbsDeadlines[0]__0">
       <obj_property name="DisplayName">FullPathName</obj_property>
       <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/AbsDeadlines[0]__0[31:0]</obj_property>
       <obj_property name="ObjectShortName">AbsDeadlines[0]__0[31:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/readyQ[1]__0">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/readyQ[1]__0[7:0]</obj_property>
-      <obj_property name="ObjectShortName">readyQ[1]__0[7:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
@@ -116,26 +68,10 @@
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/readyQ[2]__0">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/readyQ[2]__0[7:0]</obj_property>
-      <obj_property name="ObjectShortName">readyQ[2]__0[7:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
    <wvobject type="array" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/AbsDeadlines[2]__0">
       <obj_property name="DisplayName">FullPathName</obj_property>
       <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/AbsDeadlines[2]__0[31:0]</obj_property>
       <obj_property name="ObjectShortName">AbsDeadlines[2]__0[31:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/readyQ[3]__0">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/readyQ[3]__0[7:0]</obj_property>
-      <obj_property name="ObjectShortName">readyQ[3]__0[7:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
@@ -152,6 +88,38 @@
       <obj_property name="DisplayName">FullPathName</obj_property>
       <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationIndex[7:0]</obj_property>
       <obj_property name="ObjectShortName">activationIndex[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationQ[0]__0">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationQ[0]__0[7:0]</obj_property>
+      <obj_property name="ObjectShortName">activationQ[0]__0[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationQ[1]__0">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationQ[1]__0[7:0]</obj_property>
+      <obj_property name="ObjectShortName">activationQ[1]__0[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationQ[2]__0">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationQ[2]__0[7:0]</obj_property>
+      <obj_property name="ObjectShortName">activationQ[2]__0[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationQ[3]__0">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/activationQ[3]__0[7:0]</obj_property>
+      <obj_property name="ObjectShortName">activationQ[3]__0[7:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
@@ -183,6 +151,38 @@
       <obj_property name="DisplayName">FullPathName</obj_property>
       <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/nextRunningTaskIndex[7:0]</obj_property>
       <obj_property name="ObjectShortName">nextRunningTaskIndex[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/readyQ[0]__0">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/readyQ[0]__0[7:0]</obj_property>
+      <obj_property name="ObjectShortName">readyQ[0]__0[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/readyQ[1]__0">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/readyQ[1]__0[7:0]</obj_property>
+      <obj_property name="ObjectShortName">readyQ[1]__0[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/readyQ[2]__0">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/readyQ[2]__0[7:0]</obj_property>
+      <obj_property name="ObjectShortName">readyQ[2]__0[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/readyQ[3]__0">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/readyQ[3]__0[7:0]</obj_property>
+      <obj_property name="ObjectShortName">readyQ[3]__0[7:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
@@ -250,13 +250,6 @@
       <obj_property name="DisplayName">FullPathName</obj_property>
       <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/WCETexceeded</obj_property>
       <obj_property name="ObjectShortName">WCETexceeded</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/WCETexceededPulse">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/scheduler_0/inst/scheduler_v1_0_S_AXI_inst/WCETexceededPulse</obj_property>
-      <obj_property name="ObjectShortName">WCETexceededPulse</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
