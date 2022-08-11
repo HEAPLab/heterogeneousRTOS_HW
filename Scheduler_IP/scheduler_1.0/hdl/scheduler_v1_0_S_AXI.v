@@ -192,16 +192,24 @@ module scheduler_v1_0_S_AXI #
     localparam [OPT_MEM_ADDR_BITS:0] maxRQDLAddr=maxAQNumAddr+maxTasks;
     localparam [OPT_MEM_ADDR_BITS:0] maxRQActAddr=maxRQDLAddr+maxTasks;
 
+    localparam [OPT_MEM_ADDR_BITS:0] maxRQReverseNumAddr=maxRQActAddr+maxTasks;
+    localparam [OPT_MEM_ADDR_BITS:0] maxAQReverseNumAddr=maxRQReverseNumAddr+maxTasks;
+
+
     reg[C_S_AXI_DATA_WIDTH-1:0] tasksList [(maxTasks*RTTask_tSizeInWords)-1:0];
     reg[7:0] readyQAXI [maxTasks-1:0]; //ready queue index ordered by deadline ascending
     reg[7:0] activationQAXI [maxTasks-1:0]; //activation queue index ordered by next activation ascending
     reg[C_S_AXI_DATA_WIDTH-1:0] AbsDeadlinesAXI [maxTasks-1:0]; //ready queue ordered by deadline ascending
     reg[C_S_AXI_DATA_WIDTH-1:0] AbsActivationsAXI [maxTasks-1:0]; //activation queue index ordered by next activation ascending
+    reg[7:0] lookupReadyQAXI [maxTasks-1:0];
+    reg[7:0] lookupActivationQAXI [maxTasks-1:0];
 
     (* mark_debug = "true" *) reg[7:0] readyQ [maxTasks-1:0]; //ready queue index ordered by deadline ascending
     (* mark_debug = "true" *) reg[7:0] activationQ [maxTasks-1:0]; //activation queue index ordered by next activation ascending
     (* mark_debug = "true" *) reg[C_S_AXI_DATA_WIDTH-1:0] AbsDeadlines [maxTasks-1:0]; //ready queue ordered by deadline ascending
     (* mark_debug = "true" *) reg[C_S_AXI_DATA_WIDTH-1:0] AbsActivations [maxTasks-1:0]; //activation queue index ordered by next activation ascending
+    (* mark_debug = "true" *) reg[7:0] lookupReadyQ [maxTasks-1:0];
+    (* mark_debug = "true" *) reg[7:0] lookupActivationQ [maxTasks-1:0];
 
     reg controlPending;
     reg schedulerBitFlip;
@@ -401,6 +409,10 @@ module scheduler_v1_0_S_AXI #
     reg ACTqIndexWritten;
     reg DLqWritten;
     reg ACTqWritten;
+    reg DLqReverseIndexWritten;
+    reg ACTqReverseIndexWritten;
+
+
 
     assign led1=taskSetWritten;
     assign led2=DLqIndexWritten;
@@ -423,6 +435,8 @@ module scheduler_v1_0_S_AXI #
                 ACTqIndexWritten<=1'b0;
                 DLqWritten<=1'b0;
                 ACTqWritten<=1'b0;
+                DLqReverseIndexWritten<=1'b0;
+                ACTqReverseIndexWritten<=1'b0;
             end
         else begin
             if (slv_reg_wren)
@@ -492,6 +506,13 @@ module scheduler_v1_0_S_AXI #
                                     AbsDeadlinesAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAQNumAddr]<= S_AXI_WDATA;
                                 else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQActAddr)
                                     AbsActivationsAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQDLAddr]<= S_AXI_WDATA;
+                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQReverseNumAddr)
+                                    lookupReadyQAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQReverseNumAddr]<= S_AXI_WDATA[7:0];
+                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxAQReverseNumAddr)
+                                    lookupActivationQAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAQReverseNumAddr]<= S_AXI_WDATA[7:0];
+
+
+
 
                                     //                                if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)==(maxRTListAddr-1))
                                     //                                    taskSetWritten<=1'b1;
@@ -503,7 +524,6 @@ module scheduler_v1_0_S_AXI #
                                     //                                    DLqWritten<=1'b1;
                                     //                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)==(maxRQActAddr-1))
                                     //                                    ACTqWritten<=1'b1;
-
                                 case (axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)
                                     (maxRTListAddr-1):
                                     taskSetWritten<=1'b1;
@@ -519,6 +539,12 @@ module scheduler_v1_0_S_AXI #
 
                                     (maxRQActAddr-1):
                                     ACTqWritten<=1'b1;
+
+                                    (maxRQReverseNumAddr-1):
+                                    DLqReverseIndexWritten<=1'b1;
+
+                                    (maxAQReverseNumAddr-1):
+                                    ACTqReverseIndexWritten<=1'b1;
                                 endcase
                             end
                         end
@@ -1087,7 +1113,7 @@ module scheduler_v1_0_S_AXI #
             case(slv_status_reg)
                 state_uninitialized:
                 begin
-                    if ( taskSetWritten && DLqIndexWritten && ACTqIndexWritten && DLqWritten && ACTqWritten && slv_number_of_tasks_reg!=0 )
+                    if ( taskSetWritten && DLqIndexWritten && ACTqIndexWritten && DLqWritten && ACTqWritten && DLqReverseIndexWritten && ACTqReverseIndexWritten && slv_number_of_tasks_reg!=0 )
                     begin
                         number_of_ready_tasks_reg<=slv_number_of_tasks_reg;
                         slv_status_reg<=state_ready;
@@ -1101,6 +1127,8 @@ module scheduler_v1_0_S_AXI #
                             activationQ[copyIterator]<=activationQAXI[copyIterator];
                             AbsDeadlines[copyIterator]<=AbsDeadlinesAXI[copyIterator];
                             AbsActivations[copyIterator]<=AbsActivationsAXI[copyIterator];
+                            lookupReadyQ[copyIterator]<=lookupReadyQAXI[copyIterator];
+                            lookupActivationQ[copyIterator]<=lookupActivationQAXI[copyIterator];
 
                             executionTimes[copyIterator]<=0;
 

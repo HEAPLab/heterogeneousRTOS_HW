@@ -152,8 +152,8 @@ module scheduler_v1_0_S_AXI #
     reg intr_ack_all_ff;
     reg aw_en;
 
-    (* mark_debug = "true" *)  wire detintr_dbg;
-    assign detintr_dbg=det_intr[0];
+    //    (* mark_debug = "true" *)  wire detintr_dbg;
+    //    assign detintr_dbg=det_intr[0];
     //_____________________________________
     // Example-specific design signals
     // local parameter for addressing 32 bit / 64 bit C_S_AXI_DATA_WIDTH
@@ -1021,7 +1021,7 @@ module scheduler_v1_0_S_AXI #
 
     //control signals encoding
 
-    reg [C_S_AXI_DATA_WIDTH-1:0] number_of_ready_tasks_reg;
+    (* mark_debug = "true" *) reg [C_S_AXI_DATA_WIDTH-1:0] number_of_ready_tasks_reg;
     (* mark_debug = "true" *)    reg [C_S_AXI_DATA_WIDTH-1:0] newAbsActivation;
     (* mark_debug = "true" *)    reg [7:0] activationIndex;
     (* mark_debug = "true" *)    reg [C_S_AXI_DATA_WIDTH-1:0] newAbsDeadline;
@@ -1143,18 +1143,18 @@ module scheduler_v1_0_S_AXI #
                                 begin
                                     if(ia<(slv_number_of_tasks_reg-1)) //&& AbsActivations[i]<=newAbsActivation && ) //&& (AbsActivations[i+1]>newAbsActivation || i==slv_number_of_tasks_reg-2)) //trovato elemento appena superiore al corrente
                                     begin //shifta indietro di uno gli elementi da 1 fino a i-1 e assegna il task appena attivato alla posizione i-1
-                                        if (AbsActivations[activationQ[ia+1]]<newAbsActivation || (AbsActivations[activationQ[ia+1]]==newAbsActivation && AbsDeadlines[activationQ[ia+1]]<=newAbsDeadline))
+                                        if (AbsActivations[activationQ[ia+1]]<newAbsActivation || (AbsActivations[activationQ[ia+1]]==newAbsActivation && tasksList[(activationIndex*RTTask_tSizeInWords)+3]<=newAbsDeadline))
                                             begin
                                                 activationQ[ia]<=activationQ[ia+1];
                                             end
-                                        else if (AbsActivations[activationQ[ia]]<newAbsActivation || (AbsActivations[activationQ[ia]]==newAbsActivation && AbsDeadlines[activationQ[ia]]<newAbsDeadline))
+                                        else if (AbsActivations[activationQ[ia]]<newAbsActivation || (AbsActivations[activationQ[ia]]==newAbsActivation && tasksList[(activationIndex*RTTask_tSizeInWords)+3]<=newAbsDeadline))
                                         begin
                                             activationQ[ia]<=activationIndex;
                                         end
                                     end
                                 end
 
-                            if (AbsActivations[activationQ[slv_number_of_tasks_reg-1]]<newAbsActivation || (AbsActivations[activationQ[slv_number_of_tasks_reg-1]]==newAbsActivation && AbsDeadlines[activationQ[slv_number_of_tasks_reg-1]]<newAbsDeadline))
+                            if (AbsActivations[activationQ[slv_number_of_tasks_reg-1]]<newAbsActivation || (AbsActivations[activationQ[slv_number_of_tasks_reg-1]]==newAbsActivation && tasksList[((slv_number_of_tasks_reg-1)*RTTask_tSizeInWords)+3]<=newAbsDeadline))
                             begin
                                 activationQ[slv_number_of_tasks_reg-1]<=activationIndex;
                             end
