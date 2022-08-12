@@ -1,7 +1,7 @@
 //Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
-//Date        : Thu Aug 11 21:34:45 2022
+//Date        : Fri Aug 12 06:33:43 2022
 //Host        : HeapAsus running 64-bit Ubuntu Kinetic Kudu (development branch)
 //Command     : generate_target design_1.bd
 //Design      : design_1
