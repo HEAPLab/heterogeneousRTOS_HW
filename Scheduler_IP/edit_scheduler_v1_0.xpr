@@ -97,7 +97,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/scheduler_1.0/hdl/scheduler_v1_0.v">
+      <File Path="$PPRDIR/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v">
         <FileInfo>
           <Attr Name="Library" Val=""/>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -105,10 +105,9 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v">
+      <File Path="$PPRDIR/scheduler_1.0/hdl/scheduler_v1_0.v">
         <FileInfo>
           <Attr Name="Library" Val=""/>
-          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>

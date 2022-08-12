@@ -473,16 +473,17 @@ module scheduler_v1_0_S_AXI #
                                 3'h7:
                                 if (slv_status_reg == state_uninitialized)
                                 begin
-//                                    for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-//                                        if ( S_AXI_WSTRB[byte_index] == 1 ) begin
-//                                            // Respective byte enables are asserted as per write strobes 
-//                                            // Slave register 5
-//                                            slv_number_of_tasks_reg[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
+                                    //                                    for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
+                                    //                                        if ( S_AXI_WSTRB[byte_index] == 1 ) begin
+                                    //                                            // Respective byte enables are asserted as per write strobes 
+                                    //                                            // Slave register 5
+                                    //                                            slv_number_of_tasks_reg[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
 
-//                                            //new_slv_control_reg <= 1'b0;
-//                                        end
-                                        if ( S_AXI_WSTRB[0] == 1 ) begin
-                                            slv_number_of_tasks_reg <= S_AXI_WDATA[7:0];
+                                    //                                            //new_slv_control_reg <= 1'b0;
+                                    //                                        end
+                                    if ( S_AXI_WSTRB[0] == 1 ) begin
+                                        slv_number_of_tasks_reg <= S_AXI_WDATA[7:0];
+                                    end
 
                                 end
                                 //default : begin

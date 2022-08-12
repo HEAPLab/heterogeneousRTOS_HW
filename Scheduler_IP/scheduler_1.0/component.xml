@@ -571,7 +571,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>1cb43f03</spirit:value>
+            <spirit:value>c22daf6b</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -587,7 +587,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>1cb43f03</spirit:value>
+            <spirit:value>c22daf6b</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1482,6 +1482,10 @@
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
+        <spirit:name>hdl/scheduler_v1_0_S_AXI.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
         <spirit:name>hdl/scheduler_v1_0.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>CHECKSUM_1fbf80cd</spirit:userFileType>
@@ -1491,6 +1495,10 @@
       <spirit:name>xilinx_verilogbehavioralsimulation_view_fileset</spirit:name>
       <spirit:file>
         <spirit:name>hdl/scheduler_v1_0_M_AXI.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/scheduler_v1_0_S_AXI.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -1653,8 +1661,8 @@
         <xilinx:taxonomy>AXI_Peripheral</xilinx:taxonomy>
       </xilinx:taxonomies>
       <xilinx:displayName>scheduler_v1.0</xilinx:displayName>
-      <xilinx:coreRevision>104</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2022-08-12T04:32:51Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>105</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2022-08-12T04:37:49Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.df@3f74a083_ARCHIVE_LOCATION">/home/bosp/workspace/ip_repo/scheduler_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.df@4e37f1b3_ARCHIVE_LOCATION">/home/bosp/workspace/ip_repo/scheduler_1.0</xilinx:tag>
@@ -3113,6 +3121,18 @@
         <xilinx:tag xilinx:name="ui.data.coregen.df@5eff4b6f_ARCHIVE_LOCATION">/home/bosp/workspace/ip_repo/scheduler_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.df@3e1c67d4_ARCHIVE_LOCATION">/home/bosp/workspace/ip_repo/scheduler_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.df@2edbbb8d_ARCHIVE_LOCATION">/home/bosp/workspace/ip_repo/scheduler_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@23b4967f_ARCHIVE_LOCATION">/home/bosp/workspace/ip_repo/scheduler_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@6ac69338_ARCHIVE_LOCATION">/home/bosp/workspace/ip_repo/scheduler_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@14abe0d2_ARCHIVE_LOCATION">/home/bosp/workspace/ip_repo/scheduler_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@2d945e4a_ARCHIVE_LOCATION">/home/bosp/workspace/ip_repo/scheduler_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@5a135e28_ARCHIVE_LOCATION">/home/bosp/workspace/ip_repo/scheduler_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@5776368b_ARCHIVE_LOCATION">/home/bosp/workspace/ip_repo/scheduler_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@13055ee3_ARCHIVE_LOCATION">/home/bosp/workspace/ip_repo/scheduler_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@209becbe_ARCHIVE_LOCATION">/home/bosp/workspace/ip_repo/scheduler_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@382b1d9_ARCHIVE_LOCATION">/home/bosp/workspace/ip_repo/scheduler_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@3590ccea_ARCHIVE_LOCATION">/home/bosp/workspace/ip_repo/scheduler_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@6e72c9d3_ARCHIVE_LOCATION">/home/bosp/workspace/ip_repo/scheduler_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@5d7eab62_ARCHIVE_LOCATION">/home/bosp/workspace/ip_repo/scheduler_1.0</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
@@ -3120,7 +3140,7 @@
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="62de4e30"/>
       <xilinx:checksum xilinx:scope="addressSpaces" xilinx:value="8dc41e8b"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="c30980da"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="2e8ef766"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="4f4dad15"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="cf2d437e"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="f6d20999"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="2a5900d8"/>
