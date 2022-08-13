@@ -25,6 +25,7 @@
 )
 	(
     // Users to add ports here
+	input wire taskExecutionFromBeginning,
     input wire [31:0] taskPtr,
 
     // User ports ends

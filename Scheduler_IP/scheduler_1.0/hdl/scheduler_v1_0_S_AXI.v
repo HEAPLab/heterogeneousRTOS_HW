@@ -33,6 +33,7 @@ module scheduler_v1_0_S_AXI #
     (* mark_debug = "true" *)  input wire taskWriteDone,
     (* mark_debug = "true" *)  input wire taskWriteStarted,
     (* mark_debug = "true" *)  output reg taskReady,
+	(* mark_debug = "true" *)  output reg taskExecutionFromBeginning,
     output reg [31:0] taskPtr,
 
 
@@ -1423,6 +1424,7 @@ module scheduler_v1_0_S_AXI #
                     begin
                         nextRunningTaskIndex<=readyQ[0];
                         taskPtr<=tasksList[(readyQ[0]*RTTask_tSizeInWords)];
+						taskExecutionFromBeginning<=executionTimes[readyQ[0]]==0 ? 1'b1 : 1'b0;
                         taskReady<=1'b1;
                         waitingAck<=1'b1;
                         taskPending<=1'b0;
