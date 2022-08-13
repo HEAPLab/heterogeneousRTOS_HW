@@ -173,6 +173,7 @@
 
         .TXN_DONE(taskWriteDone),
         .INIT_AXI_TXN(taskReady),
+		.taskExecutionFromBeginning(taskExecutionFromBeginning),
         .taskPtr(taskPtr),
 
         //.INIT_AXI_TXN(m_axi_init_axi_txn),
