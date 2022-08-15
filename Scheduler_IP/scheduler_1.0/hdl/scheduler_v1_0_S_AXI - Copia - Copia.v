@@ -1237,6 +1237,61 @@ module scheduler_v1_0_S_AXI #
                                                 begin
                                                     if(ib<(number_of_ready_tasks_reg-1)) //&& AbsActivations[i]<=newAbsActivation && ) //&& (AbsActivations[i+1]>newAbsActivation || i==slv_number_of_tasks_reg-2)) //trovato elemento appena superiore al corrente
                                                     begin //shifta indietro di uno gli elementi da 1 fino a i-1 e assegna il task appena attivato alla posizione i-1
+														if (deadlineMiss)
+														begin
+														if (ib < (runningTaskPosition-1))
+														begin //(ib == runningTaskPosition-1)
+															if (AbsDeadlines[readyQ[ib+1]]<=newAbsDeadline)
+															begin
+															end
+															else if(AbsDeadlines[readyQ[ib]]<=newAbsDeadline) //ib == runningTaskPosition ||
+															begin
+																readyQ[ib]<=activationIndex;
+																//lookupReadyQ[activationIndex]<=ib;
+															end
+															else
+															begin
+																readyQ[ib]<=readyQ[ib-1];
+																//lookupReadyQ[readyQ[ib-1]]<=ib;
+															end
+														end
+														else if (ib == runningTaskPosition-1)
+														begin
+															if(AbsDeadlines[readyQ[ib]]<=newAbsDeadline)
+															begin
+																readyQ[ib]<=activationIndex;
+																//lookupReadyQ[activationIndex]<=ib;
+															end
+															else
+															begin
+																readyQ[ib]<=readyQ[ib-1];
+																//lookupReadyQ[readyQ[ib-1]]<=ib;
+															end
+														end
+														else if (ib == runningTaskPosition)
+														begin
+															if (AbsDeadlines[readyQ[ib+1]]<=newAbsDeadline)
+                                                                readyQ[ib]<=readyQ[ib+1];
+															else if (AbsDeadlines[readyQ[ib]]<=newAbsDeadline)
+																readyQ[ib]<=activationIndex;
+															else
+                                                                readyQ[ib]<=readyQ[ib-1];
+														end
+														else if (ib > runningTaskPosition)
+														begin
+															if (AbsDeadlines[readyQ[ib+1]]<=newAbsDeadline)
+															begin
+                                                                readyQ[ib]<=readyQ[ib+1];
+                                                                //lookupReadyQ[readyQ[ib+1]]<=ib;
+															end
+															else if (AbsDeadlines[readyQ[ib]]<=newAbsDeadline)
+															begin
+																readyQ[ib]<=activationIndex;
+																//lookupReadyQ[activationIndex]<=ib;
+															end
+														end
+														end
+														else
 														if (ib < runningTaskPosition)
 														begin //(ib == runningTaskPosition-1)
 															if ( ! (AbsDeadlines[readyQ[ib+1]]<=newAbsDeadline))
@@ -1285,72 +1340,65 @@ module scheduler_v1_0_S_AXI #
                                         end
                                 end
                             else
-                                begin
+                                begin //no wcet exceeded and no kill running task
 									if (!deadlineMiss)
 										number_of_ready_tasks_reg=number_of_ready_tasks_reg+1;
 
                                     //integer ic;
-                                    for (ic=maxTasks-1; ic>0; ic=ic-1)
+									for (ic=0; ic<maxTasks; ic=ic+1)
                                         begin
-                                        if(ic<=(number_of_ready_tasks_reg-1))
+                                        if(ic<number_of_ready_tasks_reg)
+										begin //shifta indietro di uno gli elementi da 1 fino a i-1 e assegna il task appena attivato alla posizione i-1
+										if (deadlineMiss)
+										begin
+											if(ic==(number_of_ready_tasks_reg-1))
 											begin
-											if (deadlineMiss)
+												if (AbsDeadlines[readyQ[ic]]<=newAbsDeadline))
 												begin
-													if (AbsDeadlines[readyQ[ic]]>newAbsDeadline)
-														//begin
-														//	readyQ[ic]<=readyQ[ic-1];
-															// lookupReadyQ[readyQ[ic-1]]<=ic;
-														//end
-													else if (ic==(number_of_ready_tasks_reg-1) || AbsDeadlines[readyQ[ic+1]]>newAbsDeadline)
-													begin
-														readyQ[ic]<=activationIndex;
-														if (ic>=runningTaskPosition)
-														begin
-															runningTaskPosition<=runningTaskPosition-1;
-														end
-														//lookupReadyQ[activationIndex]<=ic;
-													end
-													else
-													begin
-														readyQ[ic]<=readyQ[ic+1];
-													end
+													readyQ[ic]<=activationIndex;
+													runningTaskPosition<=runningTaskPosition-1;
 												end
 											end
 											else
-												begin
-													if (AbsDeadlines[readyQ[ic-1]]>newAbsDeadline)
-														begin
-															readyQ[ic]<=readyQ[ic-1];
-															// lookupReadyQ[readyQ[ic-1]]<=ic;
-														end
-													else if (AbsDeadlines[readyQ[ic]]>newAbsDeadline || ic==(number_of_ready_tasks_reg-1))
+											begin
+												if (AbsDeadlines[readyQ[ic+1]]<=newAbsDeadline)
 													begin
-														readyQ[ic]<=activationIndex;
-														if (ic<=runningTaskPosition)
-														begin
-															runningTaskPosition<=runningTaskPosition+1;
-														end
-														//lookupReadyQ[activationIndex]<=ic;
+														readyQ[ic]<=readyQ[ic+1];
 													end
-                                            end
-                                        end
-
-									if (deadlineMiss)
-									begin
-									if (AbsDeadlines[readyQ[1]]>newAbsDeadline)
-										begin
-											readyQ[0]<=activationIndex;
-											runningTaskPosition<=runningTaskPosition+1;
-											//lookupReadyQ[activationIndex]<=0;
+												else if (AbsDeadlines[readyQ[ic]]<=newAbsDeadline  || ic==0))
+												begin
+													readyQ[ic]<=activationIndex;
+													if (ic>=runningTaskPosition)
+														runningTaskPosition<=runningTaskPosition-1;
+												end
+											end	
 										end
-									else if (AbsDeadlines[readyQ[0]]>newAbsDeadline)
+										else
 										begin
-											readyQ[0]<=activationIndex;
-											runningTaskPosition<=runningTaskPosition+1;
-											//lookupReadyQ[activationIndex]<=0;
+											if (ic==0)
+											begin
+												if(! AbsDeadlines[readyQ[ic]]<=newAbsDeadline])
+												begin
+													readyQ[ic]<=activationIndex;
+													runningTaskPosition<=runningTaskPosition+1;
+												end
+											end
+											else
+											if (!AbsDeadlines[readyQ[ic]]<=newAbsDeadline] || ic==number_of_ready_tasks_reg-1)
+											begin
+												if (AbsDeadlines[readyQ[ic-1]<=newAbsDeadline))
+												begin
+													readyQ[ic]<=activationIndex;
+													if (ic>=runningTaskPosition)
+														runningTaskPosition<=runningTaskPosition+1;
+												end
+												else
+												begin
+													readyQ[ic]<=readyQ[ic-1];
+												end
+											end
 										end
 									end
-                                end
 
                             AbsDeadlines[activationIndex]<=newAbsDeadline;
 
