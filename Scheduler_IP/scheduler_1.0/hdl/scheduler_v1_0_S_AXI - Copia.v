@@ -1179,6 +1179,9 @@ module scheduler_v1_0_S_AXI #
                         if (AbsActivations[ie]!=32'hFFFF_FFFF) // && ie!=activationIndex)
 							if (AbsActivations[ie]==0)
 							begin
+								if (activationQ[0]==ie)
+									newActivation=1'b1;
+								
 								AbsActivations[ie]=tasksList[(ie*RTTask_tSizeInWords)+1];
 								AbsDeadlines[ie]=tasksList[(ie*RTTask_tSizeInWords)+3];
 							end	
@@ -1190,7 +1193,7 @@ module scheduler_v1_0_S_AXI #
 									end
                     end
 					
-                    if (AbsActivations[activationQ[0]]==0)
+                    if (newActivation)
                         begin
                             //new task activation
 
@@ -1206,16 +1209,16 @@ module scheduler_v1_0_S_AXI #
                                     begin
 										if (ia==(slv_number_of_tasks_reg-1))
 										begin
-											if (AbsActivations[activationQ[ia]]<newAbsActivation || (AbsActivations[activationQ[ia]]==newAbsActivation && tasksList[(activationQ[ia]*RTTask_tSizeInWords)+3]<=newAbsDeadline))
+											if (AbsActivations[activationQ[ia]]<newAbsActivation || (AbsActivations[activationQ[ia]]==newAbsActivation && AbsDeadlines[activationQ[ia]] <= newAbsDeadline))
 											begin //todo optimize simultaneous access to TasksList here
 												activationQ[ia]<=activationIndex;
 											end
 										end
-										else if (AbsActivations[activationQ[ia+1]]<newAbsActivation || (AbsActivations[activationQ[ia+1]]==newAbsActivation && tasksList[((activationQ[ia+1])*RTTask_tSizeInWords)+3]<=newAbsDeadline)
+										else if (AbsActivations[activationQ[ia+1]]<newAbsActivation || (AbsActivations[activationQ[ia+1]]==newAbsActivation && AbsDeadlines[activationQ[ia+1]]<=newAbsDeadline)
 											begin
 												activationQ[ia]<=activationQ[ia+1];
 											end
-										else if (AbsActivations[activationQ[ia]]<newAbsActivation || (AbsActivations[activationQ[ia]]==newAbsActivation && tasksList[((activationQ[ia+1])*RTTask_tSizeInWords)+3]<=newAbsDeadline))
+										else if (AbsActivations[activationQ[ia]]<newAbsActivation || (AbsActivations[activationQ[ia]]==newAbsActivation && AbsDeadlines[activationQ[ia+1]]<=newAbsDeadline))
 										begin
 											activationQ[ia]<=activationIndex;
 										end
@@ -1509,7 +1512,7 @@ module scheduler_v1_0_S_AXI #
 										end
 									end
 
-                            AbsDeadlines[activationIndex]<=newAbsDeadline;
+                            newActivation=0;
 
                         end
                     else if ( WCETexceeded || controlKillRunningJob )
