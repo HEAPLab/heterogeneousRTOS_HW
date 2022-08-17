@@ -1157,27 +1157,21 @@ module scheduler_v1_0_S_AXI #
                     begin
 						if (AbsDeadlines[ie]==0)
 							deadlineMisses[ie]=1'b1;
-                        if (AbsActivations[ie]!=32'hFFFF_FFFF)
+                        if (AbsActivations[ie]==0)
 							begin
 							newActivations[ie]=1'b1;
 							
 							AbsActivations[ie]=tasksList[(ie*RTTask_tSizeInWords)+1]; //todo optimize simultaneous access to TasksList here
 							AbsDeadlines[ie]=tasksList[(ie*RTTask_tSizeInWords)+3];
 							end	
-							else
-								begin
-									AbsActivations[ie]=AbsActivations[ie]-1;
-									if (AbsDeadlines[ie]!=32'hFFFF_FFFF && AbsDeadlines[ie]!=0)
-										AbsDeadlines[ie]=AbsDeadlines[ie]-1;
-								end
+						else if (AbsActivations[ie]!=32'hFFFF_FFFF)
+						begin
+							AbsActivations[ie]=AbsActivations[ie]-1;
+							if (AbsDeadlines[ie]!=32'hFFFF_FFFF && AbsDeadlines[ie]!=0)
+								AbsDeadlines[ie]=AbsDeadlines[ie]-1;
+						end
                     end
 					//________________________________
-					
-					if (!(WCETexceeded || controlKillRunningJob || (deadlineMiss && readyQ[0]==runningTaskIndex) ) && (!runningTaskKilled || runningTaskIndex!=oldRunningTaskIndex) && runningTaskIndex!=8'hFF)
-					begin
-                        executionTimes[runningTaskIndex]<=executionTimes[runningTaskIndex]+1;
-						runningTaskKilled=0;
-					end
 					
 					runningTaskKilled=runningTaskKilled && runningTaskIndex==oldRunningTaskIndex;
 					
