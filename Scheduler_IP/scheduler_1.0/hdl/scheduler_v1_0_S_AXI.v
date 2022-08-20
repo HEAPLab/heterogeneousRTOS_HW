@@ -193,24 +193,17 @@ module scheduler_v1_0_S_AXI #
     localparam [OPT_MEM_ADDR_BITS:0] maxRQDLAddr=maxAQNumAddr+maxTasks;
     localparam [OPT_MEM_ADDR_BITS:0] maxRQActAddr=maxRQDLAddr+maxTasks;
 
-    localparam [OPT_MEM_ADDR_BITS:0] maxRQReverseNumAddr=maxRQActAddr+maxTasks;
-    localparam [OPT_MEM_ADDR_BITS:0] maxAQReverseNumAddr=maxRQReverseNumAddr+maxTasks;
-
 
     reg[C_S_AXI_DATA_WIDTH-1:0] tasksList [(maxTasks*RTTask_tSizeInWords)-1:0];
     reg[7:0] readyQAXI [maxTasks-1:0]; //ready queue index ordered by deadline ascending
     reg[7:0] activationQAXI [maxTasks-1:0]; //activation queue index ordered by next activation ascending
     reg[C_S_AXI_DATA_WIDTH-1:0] AbsDeadlinesAXI [maxTasks-1:0]; //ready queue ordered by deadline ascending
     reg[C_S_AXI_DATA_WIDTH-1:0] AbsActivationsAXI [maxTasks-1:0]; //activation queue index ordered by next activation ascending
-    reg[7:0] lookupReadyQAXI [maxTasks-1:0];
-    reg[7:0] lookupActivationQAXI [maxTasks-1:0];
 
     (* mark_debug = "true" *) reg[7:0] readyQ [maxTasks-1:0]; //ready queue index ordered by deadline ascending
     (* mark_debug = "true" *) reg[7:0] activationQ [maxTasks-1:0]; //activation queue index ordered by next activation ascending
     (* mark_debug = "true" *) reg[C_S_AXI_DATA_WIDTH-1:0] AbsDeadlines [maxTasks-1:0]; //ready queue ordered by deadline ascending
     (* mark_debug = "true" *) reg[C_S_AXI_DATA_WIDTH-1:0] AbsActivations [maxTasks-1:0]; //activation queue index ordered by next activation ascending
-    (* mark_debug = "true" *) reg[7:0] lookupReadyQ [maxTasks-1:0];
-    (* mark_debug = "true" *) reg[7:0] lookupActivationQ [maxTasks-1:0];
 
     reg controlPending;
     reg schedulerBitFlip;
@@ -410,10 +403,6 @@ module scheduler_v1_0_S_AXI #
     reg ACTqIndexWritten;
     reg DLqWritten;
     reg ACTqWritten;
-    reg DLqReverseIndexWritten;
-    reg ACTqReverseIndexWritten;
-
-
 
     assign led1=taskSetWritten;
     assign led2=DLqIndexWritten;
@@ -436,8 +425,6 @@ module scheduler_v1_0_S_AXI #
                 ACTqIndexWritten<=1'b0;
                 DLqWritten<=1'b0;
                 ACTqWritten<=1'b0;
-                DLqReverseIndexWritten<=1'b0;
-                ACTqReverseIndexWritten<=1'b0;
             end
         else begin
             if (slv_reg_wren)
@@ -511,24 +498,7 @@ module scheduler_v1_0_S_AXI #
                                     AbsDeadlinesAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAQNumAddr]<= S_AXI_WDATA;
                                 else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQActAddr)
                                     AbsActivationsAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQDLAddr]<= S_AXI_WDATA;
-                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQReverseNumAddr)
-                                    lookupReadyQAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQReverseNumAddr]<= S_AXI_WDATA[7:0];
-                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxAQReverseNumAddr)
-                                    lookupActivationQAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAQReverseNumAddr]<= S_AXI_WDATA[7:0];
 
-
-
-
-                                    //                                if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)==(maxRTListAddr-1))
-                                    //                                    taskSetWritten<=1'b1;
-                                    //                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)==(maxRQNumAddr-1))
-                                    //                                    DLqIndexWritten<=1'b1;
-                                    //                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)==(maxAQNumAddr-1))
-                                    //                                    ACTqIndexWritten<=1'b1;
-                                    //                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)==(maxRQDLAddr-1))
-                                    //                                    DLqWritten<=1'b1;
-                                    //                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)==(maxRQActAddr-1))
-                                    //                                    ACTqWritten<=1'b1;
                                 case (axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)
                                     (maxRTListAddr-1):
                                     taskSetWritten<=1'b1;
@@ -544,12 +514,6 @@ module scheduler_v1_0_S_AXI #
 
                                     (maxRQActAddr-1):
                                     ACTqWritten<=1'b1;
-
-                                    (maxRQReverseNumAddr-1):
-                                    DLqReverseIndexWritten<=1'b1;
-
-                                    (maxAQReverseNumAddr-1):
-                                    ACTqReverseIndexWritten<=1'b1;
                                 endcase
                             end
                         end
@@ -1057,8 +1021,6 @@ module scheduler_v1_0_S_AXI #
     (* mark_debug = "true" *)    reg [7:0] activationIndex;
     (* mark_debug = "true" *)    reg [C_S_AXI_DATA_WIDTH-1:0] newAbsDeadline;
 
-    //    reg[C_S_AXI_DATA_WIDTH-1:0] schedulerTick;
-
     integer ia;
     integer ib;
     integer ic;
@@ -1069,15 +1031,22 @@ module scheduler_v1_0_S_AXI #
     reg startPending;
 	
     reg[31:0] oldSlv_control_reg;
-	reg[7:0] oldRunningTaskIndex;
 	
 	reg[31:0] newActivations [maxTasks-1:0];
 	reg[31:0] executionTimes [maxTasks-1:0];
 	reg[31:0] deadlineMisses [maxTasks-1:0];
 	reg runningTaskKilled;
+	reg nextRunningTaskKilled;
+	reg runningTaskFlop;
+	reg oldRunningTaskFlop;
+	reg [7:0] oldRunningTaskIndex;
+	
+	reg runningTaskJustKilled;
+	reg nextRunningTaskJustKilled;
 
     (* mark_debug = "true" *) reg WCETexceeded;
 	(* mark_debug = "true" *) reg controlKillRunningJob;
+	
 	(* mark_debug = "true" *) reg deadlineMiss;
 	(* mark_debug = "true" *) reg[7:0] runningTaskPosition;
 
@@ -1086,16 +1055,21 @@ module scheduler_v1_0_S_AXI #
         if ( ! SCHEDULER_ARESETN ) begin //reset
             copyIterator<=8'b0;
             startPending<=1'b0;
-			
-			oldRunningTaskIndex<=8'FF;
-			
+						
 			runningTaskPosition<=8'b0;
 
             schedulerBitFlip<=1'b0;
 			
 			runningTaskKilled<=1'b0;
+			nextRunningTaskKilled<=1'b0;
+			oldRunningTaskIndex<=8'hFF;
+			
+			runningTaskJustKilled<=1'b0;
+			nextRunningTaskJustKilled<=1'b0;
 
             oldSlv_control_reg<=32'b0;
+			
+			oldRunningTaskFlop<=1'b0;
 
             slv_status_reg<=state_uninitialized;
         end
@@ -1120,7 +1094,7 @@ module scheduler_v1_0_S_AXI #
             case(slv_status_reg)
                 state_uninitialized:
                 begin
-                    if ( taskSetWritten && DLqIndexWritten && ACTqIndexWritten && DLqWritten && ACTqWritten && DLqReverseIndexWritten && ACTqReverseIndexWritten && slv_number_of_tasks_reg!=0 )
+                    if ( taskSetWritten && DLqIndexWritten && ACTqIndexWritten && DLqWritten && ACTqWritten && slv_number_of_tasks_reg!=0 )
                     begin
                         number_of_ready_tasks_reg<=slv_number_of_tasks_reg;
                         slv_status_reg<=state_ready;
@@ -1134,8 +1108,6 @@ module scheduler_v1_0_S_AXI #
                             activationQ[copyIterator]<=activationQAXI[copyIterator];
                             AbsDeadlines[copyIterator]<=AbsDeadlinesAXI[copyIterator];
                             AbsActivations[copyIterator]<=AbsActivationsAXI[copyIterator];
-                            //lookupReadyQ[copyIterator]<=lookupReadyQAXI[copyIterator];
-                            //lookupActivationQ[copyIterator]<=lookupActivationQAXI[copyIterator];
 
                             executionTimes[copyIterator]<=0;
 							newActivations[copyIterator]<=1'b0;
@@ -1151,8 +1123,18 @@ module scheduler_v1_0_S_AXI #
                 end
                 state_running:
 				
-				//update deadlines, activations, deadline misses
-                begin									
+				//update deadlines, activations, deadline misses, execution time
+                begin
+					runningTaskKilled = runningTaskKilled && (runningTaskFlop==oldRunningTaskFlop || nextRunningTaskKilled) && !(runningTaskJustKilled && readyQ[0]==runningTaskIndex && number_of_ready_tasks_reg>0 && executionTimes[readyQ[0]]==0);
+
+					nextRunningTaskKilled=nextRunningTaskKilled && runningTaskFlop==oldRunningTaskFlop && !(nextRunningTaskJustKilled && readyQ[0]==nextRunningTaskIndex && number_of_ready_tasks_reg>0 && executionTimes[readyQ[0]]==0));
+					
+					if (runningTaskJustKilled && oldRunningTaskIndex!=8'hFF)
+						executionTimes[oldRunningTaskIndex]=0;
+				
+					if (!runningTaskKilled && runningTaskIndex!=8'hFF)
+						executionTimes[runningTaskIndex] = executionTimes[runningTaskIndex]+1;
+				
 					for (ie=0; ie<maxTasks; ie=ie+1)
                     begin
 						if (AbsDeadlines[ie]==0)
@@ -1161,7 +1143,7 @@ module scheduler_v1_0_S_AXI #
 							begin
 							newActivations[ie]=1'b1;
 							
-							AbsActivations[ie]=tasksList[(ie*RTTask_tSizeInWords)+1]; //todo optimize simultaneous access to TasksList here
+							AbsActivations[ie]=tasksList[(ie*RTTask_tSizeInWords)+1];
 							AbsDeadlines[ie]=tasksList[(ie*RTTask_tSizeInWords)+3];
 							end	
 						else if (AbsActivations[ie]!=32'hFFFF_FFFF)
@@ -1173,12 +1155,10 @@ module scheduler_v1_0_S_AXI #
                     end
 					//________________________________
 					
-					runningTaskKilled=runningTaskKilled && runningTaskIndex==oldRunningTaskIndex;
-					
 					//what happens in this tick?
 					
-					WCETexceeded= (runningTaskIndex==8'hFF || runningTaskKilled) ? 0 : executionTimes[runningTaskIndex]>=tasksList[(runningTaskIndex*RTTask_tSizeInWords)+2];	
-					controlKillRunningJob=(!runningTaskKilled && slv_control_reg != oldSlv_control_reg && slv_control_reg[31:16]==control_jobEnded && (slv_control_reg[7:0]-1)==runningTaskIndex); //&& number_of_ready_tasks_reg>0 
+					WCETexceeded= (runningTaskKilled || runningTaskIndex==8'hFF) ? 0 : executionTimes[runningTaskIndex]>=tasksList[(runningTaskIndex*RTTask_tSizeInWords)+2];
+					controlKillRunningJob=(!runningTaskKilled && runningTaskIndex!=8'hFF && slv_control_reg != oldSlv_control_reg && slv_control_reg[31:16]==control_jobEnded && (slv_control_reg[7:0]-1)==runningTaskIndex); //&& number_of_ready_tasks_reg>0 
 					deadlineMiss = deadlineMisses[readyQ[0]] && !((WCETexceeded || controlKillRunningJob) && runningTaskIndex==readyQ[0]);
 					//____________________________				
 	
@@ -1191,12 +1171,12 @@ module scheduler_v1_0_S_AXI #
                         begin
                             //new task activation
 							newActivations[readyQ[0]]=1'b0;
-
+							
                             activationIndex=activationQ[0];
                             newAbsActivation=AbsActivations[activationIndex];
                             newAbsDeadline=AbsDeadlines[activationIndex];
 							
-							deadlineMisses[activationIndex]=1'b0;
+							//deadlineMisses[activationIndex]=1'b0;
 							AbsActivations[activationIndex]<=newAbsActivation;
 
                             //integer ia;
@@ -1470,23 +1450,28 @@ module scheduler_v1_0_S_AXI #
                             end
 						runningTaskPosition<=runningTaskPosition-1;
 					end
-
-					if (WCETexceeded || controlKillRunningJob)
-                        AbsDeadlines[runningTaskIndex]=32'hFFFF_FFFF;
-						
-					if (deadlineMiss)
-                        AbsDeadlines[readyQ[0]]=32'hFFFF_FFFF;
-
-					if (deadlineMiss && readyQ[0]!=runningTaskIndex)
-						executionTimes[readyQ[0]]<=0;
+										
+					runningTaskJustKilled=WCETexceeded || controlKillRunningJob || (deadlineMiss && readyQ[0]==runningTaskIndex);
+					runningTaskKilled=runningTaskKilled || runningTaskJustKilled;
+					
+					nextRunningTaskJustKilled=deadlineMiss && readyQ[0]==nextRunningTaskIndex;
+					nextRunningTaskKilled=nextRunningTaskKilled || nextRunningTaskJustKilled;
+					
+					if (runningTaskJustKilled && AbsDeadlines[runningTaskIndex]==0)
+                    begin
+						AbsDeadlines[runningTaskIndex]=32'hFFFF_FFFF;
+					end
+					
+					if (readyQ[0]!=runningTaskIndex && deadlineMisses[readyQ[0]] && AbsDeadlines[readyQ[0]]==0)
+					begin
+						AbsDeadlines[readyQ[0]]=32'hFFFF_FFFF;
+						executionTimes[readyQ[0]]=0;
+					end
 					
 					deadlineMisses[readyQ[0]]=0;
-					
-					runningTaskKilled=runningTaskKilled || (WCETexceeded || controlKillRunningJob || (deadlineMiss && readyQ[0]==runningTaskIndex));
-					
-					executionTimes[runningTaskIndex] <= runningTaskKilled ? 0 : executionTimes[runningTaskIndex]+1;
-                   					
+						
                     oldSlv_control_reg<=slv_control_reg;
+					oldRunningTaskFlop<=runningTaskFlop;
 					schedulerBitFlip<=!schedulerBitFlip;
 					oldRunningTaskIndex<=runningTaskIndex;
                 end
@@ -1510,7 +1495,6 @@ module scheduler_v1_0_S_AXI #
     reg oldTaskWriteDone1;
     reg[7:0] oldHighestPriorityTaskIndex;
     reg[7:0] oldNumber_of_ready_tasks_reg;
-	reg oldDeadlineMiss;
 
     always @(posedge S_AXI_ACLK)
     begin
@@ -1520,17 +1504,22 @@ module scheduler_v1_0_S_AXI #
                 oldTaskWriteDone1<=1'b0;
 
                 waitingAck<=1'b0;
-                //taskPending<=1'b;
                 runningTaskIndex<=8'hFF;
+				nextRunningTaskIndex<=8'hFF;
 
                 oldHighestPriorityTaskIndex<=8'hFF;
+				oldHighestPriorityTaskExecTimeNotZero<=1'h0;
+				
                 oldNumber_of_ready_tasks_reg<=0;
-				oldDeadlineMiss<=1'b0;
+				
+				runningTaskFlop<=1'b0;
             end
         else
             begin
                 if(slv_status_reg==state_running)
                 begin
+                    taskPending = number_of_ready_tasks_reg>0 && AbsDeadlines[readyQ[0]]!=0 && (taskPending || readyQ[0] != oldHighestPriorityTaskIndex || executionTimes[HighestPriorityTaskIndex]==0 && oldHighestPriorityTaskExecTimeNotZero);
+					
                     taskPending = number_of_ready_tasks_reg>0 && !deadlineMisses[readyQ[0]] && (taskPending || readyQ[0] != oldHighestPriorityTaskIndex || oldNumber_of_ready_tasks_reg==0 || oldDeadlineMiss!=deadlineMisses[readyQ[0]]);
 								
                     if (waitingAck)
@@ -1540,9 +1529,10 @@ module scheduler_v1_0_S_AXI #
                                     waitingAck<=1'b0;
                                     runningTaskIndex<=nextRunningTaskIndex;
                                 end
-                            else if (taskWriteDone && taskWriteDone!=oldTaskWriteDone1)
+                            else if (taskWriteDone && !oldTaskWriteDone1)
                                 begin
                                     runningTaskIndex<=8'hFF;
+									runningTaskFlop<=!runningTaskFlop;
                                 end
                             else if (taskWriteStarted)
                             begin
@@ -1555,47 +1545,21 @@ module scheduler_v1_0_S_AXI #
 
                         nextRunningTaskIndex<=readyQ[0];
                         taskPtr<=tasksList[(readyQ[0]*RTTask_tSizeInWords)];
-						taskExecutionFromBeginning <= executionTimes[readyQ[0]]==0 ? 1'b1 : 1'b0;
+						taskExecutionFromBeginning <= executionTimes[readyQ[0]]==0;
                         taskReady<=1'b1;
 						
                         waitingAck<=1'b1;
                     end
 					
 					oldHighestPriorityTaskIndex<=readyQ[0];
-					oldDeadlineMiss<=deadlineMisses[readyQ[0]];
+					oldHighestPriorityTaskExecTimeNotZero <= executionTimes[readyQ[0]]!=0;
+
 					oldNumber_of_ready_tasks_reg<=number_of_ready_tasks_reg;
                 end
                 oldIntrStatus<=det_intr[0];
                 oldTaskWriteDone1<=taskWriteDone;
             end
     end
-
-	//(* mark_debug = "true" *) reg[31:0] runningTaskTime;
-//    reg [7:0] oldRunningIndexForExecutionCounter;
-    // always @(schedulerTick, S_AXI_ARESETN) //scheduler clock
-//    always @(posedge SCHEDULER_CLK) //scheduler clock
-//    begin
-//        if (!SCHEDULER_ARESETN)
-//            begin
-//                oldRunningIndexForExecutionCounter<=8'hFF;
-//            end
-//        else
-//		begin
-//            if (runningTaskIndex != 8'hFF && number_of_ready_tasks_reg>0)
-//			begin
-//                if (oldRunningIndexForExecutionCounter != runningTaskIndex)
-//                    begin
-//                        runningTaskTime<=0;
-//                    end
-//                else
-//                    begin
-//                        runningTaskTime<=runningTaskTime+1;
-//                    end
-//                oldRunningIndexForExecutionCounter<=runningTaskIndex;
-//            end
-//        end
-//    end
-
 
     always @(slv_status_reg)
     begin
