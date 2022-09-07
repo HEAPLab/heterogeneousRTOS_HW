@@ -1,59 +1,49 @@
 {
    "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.748529",
-   "Default View_TopLeft":"0,59",
+   "Default View_ScaleFactor":"0.609597",
+   "Default View_TopLeft":"-90,-315",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
 #  -string -flagsOSRD
-preplace port DDR -pg 1 -lvl 4 -x 1350 -y 60 -defaultsOSRD
-preplace port FIXED_IO -pg 1 -lvl 4 -x 1350 -y 80 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED04 -pg 1 -lvl 4 -x 1350 -y 590 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED03 -pg 1 -lvl 4 -x 1350 -y 570 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED02 -pg 1 -lvl 4 -x 1350 -y 550 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED01 -pg 1 -lvl 4 -x 1350 -y 530 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED05 -pg 1 -lvl 4 -x 1350 -y 20 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED06 -pg 1 -lvl 4 -x 1350 -y 40 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED15 -pg 1 -lvl 4 -x 1350 -y 260 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED07 -pg 1 -lvl 4 -x 1350 -y 100 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED08 -pg 1 -lvl 4 -x 1350 -y 120 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED09 -pg 1 -lvl 4 -x 1350 -y 140 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED10 -pg 1 -lvl 4 -x 1350 -y 160 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED11 -pg 1 -lvl 4 -x 1350 -y 180 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED12 -pg 1 -lvl 4 -x 1350 -y 200 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED13 -pg 1 -lvl 4 -x 1350 -y 220 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED14 -pg 1 -lvl 4 -x 1350 -y 240 -defaultsOSRD
-preplace port port-id_fa2_ta2_eb1_LED16 -pg 1 -lvl 4 -x 1350 -y 280 -defaultsOSRD
-preplace inst proc_sys_reset_0 -pg 1 -lvl 1 -x 210 -y 470 -defaultsOSRD
-preplace inst processing_system7_0 -pg 1 -lvl 3 -x 980 -y 180 -defaultsOSRD
-preplace inst axi_mem_intercon -pg 1 -lvl 2 -x 570 -y 160 -defaultsOSRD
-preplace inst ps7_0_axi_periph -pg 1 -lvl 2 -x 570 -y 520 -defaultsOSRD
-preplace inst scheduler_0 -pg 1 -lvl 3 -x 980 -y 560 -defaultsOSRD
-preplace netloc Net 1 0 4 30 370 390 20 740 0 1210
-preplace netloc proc_sys_reset_0_peripheral_aresetn 1 1 2 400 400 720
-preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 4 20 360 NJ 360 NJ 360 1210
-preplace netloc scheduler_0_irq 1 2 2 750 -10 1230
-preplace netloc scheduler_0_led2 1 3 1 1260 40n
-preplace netloc scheduler_0_led3 1 3 1 1280 100n
-preplace netloc scheduler_0_led4 1 3 1 1300 120n
-preplace netloc scheduler_0_led5 1 3 1 1320 140n
-preplace netloc scheduler_0_m_axi_error 1 3 1 1330J 590n
-preplace netloc scheduler_0_memwritten 1 3 1 1250 20n
-preplace netloc scheduler_0_readyLed 1 3 1 1290J 500n
-preplace netloc scheduler_0_runningLed 1 3 1 1270J 520n
-preplace netloc scheduler_0_uninitializedLed 1 3 1 1310J 480n
-preplace netloc axi_mem_intercon_M00_AXI 1 2 1 N 150
-preplace netloc axi_mem_intercon_M01_AXI 1 2 1 N 170
-preplace netloc processing_system7_0_DDR 1 3 1 NJ 60
-preplace netloc processing_system7_0_FIXED_IO 1 3 1 NJ 80
-preplace netloc processing_system7_0_M_AXI_GP0 1 1 3 410 -30 NJ -30 1220
-preplace netloc ps7_0_axi_periph_M00_AXI 1 2 1 730 500n
-preplace netloc scheduler_0_M_AXI 1 1 3 420 -20 NJ -20 1240
-levelinfo -pg 1 0 210 570 980 1350
-pagesize -pg 1 -db -bbox -sgen 0 -60 1540 760
+preplace port DDR -pg 1 -lvl 5 -x 1670 -y 0 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -lvl 5 -x 1670 -y -20 -defaultsOSRD
+preplace port port-id_LD0 -pg 1 -lvl 5 -x 1670 -y 310 -defaultsOSRD
+preplace port port-id_LD1 -pg 1 -lvl 5 -x 1670 -y 280 -defaultsOSRD
+preplace port port-id_LD2 -pg 1 -lvl 5 -x 1670 -y 330 -defaultsOSRD
+preplace port port-id_LD3 -pg 1 -lvl 5 -x 1670 -y 260 -defaultsOSRD
+preplace port port-id_LD4 -pg 1 -lvl 5 -x 1670 -y 350 -defaultsOSRD
+preplace port port-id_LD5 -pg 1 -lvl 5 -x 1670 -y 240 -defaultsOSRD
+preplace port port-id_LD6 -pg 1 -lvl 5 -x 1670 -y 220 -defaultsOSRD
+preplace port port-id_LD7 -pg 1 -lvl 5 -x 1670 -y 370 -defaultsOSRD
+preplace inst processing_system7_0 -pg 1 -lvl 2 -x 620 -y 80 -defaultsOSRD
+preplace inst scheduler_0 -pg 1 -lvl 1 -x 120 -y 100 -defaultsOSRD
+preplace inst ps7_0_axi_periph -pg 1 -lvl 4 -x 1460 -y 140 -defaultsOSRD
+preplace inst rst_ps7_0_100M -pg 1 -lvl 3 -x 1030 -y 180 -defaultsOSRD
+preplace inst axi_mem_intercon -pg 1 -lvl 4 -x 1460 -y -110 -defaultsOSRD
+preplace netloc processing_system7_0_FCLK_CLK0 1 0 4 -70 -60 360 -60 850 -10 1310
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 2 1 N 160
+preplace netloc rst_ps7_0_100M_peripheral_aresetn 1 0 4 -50 300 NJ 300 NJ 300 1300
+preplace netloc scheduler_0_uninitializedLed 1 1 4 310J -100 NJ -100 1230J 320 1650J
+preplace netloc scheduler_0_readyLed 1 1 4 300J -120 NJ -120 1290J 310 1640J
+preplace netloc scheduler_0_runningLed 1 1 4 320J -110 NJ -110 1240J 330 NJ
+preplace netloc scheduler_0_led1 1 1 4 350J -70 NJ -70 1260J 260 NJ
+preplace netloc scheduler_0_led2 1 1 4 340J -90 NJ -90 1210J 350 NJ
+preplace netloc scheduler_0_led3 1 1 4 370J -80 NJ -80 1270J 270 1640J
+preplace netloc scheduler_0_led4 1 1 4 330J -130 NJ -130 1220J 300 1630J
+preplace netloc scheduler_0_led5 1 1 4 330J 270 850J 370 NJ 370 NJ
+preplace netloc scheduler_0_irq 1 1 1 380 120n
+preplace netloc processing_system7_0_DDR 1 2 3 NJ 0 1280 10 1640
+preplace netloc processing_system7_0_FIXED_IO 1 2 3 NJ 20 N 20 1630
+preplace netloc processing_system7_0_M_AXI_GP0 1 2 2 NJ 60 1250
+preplace netloc ps7_0_axi_periph_M00_AXI 1 0 5 -60 290 NJ 290 NJ 290 NJ 290 1610
+preplace netloc scheduler_0_M_AXI 1 1 3 290J -140 NJ -140 1210
+preplace netloc axi_mem_intercon_M00_AXI 1 1 4 390 280 NJ 280 NJ 280 1620
+levelinfo -pg 1 -90 120 620 1030 1460 1670
+pagesize -pg 1 -db -bbox -sgen -90 -230 1790 520
 "
 }
 {
-   "da_axi4_cnt":"11",
-   "da_clkrst_cnt":"8",
+   "da_axi4_cnt":"2",
+   "da_clkrst_cnt":"1",
    "da_ps7_cnt":"1"
 }

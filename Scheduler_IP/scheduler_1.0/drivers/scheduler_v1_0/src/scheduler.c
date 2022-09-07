@@ -80,33 +80,21 @@ void SCHEDULER_setNumberOfTasks(void * baseaddr_p,  u32 numberOfTasks)
 {
   SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_NUMOFTASKS_OFFSET, numberOfTasks);
 }
-void SCHEDULER_copyTaskSet(void * baseaddr_p, const void * source)
+
+void SCHEDULER_copyTCBPtrs(void * baseaddr_p, const void * source)
 {
-  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TASKSET_OFFSET), source, configMAX_RT_TASKS*TASKSIZEINBYTE);
-}
-void SCHEDULER_copyOrderedDeadlineQIndex(void * baseaddr_p, const void * source)
-{
-  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TASKSET_OFFSET+(configMAX_RT_TASKS*TASKSIZEINBYTE)), source, configMAX_RT_TASKS*DEADLINEQINDEXELEMENTSIZEINBYTE);
-}
-void SCHEDULER_copyOrderedActivationQIndex(void * baseaddr_p, const void * source)
-{
-  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TASKSET_OFFSET+configMAX_RT_TASKS*(TASKSIZEINBYTE+DEADLINEQINDEXELEMENTSIZEINBYTE)), source, configMAX_RT_TASKS*ACTIVATIONQINDEXELEMENTSIZEINBYTE);
-}
-void SCHEDULER_copyOrderedDeadlineQ(void * baseaddr_p, const void * source)
-{
-  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TASKSET_OFFSET+configMAX_RT_TASKS*(TASKSIZEINBYTE+DEADLINEQINDEXELEMENTSIZEINBYTE+ACTIVATIONQINDEXELEMENTSIZEINBYTE)), source, configMAX_RT_TASKS*DEADLINEQELEMENTSIZEINBYTE);
-}
-void SCHEDULER_copyOrderedActivationQ(void * baseaddr_p, const void * source)
-{
-  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TASKSET_OFFSET+configMAX_RT_TASKS*(TASKSIZEINBYTE+DEADLINEQINDEXELEMENTSIZEINBYTE+ACTIVATIONQINDEXELEMENTSIZEINBYTE+DEADLINEQELEMENTSIZEINBYTE)), source, configMAX_RT_TASKS*ACTIVATIONQELEMENTSIZEINBYTE);
+  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TCBPTR_OFFSET), source, configMAX_RT_TASKS*TCBPTRSIZEINBYTE);
 }
 
-void SCHEDULER_copyOrderedDeadlineQReverseIndex(void * baseaddr_p, const void * source)
+void SCHEDULER_copyWCETs(void * baseaddr_p, const void * source)
 {
-  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TASKSET_OFFSET+configMAX_RT_TASKS*(TASKSIZEINBYTE+DEADLINEQINDEXELEMENTSIZEINBYTE+ACTIVATIONQINDEXELEMENTSIZEINBYTE+DEADLINEQELEMENTSIZEINBYTE+ACTIVATIONQELEMENTSIZEINBYTE)), source, configMAX_RT_TASKS*DEADLINEQREVERSEINDEXELEMENTSIZEINBYTE);
+  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TCBPTR_OFFSET+(configMAX_RT_TASKS*TCBPTRSIZEINBYTE)), source, configMAX_RT_TASKS*WCETSIZEINBYTE);
 }
-
-void SCHEDULER_copyOrderedActivationQReverseIndex(void * baseaddr_p, const void * source)
+void SCHEDULER_copyDeadlines(void * baseaddr_p, const void * source)
 {
-  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TASKSET_OFFSET+configMAX_RT_TASKS*(TASKSIZEINBYTE+DEADLINEQINDEXELEMENTSIZEINBYTE+ACTIVATIONQINDEXELEMENTSIZEINBYTE+DEADLINEQELEMENTSIZEINBYTE+ACTIVATIONQELEMENTSIZEINBYTE+DEADLINEQREVERSEINDEXELEMENTSIZEINBYTE)), source, configMAX_RT_TASKS*ACTIVATIONQREVERSEINDEXELEMENTSIZEINBYTE);
+  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TCBPTR_OFFSET+configMAX_RT_TASKS*(TCBPTRSIZEINBYTE+WCETSIZEINBYTE)), source, configMAX_RT_TASKS*DEADLINESIZEINBYTE);
+}
+void SCHEDULER_copyPeriods(void * baseaddr_p, const void * source)
+{
+  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TCBPTR_OFFSET+configMAX_RT_TASKS*(TCBPTRSIZEINBYTE+WCETSIZEINBYTE+DEADLINESIZEINBYTE)), source, configMAX_RT_TASKS*PERIODSIZEINBYTE);
 }

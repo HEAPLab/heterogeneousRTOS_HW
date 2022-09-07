@@ -1,0 +1,496 @@
+
+*** Running vivado
+    with args -log scheduler_v1_0.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source scheduler_v1_0.tcl
+
+
+****** Vivado v2021.2 (64-bit)
+  **** SW Build 3367213 on Tue Oct 19 02:47:39 MDT 2021
+  **** IP Build 3369179 on Thu Oct 21 08:25:16 MDT 2021
+    ** Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+
+source scheduler_v1_0.tcl -notrace
+create_project: Time (s): cpu = 00:00:09 ; elapsed = 00:00:08 . Memory (MB): peak = 2684.586 ; gain = 1.992 ; free physical = 7019 ; free virtual = 15604
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/bosp/workspace/ip_repo/scheduler_1.0'.
+WARNING: [IP_Flow 19-2207] Repository '/home/bosp/workspace/ip_repo/scheduler_1.0' already exists; ignoring attempt to add it again.
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/bosp/workspace/ip_repo/scheduler_1.0'.
+WARNING: [IP_Flow 19-2248] Failed to load user IP repository '/home/bosp/workspace/ip_repo/next_task_handler_1.0'; Can't find the specified path.
+If this directory should no longer be in your list of user repositories, go to the IP Settings dialog and remove it.
+WARNING: [IP_Flow 19-2207] Repository '/home/bosp/workspace/ip_repo/next_task_handler_1.0' already exists; ignoring attempt to add it again.
+WARNING: [IP_Flow 19-2248] Failed to load user IP repository '/home/bosp/workspace/ip_repo/next_task_handler_1.0'; Can't find the specified path.
+If this directory should no longer be in your list of user repositories, go to the IP Settings dialog and remove it.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/Xilinx/Vivado/2021.2/data/ip'.
+Command: read_checkpoint -auto_incremental -incremental /home/bosp/workspace/ip_repo/edit_scheduler_v1_0.srcs/utils_1/imports/synth_1/scheduler_v1_0.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from /home/bosp/workspace/ip_repo/edit_scheduler_v1_0.srcs/utils_1/imports/synth_1/scheduler_v1_0.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+Command: synth_design -top scheduler_v1_0 -part xc7z100ffg900-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z100'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z100'
+WARNING: [Designutils 20-4072] Reference run did not run incremental synthesis because the design is too small; reverting to default synthesis
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 78118
+WARNING: [Synth 8-6901] identifier 'schedulerClkLowerAxiClk' is used before its declaration [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:43]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1150]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1150]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1150]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1151]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1151]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1156]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1164]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1168]
+WARNING: [Synth 8-6901] identifier 'nextRunningTaskIndex' is used before its declaration [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1173]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1190]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1207]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1208]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1209]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1209]
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 2692.590 ; gain = 0.000 ; free physical = 5977 ; free virtual = 14566
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'scheduler_v1_0' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0.v:4]
+INFO: [Synth 8-6157] synthesizing module 'scheduler_v1_0_S_AXI' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:39]
+	Parameter maxTasks bound to: 16 - type: integer 
+	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_S_AXI_ADDR_WIDTH bound to: 14 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'Comparator' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:15]
+INFO: [Synth 8-6155] done synthesizing module 'Comparator' (1#1) [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:15]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:469]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:537]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1094]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1106]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1378]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'Comp[0].InternalComp[14].cl1'. This will prevent further optimization [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1277]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'Comp[0].InternalComp[12].cl1'. This will prevent further optimization [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1277]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'Comp[0].InternalComp[10].cl1'. This will prevent further optimization [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1277]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'Comp[0].InternalComp[8].cl1'. This will prevent further optimization [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1277]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'Comp[0].InternalComp[6].cl1'. This will prevent further optimization [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1277]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'Comp[0].InternalComp[4].cl1'. This will prevent further optimization [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1277]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'Comp[0].InternalComp[2].cl1'. This will prevent further optimization [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1277]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'Comp[0].InternalComp[0].cl1'. This will prevent further optimization [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1277]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'Comp[3].InternalComp[0].cl1'. This will prevent further optimization [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1288]
+WARNING: [Synth 8-6026] Ignoring keep related attribute (keep/mark_debug/dont_touch) applied on memory [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:238]
+WARNING: [Synth 8-6026] Ignoring keep related attribute (keep/mark_debug/dont_touch) applied on memory [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:239]
+WARNING: [Synth 8-6014] Unused sequential element intr_all_ff_reg was removed.  [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:815]
+WARNING: [Synth 8-6014] Unused sequential element stateRunning.runningTaskReactivated_reg was removed.  [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1143]
+WARNING: [Synth 8-6014] Unused sequential element oldTaskWriteDone1_reg was removed.  [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1326]
+WARNING: [Synth 8-4767] Trying to implement RAM 'tasksList_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: RAM has too many ports (16). Maximum supported = 16. 
+	2: Unable to determine number of words or word size in RAM. 
+	3: No valid read/write found for RAM. 
+RAM "tasksList_reg" dissolved into registers
+INFO: [Synth 8-6155] done synthesizing module 'scheduler_v1_0_S_AXI' (2#1) [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:39]
+INFO: [Synth 8-6157] synthesizing module 'scheduler_v1_0_M_AXI' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_M_AXI.v:4]
+	Parameter C_M_TARGET_SLAVE_BASE_ADDR bound to: 536969216 - type: integer 
+	Parameter C_M_AXI_ADDR_WIDTH bound to: 32 - type: integer 
+	Parameter C_M_AXI_DATA_WIDTH bound to: 32 - type: integer 
+INFO: [Synth 8-155] case statement is not full and has no default [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_M_AXI.v:578]
+WARNING: [Synth 8-6014] Unused sequential element start_single_read_reg was removed.  [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_M_AXI.v:570]
+WARNING: [Synth 8-6014] Unused sequential element read_issued_reg was removed.  [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_M_AXI.v:571]
+WARNING: [Synth 8-3848] Net axi_araddr in module/entity scheduler_v1_0_M_AXI does not have driver. [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_M_AXI.v:145]
+WARNING: [Synth 8-3848] Net axi_arvalid in module/entity scheduler_v1_0_M_AXI does not have driver. [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_M_AXI.v:135]
+WARNING: [Synth 8-3848] Net axi_rready in module/entity scheduler_v1_0_M_AXI does not have driver. [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_M_AXI.v:137]
+INFO: [Synth 8-6155] done synthesizing module 'scheduler_v1_0_M_AXI' (3#1) [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_M_AXI.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'scheduler_v1_0' (4#1) [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0.v:4]
+WARNING: [Synth 8-7129] Port M_AXI_ARVALID in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RREADY in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port taskExecutionFromBeginning in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_BRESP[1] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_BRESP[0] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_ARREADY in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[31] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[30] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[29] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[28] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[27] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[26] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[25] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[24] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[23] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[22] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[21] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[20] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[19] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[18] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[17] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[16] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[15] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[14] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[13] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[12] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[11] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[10] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[9] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[8] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[7] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[6] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[5] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[4] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[3] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[2] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[1] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[0] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RRESP[1] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RRESP[0] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RVALID in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[2] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[1] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[0] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[2] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[1] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[0] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 2692.590 ; gain = 0.000 ; free physical = 6543 ; free virtual = 15134
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2692.590 ; gain = 0.000 ; free physical = 6592 ; free virtual = 15181
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z100ffg900-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2700.594 ; gain = 8.004 ; free physical = 6592 ; free virtual = 15181
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7z100ffg900-1
+INFO: [Synth 8-802] inferred FSM for state register 'mst_exec_state_reg' in module 'scheduler_v1_0_M_AXI'
+WARNING: [Synth 8-327] inferring latch for variable 'uninitializedLed_reg' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1381]
+WARNING: [Synth 8-327] inferring latch for variable 'readyLed_reg' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1382]
+WARNING: [Synth 8-327] inferring latch for variable 'runningLed_reg' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1383]
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    IDLE |                                0 |                               00
+              INIT_WRITE |                                1 |                               01
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'mst_exec_state_reg' using encoding 'sequential' in module 'scheduler_v1_0_M_AXI'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:30 ; elapsed = 00:00:24 . Memory (MB): peak = 2700.594 ; gain = 8.004 ; free physical = 6227 ; free virtual = 14814
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   32 Bit       Adders := 36    
+	   2 Input   12 Bit       Adders := 2     
+	   2 Input    5 Bit       Adders := 2     
+	   2 Input    1 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 118   
+	               14 Bit    Registers := 2     
+	                8 Bit    Registers := 3     
+	                5 Bit    Registers := 1     
+	                2 Bit    Registers := 2     
+	                1 Bit    Registers := 49    
++---RAMs : 
+	              512 Bit	(16 X 32 bit)          RAMs := 2     
+	              128 Bit	(16 X 8 bit)          RAMs := 4     
++---Muxes : 
+	   2 Input   32 Bit        Muxes := 376   
+	   4 Input   32 Bit        Muxes := 48    
+	   3 Input   32 Bit        Muxes := 1     
+	   2 Input    8 Bit        Muxes := 24    
+	   2 Input    1 Bit        Muxes := 377   
+	   4 Input    1 Bit        Muxes := 27    
+	   3 Input    1 Bit        Muxes := 2     
+	   6 Input    1 Bit        Muxes := 5     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 2020 (col length:140)
+BRAMs: 1510 (col length: RAMB18 140 RAMB36 70)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-6026] Ignoring keep related attribute (keep/mark_debug/dont_touch) applied on memory
+WARNING: [Synth 8-6026] Ignoring keep related attribute (keep/mark_debug/dont_touch) applied on memory
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[2] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[1] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[0] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[2] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[1] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[0] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:26 ; elapsed = 00:01:22 . Memory (MB): peak = 2886.594 ; gain = 194.004 ; free physical = 6172 ; free virtual = 14771
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Preliminary Mapping Report (see note below)
++--------------------------+-----------------------+-----------+----------------------+-------------+
+|Module Name               | RTL Object            | Inference | Size (Depth x Width) | Primitives  | 
++--------------------------+-----------------------+-----------+----------------------+-------------+
+|scheduler_v1_0_S_AXI_inst | AbsDeadlinesAXI_reg   | Implied   | 16 x 32              | RAM32M x 6  | 
+|scheduler_v1_0_S_AXI_inst | AbsActivationsAXI_reg | Implied   | 16 x 32              | RAM32M x 6  | 
+|scheduler_v1_0_S_AXI_inst | readyQAXI_reg         | Implied   | 16 x 8               | RAM32M x 2  | 
+|scheduler_v1_0_S_AXI_inst | readyQ_reg            | Implied   | 16 x 8               | RAM32M x 2  | 
+|scheduler_v1_0_S_AXI_inst | activationQAXI_reg    | Implied   | 16 x 8               | RAM32M x 2  | 
+|scheduler_v1_0_S_AXI_inst | activationQ_reg       | Implied   | 16 x 8               | RAM32M x 2  | 
++--------------------------+-----------------------+-----------+----------------------+-------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:01:26 ; elapsed = 00:01:23 . Memory (MB): peak = 2886.594 ; gain = 194.004 ; free physical = 6170 ; free virtual = 14771
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Final Mapping Report
++--------------------------+-----------------------+-----------+----------------------+-------------+
+|Module Name               | RTL Object            | Inference | Size (Depth x Width) | Primitives  | 
++--------------------------+-----------------------+-----------+----------------------+-------------+
+|scheduler_v1_0_S_AXI_inst | AbsDeadlinesAXI_reg   | Implied   | 16 x 32              | RAM32M x 6  | 
+|scheduler_v1_0_S_AXI_inst | AbsActivationsAXI_reg | Implied   | 16 x 32              | RAM32M x 6  | 
+|scheduler_v1_0_S_AXI_inst | readyQAXI_reg         | Implied   | 16 x 8               | RAM32M x 2  | 
+|scheduler_v1_0_S_AXI_inst | readyQ_reg            | Implied   | 16 x 8               | RAM32M x 2  | 
+|scheduler_v1_0_S_AXI_inst | activationQAXI_reg    | Implied   | 16 x 8               | RAM32M x 2  | 
+|scheduler_v1_0_S_AXI_inst | activationQ_reg       | Implied   | 16 x 8               | RAM32M x 2  | 
++--------------------------+-----------------------+-----------+----------------------+-------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:01:32 ; elapsed = 00:01:29 . Memory (MB): peak = 2886.594 ; gain = 194.004 ; free physical = 6160 ; free virtual = 14764
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-3295] tying undriven pin taskPending_inferred:in0 to constant 0
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:01:40 ; elapsed = 00:01:37 . Memory (MB): peak = 2886.594 ; gain = 194.004 ; free physical = 6159 ; free virtual = 14758
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:40 ; elapsed = 00:01:37 . Memory (MB): peak = 2886.594 ; gain = 194.004 ; free physical = 6159 ; free virtual = 14758
+---------------------------------------------------------------------------------
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[0] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_145/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[0] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[0]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[1] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_144/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[1] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[1]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[2] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_143/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[2] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[2]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[3] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_142/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[3] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[3]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[4] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_141/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[4] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[4]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[5] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_140/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[5] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[5]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[6] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_139/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[6] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[6]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[7] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_138/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[7] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[7]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[8] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_137/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[8] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[8]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[9] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_136/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[9] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[9]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[10] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_135/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[10] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[10]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[11] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_134/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[11] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[11]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[12] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_133/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[12] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[12]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[13] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_132/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[13] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[13]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[14] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_131/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[14] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[14]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[15] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_130/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[15] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[15]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[16] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_129/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[16] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[16]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[17] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_128/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[17] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[17]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[18] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_127/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[18] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[18]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[19] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_126/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[19] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[19]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[20] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_125/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[20] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[20]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[21] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_124/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[21] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[21]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[22] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_123/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[22] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[22]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[23] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_122/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[23] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[23]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[24] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_121/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[24] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[24]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[25] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_120/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[25] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[25]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[26] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_119/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[26] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[26]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[27] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_118/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[27] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[27]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[28] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_117/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[28] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[28]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[29] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_116/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[29] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[29]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[30] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_115/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[30] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[30]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[31] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_113/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Y[31] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/Y[31]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:24]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin indexY[0] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_153/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:25]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin indexY[0] with 2nd driver pin 'scheduler_v1_0_S_AXI_inst/Comp[0].InternalComp[14].cl1/indexY[0]_INST_0/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:25]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Comp[0].outputIndex[7][7] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_146/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:25]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Comp[0].outputIndex[7][7] with 2nd driver pin 'GND' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:15]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Comp[0].outputIndex[7][6] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_147/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:25]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Comp[0].outputIndex[7][6] with 2nd driver pin 'GND' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:15]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Comp[0].outputIndex[7][5] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_148/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:25]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Comp[0].outputIndex[7][5] with 2nd driver pin 'GND' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:15]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Comp[0].outputIndex[7][4] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_149/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:25]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Comp[0].outputIndex[7][4] with 2nd driver pin 'GND' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:15]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Comp[0].outputIndex[7][1] with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_152/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:25]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Comp[0].outputIndex[7][1] with 2nd driver pin 'VCC' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:15]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Comp[3].InternalComp[0].cl1_i_150_n_0 with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_150/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:248]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Comp[3].InternalComp[0].cl1_i_150_n_0 with 2nd driver pin 'VCC' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:15]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Comp[3].InternalComp[0].cl1_i_151_n_0 with 1st driver pin 'scheduler_v1_0_S_AXI_inst/Comp[3].InternalComp[0].cl1_i_151/O' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:248]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Comp[3].InternalComp[0].cl1_i_151_n_0 with 2nd driver pin 'VCC' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:15]
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|       40|Failed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:41 ; elapsed = 00:01:37 . Memory (MB): peak = 2886.594 ; gain = 194.004 ; free physical = 6159 ; free virtual = 14758
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:41 ; elapsed = 00:01:37 . Memory (MB): peak = 2886.594 ; gain = 194.004 ; free physical = 6159 ; free virtual = 14758
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:41 ; elapsed = 00:01:38 . Memory (MB): peak = 2886.594 ; gain = 194.004 ; free physical = 6159 ; free virtual = 14758
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:41 ; elapsed = 00:01:38 . Memory (MB): peak = 2886.594 ; gain = 194.004 ; free physical = 6159 ; free virtual = 14758
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+---------+------+
+|      |Cell     |Count |
++------+---------+------+
+|1     |BUFG     |     3|
+|2     |CARRY4   |   340|
+|3     |LUT1     |   537|
+|4     |LUT2     |   898|
+|5     |LUT3     |  1577|
+|6     |LUT4     |  1148|
+|7     |LUT5     |   973|
+|8     |LUT6     |  3914|
+|9     |MUXF7    |   274|
+|10    |MUXF8    |   135|
+|11    |RAM32M   |    15|
+|12    |RAM32X1D |     8|
+|13    |FDRE     |  3851|
+|14    |FDSE     |    19|
+|15    |LD       |     3|
+|16    |IBUF     |    74|
+|17    |OBUF     |   162|
++------+---------+------+
+
+Report Instance Areas: 
++------+-----------------------------------+---------------------+------+
+|      |Instance                           |Module               |Cells |
++------+-----------------------------------+---------------------+------+
+|1     |top                                |                     | 13931|
+|2     |  scheduler_v1_0_S_AXI_inst        |scheduler_v1_0_S_AXI | 13636|
+|3     |    \Comp[0].InternalComp[0].cl1   |Comparator__1        |    69|
+|4     |    \Comp[0].InternalComp[2].cl1   |Comparator__2        |    69|
+|5     |    \Comp[0].InternalComp[4].cl1   |Comparator__3        |    69|
+|6     |    \Comp[0].InternalComp[6].cl1   |Comparator__4        |    69|
+|7     |    \Comp[0].InternalComp[8].cl1   |Comparator__5        |    69|
+|8     |    \Comp[0].InternalComp[10].cl1  |Comparator__6        |    69|
+|9     |    \Comp[0].InternalComp[12].cl1  |Comparator__7        |    69|
+|10    |    \Comp[0].InternalComp[14].cl1  |Comparator__8        |    69|
+|11    |    \Comp[3].InternalComp[0].cl1   |Comparator           |    76|
+|12    |  scheduler_v1_0_M_AXI_inst        |scheduler_v1_0_M_AXI |    56|
++------+-----------------------------------+---------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:41 ; elapsed = 00:01:38 . Memory (MB): peak = 2886.594 ; gain = 194.004 ; free physical = 6159 ; free virtual = 14758
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 80 critical warnings and 86 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:41 ; elapsed = 00:01:38 . Memory (MB): peak = 2886.594 ; gain = 194.004 ; free physical = 6171 ; free virtual = 14771
+Synthesis Optimization Complete : Time (s): cpu = 00:01:41 ; elapsed = 00:01:38 . Memory (MB): peak = 2886.602 ; gain = 194.004 ; free physical = 6171 ; free virtual = 14771
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.16 ; elapsed = 00:00:00.17 . Memory (MB): peak = 2886.602 ; gain = 0.000 ; free physical = 6255 ; free virtual = 14855
+INFO: [Netlist 29-17] Analyzing 775 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+WARNING: [Netlist 29-101] Netlist 'scheduler_v1_0' is not ideal for floorplanning, since the cellview 'scheduler_v1_0_S_AXI' contains a large number of primitives.  Please consider enabling hierarchy in synthesis if you want to do floorplanning.
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2926.613 ; gain = 0.000 ; free physical = 6180 ; free virtual = 14780
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 26 instances were transformed.
+  LD => LDCE: 3 instances
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 15 instances
+  RAM32X1D => RAM32X1D (RAMD32(x2)): 8 instances
+
+Synth Design complete, checksum: 65a2f474
+INFO: [Common 17-83] Releasing license: Synthesis
+44 Infos, 92 Warnings, 80 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:02:01 ; elapsed = 00:01:46 . Memory (MB): peak = 2926.613 ; gain = 242.027 ; free physical = 6382 ; free virtual = 14981
+INFO: [runtcl-6] Synthesis results are not added to the cache due to CRITICAL_WARNING
+INFO: [Common 17-1381] The checkpoint '/home/bosp/workspace/ip_repo/edit_scheduler_v1_0.runs/synth_1/scheduler_v1_0.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file scheduler_v1_0_utilization_synth.rpt -pb scheduler_v1_0_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Mon Aug 22 16:51:39 2022...

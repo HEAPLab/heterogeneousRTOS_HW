@@ -1,10 +1,45 @@
 
 `timescale 1 ns / 1 ps
 
+`define CLOG2(x) \
+   (x <= 2) ? 1 : \
+   (x <= 4) ? 2 : \
+   (x <= 8) ? 3 : \
+   (x <= 16) ? 4 : \
+   (x <= 32) ? 5 : \
+   (x <= 64) ? 6 : \
+   (x <= 128) ? 7 : \
+   (x <= 256) ? 8 : \
+   -1
+
+module Comparator (
+    input wire [31:0] X1,
+    input wire [7:0] indexX1,
+    input wire [31:0] X2,
+    input wire [7:0] indexX2,
+    output wire [31:0] Y,
+    output wire [7:0] indexY
+);
+
+    assign Y = (X1 < X2) ? X1 : X2;
+    assign indexY = (X1 < X2) ? indexX1 : indexX2;
+
+    //    always @* begin
+    //        if (X1 < X2) begin
+    //            Y = X1;
+    //            indexY = indexX1;
+    //        end
+    //        else begin
+    //            Y = X2;
+    //            indexY = indexX2;
+    //        end
+    //    end
+endmodule
+
 module scheduler_v1_0_S_AXI #
 	(
     // Users to add parameters here
-    parameter maxTasks = 16,
+    parameter[7:0] maxTasks = 16,
     parameter [1:0] schedulerClkVsAxiClk=schedulerClkLowerAxiClk,
 
     // User parameters ends
@@ -30,10 +65,10 @@ module scheduler_v1_0_S_AXI #
     input wire SCHEDULER_CLK,
     input wire SCHEDULER_ARESETN,
 
-    (* mark_debug = "true" *)  input wire taskWriteDone,
-    (* mark_debug = "true" *)  input wire taskWriteStarted,
-    (* mark_debug = "true" *)  output reg taskReady,
-	(* mark_debug = "true" *)  output reg taskExecutionFromBeginning,
+    input wire taskWriteDone,
+    input wire taskWriteStarted,
+    output reg taskReady,
+    output reg taskExecutionFromBeginning,
     output reg [31:0] taskPtr,
 
 
@@ -145,7 +180,7 @@ module scheduler_v1_0_S_AXI #
     reg [C_S_AXI_DATA_WIDTH-1:0]	 reg_data_out;
     reg [3:0]	intr_counter;
     genvar i;
-    integer j;
+    //integer j;
     reg intr_all;
     reg intr_ack_all;
     wire s_irq;
@@ -183,34 +218,24 @@ module scheduler_v1_0_S_AXI #
     localparam[2:0] state_uninitialized=3'd1, state_ready=3'd2, state_running=3'd3, state_stopped=3'd4;
 
 
-    localparam RTTask_tSizeInWords=4;
+    localparam TCBPTRSIZEINWORDS=1;
+    localparam WCETSIZEINWORDS=1;
+    localparam DEADLINESIZEINWORDS=1;
+    localparam PERIODSIZEINWORDS=1;
 
-    localparam [OPT_MEM_ADDR_BITS:0] maxRTListAddr=(maxTasks*RTTask_tSizeInWords);
+    localparam [OPT_MEM_ADDR_BITS:0] maxAddrTCBPtrsList=(maxTasks*TCBPTRSIZEINWORDS);
+    localparam [OPT_MEM_ADDR_BITS:0] maxAddrWCETsList=maxAddrTCBPtrsList+(maxTasks*WCETSIZEINWORDS);
+    localparam [OPT_MEM_ADDR_BITS:0] maxAddrDeadlinesList=maxAddrWCETsList+(maxTasks*DEADLINESIZEINWORDS);
+    localparam [OPT_MEM_ADDR_BITS:0] maxAddrPeriodsList=maxAddrDeadlinesList+(maxTasks*PERIODSIZEINWORDS);
 
-    localparam [OPT_MEM_ADDR_BITS:0] maxRQNumAddr=maxRTListAddr+maxTasks;
-    localparam [OPT_MEM_ADDR_BITS:0] maxAQNumAddr=maxRQNumAddr+maxTasks;
-
-    localparam [OPT_MEM_ADDR_BITS:0] maxRQDLAddr=maxAQNumAddr+maxTasks;
-    localparam [OPT_MEM_ADDR_BITS:0] maxRQActAddr=maxRQDLAddr+maxTasks;
-
-
-    reg[C_S_AXI_DATA_WIDTH-1:0] tasksList [(maxTasks*RTTask_tSizeInWords)-1:0];
-    reg[7:0] readyQAXI [maxTasks-1:0]; //ready queue index ordered by deadline ascending
-    reg[7:0] activationQAXI [maxTasks-1:0]; //activation queue index ordered by next activation ascending
-    reg[C_S_AXI_DATA_WIDTH-1:0] AbsDeadlinesAXI [maxTasks-1:0]; //ready queue ordered by deadline ascending
-    reg[C_S_AXI_DATA_WIDTH-1:0] AbsActivationsAXI [maxTasks-1:0]; //activation queue index ordered by next activation ascending
-
-    (* mark_debug = "true" *) reg[7:0] readyQ [maxTasks-1:0]; //ready queue index ordered by deadline ascending
-    (* mark_debug = "true" *) reg[7:0] activationQ [maxTasks-1:0]; //activation queue index ordered by next activation ascending
-    (* mark_debug = "true" *) reg[C_S_AXI_DATA_WIDTH-1:0] AbsDeadlines [maxTasks-1:0]; //ready queue ordered by deadline ascending
-    (* mark_debug = "true" *) reg[C_S_AXI_DATA_WIDTH-1:0] AbsActivations [maxTasks-1:0]; //activation queue index ordered by next activation ascending
+    reg[C_S_AXI_DATA_WIDTH-1:0] TCBPtrsList [(maxTasks*TCBPTRSIZEINWORDS)-1:0];
+    reg[C_S_AXI_DATA_WIDTH-1:0] WCETsList [(maxTasks*WCETSIZEINWORDS)-1:0]; //ready queue index ordered by deadline ascending
+    reg[C_S_AXI_DATA_WIDTH-1:0] DeadlinesList [(maxTasks*DEADLINESIZEINWORDS)-1:0]; //activation queue index ordered by next activation ascending
+    reg[C_S_AXI_DATA_WIDTH-1:0] PeriodsList [(maxTasks*PERIODSIZEINWORDS)-1:0]; //ready queue ordered by deadline ascending
 
     reg controlPending;
     reg schedulerBitFlip;
     reg oldSchedulerBitFlip;
-
-    (* mark_debug = "true" *) wire [31:0] taskPtr_dbg;
-    assign taskPtr_dbg=taskPtr;
 
     integer byte_index;
     //________________________
@@ -398,17 +423,19 @@ module scheduler_v1_0_S_AXI #
     localparam [OPT_MEM_ADDR_BITS:0] tasksOffset= 8;
     //    wire [OPT_MEM_ADDR_BITS:0] addrInWords;
     //    assign addrInWords=axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset;
-    reg taskSetWritten;
-    reg DLqIndexWritten;
-    reg ACTqIndexWritten;
-    reg DLqWritten;
-    reg ACTqWritten;
+    reg TCBPtrsListWritten;
+    reg WCETsListWritten;
+    reg DeadlinesListWritten;
+    reg PeriodsListWritten;
 
-    assign led1=taskSetWritten;
-    assign led2=DLqIndexWritten;
-    assign led3=ACTqIndexWritten;
-    assign led4=DLqWritten;
-    assign led5=ACTqWritten;
+    reg[C_S_AXI_DATA_WIDTH-1:0] AbsDeadlines [maxTasks-1:0];
+    reg[C_S_AXI_DATA_WIDTH-1:0] AbsActivations [maxTasks-1:0];
+
+    //    assign led1=taskSetWritten;
+    //    assign led2=DLqIndexWritten;
+    //    assign led3=ACTqIndexWritten;
+    //    assign led4=DLqWritten;
+    //    assign led5=ACTqWritten;
 
     always @( posedge S_AXI_ACLK )
     begin
@@ -420,11 +447,10 @@ module scheduler_v1_0_S_AXI #
                 controlPending <= 1'b0;
                 oldSchedulerBitFlip<=1'b0;
 
-                taskSetWritten<=1'b0;
-                DLqIndexWritten<=1'b0;
-                ACTqIndexWritten<=1'b0;
-                DLqWritten<=1'b0;
-                ACTqWritten<=1'b0;
+                TCBPtrsListWritten<=1'b0;
+                WCETsListWritten<=1'b0;
+                DeadlinesListWritten<=1'b0;
+                PeriodsListWritten<=1'b0;
             end
         else begin
             if (slv_reg_wren)
@@ -488,32 +514,27 @@ module scheduler_v1_0_S_AXI #
 
                             if (slv_status_reg == state_uninitialized)
                             begin
-                                if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRTListAddr)
-                                    tasksList[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)] <= S_AXI_WDATA;
-                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQNumAddr)
-                                    readyQAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRTListAddr]<= S_AXI_WDATA[7:0];
-                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxAQNumAddr)
-                                    activationQAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQNumAddr]<= S_AXI_WDATA[7:0];
-                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQDLAddr)
-                                    AbsDeadlinesAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAQNumAddr]<= S_AXI_WDATA;
-                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQActAddr)
-                                    AbsActivationsAXI[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQDLAddr]<= S_AXI_WDATA;
+                                if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset) < maxAddrTCBPtrsList)
+                                    TCBPtrsList[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)] <= S_AXI_WDATA;
+                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset) < maxAddrWCETsList)
+                                    WCETsList[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAddrTCBPtrsList]<= S_AXI_WDATA;
+                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset) < maxAddrDeadlinesList)
+                                    DeadlinesList[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAddrWCETsList]<= S_AXI_WDATA;
+                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset) < maxAddrPeriodsList)
+                                    PeriodsList[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAddrDeadlinesList]<= S_AXI_WDATA;
 
                                 case (axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)
-                                    (maxRTListAddr-1):
-                                    taskSetWritten<=1'b1;
+                                    (maxAddrTCBPtrsList-1):
+                                    TCBPtrsListWritten<=1'b1;
 
-                                    (maxRQNumAddr-1):
-                                    DLqIndexWritten<=1'b1;
+                                    (maxAddrWCETsList-1):
+                                    WCETsListWritten<=1'b1;
 
-                                    (maxAQNumAddr-1):
-                                    ACTqIndexWritten<=1'b1;
+                                    (maxAddrDeadlinesList-1):
+                                    DeadlinesListWritten<=1'b1;
 
-                                    (maxRQDLAddr-1):
-                                    DLqWritten<=1'b1;
-
-                                    (maxRQActAddr-1):
-                                    ACTqWritten<=1'b1;
+                                    (maxAddrPeriodsList-1):
+                                    PeriodsListWritten<=1'b1;
                                 endcase
                             end
                         end
@@ -655,16 +676,14 @@ module scheduler_v1_0_S_AXI #
                     end
                 else
                     begin
-                        if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRTListAddr)
-                            reg_data_out <= tasksList[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)];
-                        else if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQNumAddr)
-                            reg_data_out <= readyQ[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRTListAddr];
-                        else if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxAQNumAddr)
-                            reg_data_out <= activationQ[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQNumAddr];
-                        else if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQDLAddr)
-                            reg_data_out <= AbsDeadlines[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAQNumAddr];
-                        else if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxRQActAddr)
-                            reg_data_out <= AbsActivations[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxRQDLAddr];
+                        if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxAddrTCBPtrsList)
+                            reg_data_out <= TCBPtrsList[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)];
+                        else if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxAddrWCETsList)
+                            reg_data_out <= WCETsList[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAddrTCBPtrsList];
+                        else if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxAddrDeadlinesList)
+                            reg_data_out <= DeadlinesList[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAddrWCETsList];
+                        else if ((axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)<maxAddrPeriodsList)
+                            reg_data_out <= PeriodsList[(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAddrDeadlinesList];
                         else
                             reg_data_out <= 32'd0;
                     end
@@ -1013,63 +1032,40 @@ module scheduler_v1_0_S_AXI #
 
     // Add user logic here
 
-
     //control signals encoding
-
-    (* mark_debug = "true" *) reg [7:0] number_of_ready_tasks_reg;
-    (* mark_debug = "true" *)    reg [C_S_AXI_DATA_WIDTH-1:0] newAbsActivation;
-    (* mark_debug = "true" *)    reg [7:0] activationIndex;
-    (* mark_debug = "true" *)    reg [C_S_AXI_DATA_WIDTH-1:0] newAbsDeadline;
-
-    integer ia;
-    integer ib;
-    integer ic;
-    integer id;
-    integer ie;
 
     reg[7:0] copyIterator;
     reg startPending;
-	
+
     reg[31:0] oldSlv_control_reg;
-	
-	reg[31:0] newActivations [maxTasks-1:0];
-	reg[31:0] executionTimes [maxTasks-1:0];
-	reg[31:0] deadlineMisses [maxTasks-1:0];
-	reg runningTaskKilled;
-	reg nextRunningTaskKilled;
-	reg runningTaskFlop;
-	reg oldRunningTaskFlop;
-	//reg [7:0] oldRunningTaskIndex;
-	
-	//reg runningTaskJustKilled;
-	//reg nextRunningTaskJustKilled;
 
-    (* mark_debug = "true" *) reg WCETexceeded;
-	(* mark_debug = "true" *) reg controlKillRunningJob;
-	
-	(* mark_debug = "true" *) reg deadlineMiss;
-	(* mark_debug = "true" *) reg[7:0] runningTaskPosition;
+    reg[31:0] executionTimes [maxTasks-1:0];
+    reg runningTaskKilled;
+    reg nextRunningTaskKilled;
+    reg runningTaskFlop;
+    reg oldRunningTaskFlop;
 
+    reg WCETexceeded;
+    reg controlKillRunningJob;
+
+    wire[7:0] HighestPriorityTaskIndex;
+    wire[31:0] HighestPriorityTaskDeadline;
+
+    integer m;
     always @(posedge SCHEDULER_CLK)
     begin
         if ( ! SCHEDULER_ARESETN ) begin //reset
             copyIterator<=8'b0;
             startPending<=1'b0;
-						
-			runningTaskPosition<=8'b0;
 
             schedulerBitFlip<=1'b0;
-			
-			runningTaskKilled<=1'b0;
-			nextRunningTaskKilled<=1'b0;
-			//oldRunningTaskIndex<=8'hFF;
-			
-			//runningTaskJustKilled<=1'b0;
-			//nextRunningTaskJustKilled<=1'b0;
+
+            runningTaskKilled<=1'b1;
+            nextRunningTaskKilled<=1'b0;
 
             oldSlv_control_reg<=32'b0;
-			
-			oldRunningTaskFlop<=1'b0;
+
+            oldRunningTaskFlop<=1'b0;
 
             slv_status_reg<=state_uninitialized;
         end
@@ -1094,9 +1090,8 @@ module scheduler_v1_0_S_AXI #
             case(slv_status_reg)
                 state_uninitialized:
                 begin
-                    if ( taskSetWritten && DLqIndexWritten && ACTqIndexWritten && DLqWritten && ACTqWritten && slv_number_of_tasks_reg!=0 )
+                    if ( TCBPtrsListWritten && WCETsListWritten && DeadlinesListWritten && PeriodsListWritten) // && slv_number_of_tasks_reg!=0 )
                     begin
-                        number_of_ready_tasks_reg<=slv_number_of_tasks_reg;
                         slv_status_reg<=state_ready;
                     end
                 end
@@ -1104,15 +1099,11 @@ module scheduler_v1_0_S_AXI #
                 begin
                     if ( copyIterator < maxTasks )
                         begin
-                            readyQ[copyIterator]<=readyQAXI[copyIterator];
-                            activationQ[copyIterator]<=activationQAXI[copyIterator];
-                            AbsDeadlines[copyIterator]<=AbsDeadlinesAXI[copyIterator];
-                            AbsActivations[copyIterator]<=AbsActivationsAXI[copyIterator];
+                            AbsDeadlines[copyIterator]<=DeadlinesList[copyIterator];
+                            AbsActivations[copyIterator]<=PeriodsList[copyIterator];
 
                             executionTimes[copyIterator]<=0;
-							newActivations[copyIterator]<=1'b0;
-							deadlineMisses[copyIterator]<=1'b0;
-							
+
                             copyIterator<=copyIterator+1;
                         end
                     else if (startPending)
@@ -1122,389 +1113,194 @@ module scheduler_v1_0_S_AXI #
                     end
                 end
                 state_running:
-				
-				//update deadlines, activations, deadline misses
-                begin					
-					//runningTaskKilled = runningTaskKilled && (runningTaskFlop==oldRunningTaskFlop || nextRunningTaskKilled) && !(runningTaskJustKilled && readyQ[0]==runningTaskIndex && number_of_ready_tasks_reg>0 && executionTimes[readyQ[0]]==0);
 
-					//nextRunningTaskKilled=nextRunningTaskKilled && runningTaskFlop==oldRunningTaskFlop && !(nextRunningTaskJustKilled && readyQ[0]==nextRunningTaskIndex && number_of_ready_tasks_reg>0 && executionTimes[readyQ[0]]==0));
-					
-					//if (runningTaskJustKilled && oldRunningTaskIndex!=8'hFF)
-					//	executionTimes[oldRunningTaskIndex]=0;
-				
-					//if (!runningTaskKilled && runningTaskIndex!=8'hFF)
-						//executionTimes[runningTaskIndex] = executionTimes[runningTaskIndex]+1;
-				
-					for (ie=0; ie<maxTasks; ie=ie+1)
+                //update deadlines, activations, deadline misses
+                begin: stateRunning
+                    //reg runningTaskKilledInThisCC;
+                    //reg nextRunningTaskKilledInThisCC;
+                    reg runningTaskReactivated;
+
+                    //runningTaskKilledInThisCC=0;
+                    //nextRunningTaskKilledInThisCC=0;
+                    runningTaskReactivated=0;
+
+                    runningTaskKilled = runningTaskKilled && (runningTaskFlop==oldRunningTaskFlop || nextRunningTaskKilled);
+
+                    nextRunningTaskKilled=nextRunningTaskKilled && runningTaskFlop==oldRunningTaskFlop;
+
+                    //what happens in this tick?
+                    WCETexceeded= (runningTaskKilled || runningTaskIndex==8'hFF) ? 0 : executionTimes[runningTaskIndex]>=WCETsList[runningTaskIndex];
+                    controlKillRunningJob=(!runningTaskKilled && runningTaskIndex!=8'hFF && slv_control_reg != oldSlv_control_reg && slv_control_reg[31:16]==control_jobEnded && (slv_control_reg[7:0]-1)==runningTaskIndex); //&& number_of_ready_tasks_reg>0 
+                    //____________________________		
+
+                    if (WCETexceeded || controlKillRunningJob)
                     begin
-						if (AbsDeadlines[ie]==0)
-							deadlineMisses[ie]=1'b1;
-                        if (AbsActivations[ie]==0)
-							begin
-							newActivations[ie]=1'b1;
-							
-							AbsActivations[ie]=tasksList[(ie*RTTask_tSizeInWords)+1];
-							AbsDeadlines[ie]=tasksList[(ie*RTTask_tSizeInWords)+3];
-							end	
-						else if (AbsActivations[ie]!=32'hFFFF_FFFF)
-						begin
-							AbsActivations[ie]=AbsActivations[ie]-1;
-							if (AbsDeadlines[ie]!=0) // && AbsDeadlines[ie]!=32'hFFFF_FFFF
-								AbsDeadlines[ie]=AbsDeadlines[ie]-1;
-						end
+                        AbsDeadlines[runningTaskIndex]=32'hFFFF_FFFF;
+                        runningTaskKilled=1;
                     end
-					//________________________________
-					
-					//what happens in this tick?
-					
-					runningTaskKilled = runningTaskKilled && (runningTaskFlop==oldRunningTaskFlop || nextRunningTaskKilled);
-					nextRunningTaskKilled=nextRunningTaskKilled && runningTaskFlop==oldRunningTaskFlop;
-					
-					WCETexceeded= (runningTaskKilled || runningTaskIndex==8'hFF) ? 0 : executionTimes[runningTaskIndex]>=tasksList[(runningTaskIndex*RTTask_tSizeInWords)+2];
-					controlKillRunningJob=(!runningTaskKilled && runningTaskIndex!=8'hFF && slv_control_reg != oldSlv_control_reg && slv_control_reg[31:16]==control_jobEnded && (slv_control_reg[7:0]-1)==runningTaskIndex); //&& number_of_ready_tasks_reg>0 
-					deadlineMiss = deadlineMisses[readyQ[0]] && !((WCETexceeded || controlKillRunningJob) && runningTaskIndex==readyQ[0]);
-					//____________________________				
-	
-					//reset running task index
-					if (readyQ[0]==nextRunningTaskIndex)
-						runningTaskPosition=0;
-					
-					//check whether there's a new activation
-                    if (newActivations[readyQ[0]])
+
+                    for (m=0; m<maxTasks; m=m+1)
                         begin
-                            //new task activation
-							
-                            activationIndex=activationQ[0];
-                            newAbsActivation=AbsActivations[activationIndex];
-                            newAbsDeadline=AbsDeadlines[activationIndex];
-							
-							executionTimes[readyQ[0]]<=0;
-							
-							//deadlineMisses[activationIndex]=1'b0;
-							AbsActivations[activationIndex]<=newAbsActivation;
-
-                            //integer ia;
-							//place the next activation of task activating in this tick in the proper position in the activation queue
-                            for (ia=0; ia<maxTasks; ia=ia+1)
-                                begin
-                                    if(ia<slv_number_of_tasks_reg)
+                            if (AbsDeadlines[m]==0)
+                                begin //deadline miss
+                                    if (!(m==runningTaskIndex && (WCETexceeded || controlKillRunningJob)))
                                     begin
-										if (ia==(slv_number_of_tasks_reg-1))
-										begin
-											if (AbsActivations[activationQ[ia]]<newAbsActivation || (AbsActivations[activationQ[ia]]==newAbsActivation && AbsDeadlines[activationQ[ia]] <= newAbsDeadline))
-											begin
-												activationQ[ia]<=activationIndex;
-											end
-										end
-										else if (AbsActivations[activationQ[ia+1]]<newAbsActivation || (AbsActivations[activationQ[ia+1]]==newAbsActivation && AbsDeadlines[activationQ[ia+1]]<=newAbsDeadline))
-											begin
-												activationQ[ia]<=activationQ[ia+1];
-											end
-										else if (ia == 0 || (AbsActivations[activationQ[ia]]<newAbsActivation || (AbsActivations[activationQ[ia]]==newAbsActivation && AbsDeadlines[activationQ[ia]]<=newAbsDeadline)))
-										begin
-											activationQ[ia]<=activationIndex;
-										end
-									end
+                                        if (AbsActivations[m]!=0) //no activation
+                                            AbsDeadlines[m]=32'hFFFF_FFFF;
+                                        if (m==runningTaskIndex)
+                                            begin
+                                                runningTaskKilled=1;
+                                                //runningTaskKilledInThisCC=1;
+                                            end
+                                        else if (m==nextRunningTaskIndex)
+                                        begin
+                                            nextRunningTaskKilled=1;
+                                            //nextRunningTaskKilledInThisCC=1;
+                                        end
+                                    end
                                 end
-							//place the deadline in the proper position in the ready queue
-                            if (number_of_ready_tasks_reg==0)
+                            else if (AbsActivations[m]!=0) //no deadline miss and no activation
+                            begin
+                                if (AbsDeadlines[m]!=32'hFFFF_FFFF)
+                                    AbsDeadlines[m]=AbsDeadlines[m]-1;
+                            end
+
+                            if (AbsActivations[m]==0) //new activation
                                 begin
-                                    number_of_ready_tasks_reg=number_of_ready_tasks_reg+1;
-                                    readyQ[0]<=activationIndex;
-                                end
-                            else if(WCETexceeded || controlKillRunningJob) //new activation, running task to be killed
-                                begin									
-                                    //integer ib;
-
-                                    if (number_of_ready_tasks_reg==1)
-                                        begin
-                                            readyQ[0]<=activationIndex;
-                                        end
+                                    AbsActivations[m]=PeriodsList[m];
+                                    AbsDeadlines[m]=DeadlinesList[m];
+                                    if (m == runningTaskIndex)
+                                        runningTaskReactivated=1;
                                     else
-                                        begin
-											if (deadlineMiss)
-												number_of_ready_tasks_reg=number_of_ready_tasks_reg-1;
-										
-                                            for (ib=0; ib<maxTasks; ib=ib+1)
-                                                begin
-                                                    if(ib<(number_of_ready_tasks_reg))
-                                                    begin
-														if (deadlineMiss)
-														begin
-															if (ib < (runningTaskPosition-1))
-															begin
-																if (AbsDeadlines[readyQ[ib+1]]<=newAbsDeadline)
-																begin
-																	readyQ[ib]<=readyQ[ib+1];
-																end
-																else if ( ib==0 || AbsDeadlines[readyQ[ib]]<=newAbsDeadline)
-																begin
-																	readyQ[ib]<=activationIndex;
-																end
-															end
-															else if (ib == (runningTaskPosition-1))
-															begin
-																begin
-																	if (AbsDeadlines[readyQ[ib+2]<=newAbsDeadline)
-																	begin
-																		readyQ[ib]<=readyQ[ib+2]
-																	end
-																	else if (AbsDeadlines[readyQ[ib]]<=newAbsDeadline)
-																	begin
-																		readyQ[ib]<=activationIndex;
-																	end
-																end															
-															end
-															else  //ib >= runningTaskPosition
-															begin
-																if(ib==(number_of_ready_tasks_reg-1))
-																begin
-																	if (AbsDeadlines[readyQ[ib+1]]<=newAbsDeadline))
-																	begin
-																		readyQ[ib]<=activationIndex;
-																	end
-																end
-																else
-																begin
-																	if (AbsDeadlines[readyQ[ib+2]]<=newAbsDeadline)
-																	begin
-																		readyQ[ib]<=readyQ[ib+2];
-																	end
-																	else if (AbsDeadlines[readyQ[ib+1]]<=newAbsDeadline)
-																	begin
-																		readyQ[ib]<=activationIndex;
-																	end
-																	else
-																		readyQ[ib]<=readyQ[ib+1];
-																end															
-															end
-														end
-														else
-														if (ib < runningTaskPosition)
-														begin		
-															if (ib==0)
-															begin
-																if(! AbsDeadlines[readyQ[ib]]<=newAbsDeadline])
-																begin
-																	readyQ[ib]<=activationIndex;
-																end
-															end
-															else
-															if (!AbsDeadlines[readyQ[ib]]<=newAbsDeadline])
-															begin
-																if (AbsDeadlines[readyQ[ib-1]<=newAbsDeadline))
-																begin
-																	readyQ[ib]<=activationIndex;
-																end
-																else
-																begin
-																	readyQ[ib]<=readyQ[ib-1];
-																end
-															end
-														end
-														else if (ib == runningTaskPosition)
-														begin
-															if (ib==0)
-															begin
-																if (AbsDeadlines[readyQ[ib+1]<=newAbsDeadline)
-																begin
-																	readyQ[ib]<=readyQ[ib+1];
-																end
-																else
-																begin
-																	readyQ[ib]<=activationIndex;
-																end
-															end
-															else if (AbsDeadlines[readyQ[ib-1]<=newAbsDeadline)
-															begin
-																if (AbsDeadlines[readyQ[ib+1]<=newAbsDeadline)
-																begin
-																	readyQ[ib]<=readyQ[ib+1];
-																end
-																else
-																begin
-																	readyQ[ib]<=activationIndex;
-																end
-															end
-															else
-															begin
-																readyQ[ib]<=readyQ[ib-1]; //last time to do it
-															end														
-														end
-														else //ib > runningTaskPosition
-														begin
-															if(ib==(number_of_ready_tasks_reg-1))
-															begin
-																if (AbsDeadlines[readyQ[ib]]<=newAbsDeadline))
-																begin
-																	readyQ[ib]<=activationIndex;
-																end
-															end
-															else
-															begin
-																if (AbsDeadlines[readyQ[ib+1]]<=newAbsDeadline)
-																begin
-																	readyQ[ib]<=readyQ[ib+1];
-																end
-																else if (AbsDeadlines[readyQ[ib]]<=newAbsDeadline)
-																begin
-																	readyQ[ib]<=activationIndex;
-																end
-															end
-														end
-													end
-                                                end
-                                        end
+                                        executionTimes[m]<=0;
                                 end
-                            else
-                                begin //new activation, no wcet exceeded and no kill running task
-									if (!deadlineMiss)
-										number_of_ready_tasks_reg=number_of_ready_tasks_reg+1;
-
-                                    //integer ic;
-									for (ic=0; ic<maxTasks; ic=ic+1)
-                                        begin
-                                        if(ic<number_of_ready_tasks_reg)
-										begin
-										if (deadlineMiss)
-										begin
-											if(ic==(number_of_ready_tasks_reg-1))
-											begin
-												if (AbsDeadlines[readyQ[ic]]<=newAbsDeadline))
-												begin
-													readyQ[ic]<=activationIndex;
-												end
-											end
-											else
-											begin
-												if (AbsDeadlines[readyQ[ic+1]]<=newAbsDeadline)
-													begin
-														readyQ[ic]<=readyQ[ic+1];
-													end
-												else if (ic==0 || AbsDeadlines[readyQ[ic]]<=newAbsDeadline))
-												begin
-													readyQ[ic]<=activationIndex;
-													if (ic>=runningTaskPosition)
-														runningTaskPosition<=runningTaskPosition-1;
-												end
-											end	
-										end
-										else
-										begin
-											if (ic==0)
-											begin
-												if(! AbsDeadlines[readyQ[ic]]<=newAbsDeadline )
-												begin
-													readyQ[ic]<=activationIndex;
-													runningTaskPosition<=runningTaskPosition+1;
-												end
-											end
-											else
-											if (!AbsDeadlines[readyQ[ic]]<=newAbsDeadline] || ic==number_of_ready_tasks_reg-1)
-											begin
-												if (AbsDeadlines[readyQ[ic-1]<=newAbsDeadline))
-												begin
-													readyQ[ic]<=activationIndex;
-													if (ic<=runningTaskPosition)
-														runningTaskPosition<=runningTaskPosition+1;
-												end
-												else
-												begin
-													readyQ[ic]<=readyQ[ic-1];
-												end
-											end
-										end
-									end
+                            else if (AbsActivations[m]!=32'hFFFF_FFFF)
+                                AbsActivations[m]=AbsActivations[m]-1;
                         end
-                    else if ( WCETexceeded || controlKillRunningJob ) //no new activation, running task to be killed
-                    begin
-						if (deadlineMiss)
-							number_of_ready_tasks_reg=number_of_ready_tasks_reg-2;
-						else
-							number_of_ready_tasks_reg=number_of_ready_tasks_reg-1;
 
-                        for (id=0; id<maxTasks-1; id=id+1)
-                            begin
-								if (id<number_of_ready_tasks_reg)
-								begin
-									if (deadlineMiss)
-									begin
-										if (id>=(runningTaskPosition-1))
-											begin
-											readyQ[id]<=readyQ[id+2];
-											end
-										else
-										begin
-											readyQ[id]<=readyQ[id+1];
-										end
-									end
-									else if (id>=runningTaskPosition)
-										begin
-										readyQ[id]<=readyQ[id+1];
-										end
-								end
-                            end
-                    end
-					else if (deadlineMiss) //no new activation, no running task to be killed, just a deadline miss
-					begin
-						number_of_ready_tasks_reg=number_of_ready_tasks_reg-1;
-                        for (id=0; id<maxTasks-1; id=id+1)
-                            begin
-								readyQ[id]<=readyQ[id+1];
-                            end
-						runningTaskPosition<=runningTaskPosition-1;
-					end
-										
-					//runningTaskJustKilled=WCETexceeded || controlKillRunningJob || (deadlineMiss && readyQ[0]==runningTaskIndex);
-					//runningTaskKilled=runningTaskKilled || runningTaskJustKilled;
-					
-					//nextRunningTaskJustKilled=deadlineMiss && readyQ[0]==nextRunningTaskIndex;
-					//nextRunningTaskKilled=nextRunningTaskKilled || nextRunningTaskJustKilled;
-					
-					runningTaskKilled=runningTaskKilled || WCETexceeded || controlKillRunningJob || (deadlineMiss && readyQ[0]==runningTaskIndex);
-					nextRunningTaskKilled=nextRunningTaskKilled || (deadlineMiss && readyQ[0]==nextRunningTaskIndex);
-					
-					//if (runningTaskJustKilled && AbsDeadlines[runningTaskIndex]==0)
-                    //begin
-					//	AbsDeadlines[runningTaskIndex]=32'hFFFF_FFFF;
-					//end
-					
-					//if (readyQ[0]!=runningTaskIndex && deadlineMisses[readyQ[0]] && AbsDeadlines[readyQ[0]]==0)
-					//begin
-					//	AbsDeadlines[readyQ[0]]=32'hFFFF_FFFF;
-					//	executionTimes[readyQ[0]]=0;
-					//end
-					
-					if (runningTaskIndex!=8'hFF && !runningTaskKilled && !(newActivations[readyQ[0]] && runningTaskIndex==readyQ[0])
-						executionTimes[runningTaskIndex] <= executionTimes[runningTaskIndex]+1;					
-					
-					newActivations[readyQ[0]]=1'b0;
-					deadlineMisses[readyQ[0]]=0;
-						
+                        //________________________________
+                        //if (runningTaskKilledInThisCC && HighestPriorityTaskIndex==runningTaskIndex && HighestPriorityTaskDeadline!=32'hFFFF_FFFF && executionTimes[runningTaskIndex]==0)
+                        //	runningTaskKilled=0;
+
+                        //if (nextRunningTaskKilledInThisCC && HighestPriorityTaskIndex==nextRunningTaskIndex && HighestPriorityTaskDeadline!=32'hFFFF_FFFF && executionTimes[nextRunningTaskIndex]==0)
+                        //	nextRunningTaskKilled=0;
+
+                    if (runningTaskReactivated) //&& runningTaskKilled)
+                        executionTimes[runningTaskIndex]<=0;
+                    else if (runningTaskIndex!=8'hFF && !runningTaskKilled)
+                        executionTimes[runningTaskIndex] <=executionTimes[runningTaskIndex]+1;
+
                     oldSlv_control_reg<=slv_control_reg;
-					oldRunningTaskFlop<=runningTaskFlop;
-					schedulerBitFlip<=!schedulerBitFlip;
-					//oldRunningTaskIndex<=runningTaskIndex;
+                    oldRunningTaskFlop<=runningTaskFlop;
+                    schedulerBitFlip<=!schedulerBitFlip;
                 end
             endcase
         end
     end
 
-    //    (* mark_debug = "true" *) wire newAck;
-    //    (* mark_debug = "true" *) wire newReadyIndex;
-    //    (* mark_debug = "true" *)wire newTaskWriteDone;
-    //    assign newAck= (oldIntrStatus==1'b1 && det_intr[0]==1'b0);
-    //    assign newReadyIndex= (readyQ[0]!=oldReadyIndex);
-    //    assign newTaskWriteDone= (taskWriteDone!=oldTaskWriteDone1);
+    //comparators
 
-    (* mark_debug = "true" *) reg waitingAck;
-    (* mark_debug = "true" *) reg [7:0] nextRunningTaskIndex;
-    (* mark_debug = "true" *) reg[7:0] runningTaskIndex;
-    (* mark_debug = "true" *) reg taskPending;
-	
-	reg oldIntrStatus;
+    function integer outSize;
+        input integer level;
+        //input integer maxTasks;
+        integer iter;
+
+        begin
+            outSize=maxTasks;
+            for (iter = 0; iter < level; iter = iter + 1)
+                begin
+                    outSize = (outSize%2==0) ? outSize/2 : ((outSize/2)+1);
+                end
+        end
+    endfunction
+
+    function integer remainderInInput;
+        input integer level;
+
+        integer outSize;
+        integer iter;
+
+        begin
+            outSize=maxTasks;
+            if (level>1)
+            begin
+                for (iter = 0; iter < level-1; iter = iter + 1)
+                    begin
+                        outSize = (outSize%2==0) ? outSize/2 : (outSize/2)+1;
+                    end
+            end
+            remainderInInput=outSize%2; //or oldoutsize[0:0]
+        end
+    endfunction
+
+    genvar l, j;
+    generate
+        for (l=0; l<$clog2(maxTasks); l=l+1)
+        begin: Comp
+            wire [7:0] outputIndex[outSize(l+1)-1:0];
+            wire [31:0] outputValue[outSize(l+1)-1:0];
+
+            if (remainderInInput(l+1)!=0)
+            begin
+                if (l == 0)
+                begin
+                    assign outputIndex[outSize(l+1)-1]=(maxTasks-1);
+                    assign outputValue[outSize(l+1)-1]=AbsDeadlines[maxTasks-1];
+                end
+                else
+                begin
+                    assign outputIndex[outSize(l+1)-1]=Comp[l-1].outputIndex[outSize(l)-1];
+                    assign outputValue[outSize(l+1)-1]=Comp[l-1].outputValue[outSize(l)-1];
+                end
+            end
+
+            for (j=0; j<outSize(l); j=j+2)
+            begin: InternalComp
+                if (l==($clog2(maxTasks)-1))
+                begin
+                    Comparator cl1 (
+                        .X1(Comp[l-1].outputValue[j]),
+                        .indexX1(Comp[l-1].outputIndex[j]),
+                        .X2(Comp[l-1].outputValue[j+1]),
+                        .indexX2(Comp[l-1].outputIndex[j+1]),
+                        .Y(HighestPriorityTaskDeadline),
+                        .indexY(HighestPriorityTaskIndex)
+                    );
+                end
+                else if (l == 0)
+                begin
+                    Comparator cl1 (
+                        .X1(AbsDeadlines[j]),
+                        .indexX1(j),
+                        .X2(AbsDeadlines[j+1]),
+                        .indexX2(j+1),
+                        .Y(outputValue[j/2]),
+                        .indexY(outputIndex[j/2])
+                    );
+                end
+                else
+                begin
+                    Comparator cl1 (
+                        .X1(Comp[l-1].outputValue[j]),
+                        .indexX1(Comp[l-1].outputIndex[j]),
+                        .X2(Comp[l-1].outputValue[j+1]),
+                        .indexX2(Comp[l-1].outputIndex[j+1]),
+                        .Y(outputValue[j/2]),
+                        .indexY(outputIndex[j/2])
+                    );
+                end
+            end
+        end
+    endgenerate
+
+    reg waitingAck;
+    reg [7:0] nextRunningTaskIndex;
+    reg[7:0] runningTaskIndex;
+    reg taskPending;
+
+    reg oldIntrStatus;
     reg oldTaskWriteDone1;
-	reg oldRunningTaskKilled;
+    reg oldRunningTaskKilled;
 
     always @(posedge S_AXI_ACLK)
     begin
@@ -1515,49 +1311,49 @@ module scheduler_v1_0_S_AXI #
 
                 waitingAck<=1'b0;
                 runningTaskIndex<=8'hFF;
-				nextRunningTaskIndex<=8'hFF;
-				
-				oldRunningTaskKilled<=1'b0;
-								
-				runningTaskFlop<=1'b0;
+                nextRunningTaskIndex<=8'hFF;
+
+                oldRunningTaskKilled<=1'b0;
+
+                runningTaskFlop<=1'b0;
             end
         else
             begin
                 if(slv_status_reg==state_running)
-                begin						
-					if (runningTaskKilled && !oldRunningTaskKilled)
-						runningTaskIndex=8'hFF;
-						
+                begin
+                    if (runningTaskKilled && !oldRunningTaskKilled)
+                        runningTaskIndex=8'hFF;
+
                     if (waitingAck)
                         begin
                             if (oldIntrStatus && !det_intr[0])
                                 begin
                                     waitingAck<=1'b0;
                                     runningTaskIndex = nextRunningTaskKilled ? 8'hFF : nextRunningTaskIndex;
-									runningTaskFlop<=!runningTaskFlop;
-								end
+                                    runningTaskFlop<=!runningTaskFlop;
+                                end
                             else if (taskWriteDone && !oldTaskWriteDone1)
                                 begin
-                                    runningTaskIndex<=8'hFF;
+                                    runningTaskIndex = 8'hFF;
                                 end
                             else if (taskWriteStarted)
                             begin
                                 taskReady<=1'b0;
                             end
                         end
-                    else if ( number_of_ready_tasks_reg>0 && !deadlineMisses[readyQ[0]] && runningTaskIndex!=readyQ[0] )
+                    else if ( HighestPriorityTaskDeadline!=32'hFFFF_FFFF && HighestPriorityTaskDeadline!=0 && runningTaskIndex!=HighestPriorityTaskIndex )
                     begin
-                        nextRunningTaskIndex<=readyQ[0];
-                        taskPtr<=tasksList[(readyQ[0]*RTTask_tSizeInWords)];
-						taskExecutionFromBeginning <= executionTimes[readyQ[0]]==0;
+                        nextRunningTaskIndex<=HighestPriorityTaskIndex;
+                        taskPtr<=TCBPtrsList[HighestPriorityTaskIndex];
+                        taskExecutionFromBeginning <= executionTimes[HighestPriorityTaskIndex]==0;
                         taskReady<=1'b1;
-						
+
                         waitingAck<=1'b1;
                     end
                 end
                 oldIntrStatus<=det_intr[0];
                 oldTaskWriteDone1<=taskWriteDone;
-				oldRunningTaskKilled<=runningTaskKilled;
+                oldRunningTaskKilled<=runningTaskKilled;
             end
     end
 

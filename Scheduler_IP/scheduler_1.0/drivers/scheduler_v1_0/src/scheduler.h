@@ -17,20 +17,17 @@
 #define SCHEDULER_S_AXI_SLV_CONTROL_OFFSET 20
 #define SCHEDULER_S_AXI_SLV_STATUS_OFFSET 24
 #define SCHEDULER_S_AXI_SLV_NUMOFTASKS_OFFSET 28
-#define SCHEDULER_S_AXI_SLV_TASKSET_OFFSET 32 /* TaskSet offset */
+#define SCHEDULER_S_AXI_SLV_TCBPTR_OFFSET 32 /* TaskSet offset */
 /* Next queues offsets are calculated dynamically based on the following parameters: */
 
 #ifndef configMAX_RT_TASKS
 #define configMAX_RT_TASKS (4)
 #endif
 
-#define TASKSIZEINBYTE 16
-#define DEADLINEQINDEXELEMENTSIZEINBYTE 4
-#define ACTIVATIONQINDEXELEMENTSIZEINBYTE 4
-#define DEADLINEQELEMENTSIZEINBYTE 4
-#define ACTIVATIONQELEMENTSIZEINBYTE 4
-#define DEADLINEQREVERSEINDEXELEMENTSIZEINBYTE 4
-#define ACTIVATIONQREVERSEINDEXELEMENTSIZEINBYTE 4
+#define TCBPTRSIZEINBYTE 4
+#define WCETSIZEINBYTE 4
+#define DEADLINESIZEINBYTE 4
+#define PERIODSIZEINBYTE 4
 
 
 /**************************** Type Definitions *****************************/
@@ -115,12 +112,9 @@ void SCHEDULER_signalJobEnded(void * baseaddr_p, u16 uxTaskNumber);
 
 //data structures
 void SCHEDULER_setNumberOfTasks(void * baseaddr_p,  u32 numberOfTasks);
-void SCHEDULER_copyTaskSet(void * baseaddr_p, const void * source);
-void SCHEDULER_copyOrderedDeadlineQIndex(void * baseaddr_p, const void * source);
-void SCHEDULER_copyOrderedActivationQIndex(void * baseaddr_p, const void * source);
-void SCHEDULER_copyOrderedDeadlineQ(void * baseaddr_p, const void * source);
-void SCHEDULER_copyOrderedActivationQ(void * baseaddr_p, const void * source);
-void SCHEDULER_copyOrderedDeadlineQReverseIndex(void * baseaddr_p, const void * source);
-void SCHEDULER_copyOrderedActivationQReverseIndex(void * baseaddr_p, const void * source);
+void SCHEDULER_copyTCBPtrs(void * baseaddr_p, const void * source);
+void SCHEDULER_copyWCETs(void * baseaddr_p, const void * source);
+void SCHEDULER_copyDeadlines(void * baseaddr_p, const void * source);
+void SCHEDULER_copyPeriods(void * baseaddr_p, const void * source);
 
 #endif // SCHEDULER_H

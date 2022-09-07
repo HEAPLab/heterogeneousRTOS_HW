@@ -15,7 +15,7 @@
     parameter integer C_S_AXI_ADDR_WIDTH	= 14,
 
     // Parameters of Axi Master Bus Interface M_AXI
-    parameter  C_M_AXI_TARGET_SLAVE_BASE_ADDR	= 32'h2001_8000,
+    parameter  C_M_AXI_TARGET_SLAVE_BASE_ADDR	= 32'h1000_0000,
     parameter integer C_M_AXI_ADDR_WIDTH	= 32,
     parameter integer C_M_AXI_DATA_WIDTH	= 32
 )
@@ -111,7 +111,7 @@
     wire taskWriteDone;
     wire taskWriteStarted;
     wire taskReady;
-	wire taskExecutionFromBeginning,
+	wire taskExecutionFromBeginning;
     wire [31:0] taskPtr;
     // Instantiation of Axi Bus Interface S_AXI
     scheduler_v1_0_S_AXI # (

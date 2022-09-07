@@ -12,7 +12,7 @@
     //parameter  C_M_START_DATA_VALUE	= 32'hAA000000,
     // The master requires a target slave base address.
     // The master will initiate read and write transactions on the slave with base address specified here as a parameter.
-    parameter C_M_TARGET_SLAVE_BASE_ADDR = 32'h2001_8000,
+    parameter C_M_TARGET_SLAVE_BASE_ADDR = 32'h1000_0000,
     // Width of M_AXI address bus. 
     // The master generates the read and write addresses of width specified as C_M_AXI_ADDR_WIDTH.
     parameter integer C_M_AXI_ADDR_WIDTH	= 32,
