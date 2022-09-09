@@ -26,10 +26,9 @@
       },
       "scheduler_1": "",
       "tmr_voter_0": "",
-      "tmr_voter_1": "",
       "scheduler_0": "",
       "scheduler_2": "",
-      "tmr_voter_2": ""
+      "aximvoter_0": ""
     },
     "interface_ports": {
       "DDR": {
@@ -1589,40 +1588,6 @@
           }
         }
       },
-      "tmr_voter_1": {
-        "vlnv": "xilinx.com:ip:tmr_voter:1.0",
-        "xci_name": "design_1_tmr_voter_1_0",
-        "xci_path": "ip/design_1_tmr_voter_1_0/design_1_tmr_voter_1_0.xci",
-        "inst_hier_path": "tmr_voter_1",
-        "parameters": {
-          "C_INTERFACE": {
-            "value": "8"
-          }
-        },
-        "interface_ports": {
-          "S_AXI1": {
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "mode": "Slave",
-            "bridges": [
-              "M_AXI"
-            ]
-          },
-          "S_AXI2": {
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "mode": "Slave",
-            "bridges": [
-              "M_AXI"
-            ]
-          },
-          "S_AXI3": {
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "mode": "Slave",
-            "bridges": [
-              "M_AXI"
-            ]
-          }
-        }
-      },
       "scheduler_0": {
         "vlnv": "user.org:user:scheduler:1.0",
         "xci_name": "design_1_scheduler_0_0",
@@ -1685,11 +1650,36 @@
           }
         }
       },
-      "tmr_voter_2": {
-        "vlnv": "xilinx.com:ip:tmr_voter:1.0",
-        "xci_name": "design_1_tmr_voter_2_0",
-        "xci_path": "ip/design_1_tmr_voter_2_0/design_1_tmr_voter_2_0.xci",
-        "inst_hier_path": "tmr_voter_2"
+      "aximvoter_0": {
+        "vlnv": "user.org:user:aximvoter:1.0",
+        "xci_name": "design_1_aximvoter_0_1",
+        "xci_path": "ip/design_1_aximvoter_0_1/design_1_aximvoter_0_1.xci",
+        "inst_hier_path": "aximvoter_0",
+        "parameters": {
+          "Component_Name": {
+            "value": "design_1_aximvoter_0_1"
+          }
+        },
+        "interface_ports": {
+          "M_AXI_OUT": {
+            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
+            "mode": "Master",
+            "address_space_ref": "M_AXI_OUT",
+            "base_address": {
+              "minimum": "0x00000000",
+              "maximum": "0xFFFFFFFF",
+              "width": "32"
+            }
+          }
+        },
+        "addressing": {
+          "address_spaces": {
+            "M_AXI_OUT": {
+              "range": "4G",
+              "width": "32"
+            }
+          }
+        }
       }
     },
     "interface_nets": {
@@ -1697,6 +1687,12 @@
         "interface_ports": [
           "axi_mem_intercon/M00_AXI",
           "processing_system7_0/S_AXI_HP0"
+        ]
+      },
+      "aximvoter_0_M_AXI_OUT": {
+        "interface_ports": [
+          "aximvoter_0/M_AXI_OUT",
+          "axi_mem_intercon/S00_AXI"
         ]
       },
       "processing_system7_0_DDR": {
@@ -1725,19 +1721,19 @@
       },
       "scheduler_0_M_AXI": {
         "interface_ports": [
-          "tmr_voter_1/S_AXI1",
+          "aximvoter_0/S00_AXI_IN",
           "scheduler_0/M_AXI"
         ]
       },
       "scheduler_1_M_AXI": {
         "interface_ports": [
-          "tmr_voter_1/S_AXI2",
+          "aximvoter_0/S01_AXI_IN",
           "scheduler_1/M_AXI"
         ]
       },
       "scheduler_2_M_AXI": {
         "interface_ports": [
-          "tmr_voter_1/S_AXI3",
+          "aximvoter_0/S02_AXI_IN",
           "scheduler_2/M_AXI"
         ]
       },
@@ -1758,15 +1754,15 @@
           "tmr_voter_0/M_AXI3",
           "scheduler_0/S_AXI"
         ]
-      },
-      "tmr_voter_1_M_AXI": {
-        "interface_ports": [
-          "tmr_voter_1/M_AXI",
-          "axi_mem_intercon/S00_AXI"
-        ]
       }
     },
     "nets": {
+      "aximvoter_0_intr_out": {
+        "ports": [
+          "aximvoter_0/intr_out",
+          "processing_system7_0/Core0_nFIQ"
+        ]
+      },
       "processing_system7_0_FCLK_CLK0": {
         "ports": [
           "processing_system7_0/FCLK_CLK0",
@@ -1783,13 +1779,16 @@
           "scheduler_1/s_axi_aclk",
           "scheduler_1/m_axi_aclk",
           "tmr_voter_0/Clk",
-          "tmr_voter_1/Clk",
           "scheduler_0/SCHEDULER_CLK",
           "scheduler_0/s_axi_aclk",
           "scheduler_0/m_axi_aclk",
           "scheduler_2/SCHEDULER_CLK",
           "scheduler_2/s_axi_aclk",
-          "scheduler_2/m_axi_aclk"
+          "scheduler_2/m_axi_aclk",
+          "aximvoter_0/s00_axi_in_aclk",
+          "aximvoter_0/s01_axi_in_aclk",
+          "aximvoter_0/s02_axi_in_aclk",
+          "aximvoter_0/m_axi_out_aclk"
         ]
       },
       "processing_system7_0_FCLK_RESET0_N": {
@@ -1815,13 +1814,17 @@
           "scheduler_0/m_axi_aresetn",
           "scheduler_2/SCHEDULER_ARESETN",
           "scheduler_2/s_axi_aresetn",
-          "scheduler_2/m_axi_aresetn"
+          "scheduler_2/m_axi_aresetn",
+          "aximvoter_0/s00_axi_in_aresetn",
+          "aximvoter_0/s01_axi_in_aresetn",
+          "aximvoter_0/s02_axi_in_aresetn",
+          "aximvoter_0/m_axi_out_aresetn"
         ]
       },
       "scheduler_0_irq": {
         "ports": [
           "scheduler_0/irq",
-          "tmr_voter_2/Discrete1"
+          "aximvoter_0/intr00_in"
         ]
       },
       "scheduler_0_led1": {
@@ -1875,19 +1878,13 @@
       "scheduler_1_irq": {
         "ports": [
           "scheduler_1/irq",
-          "tmr_voter_2/Discrete2"
+          "aximvoter_0/intr01_in"
         ]
       },
       "scheduler_2_irq": {
         "ports": [
           "scheduler_2/irq",
-          "tmr_voter_2/Discrete3"
-        ]
-      },
-      "tmr_voter_2_Discrete": {
-        "ports": [
-          "tmr_voter_2/Discrete",
-          "processing_system7_0/Core0_nFIQ"
+          "aximvoter_0/intr02_in"
         ]
       }
     },
@@ -1902,6 +1899,19 @@
                 "range": "64K",
                 "offset_base_param": "C_S_AXI_BASEADDR",
                 "offset_high_param": "C_S_AXI_HIGHADDR"
+              }
+            }
+          }
+        }
+      },
+      "/aximvoter_0": {
+        "address_spaces": {
+          "M_AXI_OUT": {
+            "segments": {
+              "SEG_processing_system7_0_HP0_DDR_LOWOCM": {
+                "address_block": "/processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM",
+                "offset": "0x10000000",
+                "range": "4K"
               }
             }
           }

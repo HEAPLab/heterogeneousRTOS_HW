@@ -1,63 +1,62 @@
 {
    "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.63194",
-   "Default View_TopLeft":"1011,-101",
+   "Default View_ScaleFactor":"0.725909",
+   "Default View_TopLeft":"1284,-116",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
 #  -string -flagsOSRD
-preplace port DDR -pg 1 -lvl 8 -x 2940 -y 70 -defaultsOSRD
-preplace port FIXED_IO -pg 1 -lvl 8 -x 2940 -y 90 -defaultsOSRD
-preplace port port-id_LD0 -pg 1 -lvl 8 -x 2940 -y 490 -defaultsOSRD
-preplace port port-id_LD1 -pg 1 -lvl 8 -x 2940 -y 510 -defaultsOSRD
-preplace port port-id_LD2 -pg 1 -lvl 8 -x 2940 -y 530 -defaultsOSRD
-preplace port port-id_LD3 -pg 1 -lvl 8 -x 2940 -y 550 -defaultsOSRD
-preplace port port-id_LD4 -pg 1 -lvl 8 -x 2940 -y 570 -defaultsOSRD
-preplace port port-id_LD5 -pg 1 -lvl 8 -x 2940 -y 590 -defaultsOSRD
-preplace port port-id_LD6 -pg 1 -lvl 8 -x 2940 -y 610 -defaultsOSRD
-preplace port port-id_LD7 -pg 1 -lvl 8 -x 2940 -y 630 -defaultsOSRD
-preplace inst processing_system7_0 -pg 1 -lvl 7 -x 2680 -y 150 -defaultsOSRD
-preplace inst ps7_0_axi_periph -pg 1 -lvl 2 -x 550 -y 260 -defaultsOSRD
+preplace port DDR -pg 1 -lvl 8 -x 2910 -y 70 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -lvl 8 -x 2910 -y 90 -defaultsOSRD
+preplace port port-id_LD0 -pg 1 -lvl 8 -x 2910 -y 490 -defaultsOSRD
+preplace port port-id_LD1 -pg 1 -lvl 8 -x 2910 -y 510 -defaultsOSRD
+preplace port port-id_LD2 -pg 1 -lvl 8 -x 2910 -y 530 -defaultsOSRD
+preplace port port-id_LD3 -pg 1 -lvl 8 -x 2910 -y 550 -defaultsOSRD
+preplace port port-id_LD4 -pg 1 -lvl 8 -x 2910 -y 570 -defaultsOSRD
+preplace port port-id_LD5 -pg 1 -lvl 8 -x 2910 -y 590 -defaultsOSRD
+preplace port port-id_LD6 -pg 1 -lvl 8 -x 2910 -y 610 -defaultsOSRD
+preplace port port-id_LD7 -pg 1 -lvl 8 -x 2910 -y 630 -defaultsOSRD
+preplace inst processing_system7_0 -pg 1 -lvl 7 -x 2650 -y 150 -defaultsOSRD
+preplace inst ps7_0_axi_periph -pg 1 -lvl 2 -x 540 -y 260 -defaultsOSRD
 preplace inst rst_ps7_0_100M -pg 1 -lvl 1 -x 200 -y 490 -defaultsOSRD
-preplace inst axi_mem_intercon -pg 1 -lvl 6 -x 2290 -y 130 -defaultsOSRD
-preplace inst scheduler_1 -pg 1 -lvl 4 -x 1360 -y 330 -defaultsOSRD
-preplace inst tmr_voter_0 -pg 1 -lvl 3 -x 940 -y 240 -defaultsOSRD
-preplace inst tmr_voter_1 -pg 1 -lvl 5 -x 1880 -y 230 -defaultsOSRD
-preplace inst scheduler_0 -pg 1 -lvl 4 -x 1360 -y 640 -defaultsOSRD
-preplace inst scheduler_2 -pg 1 -lvl 4 -x 1360 -y -20 -defaultsOSRD
-preplace inst tmr_voter_2 -pg 1 -lvl 5 -x 1880 -y 50 -defaultsOSRD
-preplace netloc processing_system7_0_FCLK_CLK0 1 0 8 20 390 380 390 700 150 1170 150 1600 320 2130 250 2450 290 2920
-preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 8 10 380 NJ 380 NJ 380 1190J 170 1570J 340 NJ 340 NJ 340 2910
-preplace netloc rst_ps7_0_100M_peripheral_aresetn 1 1 5 390 400 NJ 400 1180 160 1580J 330 2140
-preplace netloc scheduler_0_led1 1 4 4 1610 550 N 550 N 550 NJ
-preplace netloc scheduler_0_led2 1 4 4 1620 570 N 570 N 570 NJ
-preplace netloc scheduler_0_led3 1 4 4 1630 590 N 590 N 590 NJ
-preplace netloc scheduler_0_led4 1 4 4 1640 610 N 610 N 610 NJ
-preplace netloc scheduler_0_led5 1 4 4 1650 630 N 630 N 630 NJ
-preplace netloc scheduler_0_readyLed 1 4 4 1580 510 N 510 N 510 NJ
-preplace netloc scheduler_0_runningLed 1 4 4 1600 530 N 530 N 530 NJ
-preplace netloc scheduler_0_uninitializedLed 1 4 4 1570 490 N 490 N 490 NJ
-preplace netloc tmr_voter_2_Discrete 1 5 2 2140 10 2440J
-preplace netloc scheduler_0_irq 1 4 1 1590 30n
-preplace netloc scheduler_1_irq 1 4 1 1540 50n
-preplace netloc scheduler_2_irq 1 4 1 1530 70n
+preplace inst axi_mem_intercon -pg 1 -lvl 6 -x 2260 -y 130 -defaultsOSRD
+preplace inst scheduler_1 -pg 1 -lvl 4 -x 1340 -y 330 -defaultsOSRD
+preplace inst tmr_voter_0 -pg 1 -lvl 3 -x 920 -y 240 -defaultsOSRD
+preplace inst scheduler_0 -pg 1 -lvl 4 -x 1340 -y 640 -defaultsOSRD
+preplace inst scheduler_2 -pg 1 -lvl 4 -x 1340 -y -20 -defaultsOSRD
+preplace inst aximvoter_0 -pg 1 -lvl 5 -x 1780 -y 230 -defaultsOSRD
+preplace netloc aximvoter_0_intr_out 1 5 2 1930 250 2420J
+preplace netloc processing_system7_0_FCLK_CLK0 1 0 8 10 300 380 140 690 140 1150 150 1560 420 1940 260 2410 290 2890
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 8 20 380 NJ 380 NJ 380 1170J 170 1540J 440 N 440 NJ 440 2880
+preplace netloc rst_ps7_0_100M_peripheral_aresetn 1 1 5 390 390 NJ 390 1160 160 1550J 430 1950
+preplace netloc scheduler_0_irq 1 4 1 1580 160n
+preplace netloc scheduler_0_led1 1 4 4 1590 550 N 550 N 550 NJ
+preplace netloc scheduler_0_led2 1 4 4 1600 570 N 570 N 570 NJ
+preplace netloc scheduler_0_led3 1 4 4 1610 590 N 590 N 590 NJ
+preplace netloc scheduler_0_led4 1 4 4 1620 610 N 610 N 610 NJ
+preplace netloc scheduler_0_led5 1 4 4 1630 630 N 630 N 630 NJ
+preplace netloc scheduler_0_readyLed 1 4 4 1560 510 N 510 N 510 NJ
+preplace netloc scheduler_0_runningLed 1 4 4 1570 530 N 530 N 530 NJ
+preplace netloc scheduler_0_uninitializedLed 1 4 4 1540 490 N 490 N 490 NJ
+preplace netloc scheduler_1_irq 1 4 1 1530 180n
+preplace netloc scheduler_2_irq 1 4 1 1570 80n
 preplace netloc axi_mem_intercon_M00_AXI 1 6 1 N 130
+preplace netloc aximvoter_0_M_AXI_OUT 1 5 1 1930 70n
 preplace netloc processing_system7_0_DDR 1 7 1 NJ 70
 preplace netloc processing_system7_0_FIXED_IO 1 7 1 NJ 90
-preplace netloc processing_system7_0_M_AXI_GP0 1 1 7 380 140 NJ 140 NJ 140 NJ 140 2110J 0 NJ 0 2920
-preplace netloc ps7_0_axi_periph_M00_AXI 1 2 1 710 230n
-preplace netloc scheduler_0_M_AXI 1 4 1 1560 200n
-preplace netloc scheduler_1_M_AXI 1 4 1 1550 220n
-preplace netloc scheduler_2_M_AXI 1 4 1 1610 -120n
-preplace netloc tmr_voter_0_M_AXI1 1 3 1 1150 -80n
-preplace netloc tmr_voter_0_M_AXI2 1 3 1 1160 240n
-preplace netloc tmr_voter_0_M_AXI3 1 3 1 1150J 260n
-preplace netloc tmr_voter_1_M_AXI 1 5 1 2120 70n
-levelinfo -pg 1 -10 200 550 940 1360 1880 2290 2680 2940
-pagesize -pg 1 -db -bbox -sgen -10 -180 3060 1140
+preplace netloc processing_system7_0_M_AXI_GP0 1 1 7 390 -180 NJ -180 NJ -180 NJ -180 N -180 NJ -180 2890
+preplace netloc ps7_0_axi_periph_M00_AXI 1 2 1 700 230n
+preplace netloc scheduler_0_M_AXI 1 4 1 1520 100n
+preplace netloc scheduler_1_M_AXI 1 4 1 1510 120n
+preplace netloc scheduler_2_M_AXI 1 4 1 1580 -120n
+preplace netloc tmr_voter_0_M_AXI1 1 3 1 1130 -80n
+preplace netloc tmr_voter_0_M_AXI2 1 3 1 1140 240n
+preplace netloc tmr_voter_0_M_AXI3 1 3 1 1130J 260n
+levelinfo -pg 1 -10 200 540 920 1340 1780 2260 2650 2910
+pagesize -pg 1 -db -bbox -sgen -10 -210 3030 1180
 "
 }
 {
    "da_axi4_cnt":"2",
-   "da_clkrst_cnt":"1",
+   "da_clkrst_cnt":"5",
    "da_ps7_cnt":"1"
 }
