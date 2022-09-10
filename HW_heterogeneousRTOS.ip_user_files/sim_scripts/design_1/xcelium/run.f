@@ -44,10 +44,10 @@
   "../../../bd/design_1/ip/design_1_scheduler_0_1/sim/design_1_scheduler_0_1.v" \
   "../../../bd/design_1/ip/design_1_scheduler_0_0/sim/design_1_scheduler_0_0.v" \
   "../../../bd/design_1/ip/design_1_scheduler_0_2/sim/design_1_scheduler_0_2.v" \
-  "../../../bd/design_1/ipshared/2165/src/MajorityVoter.v" \
-  "../../../bd/design_1/ipshared/2165/hdl/aximvoter_v1_0.v" \
+  "../../../bd/design_1/ipshared/d53d/src/MajorityVoter.v" \
+  "../../../bd/design_1/ipshared/d53d/hdl/aximvoter_v1_0.v" \
   "../../../bd/design_1/ip/design_1_aximvoter_0_1/sim/design_1_aximvoter_0_1.v" \
-  "../../../bd/design_1/ipshared/9494/hdl/axisvoter_v1_0.v" \
+  "../../../bd/design_1/ipshared/3c94/hdl/axisvoter_v1_0.v" \
   "../../../bd/design_1/ip/design_1_axisvoter_0_0/sim/design_1_axisvoter_0_0.v" \
 -endlib
 -makelib xcelium_lib/generic_baseblocks_v2_1_0 \

@@ -1639,23 +1639,26 @@
           }
         },
         "interface_ports": {
-          "M_AXI_OUT": {
+          "S00_AXI_IN": {
             "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "mode": "Master",
-            "address_space_ref": "M_AXI_OUT",
-            "base_address": {
-              "minimum": "0x00000000",
-              "maximum": "0xFFFFFFFF",
-              "width": "32"
-            }
-          }
-        },
-        "addressing": {
-          "address_spaces": {
-            "M_AXI_OUT": {
-              "range": "4G",
-              "width": "32"
-            }
+            "mode": "Slave",
+            "bridges": [
+              "M_AXI_OUT"
+            ]
+          },
+          "S01_AXI_IN": {
+            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
+            "mode": "Slave",
+            "bridges": [
+              "M_AXI_OUT"
+            ]
+          },
+          "S02_AXI_IN": {
+            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
+            "mode": "Slave",
+            "bridges": [
+              "M_AXI_OUT"
+            ]
           }
         }
       },
@@ -1664,52 +1667,18 @@
         "xci_name": "design_1_axisvoter_0_0",
         "xci_path": "ip/design_1_axisvoter_0_0/design_1_axisvoter_0_0.xci",
         "inst_hier_path": "axisvoter_0",
-        "interface_ports": {
-          "M00_AXI_IN": {
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "mode": "Master",
-            "address_space_ref": "M00_AXI_IN",
-            "base_address": {
-              "minimum": "0x00000000",
-              "maximum": "0x0000000F",
-              "width": "4"
-            }
-          },
-          "M01_AXI_IN": {
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "mode": "Master",
-            "address_space_ref": "M01_AXI_IN",
-            "base_address": {
-              "minimum": "0x00000000",
-              "maximum": "0x0000000F",
-              "width": "4"
-            }
-          },
-          "M02_AXI_IN": {
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "mode": "Master",
-            "address_space_ref": "M02_AXI_IN",
-            "base_address": {
-              "minimum": "0x00000000",
-              "maximum": "0x0000000F",
-              "width": "4"
-            }
+        "parameters": {
+          "C_S_AXI_ADDR_WIDTH": {
+            "value": "4"
           }
         },
-        "addressing": {
-          "address_spaces": {
-            "M00_AXI_IN": {
-              "range": "4G",
-              "width": "32"
-            },
-            "M01_AXI_IN": {
-              "range": "4G",
-              "width": "32"
-            },
-            "M02_AXI_IN": {
-              "range": "4G",
-              "width": "32"
-            }
+        "interface_ports": {
+          "S_AXI_OUT": {
+            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
+            "mode": "Slave",
+            "bridges": [
+              "M00_AXI_IN"
+            ]
           }
         }
       }
@@ -1932,12 +1901,12 @@
         "address_spaces": {
           "Data": {
             "segments": {
-              "SEG_axisvoter_0_S_AXI_OUT_reg": {
-                "address_block": "/axisvoter_0/S_AXI_OUT/S_AXI_OUT_reg",
+              "SEG_scheduler_0_S_AXI_reg": {
+                "address_block": "/scheduler_0/S_AXI/S_AXI_reg",
                 "offset": "0x43C00000",
                 "range": "64K",
-                "offset_base_param": "C_S_AXI_OUT_BASEADDR",
-                "offset_high_param": "C_S_AXI_OUT_HIGHADDR"
+                "offset_base_param": "C_S_AXI_BASEADDR",
+                "offset_high_param": "C_S_AXI_HIGHADDR"
               }
             }
           }
@@ -1946,21 +1915,6 @@
       "/scheduler_0": {
         "address_spaces": {
           "M_AXI": {
-            "segments": {
-              "SEG_aximvoter_0_S00_AXI_IN_reg": {
-                "address_block": "/aximvoter_0/S00_AXI_IN/S00_AXI_IN_reg",
-                "offset": "0x43C00000",
-                "range": "64K",
-                "offset_base_param": "C_S00_AXI_IN_BASEADDR",
-                "offset_high_param": "C_S00_AXI_IN_HIGHADDR"
-              }
-            }
-          }
-        }
-      },
-      "/aximvoter_0": {
-        "address_spaces": {
-          "M_AXI_OUT": {
             "segments": {
               "SEG_processing_system7_0_HP0_DDR_LOWOCM": {
                 "address_block": "/processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM",

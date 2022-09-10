@@ -10,7 +10,7 @@
       <spirit:busType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="aximm" spirit:version="1.0"/>
       <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="aximm_rtl" spirit:version="1.0"/>
       <spirit:slave>
-        <spirit:memoryMapRef spirit:memoryMapRef="S_AXI_OUT"/>
+        <spirit:bridge spirit:masterRef="M00_AXI_IN" spirit:opaque="false"/>
       </spirit:slave>
       <spirit:portMaps>
         <spirit:portMap>
@@ -185,9 +185,7 @@
       <spirit:name>M00_AXI_IN</spirit:name>
       <spirit:busType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="aximm" spirit:version="1.0"/>
       <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="aximm_rtl" spirit:version="1.0"/>
-      <spirit:master>
-        <spirit:addressSpaceRef spirit:addressSpaceRef="M00_AXI_IN"/>
-      </spirit:master>
+      <spirit:master/>
       <spirit:portMaps>
         <spirit:portMap>
           <spirit:logicalPort>
@@ -357,9 +355,7 @@
       <spirit:name>M01_AXI_IN</spirit:name>
       <spirit:busType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="aximm" spirit:version="1.0"/>
       <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="aximm_rtl" spirit:version="1.0"/>
-      <spirit:master>
-        <spirit:addressSpaceRef spirit:addressSpaceRef="M01_AXI_IN"/>
-      </spirit:master>
+      <spirit:master/>
       <spirit:portMaps>
         <spirit:portMap>
           <spirit:logicalPort>
@@ -529,9 +525,7 @@
       <spirit:name>M02_AXI_IN</spirit:name>
       <spirit:busType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="aximm" spirit:version="1.0"/>
       <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="aximm_rtl" spirit:version="1.0"/>
-      <spirit:master>
-        <spirit:addressSpaceRef spirit:addressSpaceRef="M02_AXI_IN"/>
-      </spirit:master>
+      <spirit:master/>
       <spirit:portMaps>
         <spirit:portMap>
           <spirit:logicalPort>
@@ -890,45 +884,6 @@
       </spirit:parameters>
     </spirit:busInterface>
   </spirit:busInterfaces>
-  <spirit:addressSpaces>
-    <spirit:addressSpace>
-      <spirit:name>M02_AXI_IN</spirit:name>
-      <spirit:range spirit:format="long" spirit:resolve="dependent" spirit:dependency="pow(2,(spirit:decode(id(&apos;MODELPARAM_VALUE.C_M02_AXI_IN_ADDR_WIDTH&apos;)) - 1) + 1)" spirit:minimum="0" spirit:maximum="4294967296" spirit:rangeType="long">4294967296</spirit:range>
-      <spirit:width spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_M02_AXI_IN_DATA_WIDTH&apos;)) - 1) + 1">32</spirit:width>
-    </spirit:addressSpace>
-    <spirit:addressSpace>
-      <spirit:name>M01_AXI_IN</spirit:name>
-      <spirit:range spirit:format="long" spirit:resolve="dependent" spirit:dependency="pow(2,(spirit:decode(id(&apos;MODELPARAM_VALUE.C_M01_AXI_IN_ADDR_WIDTH&apos;)) - 1) + 1)" spirit:minimum="0" spirit:maximum="4294967296" spirit:rangeType="long">4294967296</spirit:range>
-      <spirit:width spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_M01_AXI_IN_DATA_WIDTH&apos;)) - 1) + 1">32</spirit:width>
-    </spirit:addressSpace>
-    <spirit:addressSpace>
-      <spirit:name>M00_AXI_IN</spirit:name>
-      <spirit:range spirit:format="long" spirit:resolve="dependent" spirit:dependency="pow(2,(spirit:decode(id(&apos;MODELPARAM_VALUE.C_M00_AXI_IN_ADDR_WIDTH&apos;)) - 1) + 1)" spirit:minimum="0" spirit:maximum="4294967296" spirit:rangeType="long">4294967296</spirit:range>
-      <spirit:width spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_M00_AXI_IN_DATA_WIDTH&apos;)) - 1) + 1">32</spirit:width>
-    </spirit:addressSpace>
-  </spirit:addressSpaces>
-  <spirit:memoryMaps>
-    <spirit:memoryMap>
-      <spirit:name>S_AXI_OUT</spirit:name>
-      <spirit:addressBlock>
-        <spirit:name>S_AXI_OUT_reg</spirit:name>
-        <spirit:baseAddress spirit:format="long" spirit:resolve="user">0</spirit:baseAddress>
-        <spirit:range spirit:format="long">4096</spirit:range>
-        <spirit:width spirit:format="long">32</spirit:width>
-        <spirit:usage>register</spirit:usage>
-        <spirit:parameters>
-          <spirit:parameter>
-            <spirit:name>OFFSET_BASE_PARAM</spirit:name>
-            <spirit:value spirit:id="ADDRBLOCKPARAM_VALUE.S_AXI_OUT.S_AXI_OUT_REG.OFFSET_BASE_PARAM">C_S_AXI_OUT_BASEADDR</spirit:value>
-          </spirit:parameter>
-          <spirit:parameter>
-            <spirit:name>OFFSET_HIGH_PARAM</spirit:name>
-            <spirit:value spirit:id="ADDRBLOCKPARAM_VALUE.S_AXI_OUT.S_AXI_OUT_REG.OFFSET_HIGH_PARAM">C_S_AXI_OUT_HIGHADDR</spirit:value>
-          </spirit:parameter>
-        </spirit:parameters>
-      </spirit:addressBlock>
-    </spirit:memoryMap>
-  </spirit:memoryMaps>
   <spirit:model>
     <spirit:views>
       <spirit:view>
@@ -960,20 +915,6 @@
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
             <spirit:value>c4fb226a</spirit:value>
-          </spirit:parameter>
-        </spirit:parameters>
-      </spirit:view>
-      <spirit:view>
-        <spirit:name>xilinx_softwaredriver</spirit:name>
-        <spirit:displayName>Software Driver</spirit:displayName>
-        <spirit:envIdentifier>:vivado.xilinx.com:sw.driver</spirit:envIdentifier>
-        <spirit:fileSetRef>
-          <spirit:localName>xilinx_softwaredriver_view_fileset</spirit:localName>
-        </spirit:fileSetRef>
-        <spirit:parameters>
-          <spirit:parameter>
-            <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>ff76bf5e</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -2298,38 +2239,6 @@
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
-      <spirit:name>xilinx_softwaredriver_view_fileset</spirit:name>
-      <spirit:file>
-        <spirit:name>drivers/axisvoter_v1_0/data/axisvoter.mdd</spirit:name>
-        <spirit:userFileType>mdd</spirit:userFileType>
-        <spirit:userFileType>driver_mdd</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>drivers/axisvoter_v1_0/data/axisvoter.tcl</spirit:name>
-        <spirit:fileType>tclSource</spirit:fileType>
-        <spirit:userFileType>driver_tcl</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>drivers/axisvoter_v1_0/src/Makefile</spirit:name>
-        <spirit:userFileType>driver_src</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>drivers/axisvoter_v1_0/src/axisvoter.h</spirit:name>
-        <spirit:fileType>cSource</spirit:fileType>
-        <spirit:userFileType>driver_src</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>drivers/axisvoter_v1_0/src/axisvoter.c</spirit:name>
-        <spirit:fileType>cSource</spirit:fileType>
-        <spirit:userFileType>driver_src</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>drivers/axisvoter_v1_0/src/axisvoter_selftest.c</spirit:name>
-        <spirit:fileType>cSource</spirit:fileType>
-        <spirit:userFileType>driver_src</spirit:userFileType>
-      </spirit:file>
-    </spirit:fileSet>
-    <spirit:fileSet>
       <spirit:name>xilinx_xpgui_view_fileset</spirit:name>
       <spirit:file>
         <spirit:name>xgui/axisvoter_v1_0.tcl</spirit:name>
@@ -2384,7 +2293,7 @@
     <spirit:parameter>
       <spirit:name>C_S_AXI_ADDR_WIDTH</spirit:name>
       <spirit:displayName>C S Axi Addr Width</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.C_S_AXI_ADDR_WIDTH">4</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.C_S_AXI_ADDR_WIDTH">32</spirit:value>
     </spirit:parameter>
   </spirit:parameters>
   <spirit:vendorExtensions>
@@ -2401,13 +2310,6 @@
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2022.1</xilinx:xilinxVersion>
-      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="c133c2fc"/>
-      <xilinx:checksum xilinx:scope="addressSpaces" xilinx:value="14d6d3ec"/>
-      <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="d7bb8957"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="408f16b5"/>
-      <xilinx:checksum xilinx:scope="ports" xilinx:value="78b20948"/>
-      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="cd9ec9b5"/>
-      <xilinx:checksum xilinx:scope="parameters" xilinx:value="b4c3af73"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
 </spirit:component>

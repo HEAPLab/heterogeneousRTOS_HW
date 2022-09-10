@@ -2517,6 +2517,11 @@
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2022.1</xilinx:xilinxVersion>
+      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="27395302"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="da292556"/>
+      <xilinx:checksum xilinx:scope="ports" xilinx:value="37d7a6ef"/>
+      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="4ae9c782"/>
+      <xilinx:checksum xilinx:scope="parameters" xilinx:value="fd822a49"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
 </spirit:component>
