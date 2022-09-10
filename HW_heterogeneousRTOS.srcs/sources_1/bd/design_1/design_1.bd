@@ -1078,6 +1078,9 @@
         "inst_hier_path": "ps7_0_axi_periph",
         "xci_name": "design_1_ps7_0_axi_periph_0",
         "parameters": {
+          "ENABLE_ADVANCED_OPTIONS": {
+            "value": "0"
+          },
           "NUM_MI": {
             "value": "1"
           }
@@ -1664,14 +1667,9 @@
       },
       "axisvoter_0": {
         "vlnv": "user.org:user:axisvoter:1.0",
-        "xci_name": "design_1_axisvoter_0_0",
-        "xci_path": "ip/design_1_axisvoter_0_0/design_1_axisvoter_0_0.xci",
+        "xci_name": "design_1_axisvoter_0_5",
+        "xci_path": "ip/design_1_axisvoter_0_5/design_1_axisvoter_0_5.xci",
         "inst_hier_path": "axisvoter_0",
-        "parameters": {
-          "C_S_AXI_ADDR_WIDTH": {
-            "value": "4"
-          }
-        },
         "interface_ports": {
           "S_AXI_OUT": {
             "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
@@ -1710,8 +1708,8 @@
       },
       "axisvoter_0_M02_AXI_IN": {
         "interface_ports": [
-          "axisvoter_0/M02_AXI_IN",
-          "scheduler_2/S_AXI"
+          "scheduler_2/S_AXI",
+          "axisvoter_0/M02_AXI_IN"
         ]
       },
       "processing_system7_0_DDR": {
@@ -1912,6 +1910,20 @@
           }
         }
       },
+      "/scheduler_1": {
+        "address_spaces": {
+          "M_AXI": {
+            "segments": {
+              "SEG_processing_system7_0_HP0_DDR_LOWOCM": {
+                "address_block": "/processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM",
+                "offset": "0x10000000",
+                "range": "4K",
+                "is_excluded": "TRUE"
+              }
+            }
+          }
+        }
+      },
       "/scheduler_0": {
         "address_spaces": {
           "M_AXI": {
@@ -1920,6 +1932,20 @@
                 "address_block": "/processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM",
                 "offset": "0x10000000",
                 "range": "4K"
+              }
+            }
+          }
+        }
+      },
+      "/scheduler_2": {
+        "address_spaces": {
+          "M_AXI": {
+            "segments": {
+              "SEG_processing_system7_0_HP0_DDR_LOWOCM": {
+                "address_block": "/processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM",
+                "offset": "0x00000000",
+                "range": "256M",
+                "is_excluded": "TRUE"
               }
             }
           }

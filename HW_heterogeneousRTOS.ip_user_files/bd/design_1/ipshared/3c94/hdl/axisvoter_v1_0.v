@@ -3,11 +3,6 @@
 
 	module axisvoter_v1_0 #
 	(
-    // Users to add parameters here
-
-    // User parameters ends
-    // Do not modify the parameters beyond this line
-
 
     // Parameters of Axi Slave Bus Interface S_AXI_OUT
     parameter integer C_S_AXI_DATA_WIDTH	= 32,

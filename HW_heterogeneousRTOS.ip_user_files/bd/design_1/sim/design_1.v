@@ -1,7 +1,7 @@
 //Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-//Date        : Sat Sep 10 04:02:43 2022
+//Date        : Sat Sep 10 05:20:53 2022
 //Host        : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
 //Command     : generate_target design_1.bd
 //Design      : design_1
@@ -9,7 +9,7 @@
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CORE_GENERATION_INFO = "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=14,numReposBlks=10,numNonXlnxBlks=5,numHierBlks=4,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=2,da_clkrst_cnt=18,da_ps7_cnt=1,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "design_1.hwdef" *) 
+(* CORE_GENERATION_INFO = "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=14,numReposBlks=10,numNonXlnxBlks=5,numHierBlks=4,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=8,da_clkrst_cnt=39,da_ps7_cnt=1,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "design_1.hwdef" *) 
 module design_1
    (DDR_addr,
     DDR_ba,
@@ -123,11 +123,11 @@ module design_1
   wire [3:0]aximvoter_0_M_AXI_OUT_WSTRB;
   wire aximvoter_0_M_AXI_OUT_WVALID;
   wire aximvoter_0_intr_out;
-  wire [3:0]axisvoter_0_M00_AXI_IN_ARADDR;
+  wire [31:0]axisvoter_0_M00_AXI_IN_ARADDR;
   wire [2:0]axisvoter_0_M00_AXI_IN_ARPROT;
   wire axisvoter_0_M00_AXI_IN_ARREADY;
   wire axisvoter_0_M00_AXI_IN_ARVALID;
-  wire [3:0]axisvoter_0_M00_AXI_IN_AWADDR;
+  wire [31:0]axisvoter_0_M00_AXI_IN_AWADDR;
   wire [2:0]axisvoter_0_M00_AXI_IN_AWPROT;
   wire axisvoter_0_M00_AXI_IN_AWREADY;
   wire axisvoter_0_M00_AXI_IN_AWVALID;
@@ -142,11 +142,11 @@ module design_1
   wire axisvoter_0_M00_AXI_IN_WREADY;
   wire [3:0]axisvoter_0_M00_AXI_IN_WSTRB;
   wire axisvoter_0_M00_AXI_IN_WVALID;
-  wire [3:0]axisvoter_0_M01_AXI_IN_ARADDR;
+  wire [31:0]axisvoter_0_M01_AXI_IN_ARADDR;
   wire [2:0]axisvoter_0_M01_AXI_IN_ARPROT;
   wire axisvoter_0_M01_AXI_IN_ARREADY;
   wire axisvoter_0_M01_AXI_IN_ARVALID;
-  wire [3:0]axisvoter_0_M01_AXI_IN_AWADDR;
+  wire [31:0]axisvoter_0_M01_AXI_IN_AWADDR;
   wire [2:0]axisvoter_0_M01_AXI_IN_AWPROT;
   wire axisvoter_0_M01_AXI_IN_AWREADY;
   wire axisvoter_0_M01_AXI_IN_AWVALID;
@@ -161,11 +161,11 @@ module design_1
   wire axisvoter_0_M01_AXI_IN_WREADY;
   wire [3:0]axisvoter_0_M01_AXI_IN_WSTRB;
   wire axisvoter_0_M01_AXI_IN_WVALID;
-  wire [3:0]axisvoter_0_M02_AXI_IN_ARADDR;
+  wire [31:0]axisvoter_0_M02_AXI_IN_ARADDR;
   wire [2:0]axisvoter_0_M02_AXI_IN_ARPROT;
   wire axisvoter_0_M02_AXI_IN_ARREADY;
   wire axisvoter_0_M02_AXI_IN_ARVALID;
-  wire [3:0]axisvoter_0_M02_AXI_IN_AWADDR;
+  wire [31:0]axisvoter_0_M02_AXI_IN_AWADDR;
   wire [2:0]axisvoter_0_M02_AXI_IN_AWPROT;
   wire axisvoter_0_M02_AXI_IN_AWREADY;
   wire axisvoter_0_M02_AXI_IN_AWVALID;
@@ -486,7 +486,7 @@ module design_1
         .s02_axi_in_wready(scheduler_2_M_AXI_WREADY),
         .s02_axi_in_wstrb(scheduler_2_M_AXI_WSTRB),
         .s02_axi_in_wvalid(scheduler_2_M_AXI_WVALID));
-  design_1_axisvoter_0_0 axisvoter_0
+  design_1_axisvoter_0_5 axisvoter_0
        (.m00_axi_in_aclk(processing_system7_0_FCLK_CLK0),
         .m00_axi_in_araddr(axisvoter_0_M00_AXI_IN_ARADDR),
         .m00_axi_in_aresetn(rst_ps7_0_100M_peripheral_aresetn),
@@ -551,12 +551,12 @@ module design_1
         .m02_axi_in_wstrb(axisvoter_0_M02_AXI_IN_WSTRB),
         .m02_axi_in_wvalid(axisvoter_0_M02_AXI_IN_WVALID),
         .s_axi_out_aclk(processing_system7_0_FCLK_CLK0),
-        .s_axi_out_araddr(ps7_0_axi_periph_M00_AXI_ARADDR[3:0]),
+        .s_axi_out_araddr(ps7_0_axi_periph_M00_AXI_ARADDR),
         .s_axi_out_aresetn(rst_ps7_0_100M_peripheral_aresetn),
         .s_axi_out_arprot(ps7_0_axi_periph_M00_AXI_ARPROT),
         .s_axi_out_arready(ps7_0_axi_periph_M00_AXI_ARREADY),
         .s_axi_out_arvalid(ps7_0_axi_periph_M00_AXI_ARVALID),
-        .s_axi_out_awaddr(ps7_0_axi_periph_M00_AXI_AWADDR[3:0]),
+        .s_axi_out_awaddr(ps7_0_axi_periph_M00_AXI_AWADDR),
         .s_axi_out_awprot(ps7_0_axi_periph_M00_AXI_AWPROT),
         .s_axi_out_awready(ps7_0_axi_periph_M00_AXI_AWREADY),
         .s_axi_out_awvalid(ps7_0_axi_periph_M00_AXI_AWVALID),
@@ -779,12 +779,12 @@ module design_1
         .readyLed(scheduler_0_readyLed),
         .runningLed(scheduler_0_runningLed),
         .s_axi_aclk(processing_system7_0_FCLK_CLK0),
-        .s_axi_araddr({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,axisvoter_0_M00_AXI_IN_ARADDR}),
+        .s_axi_araddr(axisvoter_0_M00_AXI_IN_ARADDR[13:0]),
         .s_axi_aresetn(rst_ps7_0_100M_peripheral_aresetn),
         .s_axi_arprot(axisvoter_0_M00_AXI_IN_ARPROT),
         .s_axi_arready(axisvoter_0_M00_AXI_IN_ARREADY),
         .s_axi_arvalid(axisvoter_0_M00_AXI_IN_ARVALID),
-        .s_axi_awaddr({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,axisvoter_0_M00_AXI_IN_AWADDR}),
+        .s_axi_awaddr(axisvoter_0_M00_AXI_IN_AWADDR[13:0]),
         .s_axi_awprot(axisvoter_0_M00_AXI_IN_AWPROT),
         .s_axi_awready(axisvoter_0_M00_AXI_IN_AWREADY),
         .s_axi_awvalid(axisvoter_0_M00_AXI_IN_AWVALID),
@@ -826,12 +826,12 @@ module design_1
         .m_axi_wstrb(scheduler_1_M_AXI_WSTRB),
         .m_axi_wvalid(scheduler_1_M_AXI_WVALID),
         .s_axi_aclk(processing_system7_0_FCLK_CLK0),
-        .s_axi_araddr({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,axisvoter_0_M01_AXI_IN_ARADDR}),
+        .s_axi_araddr(axisvoter_0_M01_AXI_IN_ARADDR[13:0]),
         .s_axi_aresetn(rst_ps7_0_100M_peripheral_aresetn),
         .s_axi_arprot(axisvoter_0_M01_AXI_IN_ARPROT),
         .s_axi_arready(axisvoter_0_M01_AXI_IN_ARREADY),
         .s_axi_arvalid(axisvoter_0_M01_AXI_IN_ARVALID),
-        .s_axi_awaddr({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,axisvoter_0_M01_AXI_IN_AWADDR}),
+        .s_axi_awaddr(axisvoter_0_M01_AXI_IN_AWADDR[13:0]),
         .s_axi_awprot(axisvoter_0_M01_AXI_IN_AWPROT),
         .s_axi_awready(axisvoter_0_M01_AXI_IN_AWREADY),
         .s_axi_awvalid(axisvoter_0_M01_AXI_IN_AWVALID),
@@ -872,12 +872,12 @@ module design_1
         .m_axi_wstrb(scheduler_2_M_AXI_WSTRB),
         .m_axi_wvalid(scheduler_2_M_AXI_WVALID),
         .s_axi_aclk(processing_system7_0_FCLK_CLK0),
-        .s_axi_araddr({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,axisvoter_0_M02_AXI_IN_ARADDR}),
+        .s_axi_araddr(axisvoter_0_M02_AXI_IN_ARADDR[13:0]),
         .s_axi_aresetn(rst_ps7_0_100M_peripheral_aresetn),
         .s_axi_arprot(axisvoter_0_M02_AXI_IN_ARPROT),
         .s_axi_arready(axisvoter_0_M02_AXI_IN_ARREADY),
         .s_axi_arvalid(axisvoter_0_M02_AXI_IN_ARVALID),
-        .s_axi_awaddr({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,axisvoter_0_M02_AXI_IN_AWADDR}),
+        .s_axi_awaddr(axisvoter_0_M02_AXI_IN_AWADDR[13:0]),
         .s_axi_awprot(axisvoter_0_M02_AXI_IN_AWPROT),
         .s_axi_awready(axisvoter_0_M02_AXI_IN_AWREADY),
         .s_axi_awvalid(axisvoter_0_M02_AXI_IN_AWVALID),

@@ -10,12 +10,44 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0"></ZoomStartTime>
-      <ZoomEndTime time="6"></ZoomEndTime>
+      <ZoomEndTime time="1,025"></ZoomEndTime>
       <Cursor1Time time="0"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="440"></NameColumnWidth>
-      <ValueColumnWidth column_width="164"></ValueColumnWidth>
+      <ValueColumnWidth column_width="160"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="0" />
+   <WVObjectSize size="4" />
+   <wave_markers>
+   </wave_markers>
+   <wvobject type="logic" fp_name="design_1_i/axisvoter_0/inst/m00_axi_in_aclk">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/axisvoter_0/inst/m00_axi_in_aclk</obj_property>
+      <obj_property name="ObjectShortName">m00_axi_in_aclk</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/axisvoter_0/inst/m00_axi_in_bresp">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/axisvoter_0/inst/m00_axi_in_bresp[1:0]</obj_property>
+      <obj_property name="ObjectShortName">m00_axi_in_bresp[1:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/axisvoter_0/inst/m00_axi_in_rresp">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/axisvoter_0/inst/m00_axi_in_rresp[1:0]</obj_property>
+      <obj_property name="ObjectShortName">m00_axi_in_rresp[1:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="design_1_i/axisvoter_0/inst/s_axi_out_aclk">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/axisvoter_0/inst/s_axi_out_aclk</obj_property>
+      <obj_property name="ObjectShortName">s_axi_out_aclk</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
 </wave_config>

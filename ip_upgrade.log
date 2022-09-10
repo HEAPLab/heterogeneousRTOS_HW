@@ -1,6 +1,310 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 ------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Sat Sep 10 05:20:47 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_axisvoter_0_5'
+
+1. Summary
+----------
+
+CAUTION (success, with warnings) in the conversion of design_1_axisvoter_0_5 (user.org:user:axisvoter:1.0 (Rev. 4)) to Vivado generation flows.
+
+After upgrade, an IP may have parameter and port differences compared to the original customization. Please review the parameters within the IP customization GUI to ensure proper functionality. Also, please review the updated IP instantiation template to ensure proper connectivity, and update your design if required.
+
+2. Connection Warnings
+----------------------
+
+Detected external port differences while upgrading 'design_1_axisvoter_0_5'. These changes may impact your design.
+
+
+-Upgraded port 'm00_axi_in_araddr' width 32 differs from original width 4
+
+-Upgraded port 'm00_axi_in_awaddr' width 32 differs from original width 4
+
+-Upgraded port 'm01_axi_in_araddr' width 32 differs from original width 4
+
+-Upgraded port 'm01_axi_in_awaddr' width 32 differs from original width 4
+
+-Upgraded port 'm02_axi_in_araddr' width 32 differs from original width 4
+
+-Upgraded port 'm02_axi_in_awaddr' width 32 differs from original width 4
+
+-Upgraded port 's_axi_out_araddr' width 32 differs from original width 4
+
+-Upgraded port 's_axi_out_awaddr' width 32 differs from original width 4
+
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Sat Sep 10 04:55:17 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_axisvoter_0_1'
+
+1. Summary
+----------
+
+CAUTION (success, with warnings) in the conversion of design_1_axisvoter_0_1 (user.org:user:axisvoter:1.0 (Rev. 4)) to Vivado generation flows.
+
+After upgrade, an IP may have parameter differences compared to the original customization. Please review the parameters within the IP customization GUI to ensure proper functionality.
+
+2. Customization warnings
+-------------------------
+
+Parameter 'C_S_AXI_OUT_BASEADDR' is no longer present on the upgraded IP 'design_1_axisvoter_0_1', and cannot be set to '0xFFFFFFFF'
+
+Parameter 'C_S_AXI_OUT_HIGHADDR' is no longer present on the upgraded IP 'design_1_axisvoter_0_1', and cannot be set to '0x00000000'
+
+
+3. Debug Commands
+-----------------
+
+  The following debug information can be passed to Vivado as Tcl commands,
+in order to validate or debug the output of the upgrade flow.
+  You may consult any warnings from within this upgrade, and alter or remove
+the configuration parameter(s) which caused the warning; then execute the Tcl
+commands, and use the IP Customization GUI to verify the IP configuration.
+
+create_ip -vlnv user.org:user:axisvoter:1.0 -user_name design_1_axisvoter_0_1
+set_property -dict "\
+  CONFIG.C_S_AXI_ADDR_WIDTH {32} \
+  CONFIG.C_S_AXI_DATA_WIDTH {32} \
+  CONFIG.Component_Name {design_1_axisvoter_0_1} \
+  CONFIG.M00_AXI_IN.ADDR_WIDTH {4} \
+  CONFIG.M00_AXI_IN.ARUSER_WIDTH {0} \
+  CONFIG.M00_AXI_IN.AWUSER_WIDTH {0} \
+  CONFIG.M00_AXI_IN.BUSER_WIDTH {0} \
+  CONFIG.M00_AXI_IN.CLK_DOMAIN {design_1_processing_system7_0_0_FCLK_CLK0} \
+  CONFIG.M00_AXI_IN.DATA_WIDTH {32} \
+  CONFIG.M00_AXI_IN.FREQ_HZ {100000000} \
+  CONFIG.M00_AXI_IN.HAS_BRESP {1} \
+  CONFIG.M00_AXI_IN.HAS_BURST {0} \
+  CONFIG.M00_AXI_IN.HAS_CACHE {0} \
+  CONFIG.M00_AXI_IN.HAS_LOCK {0} \
+  CONFIG.M00_AXI_IN.HAS_PROT {1} \
+  CONFIG.M00_AXI_IN.HAS_QOS {0} \
+  CONFIG.M00_AXI_IN.HAS_REGION {0} \
+  CONFIG.M00_AXI_IN.HAS_RRESP {1} \
+  CONFIG.M00_AXI_IN.HAS_WSTRB {1} \
+  CONFIG.M00_AXI_IN.ID_WIDTH {0} \
+  CONFIG.M00_AXI_IN.INSERT_VIP {0} \
+  CONFIG.M00_AXI_IN.MAX_BURST_LENGTH {1} \
+  CONFIG.M00_AXI_IN.NUM_READ_OUTSTANDING {2} \
+  CONFIG.M00_AXI_IN.NUM_READ_THREADS {1} \
+  CONFIG.M00_AXI_IN.NUM_WRITE_OUTSTANDING {2} \
+  CONFIG.M00_AXI_IN.NUM_WRITE_THREADS {1} \
+  CONFIG.M00_AXI_IN.PHASE {0.0} \
+  CONFIG.M00_AXI_IN.PROTOCOL {AXI4LITE} \
+  CONFIG.M00_AXI_IN.READ_WRITE_MODE {READ_WRITE} \
+  CONFIG.M00_AXI_IN.RUSER_BITS_PER_BYTE {0} \
+  CONFIG.M00_AXI_IN.RUSER_WIDTH {0} \
+  CONFIG.M00_AXI_IN.SUPPORTS_NARROW_BURST {0} \
+  CONFIG.M00_AXI_IN.WIZ_DATA_WIDTH {32} \
+  CONFIG.M00_AXI_IN.WUSER_BITS_PER_BYTE {0} \
+  CONFIG.M00_AXI_IN.WUSER_WIDTH {0} \
+  CONFIG.M00_AXI_IN_CLK.ASSOCIATED_BUSIF {M00_AXI_IN} \
+  CONFIG.M00_AXI_IN_CLK.ASSOCIATED_PORT {} \
+  CONFIG.M00_AXI_IN_CLK.ASSOCIATED_RESET {m00_axi_in_aresetn} \
+  CONFIG.M00_AXI_IN_CLK.CLK_DOMAIN {design_1_processing_system7_0_0_FCLK_CLK0} \
+  CONFIG.M00_AXI_IN_CLK.FREQ_HZ {100000000} \
+  CONFIG.M00_AXI_IN_CLK.FREQ_TOLERANCE_HZ {0} \
+  CONFIG.M00_AXI_IN_CLK.INSERT_VIP {0} \
+  CONFIG.M00_AXI_IN_CLK.PHASE {0.0} \
+  CONFIG.M00_AXI_IN_RST.INSERT_VIP {0} \
+  CONFIG.M00_AXI_IN_RST.POLARITY {ACTIVE_LOW} \
+  CONFIG.M01_AXI_IN.ADDR_WIDTH {4} \
+  CONFIG.M01_AXI_IN.ARUSER_WIDTH {0} \
+  CONFIG.M01_AXI_IN.AWUSER_WIDTH {0} \
+  CONFIG.M01_AXI_IN.BUSER_WIDTH {0} \
+  CONFIG.M01_AXI_IN.CLK_DOMAIN {design_1_processing_system7_0_0_FCLK_CLK0} \
+  CONFIG.M01_AXI_IN.DATA_WIDTH {32} \
+  CONFIG.M01_AXI_IN.FREQ_HZ {100000000} \
+  CONFIG.M01_AXI_IN.HAS_BRESP {1} \
+  CONFIG.M01_AXI_IN.HAS_BURST {0} \
+  CONFIG.M01_AXI_IN.HAS_CACHE {0} \
+  CONFIG.M01_AXI_IN.HAS_LOCK {0} \
+  CONFIG.M01_AXI_IN.HAS_PROT {1} \
+  CONFIG.M01_AXI_IN.HAS_QOS {0} \
+  CONFIG.M01_AXI_IN.HAS_REGION {0} \
+  CONFIG.M01_AXI_IN.HAS_RRESP {1} \
+  CONFIG.M01_AXI_IN.HAS_WSTRB {1} \
+  CONFIG.M01_AXI_IN.ID_WIDTH {0} \
+  CONFIG.M01_AXI_IN.INSERT_VIP {0} \
+  CONFIG.M01_AXI_IN.MAX_BURST_LENGTH {1} \
+  CONFIG.M01_AXI_IN.NUM_READ_OUTSTANDING {2} \
+  CONFIG.M01_AXI_IN.NUM_READ_THREADS {1} \
+  CONFIG.M01_AXI_IN.NUM_WRITE_OUTSTANDING {2} \
+  CONFIG.M01_AXI_IN.NUM_WRITE_THREADS {1} \
+  CONFIG.M01_AXI_IN.PHASE {0.0} \
+  CONFIG.M01_AXI_IN.PROTOCOL {AXI4LITE} \
+  CONFIG.M01_AXI_IN.READ_WRITE_MODE {READ_WRITE} \
+  CONFIG.M01_AXI_IN.RUSER_BITS_PER_BYTE {0} \
+  CONFIG.M01_AXI_IN.RUSER_WIDTH {0} \
+  CONFIG.M01_AXI_IN.SUPPORTS_NARROW_BURST {0} \
+  CONFIG.M01_AXI_IN.WIZ_DATA_WIDTH {32} \
+  CONFIG.M01_AXI_IN.WUSER_BITS_PER_BYTE {0} \
+  CONFIG.M01_AXI_IN.WUSER_WIDTH {0} \
+  CONFIG.M01_AXI_IN_CLK.ASSOCIATED_BUSIF {M01_AXI_IN} \
+  CONFIG.M01_AXI_IN_CLK.ASSOCIATED_PORT {} \
+  CONFIG.M01_AXI_IN_CLK.ASSOCIATED_RESET {m01_axi_in_aresetn} \
+  CONFIG.M01_AXI_IN_CLK.CLK_DOMAIN {design_1_processing_system7_0_0_FCLK_CLK0} \
+  CONFIG.M01_AXI_IN_CLK.FREQ_HZ {100000000} \
+  CONFIG.M01_AXI_IN_CLK.FREQ_TOLERANCE_HZ {0} \
+  CONFIG.M01_AXI_IN_CLK.INSERT_VIP {0} \
+  CONFIG.M01_AXI_IN_CLK.PHASE {0.0} \
+  CONFIG.M01_AXI_IN_RST.INSERT_VIP {0} \
+  CONFIG.M01_AXI_IN_RST.POLARITY {ACTIVE_LOW} \
+  CONFIG.M02_AXI_IN.ADDR_WIDTH {4} \
+  CONFIG.M02_AXI_IN.ARUSER_WIDTH {0} \
+  CONFIG.M02_AXI_IN.AWUSER_WIDTH {0} \
+  CONFIG.M02_AXI_IN.BUSER_WIDTH {0} \
+  CONFIG.M02_AXI_IN.CLK_DOMAIN {design_1_processing_system7_0_0_FCLK_CLK0} \
+  CONFIG.M02_AXI_IN.DATA_WIDTH {32} \
+  CONFIG.M02_AXI_IN.FREQ_HZ {100000000} \
+  CONFIG.M02_AXI_IN.HAS_BRESP {1} \
+  CONFIG.M02_AXI_IN.HAS_BURST {0} \
+  CONFIG.M02_AXI_IN.HAS_CACHE {0} \
+  CONFIG.M02_AXI_IN.HAS_LOCK {0} \
+  CONFIG.M02_AXI_IN.HAS_PROT {1} \
+  CONFIG.M02_AXI_IN.HAS_QOS {0} \
+  CONFIG.M02_AXI_IN.HAS_REGION {0} \
+  CONFIG.M02_AXI_IN.HAS_RRESP {1} \
+  CONFIG.M02_AXI_IN.HAS_WSTRB {1} \
+  CONFIG.M02_AXI_IN.ID_WIDTH {0} \
+  CONFIG.M02_AXI_IN.INSERT_VIP {0} \
+  CONFIG.M02_AXI_IN.MAX_BURST_LENGTH {1} \
+  CONFIG.M02_AXI_IN.NUM_READ_OUTSTANDING {2} \
+  CONFIG.M02_AXI_IN.NUM_READ_THREADS {1} \
+  CONFIG.M02_AXI_IN.NUM_WRITE_OUTSTANDING {2} \
+  CONFIG.M02_AXI_IN.NUM_WRITE_THREADS {1} \
+  CONFIG.M02_AXI_IN.PHASE {0.0} \
+  CONFIG.M02_AXI_IN.PROTOCOL {AXI4LITE} \
+  CONFIG.M02_AXI_IN.READ_WRITE_MODE {READ_WRITE} \
+  CONFIG.M02_AXI_IN.RUSER_BITS_PER_BYTE {0} \
+  CONFIG.M02_AXI_IN.RUSER_WIDTH {0} \
+  CONFIG.M02_AXI_IN.SUPPORTS_NARROW_BURST {0} \
+  CONFIG.M02_AXI_IN.WIZ_DATA_WIDTH {32} \
+  CONFIG.M02_AXI_IN.WUSER_BITS_PER_BYTE {0} \
+  CONFIG.M02_AXI_IN.WUSER_WIDTH {0} \
+  CONFIG.M02_AXI_IN_CLK.ASSOCIATED_BUSIF {M02_AXI_IN} \
+  CONFIG.M02_AXI_IN_CLK.ASSOCIATED_PORT {} \
+  CONFIG.M02_AXI_IN_CLK.ASSOCIATED_RESET {m02_axi_in_aresetn} \
+  CONFIG.M02_AXI_IN_CLK.CLK_DOMAIN {design_1_processing_system7_0_0_FCLK_CLK0} \
+  CONFIG.M02_AXI_IN_CLK.FREQ_HZ {100000000} \
+  CONFIG.M02_AXI_IN_CLK.FREQ_TOLERANCE_HZ {0} \
+  CONFIG.M02_AXI_IN_CLK.INSERT_VIP {0} \
+  CONFIG.M02_AXI_IN_CLK.PHASE {0.0} \
+  CONFIG.M02_AXI_IN_RST.INSERT_VIP {0} \
+  CONFIG.M02_AXI_IN_RST.POLARITY {ACTIVE_LOW} \
+  CONFIG.S_AXI_OUT.ADDR_WIDTH {4} \
+  CONFIG.S_AXI_OUT.ARUSER_WIDTH {0} \
+  CONFIG.S_AXI_OUT.AWUSER_WIDTH {0} \
+  CONFIG.S_AXI_OUT.BUSER_WIDTH {0} \
+  CONFIG.S_AXI_OUT.CLK_DOMAIN {design_1_processing_system7_0_0_FCLK_CLK0} \
+  CONFIG.S_AXI_OUT.DATA_WIDTH {32} \
+  CONFIG.S_AXI_OUT.FREQ_HZ {100000000} \
+  CONFIG.S_AXI_OUT.HAS_BRESP {1} \
+  CONFIG.S_AXI_OUT.HAS_BURST {0} \
+  CONFIG.S_AXI_OUT.HAS_CACHE {0} \
+  CONFIG.S_AXI_OUT.HAS_LOCK {0} \
+  CONFIG.S_AXI_OUT.HAS_PROT {1} \
+  CONFIG.S_AXI_OUT.HAS_QOS {0} \
+  CONFIG.S_AXI_OUT.HAS_REGION {0} \
+  CONFIG.S_AXI_OUT.HAS_RRESP {1} \
+  CONFIG.S_AXI_OUT.HAS_WSTRB {1} \
+  CONFIG.S_AXI_OUT.ID_WIDTH {0} \
+  CONFIG.S_AXI_OUT.INSERT_VIP {0} \
+  CONFIG.S_AXI_OUT.MAX_BURST_LENGTH {1} \
+  CONFIG.S_AXI_OUT.NUM_READ_OUTSTANDING {8} \
+  CONFIG.S_AXI_OUT.NUM_READ_THREADS {4} \
+  CONFIG.S_AXI_OUT.NUM_WRITE_OUTSTANDING {8} \
+  CONFIG.S_AXI_OUT.NUM_WRITE_THREADS {4} \
+  CONFIG.S_AXI_OUT.PHASE {0.0} \
+  CONFIG.S_AXI_OUT.PROTOCOL {AXI4LITE} \
+  CONFIG.S_AXI_OUT.READ_WRITE_MODE {READ_WRITE} \
+  CONFIG.S_AXI_OUT.RUSER_BITS_PER_BYTE {0} \
+  CONFIG.S_AXI_OUT.RUSER_WIDTH {0} \
+  CONFIG.S_AXI_OUT.SUPPORTS_NARROW_BURST {0} \
+  CONFIG.S_AXI_OUT.WIZ_DATA_WIDTH {32} \
+  CONFIG.S_AXI_OUT.WIZ_NUM_REG {4} \
+  CONFIG.S_AXI_OUT.WUSER_BITS_PER_BYTE {0} \
+  CONFIG.S_AXI_OUT.WUSER_WIDTH {0} \
+  CONFIG.S_AXI_OUT_CLK.ASSOCIATED_BUSIF {S_AXI_OUT} \
+  CONFIG.S_AXI_OUT_CLK.ASSOCIATED_PORT {} \
+  CONFIG.S_AXI_OUT_CLK.ASSOCIATED_RESET {s_axi_out_aresetn} \
+  CONFIG.S_AXI_OUT_CLK.CLK_DOMAIN {design_1_processing_system7_0_0_FCLK_CLK0} \
+  CONFIG.S_AXI_OUT_CLK.FREQ_HZ {100000000} \
+  CONFIG.S_AXI_OUT_CLK.FREQ_TOLERANCE_HZ {0} \
+  CONFIG.S_AXI_OUT_CLK.INSERT_VIP {0} \
+  CONFIG.S_AXI_OUT_CLK.PHASE {0.0} \
+  CONFIG.S_AXI_OUT_RST.INSERT_VIP {0} \
+  CONFIG.S_AXI_OUT_RST.POLARITY {ACTIVE_LOW} " [get_ips design_1_axisvoter_0_1]
+
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Sat Sep 10 04:45:18 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_axisvoter_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the conversion of design_1_axisvoter_0_1 (user.org:user:axisvoter:1.0 (Rev. 4)) to Vivado generation flows.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Sat Sep 10 04:44:24 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_axisvoter_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the conversion of design_1_axisvoter_0_1 (user.org:user:axisvoter:1.0 (Rev. 4)) to Vivado generation flows.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
 | Date         : Sat Sep 10 04:02:37 2022
 | Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
 | Command      : upgrade_ip

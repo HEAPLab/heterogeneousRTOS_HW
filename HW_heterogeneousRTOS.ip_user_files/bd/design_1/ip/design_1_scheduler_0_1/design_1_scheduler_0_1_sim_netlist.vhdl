@@ -1,11 +1,11 @@
 -- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
--- Date        : Sat Sep 10 00:33:29 2022
+-- Date        : Sat Sep 10 05:11:59 2022
 -- Host        : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
--- Command     : write_vhdl -force -mode funcsim -rename_top design_1_scheduler_0_1 -prefix
---               design_1_scheduler_0_1_ design_1_scheduler_0_0_sim_netlist.vhdl
--- Design      : design_1_scheduler_0_0
+-- Command     : write_vhdl -force -mode funcsim
+--               /home/francesco/workspace/HW_heterogeneousRTOS/HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ip/design_1_scheduler_0_1/design_1_scheduler_0_1_sim_netlist.vhdl
+-- Design      : design_1_scheduler_0_1
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
 -- Device      : xc7z020clg484-1
@@ -31,6 +31,8 @@ entity design_1_scheduler_0_1_scheduler_v1_0_M_AXI is
     m_axi_wready : in STD_LOGIC;
     m_axi_awready : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of design_1_scheduler_0_1_scheduler_v1_0_M_AXI : entity is "scheduler_v1_0_M_AXI";
 end design_1_scheduler_0_1_scheduler_v1_0_M_AXI;
 
 architecture STRUCTURE of design_1_scheduler_0_1_scheduler_v1_0_M_AXI is
@@ -660,6 +662,8 @@ entity design_1_scheduler_0_1_scheduler_v1_0_S_AXI is
     s_axi_awaddr : in STD_LOGIC_VECTOR ( 11 downto 0 );
     s_axi_araddr : in STD_LOGIC_VECTOR ( 11 downto 0 )
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of design_1_scheduler_0_1_scheduler_v1_0_S_AXI : entity is "scheduler_v1_0_S_AXI";
 end design_1_scheduler_0_1_scheduler_v1_0_S_AXI;
 
 architecture STRUCTURE of design_1_scheduler_0_1_scheduler_v1_0_S_AXI is
@@ -34432,6 +34436,8 @@ entity design_1_scheduler_0_1_scheduler_v1_0 is
     m_axi_wready : in STD_LOGIC;
     m_axi_awready : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of design_1_scheduler_0_1_scheduler_v1_0 : entity is "scheduler_v1_0";
 end design_1_scheduler_0_1_scheduler_v1_0;
 
 architecture STRUCTURE of design_1_scheduler_0_1_scheduler_v1_0 is
@@ -34918,7 +34924,7 @@ entity design_1_scheduler_0_1 is
   attribute NotValidForBitStream : boolean;
   attribute NotValidForBitStream of design_1_scheduler_0_1 : entity is true;
   attribute CHECK_LICENSE_TYPE : string;
-  attribute CHECK_LICENSE_TYPE of design_1_scheduler_0_1 : entity is "design_1_scheduler_0_0,scheduler_v1_0,{}";
+  attribute CHECK_LICENSE_TYPE of design_1_scheduler_0_1 : entity is "design_1_scheduler_0_1,scheduler_v1_0,{}";
   attribute DowngradeIPIdentifiedWarnings : string;
   attribute DowngradeIPIdentifiedWarnings of design_1_scheduler_0_1 : entity is "yes";
   attribute X_CORE_INFO : string;
