@@ -13,7 +13,7 @@ entity run_runTestAfterInit is
 port (
     m_axi_gmem_AWVALID : OUT STD_LOGIC;
     m_axi_gmem_AWREADY : IN STD_LOGIC;
-    m_axi_gmem_AWADDR : OUT STD_LOGIC_VECTOR (63 downto 0);
+    m_axi_gmem_AWADDR : OUT STD_LOGIC_VECTOR (31 downto 0);
     m_axi_gmem_AWID : OUT STD_LOGIC_VECTOR (0 downto 0);
     m_axi_gmem_AWLEN : OUT STD_LOGIC_VECTOR (31 downto 0);
     m_axi_gmem_AWSIZE : OUT STD_LOGIC_VECTOR (2 downto 0);
@@ -33,7 +33,7 @@ port (
     m_axi_gmem_WUSER : OUT STD_LOGIC_VECTOR (0 downto 0);
     m_axi_gmem_ARVALID : OUT STD_LOGIC;
     m_axi_gmem_ARREADY : IN STD_LOGIC;
-    m_axi_gmem_ARADDR : OUT STD_LOGIC_VECTOR (63 downto 0);
+    m_axi_gmem_ARADDR : OUT STD_LOGIC_VECTOR (31 downto 0);
     m_axi_gmem_ARID : OUT STD_LOGIC_VECTOR (0 downto 0);
     m_axi_gmem_ARLEN : OUT STD_LOGIC_VECTOR (31 downto 0);
     m_axi_gmem_ARSIZE : OUT STD_LOGIC_VECTOR (2 downto 0);
@@ -57,9 +57,9 @@ port (
     m_axi_gmem_BRESP : IN STD_LOGIC_VECTOR (1 downto 0);
     m_axi_gmem_BID : IN STD_LOGIC_VECTOR (0 downto 0);
     m_axi_gmem_BUSER : IN STD_LOGIC_VECTOR (0 downto 0);
-    inputAOV : IN STD_LOGIC_VECTOR (63 downto 0);
-    p_read : IN STD_LOGIC_VECTOR (0 downto 0);
-    copyInputAOV_out : OUT STD_LOGIC_VECTOR (0 downto 0);
+    inputAOV : IN STD_LOGIC_VECTOR (31 downto 0);
+    copyInputAOV_in : IN STD_LOGIC_VECTOR (7 downto 0);
+    copyInputAOV_out : OUT STD_LOGIC_VECTOR (7 downto 0);
     outcomeInRam_address0 : OUT STD_LOGIC_VECTOR (3 downto 0);
     outcomeInRam_ce0 : OUT STD_LOGIC;
     outcomeInRam_d0 : OUT STD_LOGIC_VECTOR (287 downto 0);
@@ -144,7 +144,7 @@ port (
     ap_clk : IN STD_LOGIC;
     ap_rst : IN STD_LOGIC;
     inputAOV_ap_vld : IN STD_LOGIC;
-    p_read_ap_vld : IN STD_LOGIC;
+    copyInputAOV_in_ap_vld : IN STD_LOGIC;
     ap_start : IN STD_LOGIC;
     copyInputAOV_out_ap_vld : OUT STD_LOGIC;
     toScheduler_TVALID : OUT STD_LOGIC;
@@ -157,17 +157,17 @@ end;
 
 
 architecture behav of run_runTestAfterInit is 
-    constant ap_const_lv1_0 : STD_LOGIC_VECTOR (0 downto 0) := "0";
+    constant ap_const_lv8_0 : STD_LOGIC_VECTOR (7 downto 0) := "00000000";
     constant ap_const_lv4_0 : STD_LOGIC_VECTOR (3 downto 0) := "0000";
     constant ap_const_logic_0 : STD_LOGIC := '0';
-    constant ap_const_lv8_0 : STD_LOGIC_VECTOR (7 downto 0) := "00000000";
+    constant ap_const_lv1_0 : STD_LOGIC_VECTOR (0 downto 0) := "0";
     constant ap_const_lv32_0 : STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000000";
     constant ap_const_lv6_0 : STD_LOGIC_VECTOR (5 downto 0) := "000000";
     constant ap_const_logic_1 : STD_LOGIC := '1';
     constant ap_const_lv2_0 : STD_LOGIC_VECTOR (1 downto 0) := "00";
-    constant ap_const_lv64_0 : STD_LOGIC_VECTOR (63 downto 0) := "0000000000000000000000000000000000000000000000000000000000000000";
     constant ap_const_lv3_0 : STD_LOGIC_VECTOR (2 downto 0) := "000";
     constant ap_const_lv512_lc_1 : STD_LOGIC_VECTOR (511 downto 0) := "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+    constant ap_const_lv64_0 : STD_LOGIC_VECTOR (63 downto 0) := "0000000000000000000000000000000000000000000000000000000000000000";
     constant ap_const_boolean_1 : BOOLEAN := true;
 
 attribute shreg_extract : string;
@@ -177,7 +177,7 @@ attribute shreg_extract : string;
     signal read_train_U0_ap_idle : STD_LOGIC;
     signal read_train_U0_ap_ready : STD_LOGIC;
     signal read_train_U0_m_axi_gmem_AWVALID : STD_LOGIC;
-    signal read_train_U0_m_axi_gmem_AWADDR : STD_LOGIC_VECTOR (63 downto 0);
+    signal read_train_U0_m_axi_gmem_AWADDR : STD_LOGIC_VECTOR (31 downto 0);
     signal read_train_U0_m_axi_gmem_AWID : STD_LOGIC_VECTOR (0 downto 0);
     signal read_train_U0_m_axi_gmem_AWLEN : STD_LOGIC_VECTOR (31 downto 0);
     signal read_train_U0_m_axi_gmem_AWSIZE : STD_LOGIC_VECTOR (2 downto 0);
@@ -195,7 +195,7 @@ attribute shreg_extract : string;
     signal read_train_U0_m_axi_gmem_WID : STD_LOGIC_VECTOR (0 downto 0);
     signal read_train_U0_m_axi_gmem_WUSER : STD_LOGIC_VECTOR (0 downto 0);
     signal read_train_U0_m_axi_gmem_ARVALID : STD_LOGIC;
-    signal read_train_U0_m_axi_gmem_ARADDR : STD_LOGIC_VECTOR (63 downto 0);
+    signal read_train_U0_m_axi_gmem_ARADDR : STD_LOGIC_VECTOR (31 downto 0);
     signal read_train_U0_m_axi_gmem_ARID : STD_LOGIC_VECTOR (0 downto 0);
     signal read_train_U0_m_axi_gmem_ARLEN : STD_LOGIC_VECTOR (31 downto 0);
     signal read_train_U0_m_axi_gmem_ARSIZE : STD_LOGIC_VECTOR (2 downto 0);
@@ -208,8 +208,7 @@ attribute shreg_extract : string;
     signal read_train_U0_m_axi_gmem_ARUSER : STD_LOGIC_VECTOR (0 downto 0);
     signal read_train_U0_m_axi_gmem_RREADY : STD_LOGIC;
     signal read_train_U0_m_axi_gmem_BREADY : STD_LOGIC;
-    signal read_train_U0_copyInputAOV_read : STD_LOGIC;
-    signal read_train_U0_copyInputAOV_in_c_din : STD_LOGIC_VECTOR (0 downto 0);
+    signal read_train_U0_copyInputAOV_in_c_din : STD_LOGIC_VECTOR (7 downto 0);
     signal read_train_U0_copyInputAOV_in_c_write : STD_LOGIC;
     signal read_train_U0_ap_return_0 : STD_LOGIC_VECTOR (7 downto 0);
     signal read_train_U0_ap_return_1 : STD_LOGIC_VECTOR (7 downto 0);
@@ -281,7 +280,7 @@ attribute shreg_extract : string;
     signal runTestAfterInit_Block_entry1119_proc7_U0_errorInTask_we0 : STD_LOGIC;
     signal runTestAfterInit_Block_entry1119_proc7_U0_errorInTask_d0 : STD_LOGIC_VECTOR (0 downto 0);
     signal runTestAfterInit_Block_entry1119_proc7_U0_copyInputAOV_in_read : STD_LOGIC;
-    signal runTestAfterInit_Block_entry1119_proc7_U0_copyInputAOV_out : STD_LOGIC_VECTOR (0 downto 0);
+    signal runTestAfterInit_Block_entry1119_proc7_U0_copyInputAOV_out : STD_LOGIC_VECTOR (7 downto 0);
     signal runTestAfterInit_Block_entry1119_proc7_U0_copyInputAOV_out_ap_vld : STD_LOGIC;
     signal runTestAfterInit_Block_entry1119_proc7_U0_toScheduler_TDATA : STD_LOGIC_VECTOR (7 downto 0);
     signal runTestAfterInit_Block_entry1119_proc7_U0_toScheduler_TVALID : STD_LOGIC;
@@ -342,7 +341,7 @@ attribute shreg_extract : string;
     signal runTestAfterInit_Block_entry1119_proc7_U0_n_regions_V_we0 : STD_LOGIC;
     signal runTestAfterInit_Block_entry1119_proc7_U0_n_regions_V_d0 : STD_LOGIC_VECTOR (7 downto 0);
     signal copyInputAOV_in_c_full_n : STD_LOGIC;
-    signal copyInputAOV_in_c_dout : STD_LOGIC_VECTOR (0 downto 0);
+    signal copyInputAOV_in_c_dout : STD_LOGIC_VECTOR (7 downto 0);
     signal copyInputAOV_in_c_num_data_valid : STD_LOGIC_VECTOR (1 downto 0);
     signal copyInputAOV_in_c_fifo_cap : STD_LOGIC_VECTOR (1 downto 0);
     signal copyInputAOV_in_c_empty_n : STD_LOGIC;
@@ -412,7 +411,7 @@ attribute shreg_extract : string;
         ap_ready : OUT STD_LOGIC;
         m_axi_gmem_AWVALID : OUT STD_LOGIC;
         m_axi_gmem_AWREADY : IN STD_LOGIC;
-        m_axi_gmem_AWADDR : OUT STD_LOGIC_VECTOR (63 downto 0);
+        m_axi_gmem_AWADDR : OUT STD_LOGIC_VECTOR (31 downto 0);
         m_axi_gmem_AWID : OUT STD_LOGIC_VECTOR (0 downto 0);
         m_axi_gmem_AWLEN : OUT STD_LOGIC_VECTOR (31 downto 0);
         m_axi_gmem_AWSIZE : OUT STD_LOGIC_VECTOR (2 downto 0);
@@ -432,7 +431,7 @@ attribute shreg_extract : string;
         m_axi_gmem_WUSER : OUT STD_LOGIC_VECTOR (0 downto 0);
         m_axi_gmem_ARVALID : OUT STD_LOGIC;
         m_axi_gmem_ARREADY : IN STD_LOGIC;
-        m_axi_gmem_ARADDR : OUT STD_LOGIC_VECTOR (63 downto 0);
+        m_axi_gmem_ARADDR : OUT STD_LOGIC_VECTOR (31 downto 0);
         m_axi_gmem_ARID : OUT STD_LOGIC_VECTOR (0 downto 0);
         m_axi_gmem_ARLEN : OUT STD_LOGIC_VECTOR (31 downto 0);
         m_axi_gmem_ARSIZE : OUT STD_LOGIC_VECTOR (2 downto 0);
@@ -456,9 +455,9 @@ attribute shreg_extract : string;
         m_axi_gmem_BRESP : IN STD_LOGIC_VECTOR (1 downto 0);
         m_axi_gmem_BID : IN STD_LOGIC_VECTOR (0 downto 0);
         m_axi_gmem_BUSER : IN STD_LOGIC_VECTOR (0 downto 0);
-        inputAOV : IN STD_LOGIC_VECTOR (63 downto 0);
-        copyInputAOV_read : IN STD_LOGIC;
-        copyInputAOV_in_c_din : OUT STD_LOGIC_VECTOR (0 downto 0);
+        inputAOV : IN STD_LOGIC_VECTOR (31 downto 0);
+        copyInputAOV : IN STD_LOGIC_VECTOR (7 downto 0);
+        copyInputAOV_in_c_din : OUT STD_LOGIC_VECTOR (7 downto 0);
         copyInputAOV_in_c_num_data_valid : IN STD_LOGIC_VECTOR (1 downto 0);
         copyInputAOV_in_c_fifo_cap : IN STD_LOGIC_VECTOR (1 downto 0);
         copyInputAOV_in_c_full_n : IN STD_LOGIC;
@@ -503,12 +502,12 @@ attribute shreg_extract : string;
         p_read8 : IN STD_LOGIC_VECTOR (31 downto 0);
         p_read9 : IN STD_LOGIC_VECTOR (31 downto 0);
         p_read10 : IN STD_LOGIC_VECTOR (31 downto 0);
-        copyInputAOV_in_dout : IN STD_LOGIC_VECTOR (0 downto 0);
+        copyInputAOV_in_dout : IN STD_LOGIC_VECTOR (7 downto 0);
         copyInputAOV_in_num_data_valid : IN STD_LOGIC_VECTOR (1 downto 0);
         copyInputAOV_in_fifo_cap : IN STD_LOGIC_VECTOR (1 downto 0);
         copyInputAOV_in_empty_n : IN STD_LOGIC;
         copyInputAOV_in_read : OUT STD_LOGIC;
-        copyInputAOV_out : OUT STD_LOGIC_VECTOR (0 downto 0);
+        copyInputAOV_out : OUT STD_LOGIC_VECTOR (7 downto 0);
         copyInputAOV_out_ap_vld : OUT STD_LOGIC;
         p_read311 : IN STD_LOGIC_VECTOR (15 downto 0);
         toScheduler_TDATA : OUT STD_LOGIC_VECTOR (7 downto 0);
@@ -583,23 +582,6 @@ attribute shreg_extract : string;
         n_regions_V_we0 : OUT STD_LOGIC;
         n_regions_V_d0 : OUT STD_LOGIC_VECTOR (7 downto 0);
         n_regions_V_q0 : IN STD_LOGIC_VECTOR (7 downto 0) );
-    end component;
-
-
-    component run_fifo_w1_d2_S IS
-    port (
-        clk : IN STD_LOGIC;
-        reset : IN STD_LOGIC;
-        if_read_ce : IN STD_LOGIC;
-        if_write_ce : IN STD_LOGIC;
-        if_din : IN STD_LOGIC_VECTOR (0 downto 0);
-        if_full_n : OUT STD_LOGIC;
-        if_write : IN STD_LOGIC;
-        if_dout : OUT STD_LOGIC_VECTOR (0 downto 0);
-        if_num_data_valid : OUT STD_LOGIC_VECTOR (1 downto 0);
-        if_fifo_cap : OUT STD_LOGIC_VECTOR (1 downto 0);
-        if_empty_n : OUT STD_LOGIC;
-        if_read : IN STD_LOGIC );
     end component;
 
 
@@ -712,7 +694,7 @@ begin
         m_axi_gmem_BID => ap_const_lv1_0,
         m_axi_gmem_BUSER => ap_const_lv1_0,
         inputAOV => inputAOV,
-        copyInputAOV_read => read_train_U0_copyInputAOV_read,
+        copyInputAOV => copyInputAOV_in,
         copyInputAOV_in_c_din => read_train_U0_copyInputAOV_in_c_din,
         copyInputAOV_in_c_num_data_valid => copyInputAOV_in_c_num_data_valid,
         copyInputAOV_in_c_fifo_cap => copyInputAOV_in_c_fifo_cap,
@@ -837,7 +819,7 @@ begin
         n_regions_V_d0 => runTestAfterInit_Block_entry1119_proc7_U0_n_regions_V_d0,
         n_regions_V_q0 => n_regions_V_q0);
 
-    copyInputAOV_in_c_U : component run_fifo_w1_d2_S
+    copyInputAOV_in_c_U : component run_fifo_w8_d2_S
     port map (
         clk => ap_clk,
         reset => ap_rst,
@@ -1307,7 +1289,7 @@ begin
     m_axi_gmem_ARSIZE <= read_train_U0_m_axi_gmem_ARSIZE;
     m_axi_gmem_ARUSER <= read_train_U0_m_axi_gmem_ARUSER;
     m_axi_gmem_ARVALID <= read_train_U0_m_axi_gmem_ARVALID;
-    m_axi_gmem_AWADDR <= ap_const_lv64_0;
+    m_axi_gmem_AWADDR <= ap_const_lv32_0;
     m_axi_gmem_AWBURST <= ap_const_lv2_0;
     m_axi_gmem_AWCACHE <= ap_const_lv4_0;
     m_axi_gmem_AWID <= ap_const_lv1_0;
@@ -1341,7 +1323,6 @@ begin
     outcomeInRam_we0 <= runTestAfterInit_Block_entry1119_proc7_U0_outcomeInRam_we0;
     read_train_U0_ap_continue <= (ap_sync_channel_write_contr_uniId_V and ap_sync_channel_write_contr_taskId_V and ap_sync_channel_write_contr_command and ap_sync_channel_write_contr_checkId_V and ap_sync_channel_write_contr_AOV_7 and ap_sync_channel_write_contr_AOV_6 and ap_sync_channel_write_contr_AOV_5 and ap_sync_channel_write_contr_AOV_4 and ap_sync_channel_write_contr_AOV_3 and ap_sync_channel_write_contr_AOV_2 and ap_sync_channel_write_contr_AOV_1 and ap_sync_channel_write_contr_AOV);
     read_train_U0_ap_start <= ((ap_sync_reg_read_train_U0_ap_ready xor ap_const_logic_1) and ap_start);
-    read_train_U0_copyInputAOV_read <= p_read(0);
     regions_1_address0 <= runTestAfterInit_Block_entry1119_proc7_U0_regions_1_address0;
     regions_1_address1 <= runTestAfterInit_Block_entry1119_proc7_U0_regions_1_address1;
     regions_1_ce0 <= runTestAfterInit_Block_entry1119_proc7_U0_regions_1_ce0;

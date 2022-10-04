@@ -93,42 +93,42 @@ reg[35:0] outcomeInRam_we0;
 wire    ap_CS_fsm_state1;
 reg    toScheduler_TDATA_blk_n;
 wire    ap_CS_fsm_state7;
-wire   [63:0] errorInTask1_cast_fu_306_p1;
-reg   [63:0] errorInTask1_cast_reg_472;
 wire    ap_CS_fsm_state2;
-wire   [0:0] exitcond4_fu_323_p2;
+wire   [0:0] exitcond4_fu_312_p2;
 wire   [31:0] outcome_AOV_q1;
-reg   [31:0] outcome_AOV_load_reg_490;
+reg   [31:0] outcome_AOV_load_reg_492;
 wire    ap_CS_fsm_state3;
 wire   [31:0] outcome_AOV_q0;
-reg   [31:0] outcome_AOV_load_1_reg_495;
-reg   [31:0] outcome_AOV_load_2_reg_510;
+reg   [31:0] outcome_AOV_load_1_reg_497;
+reg   [31:0] outcome_AOV_load_2_reg_512;
 wire    ap_CS_fsm_state4;
-reg   [31:0] outcome_AOV_load_3_reg_515;
-reg   [31:0] outcome_AOV_load_4_reg_530;
+reg   [31:0] outcome_AOV_load_3_reg_517;
+reg   [31:0] outcome_AOV_load_4_reg_532;
 wire    ap_CS_fsm_state5;
-reg   [31:0] outcome_AOV_load_5_reg_535;
+reg   [31:0] outcome_AOV_load_5_reg_537;
 wire    ap_CS_fsm_state6;
 reg   [2:0] outcome_AOV_address0;
 reg    outcome_AOV_ce0;
 reg    outcome_AOV_we0;
 reg   [2:0] outcome_AOV_address1;
 reg    outcome_AOV_ce1;
-wire   [63:0] loop_index3_cast_fu_318_p1;
-reg   [3:0] loop_index3_fu_106;
-wire   [3:0] empty_fu_329_p2;
+wire   [31:0] loop_index3_cast_cast_fu_343_p1;
+wire   [31:0] zext_ln513_fu_404_p1;
+reg   [3:0] loop_index3_fu_104;
+wire   [3:0] empty_fu_318_p2;
 reg    ap_block_state7;
 reg    ap_block_state7_io;
-wire   [31:0] tmp_fu_335_p10;
+wire   [31:0] tmp_fu_324_p10;
 wire    ap_CS_fsm_state8;
-wire   [31:0] empty_61_fu_377_p1;
-wire   [31:0] empty_60_fu_373_p1;
-wire   [31:0] empty_59_fu_370_p1;
-wire   [31:0] empty_58_fu_367_p1;
-wire   [31:0] empty_57_fu_364_p1;
-wire   [31:0] empty_56_fu_361_p1;
-wire   [31:0] empty_55_fu_358_p1;
-wire   [31:0] empty_54_fu_355_p1;
+wire   [2:0] empty_50_fu_339_p1;
+wire   [31:0] empty_58_fu_375_p1;
+wire   [31:0] empty_57_fu_371_p1;
+wire   [31:0] empty_56_fu_368_p1;
+wire   [31:0] empty_55_fu_365_p1;
+wire   [31:0] empty_54_fu_362_p1;
+wire   [31:0] empty_53_fu_359_p1;
+wire   [31:0] empty_52_fu_356_p1;
+wire   [31:0] empty_51_fu_353_p1;
 reg   [7:0] ap_NS_fsm;
 reg    ap_ST_fsm_state1_blk;
 wire    ap_ST_fsm_state2_blk;
@@ -155,7 +155,7 @@ outcome_AOV_U(
     .address0(outcome_AOV_address0),
     .ce0(outcome_AOV_ce0),
     .we0(outcome_AOV_we0),
-    .d0(tmp_fu_335_p10),
+    .d0(tmp_fu_324_p10),
     .q0(outcome_AOV_q0),
     .address1(outcome_AOV_address1),
     .ce1(outcome_AOV_ce1),
@@ -184,8 +184,8 @@ mux_84_32_1_1_U144(
     .din5(p_read5),
     .din6(p_read6),
     .din7(p_read7),
-    .din8(loop_index3_fu_106),
-    .dout(tmp_fu_335_p10)
+    .din8(loop_index3_fu_104),
+    .dout(tmp_fu_324_p10)
 );
 
 always @ (posedge ap_clk) begin
@@ -198,36 +198,30 @@ end
 
 always @ (posedge ap_clk) begin
     if (((1'b1 == ap_CS_fsm_state1) & (ap_start == 1'b1))) begin
-        loop_index3_fu_106 <= 4'd0;
-    end else if (((exitcond4_fu_323_p2 == 1'd0) & (1'b1 == ap_CS_fsm_state2))) begin
-        loop_index3_fu_106 <= empty_fu_329_p2;
-    end
-end
-
-always @ (posedge ap_clk) begin
-    if ((1'b1 == ap_CS_fsm_state1)) begin
-        errorInTask1_cast_reg_472[3 : 0] <= errorInTask1_cast_fu_306_p1[3 : 0];
+        loop_index3_fu_104 <= 4'd0;
+    end else if (((exitcond4_fu_312_p2 == 1'd0) & (1'b1 == ap_CS_fsm_state2))) begin
+        loop_index3_fu_104 <= empty_fu_318_p2;
     end
 end
 
 always @ (posedge ap_clk) begin
     if ((1'b1 == ap_CS_fsm_state3)) begin
-        outcome_AOV_load_1_reg_495 <= outcome_AOV_q0;
-        outcome_AOV_load_reg_490 <= outcome_AOV_q1;
+        outcome_AOV_load_1_reg_497 <= outcome_AOV_q0;
+        outcome_AOV_load_reg_492 <= outcome_AOV_q1;
     end
 end
 
 always @ (posedge ap_clk) begin
     if ((1'b1 == ap_CS_fsm_state4)) begin
-        outcome_AOV_load_2_reg_510 <= outcome_AOV_q0;
-        outcome_AOV_load_3_reg_515 <= outcome_AOV_q1;
+        outcome_AOV_load_2_reg_512 <= outcome_AOV_q0;
+        outcome_AOV_load_3_reg_517 <= outcome_AOV_q1;
     end
 end
 
 always @ (posedge ap_clk) begin
     if ((1'b1 == ap_CS_fsm_state5)) begin
-        outcome_AOV_load_4_reg_530 <= outcome_AOV_q0;
-        outcome_AOV_load_5_reg_535 <= outcome_AOV_q1;
+        outcome_AOV_load_4_reg_532 <= outcome_AOV_q0;
+        outcome_AOV_load_5_reg_537 <= outcome_AOV_q1;
     end
 end
 
@@ -317,15 +311,15 @@ end
 
 always @ (*) begin
     if ((1'b1 == ap_CS_fsm_state5)) begin
-        outcome_AOV_address0 = 64'd6;
+        outcome_AOV_address0 = 32'd6;
     end else if ((1'b1 == ap_CS_fsm_state4)) begin
-        outcome_AOV_address0 = 64'd4;
+        outcome_AOV_address0 = 32'd4;
     end else if ((1'b1 == ap_CS_fsm_state3)) begin
-        outcome_AOV_address0 = 64'd2;
-    end else if (((exitcond4_fu_323_p2 == 1'd1) & (1'b1 == ap_CS_fsm_state2))) begin
-        outcome_AOV_address0 = 64'd1;
-    end else if (((exitcond4_fu_323_p2 == 1'd0) & (1'b1 == ap_CS_fsm_state2))) begin
-        outcome_AOV_address0 = loop_index3_cast_fu_318_p1;
+        outcome_AOV_address0 = 32'd2;
+    end else if (((exitcond4_fu_312_p2 == 1'd1) & (1'b1 == ap_CS_fsm_state2))) begin
+        outcome_AOV_address0 = 32'd1;
+    end else if (((exitcond4_fu_312_p2 == 1'd0) & (1'b1 == ap_CS_fsm_state2))) begin
+        outcome_AOV_address0 = loop_index3_cast_cast_fu_343_p1;
     end else begin
         outcome_AOV_address0 = 'bx;
     end
@@ -333,20 +327,20 @@ end
 
 always @ (*) begin
     if ((1'b1 == ap_CS_fsm_state5)) begin
-        outcome_AOV_address1 = 64'd7;
+        outcome_AOV_address1 = 32'd7;
     end else if ((1'b1 == ap_CS_fsm_state4)) begin
-        outcome_AOV_address1 = 64'd5;
+        outcome_AOV_address1 = 32'd5;
     end else if ((1'b1 == ap_CS_fsm_state3)) begin
-        outcome_AOV_address1 = 64'd3;
+        outcome_AOV_address1 = 32'd3;
     end else if ((1'b1 == ap_CS_fsm_state2)) begin
-        outcome_AOV_address1 = 64'd0;
+        outcome_AOV_address1 = 32'd0;
     end else begin
         outcome_AOV_address1 = 'bx;
     end
 end
 
 always @ (*) begin
-    if (((1'b1 == ap_CS_fsm_state5) | (1'b1 == ap_CS_fsm_state4) | (1'b1 == ap_CS_fsm_state3) | ((exitcond4_fu_323_p2 == 1'd1) & (1'b1 == ap_CS_fsm_state2)) | ((exitcond4_fu_323_p2 == 1'd0) & (1'b1 == ap_CS_fsm_state2)))) begin
+    if (((1'b1 == ap_CS_fsm_state5) | (1'b1 == ap_CS_fsm_state4) | (1'b1 == ap_CS_fsm_state3) | ((exitcond4_fu_312_p2 == 1'd1) & (1'b1 == ap_CS_fsm_state2)) | ((exitcond4_fu_312_p2 == 1'd0) & (1'b1 == ap_CS_fsm_state2)))) begin
         outcome_AOV_ce0 = 1'b1;
     end else begin
         outcome_AOV_ce0 = 1'b0;
@@ -362,7 +356,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if (((exitcond4_fu_323_p2 == 1'd0) & (1'b1 == ap_CS_fsm_state2))) begin
+    if (((exitcond4_fu_312_p2 == 1'd0) & (1'b1 == ap_CS_fsm_state2))) begin
         outcome_AOV_we0 = 1'b1;
     end else begin
         outcome_AOV_we0 = 1'b0;
@@ -395,7 +389,7 @@ always @ (*) begin
             end
         end
         ap_ST_fsm_state2 : begin
-            if (((exitcond4_fu_323_p2 == 1'd0) & (1'b1 == ap_CS_fsm_state2))) begin
+            if (((exitcond4_fu_312_p2 == 1'd0) & (1'b1 == ap_CS_fsm_state2))) begin
                 ap_NS_fsm = ap_ST_fsm_state2;
             end else begin
                 ap_NS_fsm = ap_ST_fsm_state3;
@@ -453,42 +447,40 @@ always @ (*) begin
     ap_block_state7_io = ((error == 1'd1) & (toScheduler_TREADY == 1'b0));
 end
 
-assign empty_54_fu_355_p1 = outcome_AOV_load_reg_490;
+assign empty_50_fu_339_p1 = loop_index3_fu_104[2:0];
 
-assign empty_55_fu_358_p1 = outcome_AOV_load_1_reg_495;
+assign empty_51_fu_353_p1 = outcome_AOV_load_reg_492;
 
-assign empty_56_fu_361_p1 = outcome_AOV_load_2_reg_510;
+assign empty_52_fu_356_p1 = outcome_AOV_load_1_reg_497;
 
-assign empty_57_fu_364_p1 = outcome_AOV_load_3_reg_515;
+assign empty_53_fu_359_p1 = outcome_AOV_load_2_reg_512;
 
-assign empty_58_fu_367_p1 = outcome_AOV_load_4_reg_530;
+assign empty_54_fu_362_p1 = outcome_AOV_load_3_reg_517;
 
-assign empty_59_fu_370_p1 = outcome_AOV_load_5_reg_535;
+assign empty_55_fu_365_p1 = outcome_AOV_load_4_reg_532;
 
-assign empty_60_fu_373_p1 = outcome_AOV_q0;
+assign empty_56_fu_368_p1 = outcome_AOV_load_5_reg_537;
 
-assign empty_61_fu_377_p1 = outcome_AOV_q1;
+assign empty_57_fu_371_p1 = outcome_AOV_q0;
 
-assign empty_fu_329_p2 = (loop_index3_fu_106 + 4'd1);
+assign empty_58_fu_375_p1 = outcome_AOV_q1;
 
-assign errorInTask1_cast_fu_306_p1 = errorInTask1;
+assign empty_fu_318_p2 = (loop_index3_fu_104 + 4'd1);
 
-assign errorInTask_address0 = errorInTask1_cast_reg_472;
+assign errorInTask_address0 = zext_ln513_fu_404_p1;
 
 assign errorInTask_d0 = 1'd1;
 
-assign exitcond4_fu_323_p2 = ((loop_index3_fu_106 == 4'd8) ? 1'b1 : 1'b0);
+assign exitcond4_fu_312_p2 = ((loop_index3_fu_104 == 4'd8) ? 1'b1 : 1'b0);
 
-assign loop_index3_cast_fu_318_p1 = loop_index3_fu_106;
+assign loop_index3_cast_cast_fu_343_p1 = empty_50_fu_339_p1;
 
-assign outcomeInRam_address0 = 64'd0;
+assign outcomeInRam_address0 = 32'd0;
 
-assign outcomeInRam_d0 = {{{{{{{{{{{empty_61_fu_377_p1}, {empty_60_fu_373_p1}}, {empty_59_fu_370_p1}}, {empty_58_fu_367_p1}}, {empty_57_fu_364_p1}}, {empty_56_fu_361_p1}}, {empty_55_fu_358_p1}}, {empty_54_fu_355_p1}}, {uniId}}, {8'd0}}, {checkId}};
+assign outcomeInRam_d0 = {{{{{{{{{{{empty_58_fu_375_p1}, {empty_57_fu_371_p1}}, {empty_56_fu_368_p1}}, {empty_55_fu_365_p1}}, {empty_54_fu_362_p1}}, {empty_53_fu_359_p1}}, {empty_52_fu_356_p1}}, {empty_51_fu_353_p1}}, {uniId}}, {8'd0}}, {checkId}};
 
 assign toScheduler_TDATA = taskId;
 
-always @ (posedge ap_clk) begin
-    errorInTask1_cast_reg_472[63:4] <= 60'b000000000000000000000000000000000000000000000000000000000000;
-end
+assign zext_ln513_fu_404_p1 = errorInTask1;
 
 endmodule //run_writeOutcome

@@ -38,8 +38,9 @@ port (
     errorInTask_we0       :in   STD_LOGIC;
     errorInTask_d0        :in   STD_LOGIC_VECTOR(0 downto 0);
     errorInTask_q0        :out  STD_LOGIC_VECTOR(0 downto 0);
-    inputAOV              :out  STD_LOGIC_VECTOR(63 downto 0);
-    copyInputAOV          :out  STD_LOGIC_VECTOR(0 downto 0);
+    inputAOV              :out  STD_LOGIC_VECTOR(31 downto 0);
+    copyInputAOV_i        :out  STD_LOGIC_VECTOR(7 downto 0);
+    copyInputAOV_o        :in   STD_LOGIC_VECTOR(7 downto 0);
     n_regions_in_address0 :in   STD_LOGIC_VECTOR(5 downto 0);
     n_regions_in_ce0      :in   STD_LOGIC;
     n_regions_in_q0       :out  STD_LOGIC_VECTOR(7 downto 0);
@@ -81,13 +82,15 @@ end entity run_control_s_axi;
 --           others - reserved
 -- 0x00020 : Data signal of inputAOV
 --           bit 31~0 - inputAOV[31:0] (Read/Write)
--- 0x00024 : Data signal of inputAOV
---           bit 31~0 - inputAOV[63:32] (Read/Write)
--- 0x00028 : reserved
--- 0x0002c : Data signal of copyInputAOV
---           bit 0  - copyInputAOV[0] (Read/Write)
---           others - reserved
--- 0x00030 : reserved
+-- 0x00024 : reserved
+-- 0x00028 : Data signal of copyInputAOV_i
+--           bit 7~0 - copyInputAOV_i[7:0] (Read/Write)
+--           others  - reserved
+-- 0x0002c : reserved
+-- 0x00030 : Data signal of copyInputAOV_o
+--           bit 7~0 - copyInputAOV_o[7:0] (Read)
+--           others  - reserved
+-- 0x00034 : reserved
 -- 0x00010 ~
 -- 0x0001f : Memory 'errorInTask' (16 * 1b)
 --           Word n : bit [ 0: 0] - errorInTask[4n]
@@ -129,23 +132,24 @@ architecture behave of run_control_s_axi is
     signal wstate  : states := wrreset;
     signal rstate  : states := rdreset;
     signal wnext, rnext: states;
-    constant ADDR_AP_CTRL             : INTEGER := 16#00000#;
-    constant ADDR_GIE                 : INTEGER := 16#00004#;
-    constant ADDR_IER                 : INTEGER := 16#00008#;
-    constant ADDR_ISR                 : INTEGER := 16#0000c#;
-    constant ADDR_INPUTAOV_DATA_0     : INTEGER := 16#00020#;
-    constant ADDR_INPUTAOV_DATA_1     : INTEGER := 16#00024#;
-    constant ADDR_INPUTAOV_CTRL       : INTEGER := 16#00028#;
-    constant ADDR_COPYINPUTAOV_DATA_0 : INTEGER := 16#0002c#;
-    constant ADDR_COPYINPUTAOV_CTRL   : INTEGER := 16#00030#;
-    constant ADDR_ERRORINTASK_BASE    : INTEGER := 16#00010#;
-    constant ADDR_ERRORINTASK_HIGH    : INTEGER := 16#0001f#;
-    constant ADDR_N_REGIONS_IN_BASE   : INTEGER := 16#00040#;
-    constant ADDR_N_REGIONS_IN_HIGH   : INTEGER := 16#0007f#;
-    constant ADDR_OUTCOMEINRAM_BASE   : INTEGER := 16#00400#;
-    constant ADDR_OUTCOMEINRAM_HIGH   : INTEGER := 16#007ff#;
-    constant ADDR_TRAINEDREGIONS_BASE : INTEGER := 16#20000#;
-    constant ADDR_TRAINEDREGIONS_HIGH : INTEGER := 16#3ffff#;
+    constant ADDR_AP_CTRL               : INTEGER := 16#00000#;
+    constant ADDR_GIE                   : INTEGER := 16#00004#;
+    constant ADDR_IER                   : INTEGER := 16#00008#;
+    constant ADDR_ISR                   : INTEGER := 16#0000c#;
+    constant ADDR_INPUTAOV_DATA_0       : INTEGER := 16#00020#;
+    constant ADDR_INPUTAOV_CTRL         : INTEGER := 16#00024#;
+    constant ADDR_COPYINPUTAOV_I_DATA_0 : INTEGER := 16#00028#;
+    constant ADDR_COPYINPUTAOV_I_CTRL   : INTEGER := 16#0002c#;
+    constant ADDR_COPYINPUTAOV_O_DATA_0 : INTEGER := 16#00030#;
+    constant ADDR_COPYINPUTAOV_O_CTRL   : INTEGER := 16#00034#;
+    constant ADDR_ERRORINTASK_BASE      : INTEGER := 16#00010#;
+    constant ADDR_ERRORINTASK_HIGH      : INTEGER := 16#0001f#;
+    constant ADDR_N_REGIONS_IN_BASE     : INTEGER := 16#00040#;
+    constant ADDR_N_REGIONS_IN_HIGH     : INTEGER := 16#0007f#;
+    constant ADDR_OUTCOMEINRAM_BASE     : INTEGER := 16#00400#;
+    constant ADDR_OUTCOMEINRAM_HIGH     : INTEGER := 16#007ff#;
+    constant ADDR_TRAINEDREGIONS_BASE   : INTEGER := 16#20000#;
+    constant ADDR_TRAINEDREGIONS_HIGH   : INTEGER := 16#3ffff#;
     constant ADDR_BITS         : INTEGER := 18;
 
     signal waddr               : UNSIGNED(ADDR_BITS-1 downto 0);
@@ -175,8 +179,9 @@ architecture behave of run_control_s_axi is
     signal int_gie             : STD_LOGIC := '0';
     signal int_ier             : UNSIGNED(1 downto 0) := (others => '0');
     signal int_isr             : UNSIGNED(1 downto 0) := (others => '0');
-    signal int_inputAOV        : UNSIGNED(63 downto 0) := (others => '0');
-    signal int_copyInputAOV    : UNSIGNED(0 downto 0) := (others => '0');
+    signal int_inputAOV        : UNSIGNED(31 downto 0) := (others => '0');
+    signal int_copyInputAOV_i  : UNSIGNED(7 downto 0) := (others => '0');
+    signal int_copyInputAOV_o  : UNSIGNED(7 downto 0) := (others => '0');
     -- memory signals
     signal int_errorInTask_address0 : UNSIGNED(1 downto 0);
     signal int_errorInTask_ce0 : STD_LOGIC;
@@ -473,10 +478,10 @@ port map (
                         rdata_data(1 downto 0) <= int_isr;
                     when ADDR_INPUTAOV_DATA_0 =>
                         rdata_data <= RESIZE(int_inputAOV(31 downto 0), 32);
-                    when ADDR_INPUTAOV_DATA_1 =>
-                        rdata_data <= RESIZE(int_inputAOV(63 downto 32), 32);
-                    when ADDR_COPYINPUTAOV_DATA_0 =>
-                        rdata_data <= RESIZE(int_copyInputAOV(0 downto 0), 32);
+                    when ADDR_COPYINPUTAOV_I_DATA_0 =>
+                        rdata_data <= RESIZE(int_copyInputAOV_i(7 downto 0), 32);
+                    when ADDR_COPYINPUTAOV_O_DATA_0 =>
+                        rdata_data <= RESIZE(int_copyInputAOV_o(7 downto 0), 32);
                     when others =>
                         NULL;
                     end case;
@@ -500,7 +505,7 @@ port map (
     task_ap_ready        <= ap_ready and not int_auto_restart;
     ap_continue          <= int_ap_continue or auto_restart_status;
     inputAOV             <= STD_LOGIC_VECTOR(int_inputAOV);
-    copyInputAOV         <= STD_LOGIC_VECTOR(int_copyInputAOV);
+    copyInputAOV_i       <= STD_LOGIC_VECTOR(int_copyInputAOV_i);
 
     process (ACLK)
     begin
@@ -717,8 +722,8 @@ port map (
     begin
         if (ACLK'event and ACLK = '1') then
             if (ACLK_EN = '1') then
-                if (w_hs = '1' and waddr = ADDR_INPUTAOV_DATA_1) then
-                    int_inputAOV(63 downto 32) <= (UNSIGNED(WDATA(31 downto 0)) and wmask(31 downto 0)) or ((not wmask(31 downto 0)) and int_inputAOV(63 downto 32));
+                if (w_hs = '1' and waddr = ADDR_COPYINPUTAOV_I_DATA_0) then
+                    int_copyInputAOV_i(7 downto 0) <= (UNSIGNED(WDATA(7 downto 0)) and wmask(7 downto 0)) or ((not wmask(7 downto 0)) and int_copyInputAOV_i(7 downto 0));
                 end if;
             end if;
         end if;
@@ -727,9 +732,11 @@ port map (
     process (ACLK)
     begin
         if (ACLK'event and ACLK = '1') then
-            if (ACLK_EN = '1') then
-                if (w_hs = '1' and waddr = ADDR_COPYINPUTAOV_DATA_0) then
-                    int_copyInputAOV(0 downto 0) <= (UNSIGNED(WDATA(0 downto 0)) and wmask(0 downto 0)) or ((not wmask(0 downto 0)) and int_copyInputAOV(0 downto 0));
+            if (ARESET = '1') then
+                int_copyInputAOV_o <= (others => '0');
+            elsif (ACLK_EN = '1') then
+                if (ap_done = '1') then
+                    int_copyInputAOV_o <= UNSIGNED(copyInputAOV_o);
                 end if;
             end if;
         end if;

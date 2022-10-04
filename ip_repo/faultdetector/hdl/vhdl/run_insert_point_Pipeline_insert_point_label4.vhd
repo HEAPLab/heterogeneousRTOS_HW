@@ -17,7 +17,15 @@ port (
     ap_done : OUT STD_LOGIC;
     ap_idle : OUT STD_LOGIC;
     ap_ready : OUT STD_LOGIC;
-    tmp_122 : IN STD_LOGIC_VECTOR (11 downto 0);
+    d_read : IN STD_LOGIC_VECTOR (31 downto 0);
+    d_read_8 : IN STD_LOGIC_VECTOR (31 downto 0);
+    d_read_9 : IN STD_LOGIC_VECTOR (31 downto 0);
+    d_read_10 : IN STD_LOGIC_VECTOR (31 downto 0);
+    d_read_11 : IN STD_LOGIC_VECTOR (31 downto 0);
+    d_read_12 : IN STD_LOGIC_VECTOR (31 downto 0);
+    d_read_13 : IN STD_LOGIC_VECTOR (31 downto 0);
+    d_read_14 : IN STD_LOGIC_VECTOR (31 downto 0);
+    tmp_121 : IN STD_LOGIC_VECTOR (8 downto 0);
     regions_min_0_address0 : OUT STD_LOGIC_VECTOR (11 downto 0);
     regions_min_0_ce0 : OUT STD_LOGIC;
     regions_min_0_we0 : OUT STD_LOGIC;
@@ -42,14 +50,6 @@ port (
     regions_center_1_ce0 : OUT STD_LOGIC;
     regions_center_1_we0 : OUT STD_LOGIC;
     regions_center_1_d0 : OUT STD_LOGIC_VECTOR (31 downto 0);
-    d_read : IN STD_LOGIC_VECTOR (31 downto 0);
-    d_read_8 : IN STD_LOGIC_VECTOR (31 downto 0);
-    d_read_9 : IN STD_LOGIC_VECTOR (31 downto 0);
-    d_read_10 : IN STD_LOGIC_VECTOR (31 downto 0);
-    d_read_11 : IN STD_LOGIC_VECTOR (31 downto 0);
-    d_read_12 : IN STD_LOGIC_VECTOR (31 downto 0);
-    d_read_13 : IN STD_LOGIC_VECTOR (31 downto 0);
-    d_read_14 : IN STD_LOGIC_VECTOR (31 downto 0);
     n_regions_load_cast : IN STD_LOGIC_VECTOR (0 downto 0) );
 end;
 
@@ -77,15 +77,15 @@ attribute shreg_extract : string;
     signal ap_condition_exit_pp0_iter0_stage0 : STD_LOGIC;
     signal ap_loop_exit_ready : STD_LOGIC;
     signal ap_ready_int : STD_LOGIC;
-    signal zext_ln248_1_fu_238_p1 : STD_LOGIC_VECTOR (63 downto 0);
+    signal zext_ln248_fu_268_p1 : STD_LOGIC_VECTOR (31 downto 0);
     signal i_2_fu_66 : STD_LOGIC_VECTOR (3 downto 0);
     signal add_ln247_fu_222_p2 : STD_LOGIC_VECTOR (3 downto 0);
     signal ap_loop_init : STD_LOGIC;
     signal ap_sig_allocacmp_i : STD_LOGIC_VECTOR (3 downto 0);
     signal n_regions_load_cast_read_read_fu_70_p2 : STD_LOGIC_VECTOR (0 downto 0);
-    signal tmp_fu_248_p10 : STD_LOGIC_VECTOR (31 downto 0);
-    signal zext_ln248_fu_228_p1 : STD_LOGIC_VECTOR (11 downto 0);
-    signal add_ln248_fu_232_p2 : STD_LOGIC_VECTOR (11 downto 0);
+    signal tmp_fu_228_p10 : STD_LOGIC_VECTOR (31 downto 0);
+    signal trunc_ln248_fu_256_p1 : STD_LOGIC_VECTOR (2 downto 0);
+    signal tmp_s_fu_260_p3 : STD_LOGIC_VECTOR (11 downto 0);
     signal ap_done_reg : STD_LOGIC := '0';
     signal ap_continue_int : STD_LOGIC;
     signal ap_done_int : STD_LOGIC;
@@ -165,7 +165,7 @@ begin
         din6 => d_read_13,
         din7 => d_read_14,
         din8 => ap_sig_allocacmp_i,
-        dout => tmp_fu_248_p10);
+        dout => tmp_fu_228_p10);
 
     flow_control_loop_pipe_sequential_init_U : component run_flow_control_loop_pipe_sequential_init
     port map (
@@ -237,7 +237,6 @@ begin
         end case;
     end process;
     add_ln247_fu_222_p2 <= std_logic_vector(unsigned(ap_sig_allocacmp_i) + unsigned(ap_const_lv4_1));
-    add_ln248_fu_232_p2 <= std_logic_vector(unsigned(tmp_122) + unsigned(zext_ln248_fu_228_p1));
     ap_CS_fsm_state1 <= ap_CS_fsm(0);
 
     ap_ST_fsm_state1_blk_assign_proc : process(ap_start_int)
@@ -308,7 +307,7 @@ begin
 
     icmp_ln247_fu_216_p2 <= "1" when (ap_sig_allocacmp_i = ap_const_lv4_8) else "0";
     n_regions_load_cast_read_read_fu_70_p2 <= n_regions_load_cast;
-    regions_center_0_address0 <= zext_ln248_1_fu_238_p1(12 - 1 downto 0);
+    regions_center_0_address0 <= zext_ln248_fu_268_p1(12 - 1 downto 0);
 
     regions_center_0_ce0_assign_proc : process(ap_CS_fsm_state1, ap_start_int)
     begin
@@ -319,7 +318,7 @@ begin
         end if; 
     end process;
 
-    regions_center_0_d0 <= tmp_fu_248_p10;
+    regions_center_0_d0 <= tmp_fu_228_p10;
 
     regions_center_0_we0_assign_proc : process(ap_CS_fsm_state1, icmp_ln247_fu_216_p2, n_regions_load_cast_read_read_fu_70_p2, ap_start_int)
     begin
@@ -330,7 +329,7 @@ begin
         end if; 
     end process;
 
-    regions_center_1_address0 <= zext_ln248_1_fu_238_p1(12 - 1 downto 0);
+    regions_center_1_address0 <= zext_ln248_fu_268_p1(12 - 1 downto 0);
 
     regions_center_1_ce0_assign_proc : process(ap_CS_fsm_state1, ap_start_int)
     begin
@@ -341,7 +340,7 @@ begin
         end if; 
     end process;
 
-    regions_center_1_d0 <= tmp_fu_248_p10;
+    regions_center_1_d0 <= tmp_fu_228_p10;
 
     regions_center_1_we0_assign_proc : process(ap_CS_fsm_state1, icmp_ln247_fu_216_p2, n_regions_load_cast_read_read_fu_70_p2, ap_start_int)
     begin
@@ -352,7 +351,7 @@ begin
         end if; 
     end process;
 
-    regions_max_0_address0 <= zext_ln248_1_fu_238_p1(12 - 1 downto 0);
+    regions_max_0_address0 <= zext_ln248_fu_268_p1(12 - 1 downto 0);
 
     regions_max_0_ce0_assign_proc : process(ap_CS_fsm_state1, ap_start_int)
     begin
@@ -363,7 +362,7 @@ begin
         end if; 
     end process;
 
-    regions_max_0_d0 <= tmp_fu_248_p10;
+    regions_max_0_d0 <= tmp_fu_228_p10;
 
     regions_max_0_we0_assign_proc : process(ap_CS_fsm_state1, icmp_ln247_fu_216_p2, n_regions_load_cast_read_read_fu_70_p2, ap_start_int)
     begin
@@ -374,7 +373,7 @@ begin
         end if; 
     end process;
 
-    regions_max_1_address0 <= zext_ln248_1_fu_238_p1(12 - 1 downto 0);
+    regions_max_1_address0 <= zext_ln248_fu_268_p1(12 - 1 downto 0);
 
     regions_max_1_ce0_assign_proc : process(ap_CS_fsm_state1, ap_start_int)
     begin
@@ -385,7 +384,7 @@ begin
         end if; 
     end process;
 
-    regions_max_1_d0 <= tmp_fu_248_p10;
+    regions_max_1_d0 <= tmp_fu_228_p10;
 
     regions_max_1_we0_assign_proc : process(ap_CS_fsm_state1, icmp_ln247_fu_216_p2, n_regions_load_cast_read_read_fu_70_p2, ap_start_int)
     begin
@@ -396,7 +395,7 @@ begin
         end if; 
     end process;
 
-    regions_min_0_address0 <= zext_ln248_1_fu_238_p1(12 - 1 downto 0);
+    regions_min_0_address0 <= zext_ln248_fu_268_p1(12 - 1 downto 0);
 
     regions_min_0_ce0_assign_proc : process(ap_CS_fsm_state1, ap_start_int)
     begin
@@ -407,7 +406,7 @@ begin
         end if; 
     end process;
 
-    regions_min_0_d0 <= tmp_fu_248_p10;
+    regions_min_0_d0 <= tmp_fu_228_p10;
 
     regions_min_0_we0_assign_proc : process(ap_CS_fsm_state1, icmp_ln247_fu_216_p2, n_regions_load_cast_read_read_fu_70_p2, ap_start_int)
     begin
@@ -418,7 +417,7 @@ begin
         end if; 
     end process;
 
-    regions_min_1_address0 <= zext_ln248_1_fu_238_p1(12 - 1 downto 0);
+    regions_min_1_address0 <= zext_ln248_fu_268_p1(12 - 1 downto 0);
 
     regions_min_1_ce0_assign_proc : process(ap_CS_fsm_state1, ap_start_int)
     begin
@@ -429,7 +428,7 @@ begin
         end if; 
     end process;
 
-    regions_min_1_d0 <= tmp_fu_248_p10;
+    regions_min_1_d0 <= tmp_fu_228_p10;
 
     regions_min_1_we0_assign_proc : process(ap_CS_fsm_state1, icmp_ln247_fu_216_p2, n_regions_load_cast_read_read_fu_70_p2, ap_start_int)
     begin
@@ -440,6 +439,7 @@ begin
         end if; 
     end process;
 
-    zext_ln248_1_fu_238_p1 <= std_logic_vector(IEEE.numeric_std.resize(unsigned(add_ln248_fu_232_p2),64));
-    zext_ln248_fu_228_p1 <= std_logic_vector(IEEE.numeric_std.resize(unsigned(ap_sig_allocacmp_i),12));
+    tmp_s_fu_260_p3 <= (tmp_121 & trunc_ln248_fu_256_p1);
+    trunc_ln248_fu_256_p1 <= ap_sig_allocacmp_i(3 - 1 downto 0);
+    zext_ln248_fu_268_p1 <= std_logic_vector(IEEE.numeric_std.resize(unsigned(tmp_s_fu_260_p3),32));
 end behav;

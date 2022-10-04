@@ -55,7 +55,7 @@ module run_runTestAfterInit (
         m_axi_gmem_BID,
         m_axi_gmem_BUSER,
         inputAOV,
-        p_read,
+        copyInputAOV_in,
         copyInputAOV_out,
         outcomeInRam_address0,
         outcomeInRam_ce0,
@@ -141,7 +141,7 @@ module run_runTestAfterInit (
         ap_clk,
         ap_rst,
         inputAOV_ap_vld,
-        p_read_ap_vld,
+        copyInputAOV_in_ap_vld,
         ap_start,
         copyInputAOV_out_ap_vld,
         toScheduler_TVALID,
@@ -155,7 +155,7 @@ module run_runTestAfterInit (
 
 output   m_axi_gmem_AWVALID;
 input   m_axi_gmem_AWREADY;
-output  [63:0] m_axi_gmem_AWADDR;
+output  [31:0] m_axi_gmem_AWADDR;
 output  [0:0] m_axi_gmem_AWID;
 output  [31:0] m_axi_gmem_AWLEN;
 output  [2:0] m_axi_gmem_AWSIZE;
@@ -175,7 +175,7 @@ output  [0:0] m_axi_gmem_WID;
 output  [0:0] m_axi_gmem_WUSER;
 output   m_axi_gmem_ARVALID;
 input   m_axi_gmem_ARREADY;
-output  [63:0] m_axi_gmem_ARADDR;
+output  [31:0] m_axi_gmem_ARADDR;
 output  [0:0] m_axi_gmem_ARID;
 output  [31:0] m_axi_gmem_ARLEN;
 output  [2:0] m_axi_gmem_ARSIZE;
@@ -199,9 +199,9 @@ output   m_axi_gmem_BREADY;
 input  [1:0] m_axi_gmem_BRESP;
 input  [0:0] m_axi_gmem_BID;
 input  [0:0] m_axi_gmem_BUSER;
-input  [63:0] inputAOV;
-input  [0:0] p_read;
-output  [0:0] copyInputAOV_out;
+input  [31:0] inputAOV;
+input  [7:0] copyInputAOV_in;
+output  [7:0] copyInputAOV_out;
 output  [3:0] outcomeInRam_address0;
 output   outcomeInRam_ce0;
 output  [287:0] outcomeInRam_d0;
@@ -286,7 +286,7 @@ output   n_regions_V_we1;
 input   ap_clk;
 input   ap_rst;
 input   inputAOV_ap_vld;
-input   p_read_ap_vld;
+input   copyInputAOV_in_ap_vld;
 input   ap_start;
 output   copyInputAOV_out_ap_vld;
 output   toScheduler_TVALID;
@@ -302,7 +302,7 @@ wire    read_train_U0_ap_continue;
 wire    read_train_U0_ap_idle;
 wire    read_train_U0_ap_ready;
 wire    read_train_U0_m_axi_gmem_AWVALID;
-wire   [63:0] read_train_U0_m_axi_gmem_AWADDR;
+wire   [31:0] read_train_U0_m_axi_gmem_AWADDR;
 wire   [0:0] read_train_U0_m_axi_gmem_AWID;
 wire   [31:0] read_train_U0_m_axi_gmem_AWLEN;
 wire   [2:0] read_train_U0_m_axi_gmem_AWSIZE;
@@ -320,7 +320,7 @@ wire    read_train_U0_m_axi_gmem_WLAST;
 wire   [0:0] read_train_U0_m_axi_gmem_WID;
 wire   [0:0] read_train_U0_m_axi_gmem_WUSER;
 wire    read_train_U0_m_axi_gmem_ARVALID;
-wire   [63:0] read_train_U0_m_axi_gmem_ARADDR;
+wire   [31:0] read_train_U0_m_axi_gmem_ARADDR;
 wire   [0:0] read_train_U0_m_axi_gmem_ARID;
 wire   [31:0] read_train_U0_m_axi_gmem_ARLEN;
 wire   [2:0] read_train_U0_m_axi_gmem_ARSIZE;
@@ -333,8 +333,7 @@ wire   [3:0] read_train_U0_m_axi_gmem_ARREGION;
 wire   [0:0] read_train_U0_m_axi_gmem_ARUSER;
 wire    read_train_U0_m_axi_gmem_RREADY;
 wire    read_train_U0_m_axi_gmem_BREADY;
-wire    read_train_U0_copyInputAOV_read;
-wire   [0:0] read_train_U0_copyInputAOV_in_c_din;
+wire   [7:0] read_train_U0_copyInputAOV_in_c_din;
 wire    read_train_U0_copyInputAOV_in_c_write;
 wire   [7:0] read_train_U0_ap_return_0;
 wire   [7:0] read_train_U0_ap_return_1;
@@ -406,7 +405,7 @@ wire    runTestAfterInit_Block_entry1119_proc7_U0_errorInTask_ce0;
 wire    runTestAfterInit_Block_entry1119_proc7_U0_errorInTask_we0;
 wire   [0:0] runTestAfterInit_Block_entry1119_proc7_U0_errorInTask_d0;
 wire    runTestAfterInit_Block_entry1119_proc7_U0_copyInputAOV_in_read;
-wire   [0:0] runTestAfterInit_Block_entry1119_proc7_U0_copyInputAOV_out;
+wire   [7:0] runTestAfterInit_Block_entry1119_proc7_U0_copyInputAOV_out;
 wire    runTestAfterInit_Block_entry1119_proc7_U0_copyInputAOV_out_ap_vld;
 wire   [7:0] runTestAfterInit_Block_entry1119_proc7_U0_toScheduler_TDATA;
 wire    runTestAfterInit_Block_entry1119_proc7_U0_toScheduler_TVALID;
@@ -467,7 +466,7 @@ wire    runTestAfterInit_Block_entry1119_proc7_U0_n_regions_V_ce0;
 wire    runTestAfterInit_Block_entry1119_proc7_U0_n_regions_V_we0;
 wire   [7:0] runTestAfterInit_Block_entry1119_proc7_U0_n_regions_V_d0;
 wire    copyInputAOV_in_c_full_n;
-wire   [0:0] copyInputAOV_in_c_dout;
+wire   [7:0] copyInputAOV_in_c_dout;
 wire   [1:0] copyInputAOV_in_c_num_data_valid;
 wire   [1:0] copyInputAOV_in_c_fifo_cap;
 wire    copyInputAOV_in_c_empty_n;
@@ -599,7 +598,7 @@ run_read_train read_train_U0(
     .m_axi_gmem_BID(1'd0),
     .m_axi_gmem_BUSER(1'd0),
     .inputAOV(inputAOV),
-    .copyInputAOV_read(read_train_U0_copyInputAOV_read),
+    .copyInputAOV(copyInputAOV_in),
     .copyInputAOV_in_c_din(read_train_U0_copyInputAOV_in_c_din),
     .copyInputAOV_in_c_num_data_valid(copyInputAOV_in_c_num_data_valid),
     .copyInputAOV_in_c_fifo_cap(copyInputAOV_in_c_fifo_cap),
@@ -725,7 +724,7 @@ run_runTestAfterInit_Block_entry1119_proc7 runTestAfterInit_Block_entry1119_proc
     .n_regions_V_q0(n_regions_V_q0)
 );
 
-run_fifo_w1_d2_S copyInputAOV_in_c_U(
+run_fifo_w8_d2_S copyInputAOV_in_c_U(
     .clk(ap_clk),
     .reset(ap_rst),
     .if_read_ce(1'b1),
@@ -1184,7 +1183,7 @@ assign m_axi_gmem_ARUSER = read_train_U0_m_axi_gmem_ARUSER;
 
 assign m_axi_gmem_ARVALID = read_train_U0_m_axi_gmem_ARVALID;
 
-assign m_axi_gmem_AWADDR = 64'd0;
+assign m_axi_gmem_AWADDR = 32'd0;
 
 assign m_axi_gmem_AWBURST = 2'd0;
 
@@ -1251,8 +1250,6 @@ assign outcomeInRam_we0 = runTestAfterInit_Block_entry1119_proc7_U0_outcomeInRam
 assign read_train_U0_ap_continue = (ap_sync_channel_write_contr_uniId_V & ap_sync_channel_write_contr_taskId_V & ap_sync_channel_write_contr_command & ap_sync_channel_write_contr_checkId_V & ap_sync_channel_write_contr_AOV_7 & ap_sync_channel_write_contr_AOV_6 & ap_sync_channel_write_contr_AOV_5 & ap_sync_channel_write_contr_AOV_4 & ap_sync_channel_write_contr_AOV_3 & ap_sync_channel_write_contr_AOV_2 & ap_sync_channel_write_contr_AOV_1 & ap_sync_channel_write_contr_AOV);
 
 assign read_train_U0_ap_start = ((ap_sync_reg_read_train_U0_ap_ready ^ 1'b1) & ap_start);
-
-assign read_train_U0_copyInputAOV_read = p_read;
 
 assign regions_1_address0 = runTestAfterInit_Block_entry1119_proc7_U0_regions_1_address0;
 

@@ -697,8 +697,8 @@
   <spirit:addressSpaces>
     <spirit:addressSpace>
       <spirit:name>Data_m_axi_gmem</spirit:name>
-      <spirit:range>16E</spirit:range>
-      <spirit:width spirit:format="long">64</spirit:width>
+      <spirit:range>4G</spirit:range>
+      <spirit:width spirit:format="long">32</spirit:width>
       <spirit:parameters>
         <spirit:parameter>
           <spirit:name>DEPENDENT_ON</spirit:name>
@@ -1010,8 +1010,8 @@
           </spirit:field>
         </spirit:register>
         <spirit:register>
-          <spirit:name>inputAOV_1</spirit:name>
-          <spirit:displayName>inputAOV_1</spirit:displayName>
+          <spirit:name>inputAOV</spirit:name>
+          <spirit:displayName>inputAOV</spirit:displayName>
           <spirit:description>Data signal of inputAOV</spirit:description>
           <spirit:addressOffset>32</spirit:addressOffset>
           <spirit:size spirit:format="long">32</spirit:size>
@@ -1033,43 +1033,20 @@
           </spirit:field>
         </spirit:register>
         <spirit:register>
-          <spirit:name>inputAOV_2</spirit:name>
-          <spirit:displayName>inputAOV_2</spirit:displayName>
-          <spirit:description>Data signal of inputAOV</spirit:description>
-          <spirit:addressOffset>36</spirit:addressOffset>
+          <spirit:name>copyInputAOV_i</spirit:name>
+          <spirit:displayName>copyInputAOV_i</spirit:displayName>
+          <spirit:description>Data signal of copyInputAOV_i</spirit:description>
+          <spirit:addressOffset>40</spirit:addressOffset>
           <spirit:size spirit:format="long">32</spirit:size>
           <spirit:access>write-only</spirit:access>
           <spirit:reset>
             <spirit:value spirit:format="long">0</spirit:value>
           </spirit:reset>
           <spirit:field>
-            <spirit:name>inputAOV</spirit:name>
-            <spirit:description>Bit 63 to 32 of inputAOV</spirit:description>
+            <spirit:name>copyInputAOV_i</spirit:name>
+            <spirit:description>Bit 7 to 0 of copyInputAOV_i</spirit:description>
             <spirit:bitOffset>0</spirit:bitOffset>
-            <spirit:bitWidth spirit:format="long">32</spirit:bitWidth>
-            <spirit:access>write-only</spirit:access>
-            <spirit:writeValueConstraint>
-              <spirit:minimum>0</spirit:minimum>
-              <spirit:maximum>0</spirit:maximum>
-            </spirit:writeValueConstraint>
-            <spirit:testable spirit:testConstraint="unconstrained">false</spirit:testable>
-          </spirit:field>
-        </spirit:register>
-        <spirit:register>
-          <spirit:name>copyInputAOV</spirit:name>
-          <spirit:displayName>copyInputAOV</spirit:displayName>
-          <spirit:description>Data signal of copyInputAOV</spirit:description>
-          <spirit:addressOffset>44</spirit:addressOffset>
-          <spirit:size spirit:format="long">32</spirit:size>
-          <spirit:access>write-only</spirit:access>
-          <spirit:reset>
-            <spirit:value spirit:format="long">0</spirit:value>
-          </spirit:reset>
-          <spirit:field>
-            <spirit:name>copyInputAOV</spirit:name>
-            <spirit:description>Bit 0 to 0 of copyInputAOV</spirit:description>
-            <spirit:bitOffset>0</spirit:bitOffset>
-            <spirit:bitWidth spirit:format="long">1</spirit:bitWidth>
+            <spirit:bitWidth spirit:format="long">8</spirit:bitWidth>
             <spirit:access>write-only</spirit:access>
             <spirit:writeValueConstraint>
               <spirit:minimum>0</spirit:minimum>
@@ -1080,8 +1057,45 @@
           <spirit:field>
             <spirit:name>RESERVED</spirit:name>
             <spirit:description>Reserved.  0s on read.</spirit:description>
-            <spirit:bitOffset>1</spirit:bitOffset>
-            <spirit:bitWidth spirit:format="long">31</spirit:bitWidth>
+            <spirit:bitOffset>8</spirit:bitOffset>
+            <spirit:bitWidth spirit:format="long">24</spirit:bitWidth>
+            <spirit:access>read-only</spirit:access>
+            <spirit:writeValueConstraint>
+              <spirit:minimum>0</spirit:minimum>
+              <spirit:maximum>0</spirit:maximum>
+            </spirit:writeValueConstraint>
+            <spirit:readAction>modify</spirit:readAction>
+            <spirit:testable spirit:testConstraint="unconstrained">false</spirit:testable>
+          </spirit:field>
+        </spirit:register>
+        <spirit:register>
+          <spirit:name>copyInputAOV_o</spirit:name>
+          <spirit:displayName>copyInputAOV_o</spirit:displayName>
+          <spirit:description>Data signal of copyInputAOV_o</spirit:description>
+          <spirit:addressOffset>48</spirit:addressOffset>
+          <spirit:size spirit:format="long">32</spirit:size>
+          <spirit:access>read-only</spirit:access>
+          <spirit:reset>
+            <spirit:value spirit:format="long">0</spirit:value>
+          </spirit:reset>
+          <spirit:field>
+            <spirit:name>copyInputAOV_o</spirit:name>
+            <spirit:description>Bit 7 to 0 of copyInputAOV_o</spirit:description>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth spirit:format="long">8</spirit:bitWidth>
+            <spirit:access>read-only</spirit:access>
+            <spirit:writeValueConstraint>
+              <spirit:minimum>0</spirit:minimum>
+              <spirit:maximum>0</spirit:maximum>
+            </spirit:writeValueConstraint>
+            <spirit:readAction>modify</spirit:readAction>
+            <spirit:testable spirit:testConstraint="unconstrained">false</spirit:testable>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>RESERVED</spirit:name>
+            <spirit:description>Reserved.  0s on read.</spirit:description>
+            <spirit:bitOffset>8</spirit:bitOffset>
+            <spirit:bitWidth spirit:format="long">24</spirit:bitWidth>
             <spirit:access>read-only</spirit:access>
             <spirit:writeValueConstraint>
               <spirit:minimum>0</spirit:minimum>
@@ -1155,7 +1169,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>4bd65de8</spirit:value>
+            <spirit:value>d9f5f41a</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1174,7 +1188,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>9e55e480</spirit:value>
+            <spirit:value>671e2687</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1193,7 +1207,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>85c638ad</spirit:value>
+            <spirit:value>baeb5a19</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1212,7 +1226,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>0ee848e4</spirit:value>
+            <spirit:value>0f0f3c9b</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1226,7 +1240,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>f3daba74</spirit:value>
+            <spirit:value>8d2045bb</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1599,7 +1613,7 @@
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_M_AXI_GMEM_ADDR_WIDTH&apos;)) - 1)">63</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_M_AXI_GMEM_ADDR_WIDTH&apos;)) - 1)">31</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -2041,7 +2055,7 @@
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_M_AXI_GMEM_ADDR_WIDTH&apos;)) - 1)">63</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_M_AXI_GMEM_ADDR_WIDTH&apos;)) - 1)">31</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -2429,7 +2443,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>C_M_AXI_GMEM_ADDR_WIDTH</spirit:name>
-        <spirit:value spirit:format="long" spirit:id="MODELPARAM_VALUE.C_M_AXI_GMEM_ADDR_WIDTH">64</spirit:value>
+        <spirit:value spirit:format="long" spirit:id="MODELPARAM_VALUE.C_M_AXI_GMEM_ADDR_WIDTH">32</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>C_M_AXI_GMEM_DATA_WIDTH</spirit:name>
@@ -2575,10 +2589,6 @@
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/verilog/run_fifo_w1_d2_S.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
         <spirit:name>hdl/verilog/run_fifo_w8_d2_S.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
@@ -2652,10 +2662,6 @@
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/verilog/run_mul_64ns_66ns_81_1_1.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/verilog/run_mul_64ns_66ns_129_1_1.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -2749,11 +2755,6 @@
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/verilog/run_fifo_w1_d2_S.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
         <spirit:name>hdl/verilog/run_fifo_w8_d2_S.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
@@ -2845,11 +2846,6 @@
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/verilog/run_mul_64ns_66ns_81_1_1.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/verilog/run_mul_64ns_66ns_129_1_1.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
@@ -3009,10 +3005,6 @@
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/vhdl/run_fifo_w1_d2_S.vhd</spirit:name>
-        <spirit:fileType>vhdlSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
         <spirit:name>hdl/vhdl/run_fifo_w8_d2_S.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
@@ -3066,10 +3058,6 @@
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/run_mul_64ns_66ns_81_1_1.vhd</spirit:name>
-        <spirit:fileType>vhdlSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/vhdl/run_mul_64ns_66ns_129_1_1.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -3115,7 +3103,7 @@
       <spirit:file>
         <spirit:name>hdl/vhdl/run.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_d4ba1fe7</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_75e0ff31</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -3152,11 +3140,6 @@
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/run_fdiv_32ns_32ns_32_10_no_dsp_1.vhd</spirit:name>
-        <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/vhdl/run_fifo_w1_d2_S.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
@@ -3227,11 +3210,6 @@
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/run_mul_64ns_66ns_81_1_1.vhd</spirit:name>
-        <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/vhdl/run_mul_64ns_66ns_129_1_1.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
@@ -3544,8 +3522,8 @@
       </xilinx:taxonomies>
       <xilinx:displayName>faultDetectorMicro</xilinx:displayName>
       <xilinx:definitionSource>HLS</xilinx:definitionSource>
-      <xilinx:coreRevision>2112708001</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2022-10-02T17:01:46Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>2112711012</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2022-10-04T19:12:41Z</xilinx:coreCreationDateTime>
       <xilinx:sdxKernelAttributes>
         <xilinx:sdx_kernel>true</xilinx:sdx_kernel>
         <xilinx:sdx_kernel_type>hls</xilinx:sdx_kernel_type>
@@ -3554,11 +3532,11 @@
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2022.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="fdaf8c25"/>
-      <xilinx:checksum xilinx:scope="addressSpaces" xilinx:value="2c1df7e3"/>
-      <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="63165a29"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="ad91c9ad"/>
-      <xilinx:checksum xilinx:scope="ports" xilinx:value="3dac610a"/>
-      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="32afe564"/>
+      <xilinx:checksum xilinx:scope="addressSpaces" xilinx:value="ebe62ed5"/>
+      <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="0333fbca"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="ef8ec260"/>
+      <xilinx:checksum xilinx:scope="ports" xilinx:value="e43f6b16"/>
+      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="a668b508"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="0e799fcd"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>

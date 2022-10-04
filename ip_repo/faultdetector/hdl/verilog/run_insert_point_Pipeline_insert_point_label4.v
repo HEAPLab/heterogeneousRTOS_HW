@@ -14,7 +14,15 @@ module run_insert_point_Pipeline_insert_point_label4 (
         ap_done,
         ap_idle,
         ap_ready,
-        tmp_122,
+        d_read,
+        d_read_8,
+        d_read_9,
+        d_read_10,
+        d_read_11,
+        d_read_12,
+        d_read_13,
+        d_read_14,
+        tmp_121,
         regions_min_0_address0,
         regions_min_0_ce0,
         regions_min_0_we0,
@@ -39,14 +47,6 @@ module run_insert_point_Pipeline_insert_point_label4 (
         regions_center_1_ce0,
         regions_center_1_we0,
         regions_center_1_d0,
-        d_read,
-        d_read_8,
-        d_read_9,
-        d_read_10,
-        d_read_11,
-        d_read_12,
-        d_read_13,
-        d_read_14,
         n_regions_load_cast
 );
 
@@ -58,7 +58,15 @@ input   ap_start;
 output   ap_done;
 output   ap_idle;
 output   ap_ready;
-input  [11:0] tmp_122;
+input  [31:0] d_read;
+input  [31:0] d_read_8;
+input  [31:0] d_read_9;
+input  [31:0] d_read_10;
+input  [31:0] d_read_11;
+input  [31:0] d_read_12;
+input  [31:0] d_read_13;
+input  [31:0] d_read_14;
+input  [8:0] tmp_121;
 output  [11:0] regions_min_0_address0;
 output   regions_min_0_ce0;
 output   regions_min_0_we0;
@@ -83,14 +91,6 @@ output  [11:0] regions_center_1_address0;
 output   regions_center_1_ce0;
 output   regions_center_1_we0;
 output  [31:0] regions_center_1_d0;
-input  [31:0] d_read;
-input  [31:0] d_read_8;
-input  [31:0] d_read_9;
-input  [31:0] d_read_10;
-input  [31:0] d_read_11;
-input  [31:0] d_read_12;
-input  [31:0] d_read_13;
-input  [31:0] d_read_14;
 input  [0:0] n_regions_load_cast;
 
 reg ap_idle;
@@ -114,15 +114,15 @@ wire   [0:0] icmp_ln247_fu_216_p2;
 reg    ap_condition_exit_pp0_iter0_stage0;
 wire    ap_loop_exit_ready;
 reg    ap_ready_int;
-wire   [63:0] zext_ln248_1_fu_238_p1;
+wire   [31:0] zext_ln248_fu_268_p1;
 reg   [3:0] i_2_fu_66;
 wire   [3:0] add_ln247_fu_222_p2;
 wire    ap_loop_init;
 reg   [3:0] ap_sig_allocacmp_i;
 wire   [0:0] n_regions_load_cast_read_read_fu_70_p2;
-wire   [31:0] tmp_fu_248_p10;
-wire   [11:0] zext_ln248_fu_228_p1;
-wire   [11:0] add_ln248_fu_232_p2;
+wire   [31:0] tmp_fu_228_p10;
+wire   [2:0] trunc_ln248_fu_256_p1;
+wire   [11:0] tmp_s_fu_260_p3;
 reg    ap_done_reg;
 wire    ap_continue_int;
 reg    ap_done_int;
@@ -160,7 +160,7 @@ mux_84_32_1_1_U18(
     .din6(d_read_13),
     .din7(d_read_14),
     .din8(ap_sig_allocacmp_i),
-    .dout(tmp_fu_248_p10)
+    .dout(tmp_fu_228_p10)
 );
 
 run_flow_control_loop_pipe_sequential_init flow_control_loop_pipe_sequential_init_U(
@@ -365,8 +365,6 @@ end
 
 assign add_ln247_fu_222_p2 = (ap_sig_allocacmp_i + 4'd1);
 
-assign add_ln248_fu_232_p2 = (tmp_122 + zext_ln248_fu_228_p1);
-
 assign ap_CS_fsm_state1 = ap_CS_fsm[32'd0];
 
 always @ (*) begin
@@ -379,32 +377,34 @@ assign icmp_ln247_fu_216_p2 = ((ap_sig_allocacmp_i == 4'd8) ? 1'b1 : 1'b0);
 
 assign n_regions_load_cast_read_read_fu_70_p2 = n_regions_load_cast;
 
-assign regions_center_0_address0 = zext_ln248_1_fu_238_p1;
+assign regions_center_0_address0 = zext_ln248_fu_268_p1;
 
-assign regions_center_0_d0 = tmp_fu_248_p10;
+assign regions_center_0_d0 = tmp_fu_228_p10;
 
-assign regions_center_1_address0 = zext_ln248_1_fu_238_p1;
+assign regions_center_1_address0 = zext_ln248_fu_268_p1;
 
-assign regions_center_1_d0 = tmp_fu_248_p10;
+assign regions_center_1_d0 = tmp_fu_228_p10;
 
-assign regions_max_0_address0 = zext_ln248_1_fu_238_p1;
+assign regions_max_0_address0 = zext_ln248_fu_268_p1;
 
-assign regions_max_0_d0 = tmp_fu_248_p10;
+assign regions_max_0_d0 = tmp_fu_228_p10;
 
-assign regions_max_1_address0 = zext_ln248_1_fu_238_p1;
+assign regions_max_1_address0 = zext_ln248_fu_268_p1;
 
-assign regions_max_1_d0 = tmp_fu_248_p10;
+assign regions_max_1_d0 = tmp_fu_228_p10;
 
-assign regions_min_0_address0 = zext_ln248_1_fu_238_p1;
+assign regions_min_0_address0 = zext_ln248_fu_268_p1;
 
-assign regions_min_0_d0 = tmp_fu_248_p10;
+assign regions_min_0_d0 = tmp_fu_228_p10;
 
-assign regions_min_1_address0 = zext_ln248_1_fu_238_p1;
+assign regions_min_1_address0 = zext_ln248_fu_268_p1;
 
-assign regions_min_1_d0 = tmp_fu_248_p10;
+assign regions_min_1_d0 = tmp_fu_228_p10;
 
-assign zext_ln248_1_fu_238_p1 = add_ln248_fu_232_p2;
+assign tmp_s_fu_260_p3 = {{tmp_121}, {trunc_ln248_fu_256_p1}};
 
-assign zext_ln248_fu_228_p1 = ap_sig_allocacmp_i;
+assign trunc_ln248_fu_256_p1 = ap_sig_allocacmp_i[2:0];
+
+assign zext_ln248_fu_268_p1 = tmp_s_fu_260_p3;
 
 endmodule //run_insert_point_Pipeline_insert_point_label4

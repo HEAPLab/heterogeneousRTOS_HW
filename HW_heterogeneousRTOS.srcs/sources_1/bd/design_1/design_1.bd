@@ -39,6 +39,7 @@
       "aximvoter_0": "",
       "axisvoter_0": "",
       "processing_system7_0": "",
+      "axis_protocol_checker_0": "",
       "run_0": ""
     },
     "interface_ports": {
@@ -3037,6 +3038,12 @@
           }
         }
       },
+      "axis_protocol_checker_0": {
+        "vlnv": "xilinx.com:ip:axis_protocol_checker:2.0",
+        "xci_name": "design_1_axis_protocol_checker_0_0",
+        "xci_path": "ip/design_1_axis_protocol_checker_0_0/design_1_axis_protocol_checker_0_0.xci",
+        "inst_hier_path": "axis_protocol_checker_0"
+      },
       "run_0": {
         "vlnv": "xilinx.com:hls:run:1.0",
         "xci_name": "design_1_run_0_1",
@@ -3049,16 +3056,16 @@
             "address_space_ref": "Data_m_axi_gmem",
             "base_address": {
               "minimum": "0x00000000",
-              "maximum": "0xFFFFFFFFFFFFFFFF",
-              "width": "64"
+              "maximum": "0xFFFFFFFF",
+              "width": "32"
             }
           }
         },
         "addressing": {
           "address_spaces": {
             "Data_m_axi_gmem": {
-              "range": "16E",
-              "width": "64"
+              "range": "4G",
+              "width": "32"
             }
           }
         }
@@ -3131,6 +3138,12 @@
           "run_0/s_axi_control"
         ]
       },
+      "run_0_toScheduler": {
+        "interface_ports": [
+          "run_0/toScheduler",
+          "axis_protocol_checker_0/PC_AXIS"
+        ]
+      },
       "scheduler_0_M_AXI": {
         "interface_ports": [
           "aximvoter_0/S00_AXI_IN",
@@ -3188,6 +3201,7 @@
           "axi_mem_intercon/S01_ACLK",
           "processing_system7_0/M_AXI_GP0_ACLK",
           "processing_system7_0/S_AXI_HP0_ACLK",
+          "axis_protocol_checker_0/aclk",
           "run_0/ap_clk"
         ]
       },
@@ -3225,6 +3239,7 @@
           "axisvoter_0/m02_axi_in_aresetn",
           "ps7_0_axi_periph/M01_ARESETN",
           "axi_mem_intercon/S01_ARESETN",
+          "axis_protocol_checker_0/aresetn",
           "run_0/ap_rst_n"
         ]
       },
@@ -3365,7 +3380,7 @@
             "segments": {
               "SEG_processing_system7_0_HP0_DDR_LOWOCM": {
                 "address_block": "/processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM",
-                "offset": "0x0000000000000000",
+                "offset": "0x00000000",
                 "range": "512M"
               }
             }
