@@ -48,7 +48,7 @@
 
 
 // IP VLNV: xilinx.com:hls:run:1.0
-// IP Revision: 2112711012
+// IP Revision: 2112712550
 
 `timescale 1ns/1ps
 
@@ -109,10 +109,7 @@ module design_1_run_0_1 (
   m_axi_gmem_RRESP,
   m_axi_gmem_RLAST,
   m_axi_gmem_RVALID,
-  m_axi_gmem_RREADY,
-  toScheduler_TVALID,
-  toScheduler_TREADY,
-  toScheduler_TDATA
+  m_axi_gmem_RREADY
 );
 
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 s_axi_control AWADDR" *)
@@ -151,7 +148,7 @@ output wire s_axi_control_RVALID;
 HREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 s_axi_control RREADY" *)
 input wire s_axi_control_RREADY;
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME ap_clk, ASSOCIATED_BUSIF s_axi_control:m_axi_gmem:toScheduler, ASSOCIATED_RESET ap_rst_n, FREQ_HZ 50000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *)
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME ap_clk, ASSOCIATED_BUSIF s_axi_control:m_axi_gmem, ASSOCIATED_RESET ap_rst_n, FREQ_HZ 50000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 ap_clk CLK" *)
 input wire ap_clk;
 (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME ap_rst_n, POLARITY ACTIVE_LOW, INSERT_VIP 0" *)
@@ -161,7 +158,7 @@ input wire ap_rst_n;
 (* X_INTERFACE_INFO = "xilinx.com:signal:interrupt:1.0 interrupt INTERRUPT" *)
 output wire interrupt;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi_gmem AWADDR" *)
-output wire [31 : 0] m_axi_gmem_AWADDR;
+output wire [63 : 0] m_axi_gmem_AWADDR;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi_gmem AWLEN" *)
 output wire [7 : 0] m_axi_gmem_AWLEN;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi_gmem AWSIZE" *)
@@ -199,7 +196,7 @@ input wire m_axi_gmem_BVALID;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi_gmem BREADY" *)
 output wire m_axi_gmem_BREADY;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi_gmem ARADDR" *)
-output wire [31 : 0] m_axi_gmem_ARADDR;
+output wire [63 : 0] m_axi_gmem_ARADDR;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi_gmem ARLEN" *)
 output wire [7 : 0] m_axi_gmem_ARLEN;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi_gmem ARSIZE" *)
@@ -228,17 +225,10 @@ input wire [1 : 0] m_axi_gmem_RRESP;
 input wire m_axi_gmem_RLAST;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi_gmem RVALID" *)
 input wire m_axi_gmem_RVALID;
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME m_axi_gmem, NUM_READ_OUTSTANDING 16, NUM_WRITE_OUTSTANDING 16, MAX_READ_BURST_LENGTH 16, MAX_WRITE_BURST_LENGTH 16, MAX_BURST_LENGTH 256, PROTOCOL AXI4, READ_WRITE_MODE READ_ONLY, HAS_BURST 0, SUPPORTS_NARROW_BURST 0, DATA_WIDTH 512, FREQ_HZ 50000000, ID_WIDTH 0, ADDR_WIDTH 32, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, HAS_LOCK 1, HAS_PROT 1, HAS_CACHE 1, HAS_QOS 1, HAS_REGION 1, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, PHASE 0.0, CLK_DOMAIN des\
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME m_axi_gmem, NUM_READ_OUTSTANDING 16, NUM_WRITE_OUTSTANDING 16, MAX_READ_BURST_LENGTH 16, MAX_WRITE_BURST_LENGTH 16, MAX_BURST_LENGTH 256, PROTOCOL AXI4, READ_WRITE_MODE READ_ONLY, HAS_BURST 0, SUPPORTS_NARROW_BURST 0, DATA_WIDTH 512, FREQ_HZ 50000000, ID_WIDTH 0, ADDR_WIDTH 64, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, HAS_LOCK 1, HAS_PROT 1, HAS_CACHE 1, HAS_QOS 1, HAS_REGION 1, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, PHASE 0.0, CLK_DOMAIN des\
 ign_1_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi_gmem RREADY" *)
 output wire m_axi_gmem_RREADY;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 toScheduler TVALID" *)
-output wire toScheduler_TVALID;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 toScheduler TREADY" *)
-input wire toScheduler_TREADY;
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME toScheduler, TDATA_NUM_BYTES 1, TUSER_WIDTH 0, TDEST_WIDTH 0, TID_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 0, FREQ_HZ 50000000, PHASE 0.0, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *)
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 toScheduler TDATA" *)
-output wire [7 : 0] toScheduler_TDATA;
 
 (* SDX_KERNEL = "true" *)
 (* SDX_KERNEL_TYPE = "hls" *)
@@ -247,7 +237,7 @@ output wire [7 : 0] toScheduler_TDATA;
     .C_S_AXI_CONTROL_ADDR_WIDTH(18),
     .C_S_AXI_CONTROL_DATA_WIDTH(32),
     .C_M_AXI_GMEM_ID_WIDTH(1),
-    .C_M_AXI_GMEM_ADDR_WIDTH(32),
+    .C_M_AXI_GMEM_ADDR_WIDTH(64),
     .C_M_AXI_GMEM_DATA_WIDTH(512),
     .C_M_AXI_GMEM_AWUSER_WIDTH(1),
     .C_M_AXI_GMEM_ARUSER_WIDTH(1),
@@ -322,9 +312,6 @@ output wire [7 : 0] toScheduler_TDATA;
     .m_axi_gmem_RLAST(m_axi_gmem_RLAST),
     .m_axi_gmem_RUSER(1'B0),
     .m_axi_gmem_RVALID(m_axi_gmem_RVALID),
-    .m_axi_gmem_RREADY(m_axi_gmem_RREADY),
-    .toScheduler_TVALID(toScheduler_TVALID),
-    .toScheduler_TREADY(toScheduler_TREADY),
-    .toScheduler_TDATA(toScheduler_TDATA)
+    .m_axi_gmem_RREADY(m_axi_gmem_RREADY)
   );
 endmodule
