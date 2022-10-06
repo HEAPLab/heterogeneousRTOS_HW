@@ -1,42 +1,42 @@
 {
    "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.598309",
-   "Default View_TopLeft":"964,-10",
+   "Default View_ScaleFactor":"1.11648",
+   "Default View_TopLeft":"1255,107",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
 #  -string -flagsOSRD
-preplace port DDR -pg 1 -lvl 8 -x 2780 -y 220 -defaultsOSRD
-preplace port FIXED_IO -pg 1 -lvl 8 -x 2780 -y 240 -defaultsOSRD
-preplace port port-id_LD0 -pg 1 -lvl 8 -x 2780 -y 550 -defaultsOSRD
-preplace port port-id_LD1 -pg 1 -lvl 8 -x 2780 -y 570 -defaultsOSRD
-preplace port port-id_LD2 -pg 1 -lvl 8 -x 2780 -y 590 -defaultsOSRD
-preplace port port-id_LD3 -pg 1 -lvl 8 -x 2780 -y 610 -defaultsOSRD
-preplace port port-id_LD4 -pg 1 -lvl 8 -x 2780 -y 630 -defaultsOSRD
-preplace port port-id_LD5 -pg 1 -lvl 8 -x 2780 -y 650 -defaultsOSRD
-preplace port port-id_LD6 -pg 1 -lvl 8 -x 2780 -y 670 -defaultsOSRD
-preplace port port-id_LD7 -pg 1 -lvl 8 -x 2780 -y 690 -defaultsOSRD
+preplace port DDR -pg 1 -lvl 8 -x 2860 -y 220 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -lvl 8 -x 2860 -y 240 -defaultsOSRD
+preplace port port-id_LD0 -pg 1 -lvl 8 -x 2860 -y 550 -defaultsOSRD
+preplace port port-id_LD1 -pg 1 -lvl 8 -x 2860 -y 570 -defaultsOSRD
+preplace port port-id_LD2 -pg 1 -lvl 8 -x 2860 -y 590 -defaultsOSRD
+preplace port port-id_LD3 -pg 1 -lvl 8 -x 2860 -y 610 -defaultsOSRD
+preplace port port-id_LD4 -pg 1 -lvl 8 -x 2860 -y 630 -defaultsOSRD
+preplace port port-id_LD5 -pg 1 -lvl 8 -x 2860 -y 650 -defaultsOSRD
+preplace port port-id_LD6 -pg 1 -lvl 8 -x 2860 -y 670 -defaultsOSRD
+preplace port port-id_LD7 -pg 1 -lvl 8 -x 2860 -y 690 -defaultsOSRD
 preplace inst ps7_0_axi_periph -pg 1 -lvl 2 -x 530 -y 310 -defaultsOSRD
 preplace inst rst_ps7_0_100M -pg 1 -lvl 1 -x 190 -y 550 -defaultsOSRD
-preplace inst axi_mem_intercon -pg 1 -lvl 6 -x 2120 -y 280 -defaultsOSRD
+preplace inst axi_mem_intercon -pg 1 -lvl 6 -x 2200 -y 280 -defaultsOSRD
 preplace inst scheduler_1 -pg 1 -lvl 4 -x 1240 -y 170 -defaultsOSRD
 preplace inst scheduler_0 -pg 1 -lvl 4 -x 1240 -y 970 -defaultsOSRD
 preplace inst scheduler_2 -pg 1 -lvl 4 -x 1240 -y 580 -defaultsOSRD
-preplace inst aximvoter_0 -pg 1 -lvl 5 -x 1750 -y 840 -defaultsOSRD
+preplace inst aximvoter_0 -pg 1 -lvl 5 -x 1740 -y 840 -defaultsOSRD
 preplace inst axisvoter_0 -pg 1 -lvl 3 -x 860 -y 480 -defaultsOSRD
-preplace inst processing_system7_0 -pg 1 -lvl 7 -x 2510 -y 300 -defaultsOSRD
-preplace inst run_0 -pg 1 -lvl 5 -x 1750 -y 350 -defaultsOSRD
-preplace netloc aximvoter_0_intr_out 1 5 2 1960 440 2270J
-preplace netloc processing_system7_0_FCLK_CLK0 1 0 8 0 440 370 460 690 310 1030 420 1510 430 1960 430 2280 440 2760
-preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 8 10 450 NJ 450 710J 340 NJ 340 1520J 450 NJ 450 NJ 450 2740
-preplace netloc rst_ps7_0_100M_peripheral_aresetn 1 1 5 380 470 700 330 1040 370 1470 440 1950
+preplace inst processing_system7_0 -pg 1 -lvl 7 -x 2590 -y 300 -defaultsOSRD
+preplace inst run_0 -pg 1 -lvl 5 -x 1740 -y 350 -defaultsOSRD
+preplace netloc aximvoter_0_intr_out 1 5 2 1960 430 2360J
+preplace netloc processing_system7_0_FCLK_CLK0 1 0 8 0 440 370 460 690 620 1030 420 1510 430 1920 130 2360 160 2820
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 8 10 450 NJ 450 680J 340 NJ 340 1520J 440 NJ 440 NJ 440 2820
+preplace netloc rst_ps7_0_100M_peripheral_aresetn 1 1 5 380 470 700 630 1040 370 1470 450 1950
 preplace netloc scheduler_0_irq 1 4 1 1560 770n
-preplace netloc scheduler_0_led1 1 4 4 1480 620 N 620 N 620 2760J
+preplace netloc scheduler_0_led1 1 4 4 1480 610 N 610 N 610 NJ
 preplace netloc scheduler_0_led2 1 4 4 1420 630 N 630 N 630 NJ
-preplace netloc scheduler_0_led3 1 4 4 1540 640 N 640 2280 650 NJ
-preplace netloc scheduler_0_led4 1 4 4 1550 650 N 650 2270 670 NJ
-preplace netloc scheduler_0_led5 1 4 4 1520 600 N 600 N 600 2750J
+preplace netloc scheduler_0_led3 1 4 4 1540 640 N 640 2360 650 NJ
+preplace netloc scheduler_0_led4 1 4 4 1550 650 N 650 2350 670 NJ
+preplace netloc scheduler_0_led5 1 4 4 N 1030 1970 690 N 690 NJ
 preplace netloc scheduler_0_readyLed 1 4 4 1430 570 N 570 N 570 NJ
-preplace netloc scheduler_0_runningLed 1 4 4 1450 610 N 610 N 610 2740J
+preplace netloc scheduler_0_runningLed 1 4 4 1450 590 N 590 N 590 NJ
 preplace netloc scheduler_0_uninitializedLed 1 4 4 1410 550 N 550 N 550 NJ
 preplace netloc scheduler_1_irq 1 4 1 1500 270n
 preplace netloc scheduler_2_irq 1 4 1 1440 680n
@@ -48,14 +48,14 @@ preplace netloc axisvoter_0_M01_AXI_IN 1 3 1 1010 110n
 preplace netloc axisvoter_0_M02_AXI_IN 1 3 1 1010 500n
 preplace netloc processing_system7_0_DDR 1 7 1 NJ 220
 preplace netloc processing_system7_0_FIXED_IO 1 7 1 NJ 240
-preplace netloc processing_system7_0_M_AXI_GP0 1 1 7 370 10 NJ 10 NJ 10 NJ 10 NJ 10 NJ 10 2760
-preplace netloc ps7_0_axi_periph_M00_AXI 1 2 1 680 300n
-preplace netloc ps7_0_axi_periph_M01_AXI 1 2 3 N 320 1050J 330 NJ
+preplace netloc processing_system7_0_M_AXI_GP0 1 1 7 370 10 NJ 10 NJ 10 NJ 10 NJ 10 NJ 10 2830
+preplace netloc ps7_0_axi_periph_M00_AXI 1 2 1 700 300n
+preplace netloc ps7_0_axi_periph_M01_AXI 1 2 3 680 330 NJ 330 NJ
 preplace netloc scheduler_0_M_AXI 1 4 1 1490 710n
 preplace netloc scheduler_1_M_AXI 1 4 1 1530 70n
 preplace netloc scheduler_2_M_AXI 1 4 1 1460 480n
-levelinfo -pg 1 -20 190 530 860 1240 1750 2120 2510 2780
-pagesize -pg 1 -db -bbox -sgen -20 -10 2900 1130
+levelinfo -pg 1 -20 190 530 860 1240 1740 2200 2590 2860
+pagesize -pg 1 -db -bbox -sgen -20 -10 2980 1370
 "
 }
 {

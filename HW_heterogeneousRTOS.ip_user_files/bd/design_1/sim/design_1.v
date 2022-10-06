@@ -1,7 +1,7 @@
 //Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-//Date        : Wed Oct  5 22:55:46 2022
+//Date        : Thu Oct  6 23:37:50 2022
 //Host        : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
 //Command     : generate_target design_1.bd
 //Design      : design_1
@@ -886,10 +886,10 @@ module design_1
         .m_axi_gmem_WREADY(S01_AXI_1_WREADY),
         .m_axi_gmem_WSTRB(S01_AXI_1_WSTRB),
         .m_axi_gmem_WVALID(S01_AXI_1_WVALID),
-        .s_axi_control_ARADDR(ps7_0_axi_periph_M01_AXI_ARADDR[17:0]),
+        .s_axi_control_ARADDR(ps7_0_axi_periph_M01_AXI_ARADDR[10:0]),
         .s_axi_control_ARREADY(ps7_0_axi_periph_M01_AXI_ARREADY),
         .s_axi_control_ARVALID(ps7_0_axi_periph_M01_AXI_ARVALID),
-        .s_axi_control_AWADDR(ps7_0_axi_periph_M01_AXI_AWADDR[17:0]),
+        .s_axi_control_AWADDR(ps7_0_axi_periph_M01_AXI_AWADDR[10:0]),
         .s_axi_control_AWREADY(ps7_0_axi_periph_M01_AXI_AWREADY),
         .s_axi_control_AWVALID(ps7_0_axi_periph_M01_AXI_AWVALID),
         .s_axi_control_BREADY(ps7_0_axi_periph_M01_AXI_BREADY),
