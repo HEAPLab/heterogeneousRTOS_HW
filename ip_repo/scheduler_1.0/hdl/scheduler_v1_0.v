@@ -111,7 +111,7 @@
     wire taskWriteDone;
     wire taskWriteStarted;
     wire taskReady;
-	wire taskExecutionFromBeginning;
+	wire [1:0] taskExecutionMode;
     wire [31:0] taskPtr;
     // Instantiation of Axi Bus Interface S_AXI
     scheduler_v1_0_S_AXI # (
@@ -125,7 +125,7 @@
         .taskWriteDone(taskWriteDone),
         .taskWriteStarted(taskWriteStarted),
         .taskReady(taskReady),
-		.taskExecutionFromBeginning(taskExecutionFromBeginning),
+		.taskExecutionMode(taskExecutionMode),
         .taskPtr(taskPtr),
 
         .uninitializedLed(uninitializedLed),
@@ -173,7 +173,7 @@
 
         .TXN_DONE(taskWriteDone),
         .INIT_AXI_TXN(taskReady),
-		.taskExecutionFromBeginning(taskExecutionFromBeginning),
+		.taskExecutionMode(taskExecutionMode),
         .taskPtr(taskPtr),
 
         //.INIT_AXI_TXN(m_axi_init_axi_txn),

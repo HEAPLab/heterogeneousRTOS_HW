@@ -25,7 +25,7 @@
 )
 	(
     // Users to add ports here
-	input wire taskExecutionFromBeginning,
+	input wire [1:0] taskExecutionMode,
     input wire [31:0] taskPtr,
 
     // User ports ends
@@ -103,8 +103,8 @@
         end
     endfunction
 
-    localparam integer C_M_TRANSACTIONS_NUM = 1;
-    localparam integer C_READS_TRANSACTIONS = 1;
+    localparam integer C_M_TRANSACTIONS_NUM = 2;
+//    localparam integer C_READS_TRANSACTIONS = 1;
     // TRANS_NUM_BITS is the width of the index counter for 
     // number of write or read transaction.
     localparam integer TRANS_NUM_BITS = clogb2(C_M_TRANSACTIONS_NUM-1);
@@ -269,7 +269,6 @@
             end
     end
 
-
     // start_single_write triggers a new write                                   
     // transaction. write_index is a counter to                                  
     // keep track with number of write transaction                               
@@ -292,7 +291,11 @@
                     axi_awaddr = 32'h0;
                     axi_wdata = taskPtr;
                 end
-                default: axi_awaddr=0;
+                2: begin
+                    axi_awaddr=32'h4;
+                    axi_wdata={30'h0, taskExecutionMode};
+                end
+                //default: axi_awaddr=0;
             endcase
         end
     end

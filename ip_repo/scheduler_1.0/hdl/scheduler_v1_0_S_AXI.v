@@ -68,7 +68,7 @@ module scheduler_v1_0_S_AXI #
     input wire taskWriteDone,
     input wire taskWriteStarted,
     output reg taskReady,
-    output reg taskExecutionFromBeginning,
+    output reg [1:0] taskExecutionMode,
     output reg [31:0] taskPtr,
 
 
@@ -227,6 +227,8 @@ module scheduler_v1_0_S_AXI #
     localparam [OPT_MEM_ADDR_BITS:0] maxAddrWCETsList=maxAddrTCBPtrsList+(maxTasks*WCETSIZEINWORDS);
     localparam [OPT_MEM_ADDR_BITS:0] maxAddrDeadlinesList=maxAddrWCETsList+(maxTasks*DEADLINESIZEINWORDS);
     localparam [OPT_MEM_ADDR_BITS:0] maxAddrPeriodsList=maxAddrDeadlinesList+(maxTasks*PERIODSIZEINWORDS);
+
+    localparam [1:0] TASKEXECUTIONMODE_NORMAL=1'h0, TASKEXECUTIONMODE_REEXECUTION_TIMING=1'h1, TASKEXECUTIONMODE_REEXECUTION_FAULT=1'h2;
 
     reg[C_S_AXI_DATA_WIDTH-1:0] TCBPtrsList [(maxTasks*TCBPTRSIZEINWORDS)-1:0];
     reg[C_S_AXI_DATA_WIDTH-1:0] WCETsList [(maxTasks*WCETSIZEINWORDS)-1:0]; //ready queue index ordered by deadline ascending
@@ -1345,7 +1347,7 @@ module scheduler_v1_0_S_AXI #
                     begin
                         nextRunningTaskIndex<=HighestPriorityTaskIndex;
                         taskPtr<=TCBPtrsList[HighestPriorityTaskIndex];
-                        taskExecutionFromBeginning <= executionTimes[HighestPriorityTaskIndex]==0;
+                        taskExecutionMode <= executionTimes[HighestPriorityTaskIndex]!=0 ? TASKEXECUTIONMODE_NORMAL : TASKEXECUTIONMODE_REEXECUTION_TIMING;
                         taskReady<=1'b1;
 
                         waitingAck<=1'b1;
