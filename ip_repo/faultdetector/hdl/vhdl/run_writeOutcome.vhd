@@ -15,61 +15,28 @@ port (
     ap_rst : IN STD_LOGIC;
     ap_start : IN STD_LOGIC;
     ap_done : OUT STD_LOGIC;
-    ap_continue : IN STD_LOGIC;
     ap_idle : OUT STD_LOGIC;
     ap_ready : OUT STD_LOGIC;
     errorInTask_address0 : OUT STD_LOGIC_VECTOR (3 downto 0);
     errorInTask_ce0 : OUT STD_LOGIC;
     errorInTask_we0 : OUT STD_LOGIC;
-    errorInTask_d0 : OUT STD_LOGIC_VECTOR (0 downto 0);
-    p_read : IN STD_LOGIC_VECTOR (3 downto 0);
-    p_read1 : IN STD_LOGIC_VECTOR (7 downto 0);
-    p_read2 : IN STD_LOGIC_VECTOR (15 downto 0);
-    p_read3 : IN STD_LOGIC_VECTOR (0 downto 0);
+    errorInTask_d0 : OUT STD_LOGIC_VECTOR (7 downto 0);
+    errorInTask1 : IN STD_LOGIC_VECTOR (3 downto 0);
+    checkId : IN STD_LOGIC_VECTOR (7 downto 0);
+    uniId : IN STD_LOGIC_VECTOR (15 downto 0);
+    error : IN STD_LOGIC_VECTOR (0 downto 0);
     outcomeInRam_address0 : OUT STD_LOGIC_VECTOR (3 downto 0);
     outcomeInRam_ce0 : OUT STD_LOGIC;
     outcomeInRam_we0 : OUT STD_LOGIC_VECTOR (35 downto 0);
     outcomeInRam_d0 : OUT STD_LOGIC_VECTOR (287 downto 0);
-    contr_AOV_dout : IN STD_LOGIC_VECTOR (31 downto 0);
-    contr_AOV_num_data_valid : IN STD_LOGIC_VECTOR (1 downto 0);
-    contr_AOV_fifo_cap : IN STD_LOGIC_VECTOR (1 downto 0);
-    contr_AOV_empty_n : IN STD_LOGIC;
-    contr_AOV_read : OUT STD_LOGIC;
-    contr_AOV_1_dout : IN STD_LOGIC_VECTOR (31 downto 0);
-    contr_AOV_1_num_data_valid : IN STD_LOGIC_VECTOR (1 downto 0);
-    contr_AOV_1_fifo_cap : IN STD_LOGIC_VECTOR (1 downto 0);
-    contr_AOV_1_empty_n : IN STD_LOGIC;
-    contr_AOV_1_read : OUT STD_LOGIC;
-    contr_AOV_2_dout : IN STD_LOGIC_VECTOR (31 downto 0);
-    contr_AOV_2_num_data_valid : IN STD_LOGIC_VECTOR (1 downto 0);
-    contr_AOV_2_fifo_cap : IN STD_LOGIC_VECTOR (1 downto 0);
-    contr_AOV_2_empty_n : IN STD_LOGIC;
-    contr_AOV_2_read : OUT STD_LOGIC;
-    contr_AOV_3_dout : IN STD_LOGIC_VECTOR (31 downto 0);
-    contr_AOV_3_num_data_valid : IN STD_LOGIC_VECTOR (1 downto 0);
-    contr_AOV_3_fifo_cap : IN STD_LOGIC_VECTOR (1 downto 0);
-    contr_AOV_3_empty_n : IN STD_LOGIC;
-    contr_AOV_3_read : OUT STD_LOGIC;
-    contr_AOV_4_dout : IN STD_LOGIC_VECTOR (31 downto 0);
-    contr_AOV_4_num_data_valid : IN STD_LOGIC_VECTOR (1 downto 0);
-    contr_AOV_4_fifo_cap : IN STD_LOGIC_VECTOR (1 downto 0);
-    contr_AOV_4_empty_n : IN STD_LOGIC;
-    contr_AOV_4_read : OUT STD_LOGIC;
-    contr_AOV_5_dout : IN STD_LOGIC_VECTOR (31 downto 0);
-    contr_AOV_5_num_data_valid : IN STD_LOGIC_VECTOR (1 downto 0);
-    contr_AOV_5_fifo_cap : IN STD_LOGIC_VECTOR (1 downto 0);
-    contr_AOV_5_empty_n : IN STD_LOGIC;
-    contr_AOV_5_read : OUT STD_LOGIC;
-    contr_AOV_6_dout : IN STD_LOGIC_VECTOR (31 downto 0);
-    contr_AOV_6_num_data_valid : IN STD_LOGIC_VECTOR (1 downto 0);
-    contr_AOV_6_fifo_cap : IN STD_LOGIC_VECTOR (1 downto 0);
-    contr_AOV_6_empty_n : IN STD_LOGIC;
-    contr_AOV_6_read : OUT STD_LOGIC;
-    contr_AOV_7_dout : IN STD_LOGIC_VECTOR (31 downto 0);
-    contr_AOV_7_num_data_valid : IN STD_LOGIC_VECTOR (1 downto 0);
-    contr_AOV_7_fifo_cap : IN STD_LOGIC_VECTOR (1 downto 0);
-    contr_AOV_7_empty_n : IN STD_LOGIC;
-    contr_AOV_7_read : OUT STD_LOGIC );
+    p_read : IN STD_LOGIC_VECTOR (31 downto 0);
+    p_read1 : IN STD_LOGIC_VECTOR (31 downto 0);
+    p_read2 : IN STD_LOGIC_VECTOR (31 downto 0);
+    p_read3 : IN STD_LOGIC_VECTOR (31 downto 0);
+    p_read4 : IN STD_LOGIC_VECTOR (31 downto 0);
+    p_read5 : IN STD_LOGIC_VECTOR (31 downto 0);
+    p_read6 : IN STD_LOGIC_VECTOR (31 downto 0);
+    p_read7 : IN STD_LOGIC_VECTOR (31 downto 0) );
 end;
 
 
@@ -84,8 +51,8 @@ architecture behav of run_writeOutcome is
     constant ap_ST_fsm_state6 : STD_LOGIC_VECTOR (7 downto 0) := "00100000";
     constant ap_ST_fsm_state7 : STD_LOGIC_VECTOR (7 downto 0) := "01000000";
     constant ap_ST_fsm_state8 : STD_LOGIC_VECTOR (7 downto 0) := "10000000";
-    constant ap_const_lv32_0 : STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000000";
     constant ap_const_boolean_1 : BOOLEAN := true;
+    constant ap_const_lv32_0 : STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000000";
     constant ap_const_lv32_2 : STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000010";
     constant ap_const_lv32_3 : STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000011";
     constant ap_const_lv32_4 : STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000100";
@@ -106,44 +73,27 @@ architecture behav of run_writeOutcome is
     constant ap_const_lv8_0 : STD_LOGIC_VECTOR (7 downto 0) := "00000000";
 
 attribute shreg_extract : string;
-    signal ap_done_reg : STD_LOGIC := '0';
     signal ap_CS_fsm : STD_LOGIC_VECTOR (7 downto 0) := "00000001";
     attribute fsm_encoding : string;
     attribute fsm_encoding of ap_CS_fsm : signal is "none";
     signal ap_CS_fsm_state1 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state1 : signal is "none";
-    signal contr_AOV_blk_n : STD_LOGIC;
-    signal contr_AOV_1_blk_n : STD_LOGIC;
-    signal contr_AOV_2_blk_n : STD_LOGIC;
-    signal contr_AOV_3_blk_n : STD_LOGIC;
-    signal contr_AOV_4_blk_n : STD_LOGIC;
-    signal contr_AOV_5_blk_n : STD_LOGIC;
-    signal contr_AOV_6_blk_n : STD_LOGIC;
-    signal contr_AOV_7_blk_n : STD_LOGIC;
-    signal contr_AOV_7_read_reg_350 : STD_LOGIC_VECTOR (31 downto 0);
-    signal contr_AOV_6_read_reg_355 : STD_LOGIC_VECTOR (31 downto 0);
-    signal contr_AOV_5_read_reg_360 : STD_LOGIC_VECTOR (31 downto 0);
-    signal contr_AOV_4_read_reg_365 : STD_LOGIC_VECTOR (31 downto 0);
-    signal contr_AOV_3_read_reg_370 : STD_LOGIC_VECTOR (31 downto 0);
-    signal contr_AOV_2_read_reg_375 : STD_LOGIC_VECTOR (31 downto 0);
-    signal contr_AOV_1_read_reg_380 : STD_LOGIC_VECTOR (31 downto 0);
-    signal contr_AOV_read_reg_385 : STD_LOGIC_VECTOR (31 downto 0);
     signal ap_CS_fsm_state3 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state3 : signal is "none";
     signal outcome_AOV_q1 : STD_LOGIC_VECTOR (31 downto 0);
-    signal outcome_AOV_load_reg_400 : STD_LOGIC_VECTOR (31 downto 0);
+    signal outcome_AOV_load_reg_394 : STD_LOGIC_VECTOR (31 downto 0);
     signal ap_CS_fsm_state4 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state4 : signal is "none";
     signal outcome_AOV_q0 : STD_LOGIC_VECTOR (31 downto 0);
-    signal outcome_AOV_load_1_reg_405 : STD_LOGIC_VECTOR (31 downto 0);
-    signal outcome_AOV_load_2_reg_420 : STD_LOGIC_VECTOR (31 downto 0);
+    signal outcome_AOV_load_1_reg_399 : STD_LOGIC_VECTOR (31 downto 0);
+    signal outcome_AOV_load_2_reg_414 : STD_LOGIC_VECTOR (31 downto 0);
     signal ap_CS_fsm_state5 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state5 : signal is "none";
-    signal outcome_AOV_load_3_reg_425 : STD_LOGIC_VECTOR (31 downto 0);
-    signal outcome_AOV_load_4_reg_440 : STD_LOGIC_VECTOR (31 downto 0);
+    signal outcome_AOV_load_3_reg_419 : STD_LOGIC_VECTOR (31 downto 0);
+    signal outcome_AOV_load_4_reg_434 : STD_LOGIC_VECTOR (31 downto 0);
     signal ap_CS_fsm_state6 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state6 : signal is "none";
-    signal outcome_AOV_load_5_reg_445 : STD_LOGIC_VECTOR (31 downto 0);
+    signal outcome_AOV_load_5_reg_439 : STD_LOGIC_VECTOR (31 downto 0);
     signal ap_CS_fsm_state7 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state7 : signal is "none";
     signal outcome_AOV_address0 : STD_LOGIC_VECTOR (2 downto 0);
@@ -151,30 +101,28 @@ attribute shreg_extract : string;
     signal outcome_AOV_we0 : STD_LOGIC;
     signal outcome_AOV_address1 : STD_LOGIC_VECTOR (2 downto 0);
     signal outcome_AOV_ce1 : STD_LOGIC;
-    signal grp_writeOutcome_Pipeline_1_fu_270_ap_start : STD_LOGIC;
-    signal grp_writeOutcome_Pipeline_1_fu_270_ap_done : STD_LOGIC;
-    signal grp_writeOutcome_Pipeline_1_fu_270_ap_idle : STD_LOGIC;
-    signal grp_writeOutcome_Pipeline_1_fu_270_ap_ready : STD_LOGIC;
-    signal grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_address0 : STD_LOGIC_VECTOR (2 downto 0);
-    signal grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_ce0 : STD_LOGIC;
-    signal grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_we0 : STD_LOGIC;
-    signal grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_d0 : STD_LOGIC_VECTOR (31 downto 0);
-    signal grp_writeOutcome_Pipeline_1_fu_270_ap_start_reg : STD_LOGIC := '0';
-    signal ap_block_state1_ignore_call27 : BOOLEAN;
+    signal grp_writeOutcome_Pipeline_1_fu_259_ap_start : STD_LOGIC;
+    signal grp_writeOutcome_Pipeline_1_fu_259_ap_done : STD_LOGIC;
+    signal grp_writeOutcome_Pipeline_1_fu_259_ap_idle : STD_LOGIC;
+    signal grp_writeOutcome_Pipeline_1_fu_259_ap_ready : STD_LOGIC;
+    signal grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_address0 : STD_LOGIC_VECTOR (2 downto 0);
+    signal grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_ce0 : STD_LOGIC;
+    signal grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_we0 : STD_LOGIC;
+    signal grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_d0 : STD_LOGIC_VECTOR (31 downto 0);
+    signal grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg : STD_LOGIC := '0';
     signal ap_CS_fsm_state2 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state2 : signal is "none";
-    signal errorInTask1_cast_i_fu_345_p1 : STD_LOGIC_VECTOR (63 downto 0);
+    signal errorInTask1_cast_fu_334_p1 : STD_LOGIC_VECTOR (63 downto 0);
     signal ap_CS_fsm_state8 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state8 : signal is "none";
-    signal ap_block_state1 : BOOLEAN;
-    signal empty_51_fu_314_p1 : STD_LOGIC_VECTOR (31 downto 0);
-    signal empty_50_fu_310_p1 : STD_LOGIC_VECTOR (31 downto 0);
-    signal empty_49_fu_307_p1 : STD_LOGIC_VECTOR (31 downto 0);
-    signal empty_48_fu_304_p1 : STD_LOGIC_VECTOR (31 downto 0);
-    signal empty_47_fu_301_p1 : STD_LOGIC_VECTOR (31 downto 0);
-    signal empty_46_fu_298_p1 : STD_LOGIC_VECTOR (31 downto 0);
-    signal empty_45_fu_295_p1 : STD_LOGIC_VECTOR (31 downto 0);
-    signal empty_fu_292_p1 : STD_LOGIC_VECTOR (31 downto 0);
+    signal empty_53_fu_303_p1 : STD_LOGIC_VECTOR (31 downto 0);
+    signal empty_52_fu_299_p1 : STD_LOGIC_VECTOR (31 downto 0);
+    signal empty_51_fu_296_p1 : STD_LOGIC_VECTOR (31 downto 0);
+    signal empty_50_fu_293_p1 : STD_LOGIC_VECTOR (31 downto 0);
+    signal empty_49_fu_290_p1 : STD_LOGIC_VECTOR (31 downto 0);
+    signal empty_48_fu_287_p1 : STD_LOGIC_VECTOR (31 downto 0);
+    signal empty_47_fu_284_p1 : STD_LOGIC_VECTOR (31 downto 0);
+    signal empty_fu_281_p1 : STD_LOGIC_VECTOR (31 downto 0);
     signal ap_NS_fsm : STD_LOGIC_VECTOR (7 downto 0);
     signal ap_ST_fsm_state1_blk : STD_LOGIC;
     signal ap_ST_fsm_state2_blk : STD_LOGIC;
@@ -194,14 +142,14 @@ attribute shreg_extract : string;
         ap_done : OUT STD_LOGIC;
         ap_idle : OUT STD_LOGIC;
         ap_ready : OUT STD_LOGIC;
-        contr_AOV_load : IN STD_LOGIC_VECTOR (31 downto 0);
-        contr_AOV_1_load : IN STD_LOGIC_VECTOR (31 downto 0);
-        contr_AOV_2_load : IN STD_LOGIC_VECTOR (31 downto 0);
-        contr_AOV_3_load : IN STD_LOGIC_VECTOR (31 downto 0);
-        contr_AOV_4_load : IN STD_LOGIC_VECTOR (31 downto 0);
-        contr_AOV_5_load : IN STD_LOGIC_VECTOR (31 downto 0);
-        contr_AOV_6_load : IN STD_LOGIC_VECTOR (31 downto 0);
-        contr_AOV_7_load : IN STD_LOGIC_VECTOR (31 downto 0);
+        p_read : IN STD_LOGIC_VECTOR (31 downto 0);
+        p_read1 : IN STD_LOGIC_VECTOR (31 downto 0);
+        p_read2 : IN STD_LOGIC_VECTOR (31 downto 0);
+        p_read3 : IN STD_LOGIC_VECTOR (31 downto 0);
+        p_read4 : IN STD_LOGIC_VECTOR (31 downto 0);
+        p_read5 : IN STD_LOGIC_VECTOR (31 downto 0);
+        p_read6 : IN STD_LOGIC_VECTOR (31 downto 0);
+        p_read7 : IN STD_LOGIC_VECTOR (31 downto 0);
         outcome_AOV_address0 : OUT STD_LOGIC_VECTOR (2 downto 0);
         outcome_AOV_ce0 : OUT STD_LOGIC;
         outcome_AOV_we0 : OUT STD_LOGIC;
@@ -241,32 +189,32 @@ begin
         address0 => outcome_AOV_address0,
         ce0 => outcome_AOV_ce0,
         we0 => outcome_AOV_we0,
-        d0 => grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_d0,
+        d0 => grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_d0,
         q0 => outcome_AOV_q0,
         address1 => outcome_AOV_address1,
         ce1 => outcome_AOV_ce1,
         q1 => outcome_AOV_q1);
 
-    grp_writeOutcome_Pipeline_1_fu_270 : component run_writeOutcome_Pipeline_1
+    grp_writeOutcome_Pipeline_1_fu_259 : component run_writeOutcome_Pipeline_1
     port map (
         ap_clk => ap_clk,
         ap_rst => ap_rst,
-        ap_start => grp_writeOutcome_Pipeline_1_fu_270_ap_start,
-        ap_done => grp_writeOutcome_Pipeline_1_fu_270_ap_done,
-        ap_idle => grp_writeOutcome_Pipeline_1_fu_270_ap_idle,
-        ap_ready => grp_writeOutcome_Pipeline_1_fu_270_ap_ready,
-        contr_AOV_load => contr_AOV_read_reg_385,
-        contr_AOV_1_load => contr_AOV_1_read_reg_380,
-        contr_AOV_2_load => contr_AOV_2_read_reg_375,
-        contr_AOV_3_load => contr_AOV_3_read_reg_370,
-        contr_AOV_4_load => contr_AOV_4_read_reg_365,
-        contr_AOV_5_load => contr_AOV_5_read_reg_360,
-        contr_AOV_6_load => contr_AOV_6_read_reg_355,
-        contr_AOV_7_load => contr_AOV_7_read_reg_350,
-        outcome_AOV_address0 => grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_address0,
-        outcome_AOV_ce0 => grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_ce0,
-        outcome_AOV_we0 => grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_we0,
-        outcome_AOV_d0 => grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_d0);
+        ap_start => grp_writeOutcome_Pipeline_1_fu_259_ap_start,
+        ap_done => grp_writeOutcome_Pipeline_1_fu_259_ap_done,
+        ap_idle => grp_writeOutcome_Pipeline_1_fu_259_ap_idle,
+        ap_ready => grp_writeOutcome_Pipeline_1_fu_259_ap_ready,
+        p_read => p_read,
+        p_read1 => p_read1,
+        p_read2 => p_read2,
+        p_read3 => p_read3,
+        p_read4 => p_read4,
+        p_read5 => p_read5,
+        p_read6 => p_read6,
+        p_read7 => p_read7,
+        outcome_AOV_address0 => grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_address0,
+        outcome_AOV_ce0 => grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_ce0,
+        outcome_AOV_we0 => grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_we0,
+        outcome_AOV_d0 => grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_d0);
 
 
 
@@ -284,58 +232,27 @@ begin
     end process;
 
 
-    ap_done_reg_assign_proc : process(ap_clk)
+    grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg_assign_proc : process(ap_clk)
     begin
         if (ap_clk'event and ap_clk =  '1') then
             if (ap_rst = '1') then
-                ap_done_reg <= ap_const_logic_0;
+                grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg <= ap_const_logic_0;
             else
-                if ((ap_continue = ap_const_logic_1)) then 
-                    ap_done_reg <= ap_const_logic_0;
-                elsif ((ap_const_logic_1 = ap_CS_fsm_state8)) then 
-                    ap_done_reg <= ap_const_logic_1;
+                if (((ap_const_logic_1 = ap_CS_fsm_state1) and (ap_start = ap_const_logic_1))) then 
+                    grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg <= ap_const_logic_1;
+                elsif ((grp_writeOutcome_Pipeline_1_fu_259_ap_ready = ap_const_logic_1)) then 
+                    grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg <= ap_const_logic_0;
                 end if; 
             end if;
         end if;
     end process;
 
-
-    grp_writeOutcome_Pipeline_1_fu_270_ap_start_reg_assign_proc : process(ap_clk)
-    begin
-        if (ap_clk'event and ap_clk =  '1') then
-            if (ap_rst = '1') then
-                grp_writeOutcome_Pipeline_1_fu_270_ap_start_reg <= ap_const_logic_0;
-            else
-                if ((not(((contr_AOV_7_empty_n = ap_const_logic_0) or (contr_AOV_6_empty_n = ap_const_logic_0) or (contr_AOV_5_empty_n = ap_const_logic_0) or (contr_AOV_4_empty_n = ap_const_logic_0) or (contr_AOV_3_empty_n = ap_const_logic_0) or (contr_AOV_2_empty_n = ap_const_logic_0) or (contr_AOV_1_empty_n = ap_const_logic_0) or (contr_AOV_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1) or (ap_start = ap_const_logic_0))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
-                    grp_writeOutcome_Pipeline_1_fu_270_ap_start_reg <= ap_const_logic_1;
-                elsif ((grp_writeOutcome_Pipeline_1_fu_270_ap_ready = ap_const_logic_1)) then 
-                    grp_writeOutcome_Pipeline_1_fu_270_ap_start_reg <= ap_const_logic_0;
-                end if; 
-            end if;
-        end if;
-    end process;
-
-    process (ap_clk)
-    begin
-        if (ap_clk'event and ap_clk = '1') then
-            if ((ap_const_logic_1 = ap_CS_fsm_state1)) then
-                contr_AOV_1_read_reg_380 <= contr_AOV_1_dout;
-                contr_AOV_2_read_reg_375 <= contr_AOV_2_dout;
-                contr_AOV_3_read_reg_370 <= contr_AOV_3_dout;
-                contr_AOV_4_read_reg_365 <= contr_AOV_4_dout;
-                contr_AOV_5_read_reg_360 <= contr_AOV_5_dout;
-                contr_AOV_6_read_reg_355 <= contr_AOV_6_dout;
-                contr_AOV_7_read_reg_350 <= contr_AOV_7_dout;
-                contr_AOV_read_reg_385 <= contr_AOV_dout;
-            end if;
-        end if;
-    end process;
     process (ap_clk)
     begin
         if (ap_clk'event and ap_clk = '1') then
             if ((ap_const_logic_1 = ap_CS_fsm_state4)) then
-                outcome_AOV_load_1_reg_405 <= outcome_AOV_q0;
-                outcome_AOV_load_reg_400 <= outcome_AOV_q1;
+                outcome_AOV_load_1_reg_399 <= outcome_AOV_q0;
+                outcome_AOV_load_reg_394 <= outcome_AOV_q1;
             end if;
         end if;
     end process;
@@ -343,8 +260,8 @@ begin
     begin
         if (ap_clk'event and ap_clk = '1') then
             if ((ap_const_logic_1 = ap_CS_fsm_state5)) then
-                outcome_AOV_load_2_reg_420 <= outcome_AOV_q1;
-                outcome_AOV_load_3_reg_425 <= outcome_AOV_q0;
+                outcome_AOV_load_2_reg_414 <= outcome_AOV_q1;
+                outcome_AOV_load_3_reg_419 <= outcome_AOV_q0;
             end if;
         end if;
     end process;
@@ -352,23 +269,23 @@ begin
     begin
         if (ap_clk'event and ap_clk = '1') then
             if ((ap_const_logic_1 = ap_CS_fsm_state6)) then
-                outcome_AOV_load_4_reg_440 <= outcome_AOV_q1;
-                outcome_AOV_load_5_reg_445 <= outcome_AOV_q0;
+                outcome_AOV_load_4_reg_434 <= outcome_AOV_q1;
+                outcome_AOV_load_5_reg_439 <= outcome_AOV_q0;
             end if;
         end if;
     end process;
 
-    ap_NS_fsm_assign_proc : process (ap_start, ap_done_reg, ap_CS_fsm, ap_CS_fsm_state1, contr_AOV_empty_n, contr_AOV_1_empty_n, contr_AOV_2_empty_n, contr_AOV_3_empty_n, contr_AOV_4_empty_n, contr_AOV_5_empty_n, contr_AOV_6_empty_n, contr_AOV_7_empty_n, grp_writeOutcome_Pipeline_1_fu_270_ap_done, ap_CS_fsm_state2)
+    ap_NS_fsm_assign_proc : process (ap_start, ap_CS_fsm, ap_CS_fsm_state1, grp_writeOutcome_Pipeline_1_fu_259_ap_done, ap_CS_fsm_state2)
     begin
         case ap_CS_fsm is
             when ap_ST_fsm_state1 => 
-                if ((not(((contr_AOV_7_empty_n = ap_const_logic_0) or (contr_AOV_6_empty_n = ap_const_logic_0) or (contr_AOV_5_empty_n = ap_const_logic_0) or (contr_AOV_4_empty_n = ap_const_logic_0) or (contr_AOV_3_empty_n = ap_const_logic_0) or (contr_AOV_2_empty_n = ap_const_logic_0) or (contr_AOV_1_empty_n = ap_const_logic_0) or (contr_AOV_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1) or (ap_start = ap_const_logic_0))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then
+                if (((ap_const_logic_1 = ap_CS_fsm_state1) and (ap_start = ap_const_logic_1))) then
                     ap_NS_fsm <= ap_ST_fsm_state2;
                 else
                     ap_NS_fsm <= ap_ST_fsm_state1;
                 end if;
             when ap_ST_fsm_state2 => 
-                if (((ap_const_logic_1 = ap_CS_fsm_state2) and (grp_writeOutcome_Pipeline_1_fu_270_ap_done = ap_const_logic_1))) then
+                if (((ap_const_logic_1 = ap_CS_fsm_state2) and (grp_writeOutcome_Pipeline_1_fu_259_ap_done = ap_const_logic_1))) then
                     ap_NS_fsm <= ap_ST_fsm_state3;
                 else
                     ap_NS_fsm <= ap_ST_fsm_state2;
@@ -398,9 +315,9 @@ begin
     ap_CS_fsm_state7 <= ap_CS_fsm(6);
     ap_CS_fsm_state8 <= ap_CS_fsm(7);
 
-    ap_ST_fsm_state1_blk_assign_proc : process(ap_start, ap_done_reg, contr_AOV_empty_n, contr_AOV_1_empty_n, contr_AOV_2_empty_n, contr_AOV_3_empty_n, contr_AOV_4_empty_n, contr_AOV_5_empty_n, contr_AOV_6_empty_n, contr_AOV_7_empty_n)
+    ap_ST_fsm_state1_blk_assign_proc : process(ap_start)
     begin
-        if (((contr_AOV_7_empty_n = ap_const_logic_0) or (contr_AOV_6_empty_n = ap_const_logic_0) or (contr_AOV_5_empty_n = ap_const_logic_0) or (contr_AOV_4_empty_n = ap_const_logic_0) or (contr_AOV_3_empty_n = ap_const_logic_0) or (contr_AOV_2_empty_n = ap_const_logic_0) or (contr_AOV_1_empty_n = ap_const_logic_0) or (contr_AOV_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1) or (ap_start = ap_const_logic_0))) then 
+        if ((ap_start = ap_const_logic_0)) then 
             ap_ST_fsm_state1_blk <= ap_const_logic_1;
         else 
             ap_ST_fsm_state1_blk <= ap_const_logic_0;
@@ -408,9 +325,9 @@ begin
     end process;
 
 
-    ap_ST_fsm_state2_blk_assign_proc : process(grp_writeOutcome_Pipeline_1_fu_270_ap_done)
+    ap_ST_fsm_state2_blk_assign_proc : process(grp_writeOutcome_Pipeline_1_fu_259_ap_done)
     begin
-        if ((grp_writeOutcome_Pipeline_1_fu_270_ap_done = ap_const_logic_0)) then 
+        if ((grp_writeOutcome_Pipeline_1_fu_259_ap_done = ap_const_logic_0)) then 
             ap_ST_fsm_state2_blk <= ap_const_logic_1;
         else 
             ap_ST_fsm_state2_blk <= ap_const_logic_0;
@@ -424,24 +341,12 @@ begin
     ap_ST_fsm_state7_blk <= ap_const_logic_0;
     ap_ST_fsm_state8_blk <= ap_const_logic_0;
 
-    ap_block_state1_assign_proc : process(ap_start, ap_done_reg, contr_AOV_empty_n, contr_AOV_1_empty_n, contr_AOV_2_empty_n, contr_AOV_3_empty_n, contr_AOV_4_empty_n, contr_AOV_5_empty_n, contr_AOV_6_empty_n, contr_AOV_7_empty_n)
+    ap_done_assign_proc : process(ap_start, ap_CS_fsm_state1, ap_CS_fsm_state8)
     begin
-                ap_block_state1 <= ((contr_AOV_7_empty_n = ap_const_logic_0) or (contr_AOV_6_empty_n = ap_const_logic_0) or (contr_AOV_5_empty_n = ap_const_logic_0) or (contr_AOV_4_empty_n = ap_const_logic_0) or (contr_AOV_3_empty_n = ap_const_logic_0) or (contr_AOV_2_empty_n = ap_const_logic_0) or (contr_AOV_1_empty_n = ap_const_logic_0) or (contr_AOV_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1) or (ap_start = ap_const_logic_0));
-    end process;
-
-
-    ap_block_state1_ignore_call27_assign_proc : process(ap_start, ap_done_reg, contr_AOV_empty_n, contr_AOV_1_empty_n, contr_AOV_2_empty_n, contr_AOV_3_empty_n, contr_AOV_4_empty_n, contr_AOV_5_empty_n, contr_AOV_6_empty_n, contr_AOV_7_empty_n)
-    begin
-                ap_block_state1_ignore_call27 <= ((contr_AOV_7_empty_n = ap_const_logic_0) or (contr_AOV_6_empty_n = ap_const_logic_0) or (contr_AOV_5_empty_n = ap_const_logic_0) or (contr_AOV_4_empty_n = ap_const_logic_0) or (contr_AOV_3_empty_n = ap_const_logic_0) or (contr_AOV_2_empty_n = ap_const_logic_0) or (contr_AOV_1_empty_n = ap_const_logic_0) or (contr_AOV_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1) or (ap_start = ap_const_logic_0));
-    end process;
-
-
-    ap_done_assign_proc : process(ap_done_reg, ap_CS_fsm_state8)
-    begin
-        if ((ap_const_logic_1 = ap_CS_fsm_state8)) then 
+        if (((ap_const_logic_1 = ap_CS_fsm_state8) or ((ap_const_logic_1 = ap_CS_fsm_state1) and (ap_start = ap_const_logic_0)))) then 
             ap_done <= ap_const_logic_1;
         else 
-            ap_done <= ap_done_reg;
+            ap_done <= ap_const_logic_0;
         end if; 
     end process;
 
@@ -465,176 +370,16 @@ begin
         end if; 
     end process;
 
-
-    contr_AOV_1_blk_n_assign_proc : process(ap_start, ap_done_reg, ap_CS_fsm_state1, contr_AOV_1_empty_n)
-    begin
-        if ((not(((ap_done_reg = ap_const_logic_1) or (ap_start = ap_const_logic_0))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
-            contr_AOV_1_blk_n <= contr_AOV_1_empty_n;
-        else 
-            contr_AOV_1_blk_n <= ap_const_logic_1;
-        end if; 
-    end process;
-
-
-    contr_AOV_1_read_assign_proc : process(ap_start, ap_done_reg, ap_CS_fsm_state1, contr_AOV_empty_n, contr_AOV_1_empty_n, contr_AOV_2_empty_n, contr_AOV_3_empty_n, contr_AOV_4_empty_n, contr_AOV_5_empty_n, contr_AOV_6_empty_n, contr_AOV_7_empty_n)
-    begin
-        if ((not(((contr_AOV_7_empty_n = ap_const_logic_0) or (contr_AOV_6_empty_n = ap_const_logic_0) or (contr_AOV_5_empty_n = ap_const_logic_0) or (contr_AOV_4_empty_n = ap_const_logic_0) or (contr_AOV_3_empty_n = ap_const_logic_0) or (contr_AOV_2_empty_n = ap_const_logic_0) or (contr_AOV_1_empty_n = ap_const_logic_0) or (contr_AOV_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1) or (ap_start = ap_const_logic_0))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
-            contr_AOV_1_read <= ap_const_logic_1;
-        else 
-            contr_AOV_1_read <= ap_const_logic_0;
-        end if; 
-    end process;
-
-
-    contr_AOV_2_blk_n_assign_proc : process(ap_start, ap_done_reg, ap_CS_fsm_state1, contr_AOV_2_empty_n)
-    begin
-        if ((not(((ap_done_reg = ap_const_logic_1) or (ap_start = ap_const_logic_0))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
-            contr_AOV_2_blk_n <= contr_AOV_2_empty_n;
-        else 
-            contr_AOV_2_blk_n <= ap_const_logic_1;
-        end if; 
-    end process;
-
-
-    contr_AOV_2_read_assign_proc : process(ap_start, ap_done_reg, ap_CS_fsm_state1, contr_AOV_empty_n, contr_AOV_1_empty_n, contr_AOV_2_empty_n, contr_AOV_3_empty_n, contr_AOV_4_empty_n, contr_AOV_5_empty_n, contr_AOV_6_empty_n, contr_AOV_7_empty_n)
-    begin
-        if ((not(((contr_AOV_7_empty_n = ap_const_logic_0) or (contr_AOV_6_empty_n = ap_const_logic_0) or (contr_AOV_5_empty_n = ap_const_logic_0) or (contr_AOV_4_empty_n = ap_const_logic_0) or (contr_AOV_3_empty_n = ap_const_logic_0) or (contr_AOV_2_empty_n = ap_const_logic_0) or (contr_AOV_1_empty_n = ap_const_logic_0) or (contr_AOV_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1) or (ap_start = ap_const_logic_0))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
-            contr_AOV_2_read <= ap_const_logic_1;
-        else 
-            contr_AOV_2_read <= ap_const_logic_0;
-        end if; 
-    end process;
-
-
-    contr_AOV_3_blk_n_assign_proc : process(ap_start, ap_done_reg, ap_CS_fsm_state1, contr_AOV_3_empty_n)
-    begin
-        if ((not(((ap_done_reg = ap_const_logic_1) or (ap_start = ap_const_logic_0))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
-            contr_AOV_3_blk_n <= contr_AOV_3_empty_n;
-        else 
-            contr_AOV_3_blk_n <= ap_const_logic_1;
-        end if; 
-    end process;
-
-
-    contr_AOV_3_read_assign_proc : process(ap_start, ap_done_reg, ap_CS_fsm_state1, contr_AOV_empty_n, contr_AOV_1_empty_n, contr_AOV_2_empty_n, contr_AOV_3_empty_n, contr_AOV_4_empty_n, contr_AOV_5_empty_n, contr_AOV_6_empty_n, contr_AOV_7_empty_n)
-    begin
-        if ((not(((contr_AOV_7_empty_n = ap_const_logic_0) or (contr_AOV_6_empty_n = ap_const_logic_0) or (contr_AOV_5_empty_n = ap_const_logic_0) or (contr_AOV_4_empty_n = ap_const_logic_0) or (contr_AOV_3_empty_n = ap_const_logic_0) or (contr_AOV_2_empty_n = ap_const_logic_0) or (contr_AOV_1_empty_n = ap_const_logic_0) or (contr_AOV_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1) or (ap_start = ap_const_logic_0))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
-            contr_AOV_3_read <= ap_const_logic_1;
-        else 
-            contr_AOV_3_read <= ap_const_logic_0;
-        end if; 
-    end process;
-
-
-    contr_AOV_4_blk_n_assign_proc : process(ap_start, ap_done_reg, ap_CS_fsm_state1, contr_AOV_4_empty_n)
-    begin
-        if ((not(((ap_done_reg = ap_const_logic_1) or (ap_start = ap_const_logic_0))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
-            contr_AOV_4_blk_n <= contr_AOV_4_empty_n;
-        else 
-            contr_AOV_4_blk_n <= ap_const_logic_1;
-        end if; 
-    end process;
-
-
-    contr_AOV_4_read_assign_proc : process(ap_start, ap_done_reg, ap_CS_fsm_state1, contr_AOV_empty_n, contr_AOV_1_empty_n, contr_AOV_2_empty_n, contr_AOV_3_empty_n, contr_AOV_4_empty_n, contr_AOV_5_empty_n, contr_AOV_6_empty_n, contr_AOV_7_empty_n)
-    begin
-        if ((not(((contr_AOV_7_empty_n = ap_const_logic_0) or (contr_AOV_6_empty_n = ap_const_logic_0) or (contr_AOV_5_empty_n = ap_const_logic_0) or (contr_AOV_4_empty_n = ap_const_logic_0) or (contr_AOV_3_empty_n = ap_const_logic_0) or (contr_AOV_2_empty_n = ap_const_logic_0) or (contr_AOV_1_empty_n = ap_const_logic_0) or (contr_AOV_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1) or (ap_start = ap_const_logic_0))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
-            contr_AOV_4_read <= ap_const_logic_1;
-        else 
-            contr_AOV_4_read <= ap_const_logic_0;
-        end if; 
-    end process;
-
-
-    contr_AOV_5_blk_n_assign_proc : process(ap_start, ap_done_reg, ap_CS_fsm_state1, contr_AOV_5_empty_n)
-    begin
-        if ((not(((ap_done_reg = ap_const_logic_1) or (ap_start = ap_const_logic_0))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
-            contr_AOV_5_blk_n <= contr_AOV_5_empty_n;
-        else 
-            contr_AOV_5_blk_n <= ap_const_logic_1;
-        end if; 
-    end process;
-
-
-    contr_AOV_5_read_assign_proc : process(ap_start, ap_done_reg, ap_CS_fsm_state1, contr_AOV_empty_n, contr_AOV_1_empty_n, contr_AOV_2_empty_n, contr_AOV_3_empty_n, contr_AOV_4_empty_n, contr_AOV_5_empty_n, contr_AOV_6_empty_n, contr_AOV_7_empty_n)
-    begin
-        if ((not(((contr_AOV_7_empty_n = ap_const_logic_0) or (contr_AOV_6_empty_n = ap_const_logic_0) or (contr_AOV_5_empty_n = ap_const_logic_0) or (contr_AOV_4_empty_n = ap_const_logic_0) or (contr_AOV_3_empty_n = ap_const_logic_0) or (contr_AOV_2_empty_n = ap_const_logic_0) or (contr_AOV_1_empty_n = ap_const_logic_0) or (contr_AOV_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1) or (ap_start = ap_const_logic_0))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
-            contr_AOV_5_read <= ap_const_logic_1;
-        else 
-            contr_AOV_5_read <= ap_const_logic_0;
-        end if; 
-    end process;
-
-
-    contr_AOV_6_blk_n_assign_proc : process(ap_start, ap_done_reg, ap_CS_fsm_state1, contr_AOV_6_empty_n)
-    begin
-        if ((not(((ap_done_reg = ap_const_logic_1) or (ap_start = ap_const_logic_0))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
-            contr_AOV_6_blk_n <= contr_AOV_6_empty_n;
-        else 
-            contr_AOV_6_blk_n <= ap_const_logic_1;
-        end if; 
-    end process;
-
-
-    contr_AOV_6_read_assign_proc : process(ap_start, ap_done_reg, ap_CS_fsm_state1, contr_AOV_empty_n, contr_AOV_1_empty_n, contr_AOV_2_empty_n, contr_AOV_3_empty_n, contr_AOV_4_empty_n, contr_AOV_5_empty_n, contr_AOV_6_empty_n, contr_AOV_7_empty_n)
-    begin
-        if ((not(((contr_AOV_7_empty_n = ap_const_logic_0) or (contr_AOV_6_empty_n = ap_const_logic_0) or (contr_AOV_5_empty_n = ap_const_logic_0) or (contr_AOV_4_empty_n = ap_const_logic_0) or (contr_AOV_3_empty_n = ap_const_logic_0) or (contr_AOV_2_empty_n = ap_const_logic_0) or (contr_AOV_1_empty_n = ap_const_logic_0) or (contr_AOV_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1) or (ap_start = ap_const_logic_0))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
-            contr_AOV_6_read <= ap_const_logic_1;
-        else 
-            contr_AOV_6_read <= ap_const_logic_0;
-        end if; 
-    end process;
-
-
-    contr_AOV_7_blk_n_assign_proc : process(ap_start, ap_done_reg, ap_CS_fsm_state1, contr_AOV_7_empty_n)
-    begin
-        if ((not(((ap_done_reg = ap_const_logic_1) or (ap_start = ap_const_logic_0))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
-            contr_AOV_7_blk_n <= contr_AOV_7_empty_n;
-        else 
-            contr_AOV_7_blk_n <= ap_const_logic_1;
-        end if; 
-    end process;
-
-
-    contr_AOV_7_read_assign_proc : process(ap_start, ap_done_reg, ap_CS_fsm_state1, contr_AOV_empty_n, contr_AOV_1_empty_n, contr_AOV_2_empty_n, contr_AOV_3_empty_n, contr_AOV_4_empty_n, contr_AOV_5_empty_n, contr_AOV_6_empty_n, contr_AOV_7_empty_n)
-    begin
-        if ((not(((contr_AOV_7_empty_n = ap_const_logic_0) or (contr_AOV_6_empty_n = ap_const_logic_0) or (contr_AOV_5_empty_n = ap_const_logic_0) or (contr_AOV_4_empty_n = ap_const_logic_0) or (contr_AOV_3_empty_n = ap_const_logic_0) or (contr_AOV_2_empty_n = ap_const_logic_0) or (contr_AOV_1_empty_n = ap_const_logic_0) or (contr_AOV_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1) or (ap_start = ap_const_logic_0))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
-            contr_AOV_7_read <= ap_const_logic_1;
-        else 
-            contr_AOV_7_read <= ap_const_logic_0;
-        end if; 
-    end process;
-
-
-    contr_AOV_blk_n_assign_proc : process(ap_start, ap_done_reg, ap_CS_fsm_state1, contr_AOV_empty_n)
-    begin
-        if ((not(((ap_done_reg = ap_const_logic_1) or (ap_start = ap_const_logic_0))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
-            contr_AOV_blk_n <= contr_AOV_empty_n;
-        else 
-            contr_AOV_blk_n <= ap_const_logic_1;
-        end if; 
-    end process;
-
-
-    contr_AOV_read_assign_proc : process(ap_start, ap_done_reg, ap_CS_fsm_state1, contr_AOV_empty_n, contr_AOV_1_empty_n, contr_AOV_2_empty_n, contr_AOV_3_empty_n, contr_AOV_4_empty_n, contr_AOV_5_empty_n, contr_AOV_6_empty_n, contr_AOV_7_empty_n)
-    begin
-        if ((not(((contr_AOV_7_empty_n = ap_const_logic_0) or (contr_AOV_6_empty_n = ap_const_logic_0) or (contr_AOV_5_empty_n = ap_const_logic_0) or (contr_AOV_4_empty_n = ap_const_logic_0) or (contr_AOV_3_empty_n = ap_const_logic_0) or (contr_AOV_2_empty_n = ap_const_logic_0) or (contr_AOV_1_empty_n = ap_const_logic_0) or (contr_AOV_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1) or (ap_start = ap_const_logic_0))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
-            contr_AOV_read <= ap_const_logic_1;
-        else 
-            contr_AOV_read <= ap_const_logic_0;
-        end if; 
-    end process;
-
-    empty_45_fu_295_p1 <= outcome_AOV_load_1_reg_405;
-    empty_46_fu_298_p1 <= outcome_AOV_load_2_reg_420;
-    empty_47_fu_301_p1 <= outcome_AOV_load_3_reg_425;
-    empty_48_fu_304_p1 <= outcome_AOV_load_4_reg_440;
-    empty_49_fu_307_p1 <= outcome_AOV_load_5_reg_445;
-    empty_50_fu_310_p1 <= outcome_AOV_q1;
-    empty_51_fu_314_p1 <= outcome_AOV_q0;
-    empty_fu_292_p1 <= outcome_AOV_load_reg_400;
-    errorInTask1_cast_i_fu_345_p1 <= std_logic_vector(IEEE.numeric_std.resize(unsigned(p_read),64));
-    errorInTask_address0 <= errorInTask1_cast_i_fu_345_p1(4 - 1 downto 0);
+    empty_47_fu_284_p1 <= outcome_AOV_load_1_reg_399;
+    empty_48_fu_287_p1 <= outcome_AOV_load_2_reg_414;
+    empty_49_fu_290_p1 <= outcome_AOV_load_3_reg_419;
+    empty_50_fu_293_p1 <= outcome_AOV_load_4_reg_434;
+    empty_51_fu_296_p1 <= outcome_AOV_load_5_reg_439;
+    empty_52_fu_299_p1 <= outcome_AOV_q1;
+    empty_53_fu_303_p1 <= outcome_AOV_q0;
+    empty_fu_281_p1 <= outcome_AOV_load_reg_394;
+    errorInTask1_cast_fu_334_p1 <= std_logic_vector(IEEE.numeric_std.resize(unsigned(errorInTask1),64));
+    errorInTask_address0 <= errorInTask1_cast_fu_334_p1(4 - 1 downto 0);
 
     errorInTask_ce0_assign_proc : process(ap_CS_fsm_state8)
     begin
@@ -645,7 +390,7 @@ begin
         end if; 
     end process;
 
-    errorInTask_d0 <= p_read3;
+    errorInTask_d0 <= std_logic_vector(IEEE.numeric_std.resize(unsigned(error),8));
 
     errorInTask_we0_assign_proc : process(ap_CS_fsm_state8)
     begin
@@ -656,7 +401,7 @@ begin
         end if; 
     end process;
 
-    grp_writeOutcome_Pipeline_1_fu_270_ap_start <= grp_writeOutcome_Pipeline_1_fu_270_ap_start_reg;
+    grp_writeOutcome_Pipeline_1_fu_259_ap_start <= grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg;
     outcomeInRam_address0 <= ap_const_lv64_0(4 - 1 downto 0);
 
     outcomeInRam_ce0_assign_proc : process(ap_CS_fsm_state7, ap_CS_fsm_state8)
@@ -668,7 +413,7 @@ begin
         end if; 
     end process;
 
-    outcomeInRam_d0 <= ((((((((((empty_51_fu_314_p1 & empty_50_fu_310_p1) & empty_49_fu_307_p1) & empty_48_fu_304_p1) & empty_47_fu_301_p1) & empty_46_fu_298_p1) & empty_45_fu_295_p1) & empty_fu_292_p1) & p_read2) & ap_const_lv8_0) & p_read1);
+    outcomeInRam_d0 <= ((((((((((empty_53_fu_303_p1 & empty_52_fu_299_p1) & empty_51_fu_296_p1) & empty_50_fu_293_p1) & empty_49_fu_290_p1) & empty_48_fu_287_p1) & empty_47_fu_284_p1) & empty_fu_281_p1) & uniId) & ap_const_lv8_0) & checkId);
 
     outcomeInRam_we0_assign_proc : process(ap_CS_fsm_state7)
     begin
@@ -680,7 +425,7 @@ begin
     end process;
 
 
-    outcome_AOV_address0_assign_proc : process(ap_CS_fsm_state3, ap_CS_fsm_state4, ap_CS_fsm_state5, ap_CS_fsm_state6, grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_address0, ap_CS_fsm_state2)
+    outcome_AOV_address0_assign_proc : process(ap_CS_fsm_state3, ap_CS_fsm_state4, ap_CS_fsm_state5, ap_CS_fsm_state6, grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_address0, ap_CS_fsm_state2)
     begin
         if ((ap_const_logic_1 = ap_CS_fsm_state6)) then 
             outcome_AOV_address0 <= ap_const_lv64_7(3 - 1 downto 0);
@@ -691,7 +436,7 @@ begin
         elsif ((ap_const_logic_1 = ap_CS_fsm_state3)) then 
             outcome_AOV_address0 <= ap_const_lv64_1(3 - 1 downto 0);
         elsif ((ap_const_logic_1 = ap_CS_fsm_state2)) then 
-            outcome_AOV_address0 <= grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_address0;
+            outcome_AOV_address0 <= grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_address0;
         else 
             outcome_AOV_address0 <= "XXX";
         end if; 
@@ -714,12 +459,12 @@ begin
     end process;
 
 
-    outcome_AOV_ce0_assign_proc : process(ap_CS_fsm_state3, ap_CS_fsm_state4, ap_CS_fsm_state5, ap_CS_fsm_state6, grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_ce0, ap_CS_fsm_state2)
+    outcome_AOV_ce0_assign_proc : process(ap_CS_fsm_state3, ap_CS_fsm_state4, ap_CS_fsm_state5, ap_CS_fsm_state6, grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_ce0, ap_CS_fsm_state2)
     begin
-        if (((ap_const_logic_1 = ap_CS_fsm_state6) or (ap_const_logic_1 = ap_CS_fsm_state5) or (ap_const_logic_1 = ap_CS_fsm_state4) or (ap_const_logic_1 = ap_CS_fsm_state3))) then 
+        if (((ap_const_logic_1 = ap_CS_fsm_state5) or (ap_const_logic_1 = ap_CS_fsm_state4) or (ap_const_logic_1 = ap_CS_fsm_state3) or (ap_const_logic_1 = ap_CS_fsm_state6))) then 
             outcome_AOV_ce0 <= ap_const_logic_1;
         elsif ((ap_const_logic_1 = ap_CS_fsm_state2)) then 
-            outcome_AOV_ce0 <= grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_ce0;
+            outcome_AOV_ce0 <= grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_ce0;
         else 
             outcome_AOV_ce0 <= ap_const_logic_0;
         end if; 
@@ -728,7 +473,7 @@ begin
 
     outcome_AOV_ce1_assign_proc : process(ap_CS_fsm_state3, ap_CS_fsm_state4, ap_CS_fsm_state5, ap_CS_fsm_state6)
     begin
-        if (((ap_const_logic_1 = ap_CS_fsm_state6) or (ap_const_logic_1 = ap_CS_fsm_state5) or (ap_const_logic_1 = ap_CS_fsm_state4) or (ap_const_logic_1 = ap_CS_fsm_state3))) then 
+        if (((ap_const_logic_1 = ap_CS_fsm_state5) or (ap_const_logic_1 = ap_CS_fsm_state4) or (ap_const_logic_1 = ap_CS_fsm_state3) or (ap_const_logic_1 = ap_CS_fsm_state6))) then 
             outcome_AOV_ce1 <= ap_const_logic_1;
         else 
             outcome_AOV_ce1 <= ap_const_logic_0;
@@ -736,10 +481,10 @@ begin
     end process;
 
 
-    outcome_AOV_we0_assign_proc : process(grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_we0, ap_CS_fsm_state2)
+    outcome_AOV_we0_assign_proc : process(grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_we0, ap_CS_fsm_state2)
     begin
         if ((ap_const_logic_1 = ap_CS_fsm_state2)) then 
-            outcome_AOV_we0 <= grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_we0;
+            outcome_AOV_we0 <= grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_we0;
         else 
             outcome_AOV_we0 <= ap_const_logic_0;
         end if; 

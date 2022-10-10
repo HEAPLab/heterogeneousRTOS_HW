@@ -14,14 +14,14 @@ module run_writeOutcome_Pipeline_1 (
         ap_done,
         ap_idle,
         ap_ready,
-        contr_AOV_load,
-        contr_AOV_1_load,
-        contr_AOV_2_load,
-        contr_AOV_3_load,
-        contr_AOV_4_load,
-        contr_AOV_5_load,
-        contr_AOV_6_load,
-        contr_AOV_7_load,
+        p_read,
+        p_read1,
+        p_read2,
+        p_read3,
+        p_read4,
+        p_read5,
+        p_read6,
+        p_read7,
         outcome_AOV_address0,
         outcome_AOV_ce0,
         outcome_AOV_we0,
@@ -36,14 +36,14 @@ input   ap_start;
 output   ap_done;
 output   ap_idle;
 output   ap_ready;
-input  [31:0] contr_AOV_load;
-input  [31:0] contr_AOV_1_load;
-input  [31:0] contr_AOV_2_load;
-input  [31:0] contr_AOV_3_load;
-input  [31:0] contr_AOV_4_load;
-input  [31:0] contr_AOV_5_load;
-input  [31:0] contr_AOV_6_load;
-input  [31:0] contr_AOV_7_load;
+input  [31:0] p_read;
+input  [31:0] p_read1;
+input  [31:0] p_read2;
+input  [31:0] p_read3;
+input  [31:0] p_read4;
+input  [31:0] p_read5;
+input  [31:0] p_read6;
+input  [31:0] p_read7;
 output  [2:0] outcome_AOV_address0;
 output   outcome_AOV_ce0;
 output   outcome_AOV_we0;
@@ -56,16 +56,16 @@ reg outcome_AOV_we0;
 (* fsm_encoding = "none" *) reg   [0:0] ap_CS_fsm;
 wire    ap_CS_fsm_state1;
 reg    ap_block_state1_pp0_stage0_iter0;
-wire   [0:0] exitcond3_i_fu_117_p2;
+wire   [0:0] exitcond3_fu_117_p2;
 reg    ap_condition_exit_pp0_iter0_stage0;
 wire    ap_loop_exit_ready;
 reg    ap_ready_int;
-wire   [63:0] loop_index3_cast_i_fu_129_p1;
-reg   [3:0] loop_index3_i_fu_44;
+wire   [63:0] loop_index3_cast_fu_129_p1;
+reg   [3:0] loop_index3_fu_44;
 wire   [3:0] empty_fu_123_p2;
 wire    ap_loop_init;
-reg   [3:0] ap_sig_allocacmp_loop_index3_i_load;
-wire   [31:0] tmp_i_fu_134_p10;
+reg   [3:0] ap_sig_allocacmp_loop_index3_load;
+wire   [31:0] tmp_fu_134_p10;
 reg    ap_done_reg;
 wire    ap_continue_int;
 reg    ap_done_int;
@@ -93,17 +93,17 @@ run_mux_84_32_1_1 #(
     .din7_WIDTH( 32 ),
     .din8_WIDTH( 4 ),
     .dout_WIDTH( 32 ))
-mux_84_32_1_1_U77(
-    .din0(contr_AOV_load),
-    .din1(contr_AOV_1_load),
-    .din2(contr_AOV_2_load),
-    .din3(contr_AOV_3_load),
-    .din4(contr_AOV_4_load),
-    .din5(contr_AOV_5_load),
-    .din6(contr_AOV_6_load),
-    .din7(contr_AOV_7_load),
-    .din8(ap_sig_allocacmp_loop_index3_i_load),
-    .dout(tmp_i_fu_134_p10)
+mux_84_32_1_1_U166(
+    .din0(p_read),
+    .din1(p_read1),
+    .din2(p_read2),
+    .din3(p_read3),
+    .din4(p_read4),
+    .din5(p_read5),
+    .din6(p_read6),
+    .din7(p_read7),
+    .din8(ap_sig_allocacmp_loop_index3_load),
+    .dout(tmp_fu_134_p10)
 );
 
 run_flow_control_loop_pipe_sequential_init flow_control_loop_pipe_sequential_init_U(
@@ -143,10 +143,10 @@ end
 
 always @ (posedge ap_clk) begin
     if (((1'b1 == ap_CS_fsm_state1) & (ap_start_int == 1'b1))) begin
-        if ((exitcond3_i_fu_117_p2 == 1'd0)) begin
-            loop_index3_i_fu_44 <= empty_fu_123_p2;
+        if ((exitcond3_fu_117_p2 == 1'd0)) begin
+            loop_index3_fu_44 <= empty_fu_123_p2;
         end else if ((ap_loop_init == 1'b1)) begin
-            loop_index3_i_fu_44 <= 4'd0;
+            loop_index3_fu_44 <= 4'd0;
         end
     end
 end
@@ -160,7 +160,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if (((exitcond3_i_fu_117_p2 == 1'd1) & (1'b1 == ap_CS_fsm_state1) & (ap_start_int == 1'b1))) begin
+    if (((exitcond3_fu_117_p2 == 1'd1) & (1'b1 == ap_CS_fsm_state1) & (ap_start_int == 1'b1))) begin
         ap_condition_exit_pp0_iter0_stage0 = 1'b1;
     end else begin
         ap_condition_exit_pp0_iter0_stage0 = 1'b0;
@@ -193,9 +193,9 @@ end
 
 always @ (*) begin
     if (((ap_loop_init == 1'b1) & (1'b1 == ap_CS_fsm_state1))) begin
-        ap_sig_allocacmp_loop_index3_i_load = 4'd0;
+        ap_sig_allocacmp_loop_index3_load = 4'd0;
     end else begin
-        ap_sig_allocacmp_loop_index3_i_load = loop_index3_i_fu_44;
+        ap_sig_allocacmp_loop_index3_load = loop_index3_fu_44;
     end
 end
 
@@ -208,7 +208,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if (((exitcond3_i_fu_117_p2 == 1'd0) & (1'b1 == ap_CS_fsm_state1) & (ap_start_int == 1'b1))) begin
+    if (((exitcond3_fu_117_p2 == 1'd0) & (1'b1 == ap_CS_fsm_state1) & (ap_start_int == 1'b1))) begin
         outcome_AOV_we0 = 1'b1;
     end else begin
         outcome_AOV_we0 = 1'b0;
@@ -234,14 +234,14 @@ end
 
 assign ap_loop_exit_ready = ap_condition_exit_pp0_iter0_stage0;
 
-assign empty_fu_123_p2 = (ap_sig_allocacmp_loop_index3_i_load + 4'd1);
+assign empty_fu_123_p2 = (ap_sig_allocacmp_loop_index3_load + 4'd1);
 
-assign exitcond3_i_fu_117_p2 = ((ap_sig_allocacmp_loop_index3_i_load == 4'd8) ? 1'b1 : 1'b0);
+assign exitcond3_fu_117_p2 = ((ap_sig_allocacmp_loop_index3_load == 4'd8) ? 1'b1 : 1'b0);
 
-assign loop_index3_cast_i_fu_129_p1 = ap_sig_allocacmp_loop_index3_i_load;
+assign loop_index3_cast_fu_129_p1 = ap_sig_allocacmp_loop_index3_load;
 
-assign outcome_AOV_address0 = loop_index3_cast_i_fu_129_p1;
+assign outcome_AOV_address0 = loop_index3_cast_fu_129_p1;
 
-assign outcome_AOV_d0 = tmp_i_fu_134_p10;
+assign outcome_AOV_d0 = tmp_fu_134_p10;
 
 endmodule //run_writeOutcome_Pipeline_1

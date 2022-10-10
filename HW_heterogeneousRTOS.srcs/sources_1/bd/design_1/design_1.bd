@@ -33,13 +33,13 @@
         },
         "s00_mmu": ""
       },
-      "scheduler_1": "",
-      "scheduler_0": "",
-      "scheduler_2": "",
+      "processing_system7_0": "",
       "aximvoter_0": "",
       "axisvoter_0": "",
-      "processing_system7_0": "",
-      "run_0": ""
+      "run_0": "",
+      "scheduler_0": "",
+      "scheduler_1": "",
+      "scheduler_2": ""
     },
     "interface_ports": {
       "DDR": {
@@ -1083,148 +1083,6 @@
               "m00_couplers/M_ARESETN",
               "m00_couplers/S_ARESETN",
               "s00_mmu/aresetn"
-            ]
-          }
-        }
-      },
-      "scheduler_1": {
-        "vlnv": "user.org:user:scheduler:1.0",
-        "xci_name": "design_1_scheduler_0_1",
-        "xci_path": "ip/design_1_scheduler_0_1/design_1_scheduler_0_1.xci",
-        "inst_hier_path": "scheduler_1",
-        "parameters": {
-          "maxTasks": {
-            "value": "4"
-          }
-        },
-        "interface_ports": {
-          "M_AXI": {
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "mode": "Master",
-            "address_space_ref": "M_AXI",
-            "base_address": {
-              "minimum": "0x00000000",
-              "maximum": "0xFFFFFFFF",
-              "width": "32"
-            }
-          }
-        },
-        "addressing": {
-          "address_spaces": {
-            "M_AXI": {
-              "range": "4G",
-              "width": "32"
-            }
-          }
-        }
-      },
-      "scheduler_0": {
-        "vlnv": "user.org:user:scheduler:1.0",
-        "xci_name": "design_1_scheduler_0_0",
-        "xci_path": "ip/design_1_scheduler_0_0/design_1_scheduler_0_0.xci",
-        "inst_hier_path": "scheduler_0",
-        "parameters": {
-          "maxTasks": {
-            "value": "4"
-          }
-        },
-        "interface_ports": {
-          "M_AXI": {
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "mode": "Master",
-            "address_space_ref": "M_AXI",
-            "base_address": {
-              "minimum": "0x00000000",
-              "maximum": "0xFFFFFFFF",
-              "width": "32"
-            }
-          }
-        },
-        "addressing": {
-          "address_spaces": {
-            "M_AXI": {
-              "range": "4G",
-              "width": "32"
-            }
-          }
-        }
-      },
-      "scheduler_2": {
-        "vlnv": "user.org:user:scheduler:1.0",
-        "xci_name": "design_1_scheduler_0_2",
-        "xci_path": "ip/design_1_scheduler_0_2/design_1_scheduler_0_2.xci",
-        "inst_hier_path": "scheduler_2",
-        "parameters": {
-          "maxTasks": {
-            "value": "4"
-          }
-        },
-        "interface_ports": {
-          "M_AXI": {
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "mode": "Master",
-            "address_space_ref": "M_AXI",
-            "base_address": {
-              "minimum": "0x00000000",
-              "maximum": "0xFFFFFFFF",
-              "width": "32"
-            }
-          }
-        },
-        "addressing": {
-          "address_spaces": {
-            "M_AXI": {
-              "range": "4G",
-              "width": "32"
-            }
-          }
-        }
-      },
-      "aximvoter_0": {
-        "vlnv": "user.org:user:aximvoter:1.0",
-        "xci_name": "design_1_aximvoter_0_1",
-        "xci_path": "ip/design_1_aximvoter_0_1/design_1_aximvoter_0_1.xci",
-        "inst_hier_path": "aximvoter_0",
-        "parameters": {
-          "Component_Name": {
-            "value": "design_1_aximvoter_0_1"
-          }
-        },
-        "interface_ports": {
-          "S00_AXI_IN": {
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "mode": "Slave",
-            "bridges": [
-              "M_AXI_OUT"
-            ]
-          },
-          "S01_AXI_IN": {
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "mode": "Slave",
-            "bridges": [
-              "M_AXI_OUT"
-            ]
-          },
-          "S02_AXI_IN": {
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "mode": "Slave",
-            "bridges": [
-              "M_AXI_OUT"
-            ]
-          }
-        }
-      },
-      "axisvoter_0": {
-        "vlnv": "user.org:user:axisvoter:1.0",
-        "xci_name": "design_1_axisvoter_0_5",
-        "xci_path": "ip/design_1_axisvoter_0_5/design_1_axisvoter_0_5.xci",
-        "inst_hier_path": "axisvoter_0",
-        "interface_ports": {
-          "S_AXI_OUT": {
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "mode": "Slave",
-            "bridges": [
-              "M00_AXI_IN"
             ]
           }
         }
@@ -3037,6 +2895,55 @@
           }
         }
       },
+      "aximvoter_0": {
+        "vlnv": "user.org:user:aximvoter:1.0",
+        "xci_name": "design_1_aximvoter_0_1",
+        "xci_path": "ip/design_1_aximvoter_0_1/design_1_aximvoter_0_1.xci",
+        "inst_hier_path": "aximvoter_0",
+        "parameters": {
+          "Component_Name": {
+            "value": "design_1_aximvoter_0_1"
+          }
+        },
+        "interface_ports": {
+          "S00_AXI_IN": {
+            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
+            "mode": "Slave",
+            "bridges": [
+              "M_AXI_OUT"
+            ]
+          },
+          "S01_AXI_IN": {
+            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
+            "mode": "Slave",
+            "bridges": [
+              "M_AXI_OUT"
+            ]
+          },
+          "S02_AXI_IN": {
+            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
+            "mode": "Slave",
+            "bridges": [
+              "M_AXI_OUT"
+            ]
+          }
+        }
+      },
+      "axisvoter_0": {
+        "vlnv": "user.org:user:axisvoter:1.0",
+        "xci_name": "design_1_axisvoter_0_5",
+        "xci_path": "ip/design_1_axisvoter_0_5/design_1_axisvoter_0_5.xci",
+        "inst_hier_path": "axisvoter_0",
+        "interface_ports": {
+          "S_AXI_OUT": {
+            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
+            "mode": "Slave",
+            "bridges": [
+              "M00_AXI_IN"
+            ]
+          }
+        }
+      },
       "run_0": {
         "vlnv": "xilinx.com:hls:run:1.0",
         "xci_name": "design_1_run_0_1",
@@ -3059,6 +2966,99 @@
             "Data_m_axi_gmem": {
               "range": "16E",
               "width": "64"
+            }
+          }
+        }
+      },
+      "scheduler_0": {
+        "vlnv": "user.org:user:scheduler:1.0",
+        "xci_name": "design_1_scheduler_0_0",
+        "xci_path": "ip/design_1_scheduler_0_0/design_1_scheduler_0_0.xci",
+        "inst_hier_path": "scheduler_0",
+        "parameters": {
+          "maxTasks": {
+            "value": "4"
+          }
+        },
+        "interface_ports": {
+          "M_AXI": {
+            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
+            "mode": "Master",
+            "address_space_ref": "M_AXI",
+            "base_address": {
+              "minimum": "0x00000000",
+              "maximum": "0xFFFFFFFF",
+              "width": "32"
+            }
+          }
+        },
+        "addressing": {
+          "address_spaces": {
+            "M_AXI": {
+              "range": "4G",
+              "width": "32"
+            }
+          }
+        }
+      },
+      "scheduler_1": {
+        "vlnv": "user.org:user:scheduler:1.0",
+        "xci_name": "design_1_scheduler_0_1",
+        "xci_path": "ip/design_1_scheduler_0_1/design_1_scheduler_0_1.xci",
+        "inst_hier_path": "scheduler_1",
+        "parameters": {
+          "maxTasks": {
+            "value": "4"
+          }
+        },
+        "interface_ports": {
+          "M_AXI": {
+            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
+            "mode": "Master",
+            "address_space_ref": "M_AXI",
+            "base_address": {
+              "minimum": "0x00000000",
+              "maximum": "0xFFFFFFFF",
+              "width": "32"
+            }
+          }
+        },
+        "addressing": {
+          "address_spaces": {
+            "M_AXI": {
+              "range": "4G",
+              "width": "32"
+            }
+          }
+        }
+      },
+      "scheduler_2": {
+        "vlnv": "user.org:user:scheduler:1.0",
+        "xci_name": "design_1_scheduler_0_2",
+        "xci_path": "ip/design_1_scheduler_0_2/design_1_scheduler_0_2.xci",
+        "inst_hier_path": "scheduler_2",
+        "parameters": {
+          "maxTasks": {
+            "value": "4"
+          }
+        },
+        "interface_ports": {
+          "M_AXI": {
+            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
+            "mode": "Master",
+            "address_space_ref": "M_AXI",
+            "base_address": {
+              "minimum": "0x00000000",
+              "maximum": "0xFFFFFFFF",
+              "width": "32"
+            }
+          }
+        },
+        "addressing": {
+          "address_spaces": {
+            "M_AXI": {
+              "range": "4G",
+              "width": "32"
             }
           }
         }
@@ -3167,15 +3167,10 @@
           "axi_mem_intercon/S00_ACLK",
           "axi_mem_intercon/M00_ACLK",
           "axi_mem_intercon/ACLK",
-          "scheduler_1/SCHEDULER_CLK",
-          "scheduler_1/s_axi_aclk",
-          "scheduler_1/m_axi_aclk",
-          "scheduler_0/SCHEDULER_CLK",
-          "scheduler_0/s_axi_aclk",
-          "scheduler_0/m_axi_aclk",
-          "scheduler_2/SCHEDULER_CLK",
-          "scheduler_2/s_axi_aclk",
-          "scheduler_2/m_axi_aclk",
+          "ps7_0_axi_periph/M01_ACLK",
+          "axi_mem_intercon/S01_ACLK",
+          "processing_system7_0/M_AXI_GP0_ACLK",
+          "processing_system7_0/S_AXI_HP0_ACLK",
           "aximvoter_0/s00_axi_in_aclk",
           "aximvoter_0/s01_axi_in_aclk",
           "aximvoter_0/s02_axi_in_aclk",
@@ -3184,11 +3179,16 @@
           "axisvoter_0/m00_axi_in_aclk",
           "axisvoter_0/m01_axi_in_aclk",
           "axisvoter_0/m02_axi_in_aclk",
-          "ps7_0_axi_periph/M01_ACLK",
-          "axi_mem_intercon/S01_ACLK",
-          "processing_system7_0/M_AXI_GP0_ACLK",
-          "processing_system7_0/S_AXI_HP0_ACLK",
-          "run_0/ap_clk"
+          "run_0/ap_clk",
+          "scheduler_0/SCHEDULER_CLK",
+          "scheduler_0/s_axi_aclk",
+          "scheduler_0/m_axi_aclk",
+          "scheduler_1/SCHEDULER_CLK",
+          "scheduler_1/s_axi_aclk",
+          "scheduler_1/m_axi_aclk",
+          "scheduler_2/SCHEDULER_CLK",
+          "scheduler_2/s_axi_aclk",
+          "scheduler_2/m_axi_aclk"
         ]
       },
       "processing_system7_0_FCLK_RESET0_N": {
@@ -3206,15 +3206,8 @@
           "axi_mem_intercon/S00_ARESETN",
           "axi_mem_intercon/M00_ARESETN",
           "axi_mem_intercon/ARESETN",
-          "scheduler_1/SCHEDULER_ARESETN",
-          "scheduler_1/s_axi_aresetn",
-          "scheduler_1/m_axi_aresetn",
-          "scheduler_0/SCHEDULER_ARESETN",
-          "scheduler_0/s_axi_aresetn",
-          "scheduler_0/m_axi_aresetn",
-          "scheduler_2/SCHEDULER_ARESETN",
-          "scheduler_2/s_axi_aresetn",
-          "scheduler_2/m_axi_aresetn",
+          "ps7_0_axi_periph/M01_ARESETN",
+          "axi_mem_intercon/S01_ARESETN",
           "aximvoter_0/s00_axi_in_aresetn",
           "aximvoter_0/s01_axi_in_aresetn",
           "aximvoter_0/s02_axi_in_aresetn",
@@ -3223,9 +3216,16 @@
           "axisvoter_0/m00_axi_in_aresetn",
           "axisvoter_0/m01_axi_in_aresetn",
           "axisvoter_0/m02_axi_in_aresetn",
-          "ps7_0_axi_periph/M01_ARESETN",
-          "axi_mem_intercon/S01_ARESETN",
-          "run_0/ap_rst_n"
+          "run_0/ap_rst_n",
+          "scheduler_0/SCHEDULER_ARESETN",
+          "scheduler_0/s_axi_aresetn",
+          "scheduler_0/m_axi_aresetn",
+          "scheduler_1/SCHEDULER_ARESETN",
+          "scheduler_1/s_axi_aresetn",
+          "scheduler_1/m_axi_aresetn",
+          "scheduler_2/SCHEDULER_ARESETN",
+          "scheduler_2/s_axi_aresetn",
+          "scheduler_2/m_axi_aresetn"
         ]
       },
       "scheduler_0_irq": {
@@ -3296,47 +3296,6 @@
       }
     },
     "addressing": {
-      "/scheduler_1": {
-        "address_spaces": {
-          "M_AXI": {
-            "segments": {
-              "SEG_processing_system7_0_HP0_DDR_LOWOCM": {
-                "address_block": "/processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM",
-                "offset": "0x10000000",
-                "range": "4K",
-                "is_excluded": "TRUE"
-              }
-            }
-          }
-        }
-      },
-      "/scheduler_0": {
-        "address_spaces": {
-          "M_AXI": {
-            "segments": {
-              "SEG_processing_system7_0_HP0_DDR_LOWOCM": {
-                "address_block": "/processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM",
-                "offset": "0x10000000",
-                "range": "4K"
-              }
-            }
-          }
-        }
-      },
-      "/scheduler_2": {
-        "address_spaces": {
-          "M_AXI": {
-            "segments": {
-              "SEG_processing_system7_0_HP0_DDR_LOWOCM": {
-                "address_block": "/processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM",
-                "offset": "0x00000000",
-                "range": "256M",
-                "is_excluded": "TRUE"
-              }
-            }
-          }
-        }
-      },
       "/processing_system7_0": {
         "address_spaces": {
           "Data": {
@@ -3367,6 +3326,19 @@
                 "address_block": "/processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM",
                 "offset": "0x0000000000000000",
                 "range": "512M"
+              }
+            }
+          }
+        }
+      },
+      "/scheduler_0": {
+        "address_spaces": {
+          "M_AXI": {
+            "segments": {
+              "SEG_processing_system7_0_HP0_DDR_LOWOCM": {
+                "address_block": "/processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM",
+                "offset": "0x10000000",
+                "range": "4K"
               }
             }
           }

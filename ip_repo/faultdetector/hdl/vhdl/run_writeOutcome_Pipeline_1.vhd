@@ -17,14 +17,14 @@ port (
     ap_done : OUT STD_LOGIC;
     ap_idle : OUT STD_LOGIC;
     ap_ready : OUT STD_LOGIC;
-    contr_AOV_load : IN STD_LOGIC_VECTOR (31 downto 0);
-    contr_AOV_1_load : IN STD_LOGIC_VECTOR (31 downto 0);
-    contr_AOV_2_load : IN STD_LOGIC_VECTOR (31 downto 0);
-    contr_AOV_3_load : IN STD_LOGIC_VECTOR (31 downto 0);
-    contr_AOV_4_load : IN STD_LOGIC_VECTOR (31 downto 0);
-    contr_AOV_5_load : IN STD_LOGIC_VECTOR (31 downto 0);
-    contr_AOV_6_load : IN STD_LOGIC_VECTOR (31 downto 0);
-    contr_AOV_7_load : IN STD_LOGIC_VECTOR (31 downto 0);
+    p_read : IN STD_LOGIC_VECTOR (31 downto 0);
+    p_read1 : IN STD_LOGIC_VECTOR (31 downto 0);
+    p_read2 : IN STD_LOGIC_VECTOR (31 downto 0);
+    p_read3 : IN STD_LOGIC_VECTOR (31 downto 0);
+    p_read4 : IN STD_LOGIC_VECTOR (31 downto 0);
+    p_read5 : IN STD_LOGIC_VECTOR (31 downto 0);
+    p_read6 : IN STD_LOGIC_VECTOR (31 downto 0);
+    p_read7 : IN STD_LOGIC_VECTOR (31 downto 0);
     outcome_AOV_address0 : OUT STD_LOGIC_VECTOR (2 downto 0);
     outcome_AOV_ce0 : OUT STD_LOGIC;
     outcome_AOV_we0 : OUT STD_LOGIC;
@@ -51,16 +51,16 @@ attribute shreg_extract : string;
     signal ap_CS_fsm_state1 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state1 : signal is "none";
     signal ap_block_state1_pp0_stage0_iter0 : BOOLEAN;
-    signal exitcond3_i_fu_117_p2 : STD_LOGIC_VECTOR (0 downto 0);
+    signal exitcond3_fu_117_p2 : STD_LOGIC_VECTOR (0 downto 0);
     signal ap_condition_exit_pp0_iter0_stage0 : STD_LOGIC;
     signal ap_loop_exit_ready : STD_LOGIC;
     signal ap_ready_int : STD_LOGIC;
-    signal loop_index3_cast_i_fu_129_p1 : STD_LOGIC_VECTOR (63 downto 0);
-    signal loop_index3_i_fu_44 : STD_LOGIC_VECTOR (3 downto 0);
+    signal loop_index3_cast_fu_129_p1 : STD_LOGIC_VECTOR (63 downto 0);
+    signal loop_index3_fu_44 : STD_LOGIC_VECTOR (3 downto 0);
     signal empty_fu_123_p2 : STD_LOGIC_VECTOR (3 downto 0);
     signal ap_loop_init : STD_LOGIC;
-    signal ap_sig_allocacmp_loop_index3_i_load : STD_LOGIC_VECTOR (3 downto 0);
-    signal tmp_i_fu_134_p10 : STD_LOGIC_VECTOR (31 downto 0);
+    signal ap_sig_allocacmp_loop_index3_load : STD_LOGIC_VECTOR (3 downto 0);
+    signal tmp_fu_134_p10 : STD_LOGIC_VECTOR (31 downto 0);
     signal ap_done_reg : STD_LOGIC := '0';
     signal ap_continue_int : STD_LOGIC;
     signal ap_done_int : STD_LOGIC;
@@ -116,7 +116,7 @@ attribute shreg_extract : string;
 
 
 begin
-    mux_84_32_1_1_U77 : component run_mux_84_32_1_1
+    mux_84_32_1_1_U166 : component run_mux_84_32_1_1
     generic map (
         ID => 1,
         NUM_STAGE => 1,
@@ -131,16 +131,16 @@ begin
         din8_WIDTH => 4,
         dout_WIDTH => 32)
     port map (
-        din0 => contr_AOV_load,
-        din1 => contr_AOV_1_load,
-        din2 => contr_AOV_2_load,
-        din3 => contr_AOV_3_load,
-        din4 => contr_AOV_4_load,
-        din5 => contr_AOV_5_load,
-        din6 => contr_AOV_6_load,
-        din7 => contr_AOV_7_load,
-        din8 => ap_sig_allocacmp_loop_index3_i_load,
-        dout => tmp_i_fu_134_p10);
+        din0 => p_read,
+        din1 => p_read1,
+        din2 => p_read2,
+        din3 => p_read3,
+        din4 => p_read4,
+        din5 => p_read5,
+        din6 => p_read6,
+        din7 => p_read7,
+        din8 => ap_sig_allocacmp_loop_index3_load,
+        dout => tmp_fu_134_p10);
 
     flow_control_loop_pipe_sequential_init_U : component run_flow_control_loop_pipe_sequential_init
     port map (
@@ -189,14 +189,14 @@ begin
     end process;
 
 
-    loop_index3_i_fu_44_assign_proc : process (ap_clk)
+    loop_index3_fu_44_assign_proc : process (ap_clk)
     begin
         if (ap_clk'event and ap_clk = '1') then
             if (((ap_const_logic_1 = ap_CS_fsm_state1) and (ap_start_int = ap_const_logic_1))) then
-                if ((exitcond3_i_fu_117_p2 = ap_const_lv1_0)) then 
-                    loop_index3_i_fu_44 <= empty_fu_123_p2;
+                if ((exitcond3_fu_117_p2 = ap_const_lv1_0)) then 
+                    loop_index3_fu_44 <= empty_fu_123_p2;
                 elsif ((ap_loop_init = ap_const_logic_1)) then 
-                    loop_index3_i_fu_44 <= ap_const_lv4_0;
+                    loop_index3_fu_44 <= ap_const_lv4_0;
                 end if;
             end if; 
         end if;
@@ -229,9 +229,9 @@ begin
     end process;
 
 
-    ap_condition_exit_pp0_iter0_stage0_assign_proc : process(ap_CS_fsm_state1, exitcond3_i_fu_117_p2, ap_start_int)
+    ap_condition_exit_pp0_iter0_stage0_assign_proc : process(ap_CS_fsm_state1, exitcond3_fu_117_p2, ap_start_int)
     begin
-        if (((exitcond3_i_fu_117_p2 = ap_const_lv1_1) and (ap_const_logic_1 = ap_CS_fsm_state1) and (ap_start_int = ap_const_logic_1))) then 
+        if (((exitcond3_fu_117_p2 = ap_const_lv1_1) and (ap_const_logic_1 = ap_CS_fsm_state1) and (ap_start_int = ap_const_logic_1))) then 
             ap_condition_exit_pp0_iter0_stage0 <= ap_const_logic_1;
         else 
             ap_condition_exit_pp0_iter0_stage0 <= ap_const_logic_0;
@@ -270,19 +270,19 @@ begin
     end process;
 
 
-    ap_sig_allocacmp_loop_index3_i_load_assign_proc : process(ap_CS_fsm_state1, loop_index3_i_fu_44, ap_loop_init)
+    ap_sig_allocacmp_loop_index3_load_assign_proc : process(ap_CS_fsm_state1, loop_index3_fu_44, ap_loop_init)
     begin
         if (((ap_loop_init = ap_const_logic_1) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
-            ap_sig_allocacmp_loop_index3_i_load <= ap_const_lv4_0;
+            ap_sig_allocacmp_loop_index3_load <= ap_const_lv4_0;
         else 
-            ap_sig_allocacmp_loop_index3_i_load <= loop_index3_i_fu_44;
+            ap_sig_allocacmp_loop_index3_load <= loop_index3_fu_44;
         end if; 
     end process;
 
-    empty_fu_123_p2 <= std_logic_vector(unsigned(ap_sig_allocacmp_loop_index3_i_load) + unsigned(ap_const_lv4_1));
-    exitcond3_i_fu_117_p2 <= "1" when (ap_sig_allocacmp_loop_index3_i_load = ap_const_lv4_8) else "0";
-    loop_index3_cast_i_fu_129_p1 <= std_logic_vector(IEEE.numeric_std.resize(unsigned(ap_sig_allocacmp_loop_index3_i_load),64));
-    outcome_AOV_address0 <= loop_index3_cast_i_fu_129_p1(3 - 1 downto 0);
+    empty_fu_123_p2 <= std_logic_vector(unsigned(ap_sig_allocacmp_loop_index3_load) + unsigned(ap_const_lv4_1));
+    exitcond3_fu_117_p2 <= "1" when (ap_sig_allocacmp_loop_index3_load = ap_const_lv4_8) else "0";
+    loop_index3_cast_fu_129_p1 <= std_logic_vector(IEEE.numeric_std.resize(unsigned(ap_sig_allocacmp_loop_index3_load),64));
+    outcome_AOV_address0 <= loop_index3_cast_fu_129_p1(3 - 1 downto 0);
 
     outcome_AOV_ce0_assign_proc : process(ap_CS_fsm_state1, ap_start_int)
     begin
@@ -293,11 +293,11 @@ begin
         end if; 
     end process;
 
-    outcome_AOV_d0 <= tmp_i_fu_134_p10;
+    outcome_AOV_d0 <= tmp_fu_134_p10;
 
-    outcome_AOV_we0_assign_proc : process(ap_CS_fsm_state1, exitcond3_i_fu_117_p2, ap_start_int)
+    outcome_AOV_we0_assign_proc : process(ap_CS_fsm_state1, exitcond3_fu_117_p2, ap_start_int)
     begin
-        if (((exitcond3_i_fu_117_p2 = ap_const_lv1_0) and (ap_const_logic_1 = ap_CS_fsm_state1) and (ap_start_int = ap_const_logic_1))) then 
+        if (((exitcond3_fu_117_p2 = ap_const_lv1_0) and (ap_const_logic_1 = ap_CS_fsm_state1) and (ap_start_int = ap_const_logic_1))) then 
             outcome_AOV_we0 <= ap_const_logic_1;
         else 
             outcome_AOV_we0 <= ap_const_logic_0;

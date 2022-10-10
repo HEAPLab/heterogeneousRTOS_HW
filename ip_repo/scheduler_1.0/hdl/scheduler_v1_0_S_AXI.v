@@ -1052,6 +1052,9 @@ module scheduler_v1_0_S_AXI #
 
     wire[7:0] HighestPriorityTaskIndex;
     wire[31:0] HighestPriorityTaskDeadline;
+    
+    localparam [1:0] REEXECUTION_NOERROR = 2'h0, REEXECUTION_TIMINGERROR = 2'h1, REEXECUTION_FAULT = 2'h2;
+    reg [1:0] reExecutionReason [maxTasks-1:0];
 
     integer m;
     always @(posedge SCHEDULER_CLK)
@@ -1105,6 +1108,8 @@ module scheduler_v1_0_S_AXI #
                             AbsActivations[copyIterator]<=PeriodsList[copyIterator];
 
                             executionTimes[copyIterator]<=0;
+                            
+                            reExecutionReason[copyIterator]<=REEXECUTION_NOERROR;
 
                             copyIterator<=copyIterator+1;
                         end
@@ -1131,7 +1136,7 @@ module scheduler_v1_0_S_AXI #
                     nextRunningTaskKilled=nextRunningTaskKilled && runningTaskFlop==oldRunningTaskFlop;
 
                     //what happens in this tick?
-                    WCETexceeded= (runningTaskKilled || runningTaskIndex==8'hFF) ? 0 : executionTimes[runningTaskIndex]>=WCETsList[runningTaskIndex];
+                    WCETexceeded = (runningTaskKilled || runningTaskIndex==8'hFF) ? 0 : executionTimes[runningTaskIndex]>=WCETsList[runningTaskIndex];
                     controlKillRunningJob=(!runningTaskKilled && runningTaskIndex!=8'hFF && slv_control_reg != oldSlv_control_reg && slv_control_reg[31:16]==control_jobEnded && (slv_control_reg[7:0]-1)==runningTaskIndex); //&& number_of_ready_tasks_reg>0 
                     //____________________________		
 

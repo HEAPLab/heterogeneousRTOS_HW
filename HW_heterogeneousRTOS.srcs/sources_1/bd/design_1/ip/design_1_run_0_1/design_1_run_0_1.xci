@@ -107,7 +107,7 @@
         <spirit:configurableElementValue spirit:referenceId="PROJECT_PARAM.USE_RDI_CUSTOMIZATION">TRUE</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="PROJECT_PARAM.USE_RDI_GENERATION">TRUE</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.IPCONTEXT">IP_Integrator</spirit:configurableElementValue>
-        <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.IPREVISION">2112714025</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.IPREVISION">2112715229</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.MANAGED">TRUE</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.OUTPUTDIR">../../../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ip/design_1_run_0_1</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.SELECTEDSIMMODEL"/>
@@ -608,52 +608,8 @@
                               }
                             }
                           },
-                          &quot;readyForData&quot;: {
-                            &quot;address_offset&quot;: &quot;44&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;readyForData&quot;,
-                            &quot;description&quot;: &quot;Data signal of readyForData&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;readyForData&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 8,
-                                &quot;description&quot;: &quot;Bit 7 to 0 of readyForData&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              },
-                              &quot;RESERVED&quot;: {
-                                &quot;bit_offset&quot;: 8,
-                                &quot;bit_width&quot;: 24,
-                                &quot;description&quot;: &quot;Reserved.  0s on read.&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
-                          &quot;copyInputAOV&quot;: {
-                            &quot;address_offset&quot;: &quot;52&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;copyInputAOV&quot;,
-                            &quot;description&quot;: &quot;Data signal of copyInputAOV&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;copyInputAOV&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 8,
-                                &quot;description&quot;: &quot;Bit 7 to 0 of copyInputAOV&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              },
-                              &quot;RESERVED&quot;: {
-                                &quot;bit_offset&quot;: 8,
-                                &quot;bit_width&quot;: 24,
-                                &quot;description&quot;: &quot;Reserved.  0s on read.&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
                           &quot;accel_mode&quot;: {
-                            &quot;address_offset&quot;: &quot;60&quot;,
+                            &quot;address_offset&quot;: &quot;44&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;accel_mode&quot;,
                             &quot;description&quot;: &quot;Data signal of accel_mode&quot;,
@@ -675,7 +631,7 @@
                             }
                           },
                           &quot;trainedRegion_i_1&quot;: {
-                            &quot;address_offset&quot;: &quot;68&quot;,
+                            &quot;address_offset&quot;: &quot;52&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_1&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -691,7 +647,7 @@
                             }
                           },
                           &quot;trainedRegion_i_2&quot;: {
-                            &quot;address_offset&quot;: &quot;72&quot;,
+                            &quot;address_offset&quot;: &quot;56&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_2&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -707,7 +663,7 @@
                             }
                           },
                           &quot;trainedRegion_i_3&quot;: {
-                            &quot;address_offset&quot;: &quot;76&quot;,
+                            &quot;address_offset&quot;: &quot;60&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_3&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -723,7 +679,7 @@
                             }
                           },
                           &quot;trainedRegion_i_4&quot;: {
-                            &quot;address_offset&quot;: &quot;80&quot;,
+                            &quot;address_offset&quot;: &quot;64&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_4&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -739,7 +695,7 @@
                             }
                           },
                           &quot;trainedRegion_i_5&quot;: {
-                            &quot;address_offset&quot;: &quot;84&quot;,
+                            &quot;address_offset&quot;: &quot;68&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_5&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -755,7 +711,7 @@
                             }
                           },
                           &quot;trainedRegion_i_6&quot;: {
-                            &quot;address_offset&quot;: &quot;88&quot;,
+                            &quot;address_offset&quot;: &quot;72&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_6&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -771,7 +727,7 @@
                             }
                           },
                           &quot;trainedRegion_i_7&quot;: {
-                            &quot;address_offset&quot;: &quot;92&quot;,
+                            &quot;address_offset&quot;: &quot;76&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_7&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -787,7 +743,7 @@
                             }
                           },
                           &quot;trainedRegion_i_8&quot;: {
-                            &quot;address_offset&quot;: &quot;96&quot;,
+                            &quot;address_offset&quot;: &quot;80&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_8&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -803,7 +759,7 @@
                             }
                           },
                           &quot;trainedRegion_i_9&quot;: {
-                            &quot;address_offset&quot;: &quot;100&quot;,
+                            &quot;address_offset&quot;: &quot;84&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_9&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -819,7 +775,7 @@
                             }
                           },
                           &quot;trainedRegion_i_10&quot;: {
-                            &quot;address_offset&quot;: &quot;104&quot;,
+                            &quot;address_offset&quot;: &quot;88&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_10&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -835,7 +791,7 @@
                             }
                           },
                           &quot;trainedRegion_i_11&quot;: {
-                            &quot;address_offset&quot;: &quot;108&quot;,
+                            &quot;address_offset&quot;: &quot;92&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_11&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -851,7 +807,7 @@
                             }
                           },
                           &quot;trainedRegion_i_12&quot;: {
-                            &quot;address_offset&quot;: &quot;112&quot;,
+                            &quot;address_offset&quot;: &quot;96&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_12&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -867,7 +823,7 @@
                             }
                           },
                           &quot;trainedRegion_i_13&quot;: {
-                            &quot;address_offset&quot;: &quot;116&quot;,
+                            &quot;address_offset&quot;: &quot;100&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_13&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -883,7 +839,7 @@
                             }
                           },
                           &quot;trainedRegion_i_14&quot;: {
-                            &quot;address_offset&quot;: &quot;120&quot;,
+                            &quot;address_offset&quot;: &quot;104&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_14&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -899,7 +855,7 @@
                             }
                           },
                           &quot;trainedRegion_i_15&quot;: {
-                            &quot;address_offset&quot;: &quot;124&quot;,
+                            &quot;address_offset&quot;: &quot;108&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_15&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -915,7 +871,7 @@
                             }
                           },
                           &quot;trainedRegion_i_16&quot;: {
-                            &quot;address_offset&quot;: &quot;128&quot;,
+                            &quot;address_offset&quot;: &quot;112&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_16&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -931,7 +887,7 @@
                             }
                           },
                           &quot;trainedRegion_i_17&quot;: {
-                            &quot;address_offset&quot;: &quot;132&quot;,
+                            &quot;address_offset&quot;: &quot;116&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_17&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -947,7 +903,7 @@
                             }
                           },
                           &quot;trainedRegion_i_18&quot;: {
-                            &quot;address_offset&quot;: &quot;136&quot;,
+                            &quot;address_offset&quot;: &quot;120&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_18&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -963,7 +919,7 @@
                             }
                           },
                           &quot;trainedRegion_i_19&quot;: {
-                            &quot;address_offset&quot;: &quot;140&quot;,
+                            &quot;address_offset&quot;: &quot;124&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_19&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -979,7 +935,7 @@
                             }
                           },
                           &quot;trainedRegion_i_20&quot;: {
-                            &quot;address_offset&quot;: &quot;144&quot;,
+                            &quot;address_offset&quot;: &quot;128&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_20&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -995,7 +951,7 @@
                             }
                           },
                           &quot;trainedRegion_i_21&quot;: {
-                            &quot;address_offset&quot;: &quot;148&quot;,
+                            &quot;address_offset&quot;: &quot;132&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_21&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -1011,7 +967,7 @@
                             }
                           },
                           &quot;trainedRegion_i_22&quot;: {
-                            &quot;address_offset&quot;: &quot;152&quot;,
+                            &quot;address_offset&quot;: &quot;136&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_22&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -1027,7 +983,7 @@
                             }
                           },
                           &quot;trainedRegion_i_23&quot;: {
-                            &quot;address_offset&quot;: &quot;156&quot;,
+                            &quot;address_offset&quot;: &quot;140&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_23&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -1043,7 +999,7 @@
                             }
                           },
                           &quot;trainedRegion_i_24&quot;: {
-                            &quot;address_offset&quot;: &quot;160&quot;,
+                            &quot;address_offset&quot;: &quot;144&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_i_24&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
@@ -1059,7 +1015,7 @@
                             }
                           },
                           &quot;trainedRegion_o_1&quot;: {
-                            &quot;address_offset&quot;: &quot;168&quot;,
+                            &quot;address_offset&quot;: &quot;152&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_1&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1075,7 +1031,7 @@
                             }
                           },
                           &quot;trainedRegion_o_2&quot;: {
-                            &quot;address_offset&quot;: &quot;172&quot;,
+                            &quot;address_offset&quot;: &quot;156&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_2&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1091,7 +1047,7 @@
                             }
                           },
                           &quot;trainedRegion_o_3&quot;: {
-                            &quot;address_offset&quot;: &quot;176&quot;,
+                            &quot;address_offset&quot;: &quot;160&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_3&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1107,7 +1063,7 @@
                             }
                           },
                           &quot;trainedRegion_o_4&quot;: {
-                            &quot;address_offset&quot;: &quot;180&quot;,
+                            &quot;address_offset&quot;: &quot;164&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_4&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1123,7 +1079,7 @@
                             }
                           },
                           &quot;trainedRegion_o_5&quot;: {
-                            &quot;address_offset&quot;: &quot;184&quot;,
+                            &quot;address_offset&quot;: &quot;168&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_5&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1139,7 +1095,7 @@
                             }
                           },
                           &quot;trainedRegion_o_6&quot;: {
-                            &quot;address_offset&quot;: &quot;188&quot;,
+                            &quot;address_offset&quot;: &quot;172&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_6&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1155,7 +1111,7 @@
                             }
                           },
                           &quot;trainedRegion_o_7&quot;: {
-                            &quot;address_offset&quot;: &quot;192&quot;,
+                            &quot;address_offset&quot;: &quot;176&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_7&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1171,7 +1127,7 @@
                             }
                           },
                           &quot;trainedRegion_o_8&quot;: {
-                            &quot;address_offset&quot;: &quot;196&quot;,
+                            &quot;address_offset&quot;: &quot;180&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_8&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1187,7 +1143,7 @@
                             }
                           },
                           &quot;trainedRegion_o_9&quot;: {
-                            &quot;address_offset&quot;: &quot;200&quot;,
+                            &quot;address_offset&quot;: &quot;184&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_9&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1203,7 +1159,7 @@
                             }
                           },
                           &quot;trainedRegion_o_10&quot;: {
-                            &quot;address_offset&quot;: &quot;204&quot;,
+                            &quot;address_offset&quot;: &quot;188&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_10&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1219,7 +1175,7 @@
                             }
                           },
                           &quot;trainedRegion_o_11&quot;: {
-                            &quot;address_offset&quot;: &quot;208&quot;,
+                            &quot;address_offset&quot;: &quot;192&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_11&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1235,7 +1191,7 @@
                             }
                           },
                           &quot;trainedRegion_o_12&quot;: {
-                            &quot;address_offset&quot;: &quot;212&quot;,
+                            &quot;address_offset&quot;: &quot;196&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_12&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1251,7 +1207,7 @@
                             }
                           },
                           &quot;trainedRegion_o_13&quot;: {
-                            &quot;address_offset&quot;: &quot;216&quot;,
+                            &quot;address_offset&quot;: &quot;200&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_13&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1267,7 +1223,7 @@
                             }
                           },
                           &quot;trainedRegion_o_14&quot;: {
-                            &quot;address_offset&quot;: &quot;220&quot;,
+                            &quot;address_offset&quot;: &quot;204&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_14&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1283,7 +1239,7 @@
                             }
                           },
                           &quot;trainedRegion_o_15&quot;: {
-                            &quot;address_offset&quot;: &quot;224&quot;,
+                            &quot;address_offset&quot;: &quot;208&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_15&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1299,7 +1255,7 @@
                             }
                           },
                           &quot;trainedRegion_o_16&quot;: {
-                            &quot;address_offset&quot;: &quot;228&quot;,
+                            &quot;address_offset&quot;: &quot;212&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_16&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1315,7 +1271,7 @@
                             }
                           },
                           &quot;trainedRegion_o_17&quot;: {
-                            &quot;address_offset&quot;: &quot;232&quot;,
+                            &quot;address_offset&quot;: &quot;216&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_17&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1331,7 +1287,7 @@
                             }
                           },
                           &quot;trainedRegion_o_18&quot;: {
-                            &quot;address_offset&quot;: &quot;236&quot;,
+                            &quot;address_offset&quot;: &quot;220&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_18&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1347,7 +1303,7 @@
                             }
                           },
                           &quot;trainedRegion_o_19&quot;: {
-                            &quot;address_offset&quot;: &quot;240&quot;,
+                            &quot;address_offset&quot;: &quot;224&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_19&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1363,7 +1319,7 @@
                             }
                           },
                           &quot;trainedRegion_o_20&quot;: {
-                            &quot;address_offset&quot;: &quot;244&quot;,
+                            &quot;address_offset&quot;: &quot;228&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_20&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1379,7 +1335,7 @@
                             }
                           },
                           &quot;trainedRegion_o_21&quot;: {
-                            &quot;address_offset&quot;: &quot;248&quot;,
+                            &quot;address_offset&quot;: &quot;232&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_21&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1395,7 +1351,7 @@
                             }
                           },
                           &quot;trainedRegion_o_22&quot;: {
-                            &quot;address_offset&quot;: &quot;252&quot;,
+                            &quot;address_offset&quot;: &quot;236&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_22&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1411,7 +1367,7 @@
                             }
                           },
                           &quot;trainedRegion_o_23&quot;: {
-                            &quot;address_offset&quot;: &quot;256&quot;,
+                            &quot;address_offset&quot;: &quot;240&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_23&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1427,7 +1383,7 @@
                             }
                           },
                           &quot;trainedRegion_o_24&quot;: {
-                            &quot;address_offset&quot;: &quot;260&quot;,
+                            &quot;address_offset&quot;: &quot;244&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;trainedRegion_o_24&quot;,
                             &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
@@ -1443,7 +1399,7 @@
                             }
                           },
                           &quot;IOCheckIdx&quot;: {
-                            &quot;address_offset&quot;: &quot;368&quot;,
+                            &quot;address_offset&quot;: &quot;352&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;IOCheckIdx&quot;,
                             &quot;description&quot;: &quot;Data signal of IOCheckIdx&quot;,
@@ -1465,7 +1421,7 @@
                             }
                           },
                           &quot;IORegionIdx&quot;: {
-                            &quot;address_offset&quot;: &quot;376&quot;,
+                            &quot;address_offset&quot;: &quot;360&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;IORegionIdx&quot;,
                             &quot;description&quot;: &quot;Data signal of IORegionIdx&quot;,
@@ -1487,7 +1443,7 @@
                             }
                           },
                           &quot;n_regions_in_i&quot;: {
-                            &quot;address_offset&quot;: &quot;384&quot;,
+                            &quot;address_offset&quot;: &quot;368&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;n_regions_in_i&quot;,
                             &quot;description&quot;: &quot;Data signal of n_regions_in_i&quot;,
@@ -1509,7 +1465,7 @@
                             }
                           },
                           &quot;n_regions_in_o&quot;: {
-                            &quot;address_offset&quot;: &quot;392&quot;,
+                            &quot;address_offset&quot;: &quot;376&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;n_regions_in_o&quot;,
                             &quot;description&quot;: &quot;Data signal of n_regions_in_o&quot;,

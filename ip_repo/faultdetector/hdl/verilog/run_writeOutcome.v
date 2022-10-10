@@ -12,61 +12,28 @@ module run_writeOutcome (
         ap_rst,
         ap_start,
         ap_done,
-        ap_continue,
         ap_idle,
         ap_ready,
         errorInTask_address0,
         errorInTask_ce0,
         errorInTask_we0,
         errorInTask_d0,
-        p_read,
-        p_read1,
-        p_read2,
-        p_read3,
+        errorInTask1,
+        checkId,
+        uniId,
+        error,
         outcomeInRam_address0,
         outcomeInRam_ce0,
         outcomeInRam_we0,
         outcomeInRam_d0,
-        contr_AOV_dout,
-        contr_AOV_num_data_valid,
-        contr_AOV_fifo_cap,
-        contr_AOV_empty_n,
-        contr_AOV_read,
-        contr_AOV_1_dout,
-        contr_AOV_1_num_data_valid,
-        contr_AOV_1_fifo_cap,
-        contr_AOV_1_empty_n,
-        contr_AOV_1_read,
-        contr_AOV_2_dout,
-        contr_AOV_2_num_data_valid,
-        contr_AOV_2_fifo_cap,
-        contr_AOV_2_empty_n,
-        contr_AOV_2_read,
-        contr_AOV_3_dout,
-        contr_AOV_3_num_data_valid,
-        contr_AOV_3_fifo_cap,
-        contr_AOV_3_empty_n,
-        contr_AOV_3_read,
-        contr_AOV_4_dout,
-        contr_AOV_4_num_data_valid,
-        contr_AOV_4_fifo_cap,
-        contr_AOV_4_empty_n,
-        contr_AOV_4_read,
-        contr_AOV_5_dout,
-        contr_AOV_5_num_data_valid,
-        contr_AOV_5_fifo_cap,
-        contr_AOV_5_empty_n,
-        contr_AOV_5_read,
-        contr_AOV_6_dout,
-        contr_AOV_6_num_data_valid,
-        contr_AOV_6_fifo_cap,
-        contr_AOV_6_empty_n,
-        contr_AOV_6_read,
-        contr_AOV_7_dout,
-        contr_AOV_7_num_data_valid,
-        contr_AOV_7_fifo_cap,
-        contr_AOV_7_empty_n,
-        contr_AOV_7_read
+        p_read,
+        p_read1,
+        p_read2,
+        p_read3,
+        p_read4,
+        p_read5,
+        p_read6,
+        p_read7
 );
 
 parameter    ap_ST_fsm_state1 = 8'd1;
@@ -82,61 +49,28 @@ input   ap_clk;
 input   ap_rst;
 input   ap_start;
 output   ap_done;
-input   ap_continue;
 output   ap_idle;
 output   ap_ready;
 output  [3:0] errorInTask_address0;
 output   errorInTask_ce0;
 output   errorInTask_we0;
-output  [0:0] errorInTask_d0;
-input  [3:0] p_read;
-input  [7:0] p_read1;
-input  [15:0] p_read2;
-input  [0:0] p_read3;
+output  [7:0] errorInTask_d0;
+input  [3:0] errorInTask1;
+input  [7:0] checkId;
+input  [15:0] uniId;
+input  [0:0] error;
 output  [3:0] outcomeInRam_address0;
 output   outcomeInRam_ce0;
 output  [35:0] outcomeInRam_we0;
 output  [287:0] outcomeInRam_d0;
-input  [31:0] contr_AOV_dout;
-input  [1:0] contr_AOV_num_data_valid;
-input  [1:0] contr_AOV_fifo_cap;
-input   contr_AOV_empty_n;
-output   contr_AOV_read;
-input  [31:0] contr_AOV_1_dout;
-input  [1:0] contr_AOV_1_num_data_valid;
-input  [1:0] contr_AOV_1_fifo_cap;
-input   contr_AOV_1_empty_n;
-output   contr_AOV_1_read;
-input  [31:0] contr_AOV_2_dout;
-input  [1:0] contr_AOV_2_num_data_valid;
-input  [1:0] contr_AOV_2_fifo_cap;
-input   contr_AOV_2_empty_n;
-output   contr_AOV_2_read;
-input  [31:0] contr_AOV_3_dout;
-input  [1:0] contr_AOV_3_num_data_valid;
-input  [1:0] contr_AOV_3_fifo_cap;
-input   contr_AOV_3_empty_n;
-output   contr_AOV_3_read;
-input  [31:0] contr_AOV_4_dout;
-input  [1:0] contr_AOV_4_num_data_valid;
-input  [1:0] contr_AOV_4_fifo_cap;
-input   contr_AOV_4_empty_n;
-output   contr_AOV_4_read;
-input  [31:0] contr_AOV_5_dout;
-input  [1:0] contr_AOV_5_num_data_valid;
-input  [1:0] contr_AOV_5_fifo_cap;
-input   contr_AOV_5_empty_n;
-output   contr_AOV_5_read;
-input  [31:0] contr_AOV_6_dout;
-input  [1:0] contr_AOV_6_num_data_valid;
-input  [1:0] contr_AOV_6_fifo_cap;
-input   contr_AOV_6_empty_n;
-output   contr_AOV_6_read;
-input  [31:0] contr_AOV_7_dout;
-input  [1:0] contr_AOV_7_num_data_valid;
-input  [1:0] contr_AOV_7_fifo_cap;
-input   contr_AOV_7_empty_n;
-output   contr_AOV_7_read;
+input  [31:0] p_read;
+input  [31:0] p_read1;
+input  [31:0] p_read2;
+input  [31:0] p_read3;
+input  [31:0] p_read4;
+input  [31:0] p_read5;
+input  [31:0] p_read6;
+input  [31:0] p_read7;
 
 reg ap_done;
 reg ap_idle;
@@ -145,74 +79,47 @@ reg errorInTask_ce0;
 reg errorInTask_we0;
 reg outcomeInRam_ce0;
 reg[35:0] outcomeInRam_we0;
-reg contr_AOV_read;
-reg contr_AOV_1_read;
-reg contr_AOV_2_read;
-reg contr_AOV_3_read;
-reg contr_AOV_4_read;
-reg contr_AOV_5_read;
-reg contr_AOV_6_read;
-reg contr_AOV_7_read;
 
-reg    ap_done_reg;
 (* fsm_encoding = "none" *) reg   [7:0] ap_CS_fsm;
 wire    ap_CS_fsm_state1;
-reg    contr_AOV_blk_n;
-reg    contr_AOV_1_blk_n;
-reg    contr_AOV_2_blk_n;
-reg    contr_AOV_3_blk_n;
-reg    contr_AOV_4_blk_n;
-reg    contr_AOV_5_blk_n;
-reg    contr_AOV_6_blk_n;
-reg    contr_AOV_7_blk_n;
-reg   [31:0] contr_AOV_7_read_reg_350;
-reg   [31:0] contr_AOV_6_read_reg_355;
-reg   [31:0] contr_AOV_5_read_reg_360;
-reg   [31:0] contr_AOV_4_read_reg_365;
-reg   [31:0] contr_AOV_3_read_reg_370;
-reg   [31:0] contr_AOV_2_read_reg_375;
-reg   [31:0] contr_AOV_1_read_reg_380;
-reg   [31:0] contr_AOV_read_reg_385;
 wire    ap_CS_fsm_state3;
 wire   [31:0] outcome_AOV_q1;
-reg   [31:0] outcome_AOV_load_reg_400;
+reg   [31:0] outcome_AOV_load_reg_394;
 wire    ap_CS_fsm_state4;
 wire   [31:0] outcome_AOV_q0;
-reg   [31:0] outcome_AOV_load_1_reg_405;
-reg   [31:0] outcome_AOV_load_2_reg_420;
+reg   [31:0] outcome_AOV_load_1_reg_399;
+reg   [31:0] outcome_AOV_load_2_reg_414;
 wire    ap_CS_fsm_state5;
-reg   [31:0] outcome_AOV_load_3_reg_425;
-reg   [31:0] outcome_AOV_load_4_reg_440;
+reg   [31:0] outcome_AOV_load_3_reg_419;
+reg   [31:0] outcome_AOV_load_4_reg_434;
 wire    ap_CS_fsm_state6;
-reg   [31:0] outcome_AOV_load_5_reg_445;
+reg   [31:0] outcome_AOV_load_5_reg_439;
 wire    ap_CS_fsm_state7;
 reg   [2:0] outcome_AOV_address0;
 reg    outcome_AOV_ce0;
 reg    outcome_AOV_we0;
 reg   [2:0] outcome_AOV_address1;
 reg    outcome_AOV_ce1;
-wire    grp_writeOutcome_Pipeline_1_fu_270_ap_start;
-wire    grp_writeOutcome_Pipeline_1_fu_270_ap_done;
-wire    grp_writeOutcome_Pipeline_1_fu_270_ap_idle;
-wire    grp_writeOutcome_Pipeline_1_fu_270_ap_ready;
-wire   [2:0] grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_address0;
-wire    grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_ce0;
-wire    grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_we0;
-wire   [31:0] grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_d0;
-reg    grp_writeOutcome_Pipeline_1_fu_270_ap_start_reg;
-reg    ap_block_state1_ignore_call27;
+wire    grp_writeOutcome_Pipeline_1_fu_259_ap_start;
+wire    grp_writeOutcome_Pipeline_1_fu_259_ap_done;
+wire    grp_writeOutcome_Pipeline_1_fu_259_ap_idle;
+wire    grp_writeOutcome_Pipeline_1_fu_259_ap_ready;
+wire   [2:0] grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_address0;
+wire    grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_ce0;
+wire    grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_we0;
+wire   [31:0] grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_d0;
+reg    grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg;
 wire    ap_CS_fsm_state2;
-wire   [63:0] errorInTask1_cast_i_fu_345_p1;
+wire   [63:0] errorInTask1_cast_fu_334_p1;
 wire    ap_CS_fsm_state8;
-reg    ap_block_state1;
-wire   [31:0] empty_51_fu_314_p1;
-wire   [31:0] empty_50_fu_310_p1;
-wire   [31:0] empty_49_fu_307_p1;
-wire   [31:0] empty_48_fu_304_p1;
-wire   [31:0] empty_47_fu_301_p1;
-wire   [31:0] empty_46_fu_298_p1;
-wire   [31:0] empty_45_fu_295_p1;
-wire   [31:0] empty_fu_292_p1;
+wire   [31:0] empty_53_fu_303_p1;
+wire   [31:0] empty_52_fu_299_p1;
+wire   [31:0] empty_51_fu_296_p1;
+wire   [31:0] empty_50_fu_293_p1;
+wire   [31:0] empty_49_fu_290_p1;
+wire   [31:0] empty_48_fu_287_p1;
+wire   [31:0] empty_47_fu_284_p1;
+wire   [31:0] empty_fu_281_p1;
 reg   [7:0] ap_NS_fsm;
 reg    ap_ST_fsm_state1_blk;
 reg    ap_ST_fsm_state2_blk;
@@ -226,9 +133,8 @@ wire    ap_ce_reg;
 
 // power-on initialization
 initial begin
-#0 ap_done_reg = 1'b0;
 #0 ap_CS_fsm = 8'd1;
-#0 grp_writeOutcome_Pipeline_1_fu_270_ap_start_reg = 1'b0;
+#0 grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg = 1'b0;
 end
 
 run_writeOutcome_outcome_AOV_RAM_AUTO_1R1W #(
@@ -241,32 +147,32 @@ outcome_AOV_U(
     .address0(outcome_AOV_address0),
     .ce0(outcome_AOV_ce0),
     .we0(outcome_AOV_we0),
-    .d0(grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_d0),
+    .d0(grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_d0),
     .q0(outcome_AOV_q0),
     .address1(outcome_AOV_address1),
     .ce1(outcome_AOV_ce1),
     .q1(outcome_AOV_q1)
 );
 
-run_writeOutcome_Pipeline_1 grp_writeOutcome_Pipeline_1_fu_270(
+run_writeOutcome_Pipeline_1 grp_writeOutcome_Pipeline_1_fu_259(
     .ap_clk(ap_clk),
     .ap_rst(ap_rst),
-    .ap_start(grp_writeOutcome_Pipeline_1_fu_270_ap_start),
-    .ap_done(grp_writeOutcome_Pipeline_1_fu_270_ap_done),
-    .ap_idle(grp_writeOutcome_Pipeline_1_fu_270_ap_idle),
-    .ap_ready(grp_writeOutcome_Pipeline_1_fu_270_ap_ready),
-    .contr_AOV_load(contr_AOV_read_reg_385),
-    .contr_AOV_1_load(contr_AOV_1_read_reg_380),
-    .contr_AOV_2_load(contr_AOV_2_read_reg_375),
-    .contr_AOV_3_load(contr_AOV_3_read_reg_370),
-    .contr_AOV_4_load(contr_AOV_4_read_reg_365),
-    .contr_AOV_5_load(contr_AOV_5_read_reg_360),
-    .contr_AOV_6_load(contr_AOV_6_read_reg_355),
-    .contr_AOV_7_load(contr_AOV_7_read_reg_350),
-    .outcome_AOV_address0(grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_address0),
-    .outcome_AOV_ce0(grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_ce0),
-    .outcome_AOV_we0(grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_we0),
-    .outcome_AOV_d0(grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_d0)
+    .ap_start(grp_writeOutcome_Pipeline_1_fu_259_ap_start),
+    .ap_done(grp_writeOutcome_Pipeline_1_fu_259_ap_done),
+    .ap_idle(grp_writeOutcome_Pipeline_1_fu_259_ap_idle),
+    .ap_ready(grp_writeOutcome_Pipeline_1_fu_259_ap_ready),
+    .p_read(p_read),
+    .p_read1(p_read1),
+    .p_read2(p_read2),
+    .p_read3(p_read3),
+    .p_read4(p_read4),
+    .p_read5(p_read5),
+    .p_read6(p_read6),
+    .p_read7(p_read7),
+    .outcome_AOV_address0(grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_address0),
+    .outcome_AOV_ce0(grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_ce0),
+    .outcome_AOV_we0(grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_we0),
+    .outcome_AOV_d0(grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_d0)
 );
 
 always @ (posedge ap_clk) begin
@@ -279,64 +185,39 @@ end
 
 always @ (posedge ap_clk) begin
     if (ap_rst == 1'b1) begin
-        ap_done_reg <= 1'b0;
+        grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg <= 1'b0;
     end else begin
-        if ((ap_continue == 1'b1)) begin
-            ap_done_reg <= 1'b0;
-        end else if ((1'b1 == ap_CS_fsm_state8)) begin
-            ap_done_reg <= 1'b1;
+        if (((1'b1 == ap_CS_fsm_state1) & (ap_start == 1'b1))) begin
+            grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg <= 1'b1;
+        end else if ((grp_writeOutcome_Pipeline_1_fu_259_ap_ready == 1'b1)) begin
+            grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg <= 1'b0;
         end
-    end
-end
-
-always @ (posedge ap_clk) begin
-    if (ap_rst == 1'b1) begin
-        grp_writeOutcome_Pipeline_1_fu_270_ap_start_reg <= 1'b0;
-    end else begin
-        if ((~((contr_AOV_7_empty_n == 1'b0) | (contr_AOV_6_empty_n == 1'b0) | (contr_AOV_5_empty_n == 1'b0) | (contr_AOV_4_empty_n == 1'b0) | (contr_AOV_3_empty_n == 1'b0) | (contr_AOV_2_empty_n == 1'b0) | (contr_AOV_1_empty_n == 1'b0) | (contr_AOV_empty_n == 1'b0) | (ap_done_reg == 1'b1) | (ap_start == 1'b0)) & (1'b1 == ap_CS_fsm_state1))) begin
-            grp_writeOutcome_Pipeline_1_fu_270_ap_start_reg <= 1'b1;
-        end else if ((grp_writeOutcome_Pipeline_1_fu_270_ap_ready == 1'b1)) begin
-            grp_writeOutcome_Pipeline_1_fu_270_ap_start_reg <= 1'b0;
-        end
-    end
-end
-
-always @ (posedge ap_clk) begin
-    if ((1'b1 == ap_CS_fsm_state1)) begin
-        contr_AOV_1_read_reg_380 <= contr_AOV_1_dout;
-        contr_AOV_2_read_reg_375 <= contr_AOV_2_dout;
-        contr_AOV_3_read_reg_370 <= contr_AOV_3_dout;
-        contr_AOV_4_read_reg_365 <= contr_AOV_4_dout;
-        contr_AOV_5_read_reg_360 <= contr_AOV_5_dout;
-        contr_AOV_6_read_reg_355 <= contr_AOV_6_dout;
-        contr_AOV_7_read_reg_350 <= contr_AOV_7_dout;
-        contr_AOV_read_reg_385 <= contr_AOV_dout;
     end
 end
 
 always @ (posedge ap_clk) begin
     if ((1'b1 == ap_CS_fsm_state4)) begin
-        outcome_AOV_load_1_reg_405 <= outcome_AOV_q0;
-        outcome_AOV_load_reg_400 <= outcome_AOV_q1;
+        outcome_AOV_load_1_reg_399 <= outcome_AOV_q0;
+        outcome_AOV_load_reg_394 <= outcome_AOV_q1;
     end
 end
 
 always @ (posedge ap_clk) begin
     if ((1'b1 == ap_CS_fsm_state5)) begin
-        outcome_AOV_load_2_reg_420 <= outcome_AOV_q1;
-        outcome_AOV_load_3_reg_425 <= outcome_AOV_q0;
+        outcome_AOV_load_2_reg_414 <= outcome_AOV_q1;
+        outcome_AOV_load_3_reg_419 <= outcome_AOV_q0;
     end
 end
 
 always @ (posedge ap_clk) begin
     if ((1'b1 == ap_CS_fsm_state6)) begin
-        outcome_AOV_load_4_reg_440 <= outcome_AOV_q1;
-        outcome_AOV_load_5_reg_445 <= outcome_AOV_q0;
+        outcome_AOV_load_4_reg_434 <= outcome_AOV_q1;
+        outcome_AOV_load_5_reg_439 <= outcome_AOV_q0;
     end
 end
 
 always @ (*) begin
-    if (((contr_AOV_7_empty_n == 1'b0) | (contr_AOV_6_empty_n == 1'b0) | (contr_AOV_5_empty_n == 1'b0) | (contr_AOV_4_empty_n == 1'b0) | (contr_AOV_3_empty_n == 1'b0) | (contr_AOV_2_empty_n == 1'b0) | (contr_AOV_1_empty_n == 1'b0) | (contr_AOV_empty_n == 1'b0) | (ap_done_reg == 1'b1) | (ap_start == 1'b0))) begin
+    if ((ap_start == 1'b0)) begin
         ap_ST_fsm_state1_blk = 1'b1;
     end else begin
         ap_ST_fsm_state1_blk = 1'b0;
@@ -344,7 +225,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if ((grp_writeOutcome_Pipeline_1_fu_270_ap_done == 1'b0)) begin
+    if ((grp_writeOutcome_Pipeline_1_fu_259_ap_done == 1'b0)) begin
         ap_ST_fsm_state2_blk = 1'b1;
     end else begin
         ap_ST_fsm_state2_blk = 1'b0;
@@ -364,10 +245,10 @@ assign ap_ST_fsm_state7_blk = 1'b0;
 assign ap_ST_fsm_state8_blk = 1'b0;
 
 always @ (*) begin
-    if ((1'b1 == ap_CS_fsm_state8)) begin
+    if (((1'b1 == ap_CS_fsm_state8) | ((1'b1 == ap_CS_fsm_state1) & (ap_start == 1'b0)))) begin
         ap_done = 1'b1;
     end else begin
-        ap_done = ap_done_reg;
+        ap_done = 1'b0;
     end
 end
 
@@ -384,134 +265,6 @@ always @ (*) begin
         ap_ready = 1'b1;
     end else begin
         ap_ready = 1'b0;
-    end
-end
-
-always @ (*) begin
-    if ((~((ap_done_reg == 1'b1) | (ap_start == 1'b0)) & (1'b1 == ap_CS_fsm_state1))) begin
-        contr_AOV_1_blk_n = contr_AOV_1_empty_n;
-    end else begin
-        contr_AOV_1_blk_n = 1'b1;
-    end
-end
-
-always @ (*) begin
-    if ((~((contr_AOV_7_empty_n == 1'b0) | (contr_AOV_6_empty_n == 1'b0) | (contr_AOV_5_empty_n == 1'b0) | (contr_AOV_4_empty_n == 1'b0) | (contr_AOV_3_empty_n == 1'b0) | (contr_AOV_2_empty_n == 1'b0) | (contr_AOV_1_empty_n == 1'b0) | (contr_AOV_empty_n == 1'b0) | (ap_done_reg == 1'b1) | (ap_start == 1'b0)) & (1'b1 == ap_CS_fsm_state1))) begin
-        contr_AOV_1_read = 1'b1;
-    end else begin
-        contr_AOV_1_read = 1'b0;
-    end
-end
-
-always @ (*) begin
-    if ((~((ap_done_reg == 1'b1) | (ap_start == 1'b0)) & (1'b1 == ap_CS_fsm_state1))) begin
-        contr_AOV_2_blk_n = contr_AOV_2_empty_n;
-    end else begin
-        contr_AOV_2_blk_n = 1'b1;
-    end
-end
-
-always @ (*) begin
-    if ((~((contr_AOV_7_empty_n == 1'b0) | (contr_AOV_6_empty_n == 1'b0) | (contr_AOV_5_empty_n == 1'b0) | (contr_AOV_4_empty_n == 1'b0) | (contr_AOV_3_empty_n == 1'b0) | (contr_AOV_2_empty_n == 1'b0) | (contr_AOV_1_empty_n == 1'b0) | (contr_AOV_empty_n == 1'b0) | (ap_done_reg == 1'b1) | (ap_start == 1'b0)) & (1'b1 == ap_CS_fsm_state1))) begin
-        contr_AOV_2_read = 1'b1;
-    end else begin
-        contr_AOV_2_read = 1'b0;
-    end
-end
-
-always @ (*) begin
-    if ((~((ap_done_reg == 1'b1) | (ap_start == 1'b0)) & (1'b1 == ap_CS_fsm_state1))) begin
-        contr_AOV_3_blk_n = contr_AOV_3_empty_n;
-    end else begin
-        contr_AOV_3_blk_n = 1'b1;
-    end
-end
-
-always @ (*) begin
-    if ((~((contr_AOV_7_empty_n == 1'b0) | (contr_AOV_6_empty_n == 1'b0) | (contr_AOV_5_empty_n == 1'b0) | (contr_AOV_4_empty_n == 1'b0) | (contr_AOV_3_empty_n == 1'b0) | (contr_AOV_2_empty_n == 1'b0) | (contr_AOV_1_empty_n == 1'b0) | (contr_AOV_empty_n == 1'b0) | (ap_done_reg == 1'b1) | (ap_start == 1'b0)) & (1'b1 == ap_CS_fsm_state1))) begin
-        contr_AOV_3_read = 1'b1;
-    end else begin
-        contr_AOV_3_read = 1'b0;
-    end
-end
-
-always @ (*) begin
-    if ((~((ap_done_reg == 1'b1) | (ap_start == 1'b0)) & (1'b1 == ap_CS_fsm_state1))) begin
-        contr_AOV_4_blk_n = contr_AOV_4_empty_n;
-    end else begin
-        contr_AOV_4_blk_n = 1'b1;
-    end
-end
-
-always @ (*) begin
-    if ((~((contr_AOV_7_empty_n == 1'b0) | (contr_AOV_6_empty_n == 1'b0) | (contr_AOV_5_empty_n == 1'b0) | (contr_AOV_4_empty_n == 1'b0) | (contr_AOV_3_empty_n == 1'b0) | (contr_AOV_2_empty_n == 1'b0) | (contr_AOV_1_empty_n == 1'b0) | (contr_AOV_empty_n == 1'b0) | (ap_done_reg == 1'b1) | (ap_start == 1'b0)) & (1'b1 == ap_CS_fsm_state1))) begin
-        contr_AOV_4_read = 1'b1;
-    end else begin
-        contr_AOV_4_read = 1'b0;
-    end
-end
-
-always @ (*) begin
-    if ((~((ap_done_reg == 1'b1) | (ap_start == 1'b0)) & (1'b1 == ap_CS_fsm_state1))) begin
-        contr_AOV_5_blk_n = contr_AOV_5_empty_n;
-    end else begin
-        contr_AOV_5_blk_n = 1'b1;
-    end
-end
-
-always @ (*) begin
-    if ((~((contr_AOV_7_empty_n == 1'b0) | (contr_AOV_6_empty_n == 1'b0) | (contr_AOV_5_empty_n == 1'b0) | (contr_AOV_4_empty_n == 1'b0) | (contr_AOV_3_empty_n == 1'b0) | (contr_AOV_2_empty_n == 1'b0) | (contr_AOV_1_empty_n == 1'b0) | (contr_AOV_empty_n == 1'b0) | (ap_done_reg == 1'b1) | (ap_start == 1'b0)) & (1'b1 == ap_CS_fsm_state1))) begin
-        contr_AOV_5_read = 1'b1;
-    end else begin
-        contr_AOV_5_read = 1'b0;
-    end
-end
-
-always @ (*) begin
-    if ((~((ap_done_reg == 1'b1) | (ap_start == 1'b0)) & (1'b1 == ap_CS_fsm_state1))) begin
-        contr_AOV_6_blk_n = contr_AOV_6_empty_n;
-    end else begin
-        contr_AOV_6_blk_n = 1'b1;
-    end
-end
-
-always @ (*) begin
-    if ((~((contr_AOV_7_empty_n == 1'b0) | (contr_AOV_6_empty_n == 1'b0) | (contr_AOV_5_empty_n == 1'b0) | (contr_AOV_4_empty_n == 1'b0) | (contr_AOV_3_empty_n == 1'b0) | (contr_AOV_2_empty_n == 1'b0) | (contr_AOV_1_empty_n == 1'b0) | (contr_AOV_empty_n == 1'b0) | (ap_done_reg == 1'b1) | (ap_start == 1'b0)) & (1'b1 == ap_CS_fsm_state1))) begin
-        contr_AOV_6_read = 1'b1;
-    end else begin
-        contr_AOV_6_read = 1'b0;
-    end
-end
-
-always @ (*) begin
-    if ((~((ap_done_reg == 1'b1) | (ap_start == 1'b0)) & (1'b1 == ap_CS_fsm_state1))) begin
-        contr_AOV_7_blk_n = contr_AOV_7_empty_n;
-    end else begin
-        contr_AOV_7_blk_n = 1'b1;
-    end
-end
-
-always @ (*) begin
-    if ((~((contr_AOV_7_empty_n == 1'b0) | (contr_AOV_6_empty_n == 1'b0) | (contr_AOV_5_empty_n == 1'b0) | (contr_AOV_4_empty_n == 1'b0) | (contr_AOV_3_empty_n == 1'b0) | (contr_AOV_2_empty_n == 1'b0) | (contr_AOV_1_empty_n == 1'b0) | (contr_AOV_empty_n == 1'b0) | (ap_done_reg == 1'b1) | (ap_start == 1'b0)) & (1'b1 == ap_CS_fsm_state1))) begin
-        contr_AOV_7_read = 1'b1;
-    end else begin
-        contr_AOV_7_read = 1'b0;
-    end
-end
-
-always @ (*) begin
-    if ((~((ap_done_reg == 1'b1) | (ap_start == 1'b0)) & (1'b1 == ap_CS_fsm_state1))) begin
-        contr_AOV_blk_n = contr_AOV_empty_n;
-    end else begin
-        contr_AOV_blk_n = 1'b1;
-    end
-end
-
-always @ (*) begin
-    if ((~((contr_AOV_7_empty_n == 1'b0) | (contr_AOV_6_empty_n == 1'b0) | (contr_AOV_5_empty_n == 1'b0) | (contr_AOV_4_empty_n == 1'b0) | (contr_AOV_3_empty_n == 1'b0) | (contr_AOV_2_empty_n == 1'b0) | (contr_AOV_1_empty_n == 1'b0) | (contr_AOV_empty_n == 1'b0) | (ap_done_reg == 1'b1) | (ap_start == 1'b0)) & (1'b1 == ap_CS_fsm_state1))) begin
-        contr_AOV_read = 1'b1;
-    end else begin
-        contr_AOV_read = 1'b0;
     end
 end
 
@@ -557,7 +310,7 @@ always @ (*) begin
     end else if ((1'b1 == ap_CS_fsm_state3)) begin
         outcome_AOV_address0 = 64'd1;
     end else if ((1'b1 == ap_CS_fsm_state2)) begin
-        outcome_AOV_address0 = grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_address0;
+        outcome_AOV_address0 = grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_address0;
     end else begin
         outcome_AOV_address0 = 'bx;
     end
@@ -578,17 +331,17 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if (((1'b1 == ap_CS_fsm_state6) | (1'b1 == ap_CS_fsm_state5) | (1'b1 == ap_CS_fsm_state4) | (1'b1 == ap_CS_fsm_state3))) begin
+    if (((1'b1 == ap_CS_fsm_state5) | (1'b1 == ap_CS_fsm_state4) | (1'b1 == ap_CS_fsm_state3) | (1'b1 == ap_CS_fsm_state6))) begin
         outcome_AOV_ce0 = 1'b1;
     end else if ((1'b1 == ap_CS_fsm_state2)) begin
-        outcome_AOV_ce0 = grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_ce0;
+        outcome_AOV_ce0 = grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_ce0;
     end else begin
         outcome_AOV_ce0 = 1'b0;
     end
 end
 
 always @ (*) begin
-    if (((1'b1 == ap_CS_fsm_state6) | (1'b1 == ap_CS_fsm_state5) | (1'b1 == ap_CS_fsm_state4) | (1'b1 == ap_CS_fsm_state3))) begin
+    if (((1'b1 == ap_CS_fsm_state5) | (1'b1 == ap_CS_fsm_state4) | (1'b1 == ap_CS_fsm_state3) | (1'b1 == ap_CS_fsm_state6))) begin
         outcome_AOV_ce1 = 1'b1;
     end else begin
         outcome_AOV_ce1 = 1'b0;
@@ -597,7 +350,7 @@ end
 
 always @ (*) begin
     if ((1'b1 == ap_CS_fsm_state2)) begin
-        outcome_AOV_we0 = grp_writeOutcome_Pipeline_1_fu_270_outcome_AOV_we0;
+        outcome_AOV_we0 = grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_we0;
     end else begin
         outcome_AOV_we0 = 1'b0;
     end
@@ -606,14 +359,14 @@ end
 always @ (*) begin
     case (ap_CS_fsm)
         ap_ST_fsm_state1 : begin
-            if ((~((contr_AOV_7_empty_n == 1'b0) | (contr_AOV_6_empty_n == 1'b0) | (contr_AOV_5_empty_n == 1'b0) | (contr_AOV_4_empty_n == 1'b0) | (contr_AOV_3_empty_n == 1'b0) | (contr_AOV_2_empty_n == 1'b0) | (contr_AOV_1_empty_n == 1'b0) | (contr_AOV_empty_n == 1'b0) | (ap_done_reg == 1'b1) | (ap_start == 1'b0)) & (1'b1 == ap_CS_fsm_state1))) begin
+            if (((1'b1 == ap_CS_fsm_state1) & (ap_start == 1'b1))) begin
                 ap_NS_fsm = ap_ST_fsm_state2;
             end else begin
                 ap_NS_fsm = ap_ST_fsm_state1;
             end
         end
         ap_ST_fsm_state2 : begin
-            if (((1'b1 == ap_CS_fsm_state2) & (grp_writeOutcome_Pipeline_1_fu_270_ap_done == 1'b1))) begin
+            if (((1'b1 == ap_CS_fsm_state2) & (grp_writeOutcome_Pipeline_1_fu_259_ap_done == 1'b1))) begin
                 ap_NS_fsm = ap_ST_fsm_state3;
             end else begin
                 ap_NS_fsm = ap_ST_fsm_state2;
@@ -659,40 +412,32 @@ assign ap_CS_fsm_state7 = ap_CS_fsm[32'd6];
 
 assign ap_CS_fsm_state8 = ap_CS_fsm[32'd7];
 
-always @ (*) begin
-    ap_block_state1 = ((contr_AOV_7_empty_n == 1'b0) | (contr_AOV_6_empty_n == 1'b0) | (contr_AOV_5_empty_n == 1'b0) | (contr_AOV_4_empty_n == 1'b0) | (contr_AOV_3_empty_n == 1'b0) | (contr_AOV_2_empty_n == 1'b0) | (contr_AOV_1_empty_n == 1'b0) | (contr_AOV_empty_n == 1'b0) | (ap_done_reg == 1'b1) | (ap_start == 1'b0));
-end
+assign empty_47_fu_284_p1 = outcome_AOV_load_1_reg_399;
 
-always @ (*) begin
-    ap_block_state1_ignore_call27 = ((contr_AOV_7_empty_n == 1'b0) | (contr_AOV_6_empty_n == 1'b0) | (contr_AOV_5_empty_n == 1'b0) | (contr_AOV_4_empty_n == 1'b0) | (contr_AOV_3_empty_n == 1'b0) | (contr_AOV_2_empty_n == 1'b0) | (contr_AOV_1_empty_n == 1'b0) | (contr_AOV_empty_n == 1'b0) | (ap_done_reg == 1'b1) | (ap_start == 1'b0));
-end
+assign empty_48_fu_287_p1 = outcome_AOV_load_2_reg_414;
 
-assign empty_45_fu_295_p1 = outcome_AOV_load_1_reg_405;
+assign empty_49_fu_290_p1 = outcome_AOV_load_3_reg_419;
 
-assign empty_46_fu_298_p1 = outcome_AOV_load_2_reg_420;
+assign empty_50_fu_293_p1 = outcome_AOV_load_4_reg_434;
 
-assign empty_47_fu_301_p1 = outcome_AOV_load_3_reg_425;
+assign empty_51_fu_296_p1 = outcome_AOV_load_5_reg_439;
 
-assign empty_48_fu_304_p1 = outcome_AOV_load_4_reg_440;
+assign empty_52_fu_299_p1 = outcome_AOV_q1;
 
-assign empty_49_fu_307_p1 = outcome_AOV_load_5_reg_445;
+assign empty_53_fu_303_p1 = outcome_AOV_q0;
 
-assign empty_50_fu_310_p1 = outcome_AOV_q1;
+assign empty_fu_281_p1 = outcome_AOV_load_reg_394;
 
-assign empty_51_fu_314_p1 = outcome_AOV_q0;
+assign errorInTask1_cast_fu_334_p1 = errorInTask1;
 
-assign empty_fu_292_p1 = outcome_AOV_load_reg_400;
+assign errorInTask_address0 = errorInTask1_cast_fu_334_p1;
 
-assign errorInTask1_cast_i_fu_345_p1 = p_read;
+assign errorInTask_d0 = error;
 
-assign errorInTask_address0 = errorInTask1_cast_i_fu_345_p1;
-
-assign errorInTask_d0 = p_read3;
-
-assign grp_writeOutcome_Pipeline_1_fu_270_ap_start = grp_writeOutcome_Pipeline_1_fu_270_ap_start_reg;
+assign grp_writeOutcome_Pipeline_1_fu_259_ap_start = grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg;
 
 assign outcomeInRam_address0 = 64'd0;
 
-assign outcomeInRam_d0 = {{{{{{{{{{{empty_51_fu_314_p1}, {empty_50_fu_310_p1}}, {empty_49_fu_307_p1}}, {empty_48_fu_304_p1}}, {empty_47_fu_301_p1}}, {empty_46_fu_298_p1}}, {empty_45_fu_295_p1}}, {empty_fu_292_p1}}, {p_read2}}, {8'd0}}, {p_read1}};
+assign outcomeInRam_d0 = {{{{{{{{{{{empty_53_fu_303_p1}, {empty_52_fu_299_p1}}, {empty_51_fu_296_p1}}, {empty_50_fu_293_p1}}, {empty_49_fu_290_p1}}, {empty_48_fu_287_p1}}, {empty_47_fu_284_p1}}, {empty_fu_281_p1}}, {uniId}}, {8'd0}}, {checkId}};
 
 endmodule //run_writeOutcome
