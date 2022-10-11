@@ -111,7 +111,7 @@
     wire taskWriteDone;
     wire taskWriteStarted;
     wire taskReady;
-	wire [1:0] taskExecutionMode;
+	wire [2:0] taskExecutionMode;
     wire [31:0] taskPtr;
     // Instantiation of Axi Bus Interface S_AXI
     scheduler_v1_0_S_AXI # (

@@ -3,13 +3,13 @@
 # 
 # Vivado(TM)
 # runme.sh: a Vivado-generated Runs Script for UNIX
-# Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+# Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 # 
 
 if [ -z "$PATH" ]; then
-  PATH=/opt/Xilinx/Vitis/2021.2/bin:/opt/Xilinx/Vivado/2021.2/ids_lite/ISE/bin/lin64:/opt/Xilinx/Vivado/2021.2/bin
+  PATH=/home/francesco/tools/Xilinx/Vitis/2022.1/bin:/home/francesco/tools/Xilinx/Vivado/2022.1/ids_lite/ISE/bin/lin64:/home/francesco/tools/Xilinx/Vivado/2022.1/bin
 else
-  PATH=/opt/Xilinx/Vitis/2021.2/bin:/opt/Xilinx/Vivado/2021.2/ids_lite/ISE/bin/lin64:/opt/Xilinx/Vivado/2021.2/bin:$PATH
+  PATH=/home/francesco/tools/Xilinx/Vitis/2022.1/bin:/home/francesco/tools/Xilinx/Vivado/2022.1/ids_lite/ISE/bin/lin64:/home/francesco/tools/Xilinx/Vivado/2022.1/bin:$PATH
 fi
 export PATH
 
@@ -20,7 +20,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='/home/bosp/workspace/ip_repo/edit_scheduler_v1_0.runs/synth_1'
+HD_PWD='/home/francesco/workspace/ip_repo/edit_scheduler_v1_0.runs/synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

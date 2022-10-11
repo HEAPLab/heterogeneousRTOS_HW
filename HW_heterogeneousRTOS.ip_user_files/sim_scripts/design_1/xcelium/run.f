@@ -54,17 +54,6 @@
 -endlib
 -makelib xcelium_lib/xil_defaultlib \
   "../../../bd/design_1/ip/design_1_xbar_1/sim/design_1_xbar_1.v" \
-  "../../../bd/design_1/ipshared/8c0b/hdl/scheduler_v1_0_M_AXI.v" \
-  "../../../bd/design_1/ipshared/8c0b/hdl/scheduler_v1_0_S_AXI.v" \
-  "../../../bd/design_1/ipshared/8c0b/hdl/scheduler_v1_0.v" \
-  "../../../bd/design_1/ip/design_1_scheduler_0_1/sim/design_1_scheduler_0_1.v" \
-  "../../../bd/design_1/ip/design_1_scheduler_0_0/sim/design_1_scheduler_0_0.v" \
-  "../../../bd/design_1/ip/design_1_scheduler_0_2/sim/design_1_scheduler_0_2.v" \
-  "../../../bd/design_1/ipshared/d53d/src/MajorityVoter.v" \
-  "../../../bd/design_1/ipshared/d53d/hdl/aximvoter_v1_0.v" \
-  "../../../bd/design_1/ip/design_1_aximvoter_0_1/sim/design_1_aximvoter_0_1.v" \
-  "../../../bd/design_1/ipshared/3c94/hdl/axisvoter_v1_0.v" \
-  "../../../bd/design_1/ip/design_1_axisvoter_0_5/sim/design_1_axisvoter_0_5.v" \
 -endlib
 -makelib xcelium_lib/axi_vip_v1_1_12 -sv \
   "../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/1033/hdl/axi_vip_v1_1_vl_rfs.sv" \
@@ -74,6 +63,11 @@
 -endlib
 -makelib xcelium_lib/xil_defaultlib \
   "../../../bd/design_1/ip/design_1_processing_system7_0_0/sim/design_1_processing_system7_0_0.v" \
+  "../../../bd/design_1/ipshared/d53d/src/MajorityVoter.v" \
+  "../../../bd/design_1/ipshared/d53d/hdl/aximvoter_v1_0.v" \
+  "../../../bd/design_1/ip/design_1_aximvoter_0_1/sim/design_1_aximvoter_0_1.v" \
+  "../../../bd/design_1/ipshared/3c94/hdl/axisvoter_v1_0.v" \
+  "../../../bd/design_1/ip/design_1_axisvoter_0_5/sim/design_1_axisvoter_0_5.v" \
 -endlib
 -makelib xcelium_lib/xbip_utils_v3_0_10 \
   "../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/364f/hdl/xbip_utils_v3_0_vh_rfs.vhd" \
@@ -138,6 +132,12 @@
   "../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/a53e/hdl/ip/run_fsub_32ns_32ns_32_4_full_dsp_1_ip.v" \
   "../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/a53e/hdl/ip/run_faddfsub_32ns_32ns_32_4_full_dsp_1_ip.v" \
   "../../../bd/design_1/ip/design_1_run_0_1/sim/design_1_run_0_1.v" \
+  "../../../bd/design_1/ipshared/ed57/hdl/scheduler_v1_0_M_AXI.v" \
+  "../../../bd/design_1/ipshared/ed57/hdl/scheduler_v1_0_S_AXI.v" \
+  "../../../bd/design_1/ipshared/ed57/hdl/scheduler_v1_0.v" \
+  "../../../bd/design_1/ip/design_1_scheduler_0_0/sim/design_1_scheduler_0_0.v" \
+  "../../../bd/design_1/ip/design_1_scheduler_0_1/sim/design_1_scheduler_0_1.v" \
+  "../../../bd/design_1/ip/design_1_scheduler_0_2/sim/design_1_scheduler_0_2.v" \
 -endlib
 -makelib xcelium_lib/axi_protocol_converter_v2_1_26 \
   "../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ipshared/90c8/hdl/axi_protocol_converter_v2_1_vl_rfs.v" \

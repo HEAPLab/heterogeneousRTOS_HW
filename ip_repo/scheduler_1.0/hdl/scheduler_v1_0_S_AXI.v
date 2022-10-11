@@ -68,7 +68,7 @@ module scheduler_v1_0_S_AXI #
     input wire taskWriteDone,
     input wire taskWriteStarted,
     output reg taskReady,
-    output reg [1:0] taskExecutionMode,
+    output reg [2:0] taskExecutionMode,
     output reg [31:0] taskPtr,
 
 
@@ -228,7 +228,8 @@ module scheduler_v1_0_S_AXI #
     localparam [OPT_MEM_ADDR_BITS:0] maxAddrDeadlinesList=maxAddrWCETsList+(maxTasks*DEADLINESIZEINWORDS);
     localparam [OPT_MEM_ADDR_BITS:0] maxAddrPeriodsList=maxAddrDeadlinesList+(maxTasks*PERIODSIZEINWORDS);
 
-    localparam [1:0] TASKEXECUTIONMODE_NORMAL=1'h0, TASKEXECUTIONMODE_REEXECUTION_TIMING=1'h1, TASKEXECUTIONMODE_REEXECUTION_FAULT=1'h2;
+    localparam [1:0] EXECMODE_NORMAL = 2'h0, EXECMODE_WCETEXCEEDED = 2'h1, EXECMODE_FAULT = 2'h2, EXECMODE_DEADLINEMISS = 2'h3;
+    localparam [2:0] EXECMODE_NORMAL_NEWJOB = 3'h4;
 
     reg[C_S_AXI_DATA_WIDTH-1:0] TCBPtrsList [(maxTasks*TCBPTRSIZEINWORDS)-1:0];
     reg[C_S_AXI_DATA_WIDTH-1:0] WCETsList [(maxTasks*WCETSIZEINWORDS)-1:0]; //ready queue index ordered by deadline ascending
@@ -1039,22 +1040,20 @@ module scheduler_v1_0_S_AXI #
     reg[7:0] copyIterator;
     reg startPending;
 
-    reg[31:0] oldSlv_control_reg;
 
     reg[31:0] executionTimes [maxTasks-1:0];
-    reg runningTaskKilled;
+    (* MARK_DEBUG = "TRUE" *) reg runningTaskKilled;
     reg nextRunningTaskKilled;
     reg runningTaskFlop;
     reg oldRunningTaskFlop;
 
-    reg WCETexceeded;
+    (* MARK_DEBUG = "TRUE" *)  reg WCETexceeded;
     reg controlKillRunningJob;
 
-    wire[7:0] HighestPriorityTaskIndex;
-    wire[31:0] HighestPriorityTaskDeadline;
-    
-    localparam [1:0] REEXECUTION_NOERROR = 2'h0, REEXECUTION_TIMINGERROR = 2'h1, REEXECUTION_FAULT = 2'h2;
-    reg [1:0] reExecutionReason [maxTasks-1:0];
+    (* MARK_DEBUG = "TRUE" *) wire[7:0] HighestPriorityTaskIndex;
+    (* MARK_DEBUG = "TRUE" *) wire[31:0] HighestPriorityTaskDeadline;
+
+    reg [1:0] executionMode [maxTasks-1:0];
 
     integer m;
     always @(posedge SCHEDULER_CLK)
@@ -1068,14 +1067,12 @@ module scheduler_v1_0_S_AXI #
             runningTaskKilled<=1'b1;
             nextRunningTaskKilled<=1'b0;
 
-            oldSlv_control_reg<=32'b0;
-
             oldRunningTaskFlop<=1'b0;
 
             slv_status_reg<=state_uninitialized;
         end
         else begin //not reset
-            if (slv_control_reg != oldSlv_control_reg)
+            if (controlPending)
             begin
                 //new control signal supplied
 
@@ -1108,8 +1105,8 @@ module scheduler_v1_0_S_AXI #
                             AbsActivations[copyIterator]<=PeriodsList[copyIterator];
 
                             executionTimes[copyIterator]<=0;
-                            
-                            reExecutionReason[copyIterator]<=REEXECUTION_NOERROR;
+
+                            executionMode[copyIterator]<=EXECMODE_NORMAL;
 
                             copyIterator<=copyIterator+1;
                         end
@@ -1137,24 +1134,51 @@ module scheduler_v1_0_S_AXI #
 
                     //what happens in this tick?
                     WCETexceeded = (runningTaskKilled || runningTaskIndex==8'hFF) ? 0 : executionTimes[runningTaskIndex]>=WCETsList[runningTaskIndex];
-                    controlKillRunningJob=(!runningTaskKilled && runningTaskIndex!=8'hFF && slv_control_reg != oldSlv_control_reg && slv_control_reg[31:16]==control_jobEnded && (slv_control_reg[7:0]-1)==runningTaskIndex); //&& number_of_ready_tasks_reg>0 
+                    controlKillRunningJob=(!runningTaskKilled && runningTaskIndex!=8'hFF && controlPending && slv_control_reg[31:16]==control_jobEnded && (slv_control_reg[7:0]-1)==runningTaskIndex); //&& number_of_ready_tasks_reg>0 
                     //____________________________		
 
-                    if (WCETexceeded || controlKillRunningJob)
+                    if (controlKillRunningJob)
+                    begin
+                        executionMode[runningTaskIndex]<=EXECMODE_NORMAL;
+                    end
+
+                    if (WCETexceeded && !controlKillRunningJob && AbsDeadlines[runningTaskIndex]!=0 && AbsActivations[runningTaskIndex]!=0) //last condition could be omitted
+                    begin
+                        executionMode[runningTaskIndex]<=EXECMODE_WCETEXCEEDED;
+                    end
+
+                    //if (WCETexceeded || controlKillRunningJob)
+                    if (controlKillRunningJob)
                     begin
                         AbsDeadlines[runningTaskIndex]=32'hFFFF_FFFF;
                         runningTaskKilled=1;
+                    end
+                    if (WCETexceeded)
+                    begin
+                        runningTaskKilled=1;
+                        runningTaskReactivated=1;
                     end
 
                     for (m=0; m<maxTasks; m=m+1)
                         begin
                             if (AbsDeadlines[m]==0)
                                 begin //deadline miss
-                                    if (!(m==runningTaskIndex && (WCETexceeded || controlKillRunningJob)))
+
+                                    if (m==runningTaskIndex && !controlKillRunningJob)
+                                    begin
+                                        //real deadline miss, no end signal arrived at the same time
+                                        executionMode[m]<=EXECMODE_DEADLINEMISS;
+                                    end
+
+                                    if (!(m==runningTaskIndex && //(WCETexceeded || 
+                                    controlKillRunningJob //)
+                                    ))
                                     begin
                                         if (AbsActivations[m]!=0) //no activation
                                             AbsDeadlines[m]=32'hFFFF_FFFF;
-                                        if (m==runningTaskIndex)
+                                        if (m==runningTaskIndex //should never happen, WCET exceeded should come happen first
+                                        // && !WCETexceeded
+                                        )
                                             begin
                                                 runningTaskKilled=1;
                                                 //runningTaskKilledInThisCC=1;
@@ -1197,7 +1221,6 @@ module scheduler_v1_0_S_AXI #
                     else if (runningTaskIndex!=8'hFF && !runningTaskKilled)
                         executionTimes[runningTaskIndex] <=executionTimes[runningTaskIndex]+1;
 
-                    oldSlv_control_reg<=slv_control_reg;
                     oldRunningTaskFlop<=runningTaskFlop;
                     schedulerBitFlip<=!schedulerBitFlip;
                 end
@@ -1300,9 +1323,9 @@ module scheduler_v1_0_S_AXI #
         end
     endgenerate
 
-    reg waitingAck;
+    (* MARK_DEBUG = "TRUE" *) reg waitingAck;
     reg [7:0] nextRunningTaskIndex;
-    reg[7:0] runningTaskIndex;
+    (* MARK_DEBUG = "TRUE" *) reg[7:0] runningTaskIndex;
     reg taskPending;
 
     reg oldIntrStatus;
@@ -1352,7 +1375,8 @@ module scheduler_v1_0_S_AXI #
                     begin
                         nextRunningTaskIndex<=HighestPriorityTaskIndex;
                         taskPtr<=TCBPtrsList[HighestPriorityTaskIndex];
-                        taskExecutionMode <= executionTimes[HighestPriorityTaskIndex]!=0 ? TASKEXECUTIONMODE_NORMAL : TASKEXECUTIONMODE_REEXECUTION_TIMING;
+                        taskExecutionMode <= ( executionMode[HighestPriorityTaskIndex] == EXECMODE_NORMAL && executionTimes[HighestPriorityTaskIndex] == 32'h0 )
+                          ? EXECMODE_NORMAL_NEWJOB : { 1'h0, executionMode[HighestPriorityTaskIndex] };
                         taskReady<=1'b1;
 
                         waitingAck<=1'b1;
@@ -1363,6 +1387,13 @@ module scheduler_v1_0_S_AXI #
                 oldRunningTaskKilled<=runningTaskKilled;
             end
     end
+    
+//   (* MARK_DEBUG = "TRUE" *)  wire[2:0] taskExecutionModeDbg;
+//   (* MARK_DEBUG = "TRUE" *) wire[31:0] HighestPriorityTaskExecutionTimeDbg;
+//   (* MARK_DEBUG = "TRUE" *)  wire[1:0] HighestPriorityTaskExecutionMode;
+//    assign taskExecutionModeDbg=taskExecutionMode;
+//    assign HighestPriorityTaskExecutionTimeDbg = HighestPriorityTaskIndex == 8'hFF ? 0 : executionTimes[HighestPriorityTaskIndex];
+//    assign HighestPriorityTaskExecutionMode = HighestPriorityTaskIndex == 8'hFF ? 0 : executionMode[ HighestPriorityTaskIndex ];
 
     always @(slv_status_reg)
     begin
@@ -1386,8 +1417,6 @@ module scheduler_v1_0_S_AXI #
                 runningLed<=1'b1;
             end
         endcase
-
-
     end
 
     // User logic ends
