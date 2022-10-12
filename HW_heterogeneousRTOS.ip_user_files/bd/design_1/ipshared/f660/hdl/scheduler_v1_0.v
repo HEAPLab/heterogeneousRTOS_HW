@@ -5,6 +5,7 @@
 	(
     // Users to add parameters here
     parameter maxTasks = 16,
+    parameter [3:0] maxReExecutions=4'd2,
 
     // User parameters ends
     // Do not modify the parameters beyond this line
@@ -120,6 +121,7 @@
     // Instantiation of Axi Bus Interface S_AXI
     scheduler_v1_0_S_AXI # (
     .maxTasks(maxTasks),
+    .maxReExecutions(maxReExecutions),
     .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH),
     .C_S_AXI_ADDR_WIDTH(C_S_AXI_ADDR_WIDTH)
     ) scheduler_v1_0_S_AXI_inst (

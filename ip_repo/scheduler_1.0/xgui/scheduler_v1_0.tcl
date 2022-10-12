@@ -16,6 +16,15 @@ proc init_gui { IPINST } {
 
 }
 
+proc update_PARAM_VALUE.maxReExecutions { PARAM_VALUE.maxReExecutions } {
+	# Procedure called to update maxReExecutions when any of the dependent parameters in the arguments change
+}
+
+proc validate_PARAM_VALUE.maxReExecutions { PARAM_VALUE.maxReExecutions } {
+	# Procedure called to validate maxReExecutions
+	return true
+}
+
 proc update_PARAM_VALUE.maxTasks { PARAM_VALUE.maxTasks } {
 	# Procedure called to update maxTasks when any of the dependent parameters in the arguments change
 }
@@ -117,5 +126,10 @@ proc update_MODELPARAM_VALUE.C_S_AXI_ADDR_WIDTH { MODELPARAM_VALUE.C_S_AXI_ADDR_
 proc update_MODELPARAM_VALUE.maxTasks { MODELPARAM_VALUE.maxTasks PARAM_VALUE.maxTasks } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
 	set_property value [get_property value ${PARAM_VALUE.maxTasks}] ${MODELPARAM_VALUE.maxTasks}
+}
+
+proc update_MODELPARAM_VALUE.maxReExecutions { MODELPARAM_VALUE.maxReExecutions PARAM_VALUE.maxReExecutions } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.maxReExecutions}] ${MODELPARAM_VALUE.maxReExecutions}
 }
 

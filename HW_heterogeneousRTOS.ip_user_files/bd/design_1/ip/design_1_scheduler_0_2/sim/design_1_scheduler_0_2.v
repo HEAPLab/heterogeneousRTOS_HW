@@ -48,7 +48,7 @@
 
 
 // IP VLNV: user.org:user:scheduler:1.0
-// IP Revision: 139
+// IP Revision: 140
 
 `timescale 1ns/1ps
 
@@ -236,7 +236,8 @@ output wire failedTask_ack;
     // The master issues write data and accept read data where the width of the data bus is C_M_AXI_DATA_WIDTH
     .C_S_AXI_DATA_WIDTH(32),  // Width of S_AXI data bus
     .C_S_AXI_ADDR_WIDTH(14),  // Width of S_AXI address bus
-    .maxTasks(4)
+    .maxTasks(4),
+    .maxReExecutions(4'B0010)
   ) inst (
     .SCHEDULER_CLK(SCHEDULER_CLK),
     .SCHEDULER_ARESETN(SCHEDULER_ARESETN),

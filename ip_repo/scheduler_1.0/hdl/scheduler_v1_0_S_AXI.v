@@ -40,7 +40,6 @@ module scheduler_v1_0_S_AXI #
 	(
     // Users to add parameters here
     parameter[7:0] maxTasks = 16,
-    //parameter [1:0] schedulerClkVsAxiClk=schedulerClkLowerAxiClk,
     parameter [3:0] maxReExecutions=4'd2,
 
 
@@ -179,7 +178,7 @@ module scheduler_v1_0_S_AXI #
     reg [C_NUM_OF_INTR-1 :0] reg_intr_sts;
     reg [C_NUM_OF_INTR-1 :0] reg_intr_ack;
     reg [C_NUM_OF_INTR-1 :0] reg_intr_pending;
-    reg [C_NUM_OF_INTR-1 :0] intr;
+    wire [C_NUM_OF_INTR-1 :0] intr;
     reg [C_NUM_OF_INTR-1 :0] det_intr;
     wire slv_reg_rden;
     wire slv_reg_wren;
@@ -211,11 +210,7 @@ module scheduler_v1_0_S_AXI #
     //-- Number of Slave Registers 8
 
     reg [C_S_AXI_DATA_WIDTH-1:0]	slv_control_reg;
-    reg new_slv_control_reg;
     localparam[(C_S_AXI_DATA_WIDTH/2)-1:0] control_startScheduler=1, control_stopScheduler=2, control_resumeTask=3, control_taskEnded=4, control_taskSuspended=5, control_jobEnded=6;
-    //    localparam[(C_S_AXI_DATA_WIDTH/2)-1:0] control_setTaskNum = C_S_AXI_DATA_WIDTH/2'd1, control_startScheduler=C_S_AXI_DATA_WIDTH/2'd2, control_startTask=C_S_AXI_DATA_WIDTH/2'd3, control_suspendTask=C_S_AXI_DATA_WIDTH/2'd4;
-
-//    localparam[1:0] schedulerClkSameAxiClk=2'd0, schedulerClkHigherAxiClk=3'd1, schedulerClkLowerAxiClk=3'd2;
 
     //FSM status reg
     reg [3:0]	slv_status_reg;
@@ -243,10 +238,6 @@ module scheduler_v1_0_S_AXI #
     reg[C_S_AXI_DATA_WIDTH-1:0] PeriodsList [(maxTasks*PERIODSIZEINWORDS)-1:0]; //ready queue ordered by deadline ascending
 
     reg control_valid;
-    //    reg schedulerBitFlip;
-    //    reg oldSchedulerBitFlip;
-
-    reg[3:0] reExecutions[ maxTasks-1 : 0 ];
 
     integer byte_index;
     //________________________
@@ -438,6 +429,7 @@ module scheduler_v1_0_S_AXI #
     reg WCETsListWritten;
     reg DeadlinesListWritten;
     reg PeriodsListWritten;
+    reg control_ack;
 
     reg[C_S_AXI_DATA_WIDTH-1:0] AbsDeadlines [maxTasks-1:0];
     reg[C_S_AXI_DATA_WIDTH-1:0] AbsActivations [maxTasks-1:0];
@@ -454,9 +446,7 @@ module scheduler_v1_0_S_AXI #
             begin
                 slv_control_reg <= 0;
                 slv_number_of_tasks_reg<=0;
-                //new_slv_control_reg <= 1'b0;
                 control_valid <= 1'b0;
-                //                oldSchedulerBitFlip<=1'b0;
 
                 TCBPtrsListWritten<=1'b0;
                 WCETsListWritten<=1'b0;
@@ -465,97 +455,89 @@ module scheduler_v1_0_S_AXI #
             end
         else begin
             if (slv_reg_wren)
-                begin
-                    if (axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] < tasksOffset)
-                        begin
-                            case ( axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] )
-                                3'h5:
-                                for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-                                    if ( S_AXI_WSTRB[byte_index] == 1 ) begin
-                                        // Respective byte enables are asserted as per write strobes 
-                                        // Slave register 5
-                                        slv_control_reg[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
+            begin
+                if (axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] < tasksOffset)
+                    begin
+                        case ( axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] )
+                            3'h5:
+                            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
+                                if ( S_AXI_WSTRB[byte_index] == 1 && !control_valid ) begin
+                                    // Respective byte enables are asserted as per write strobes 
+                                    // Slave register 5
+                                    slv_control_reg[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
 
-                                        //new_slv_control_reg <= 1'b1;
-                                        //                                        if (schedulerClkVsAxiClk==schedulerClkLowerAxiClk)
-                                        control_valid <= 1'b1;
-                                    end
-                                    //                                3'h6:
-                                    //                                begin
-                                    //                                    slv_control_reg <= slv_control_reg;
-                                    //                                    //slv_status_reg <= slv_status_reg;
-
-                                    //                                    new_slv_control_reg <= 1'b0;
-                                    //                                    /*for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-                                    //                            if ( S_AXI_WSTRB[byte_index] == 1 ) begin
-                                    //                                // Respective byte enables are asserted as per write strobes 
-                                    //                                // Slave register 6
-                                    //                                slv_status_reg[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
-                                    //                                new_slv_control_reg <= 0;
-
-                                    //                            end*/
-                                    //                                end
-                                3'h7:
-                                if (slv_status_reg == state_uninitialized)
-                                begin
-                                    //                                    for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-                                    //                                        if ( S_AXI_WSTRB[byte_index] == 1 ) begin
-                                    //                                            // Respective byte enables are asserted as per write strobes 
-                                    //                                            // Slave register 5
-                                    //                                            slv_number_of_tasks_reg[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
-
-                                    //                                            //new_slv_control_reg <= 1'b0;
-                                    //                                        end
-                                    if ( S_AXI_WSTRB[0] == 1 ) begin
-                                        slv_number_of_tasks_reg <= S_AXI_WDATA[7:0];
-                                    end
-
+                                    control_valid <= 1'b1;
                                 end
-                                //default : begin
-                                //slv_control_reg <= slv_control_reg;
-                                //slv_status_reg <= slv_status_reg;
+                                //                                3'h6:
+                                //                                begin
+                                //                                    slv_control_reg <= slv_control_reg;
+                                //                                    //slv_status_reg <= slv_status_reg;
 
-                                //new_slv_control_reg <= 1'b0;
-                                //end
-                            endcase
-                        end
-                    else
-                        begin
-                            //new_slv_control_reg <= 1'b0;
+                                //                                    new_slv_control_reg <= 1'b0;
+                                //                                    /*for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
+                                //                            if ( S_AXI_WSTRB[byte_index] == 1 ) begin
+                                //                                // Respective byte enables are asserted as per write strobes 
+                                //                                // Slave register 6
+                                //                                slv_status_reg[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
 
+                                //                            end*/
+                                //                                end
+                            3'h7:
                             if (slv_status_reg == state_uninitialized)
                             begin
-                                if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset) < maxAddrTCBPtrsList)
-                                    TCBPtrsList[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)] <= S_AXI_WDATA;
-                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset) < maxAddrWCETsList)
-                                    WCETsList[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAddrTCBPtrsList]<= S_AXI_WDATA;
-                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset) < maxAddrDeadlinesList)
-                                    DeadlinesList[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAddrWCETsList]<= S_AXI_WDATA;
-                                else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset) < maxAddrPeriodsList)
-                                    PeriodsList[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAddrDeadlinesList]<= S_AXI_WDATA;
+                                //                                    for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
+                                //                                        if ( S_AXI_WSTRB[byte_index] == 1 ) begin
+                                //                                            // Respective byte enables are asserted as per write strobes 
+                                //                                            // Slave register 5
+                                //                                            slv_number_of_tasks_reg[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
 
-                                case (axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)
-                                    (maxAddrTCBPtrsList-1):
-                                    TCBPtrsListWritten<=1'b1;
+                                //                                        end
+                                if ( S_AXI_WSTRB[0] == 1 ) begin
+                                    slv_number_of_tasks_reg <= S_AXI_WDATA[7:0];
+                                end
 
-                                    (maxAddrWCETsList-1):
-                                    WCETsListWritten<=1'b1;
-
-                                    (maxAddrDeadlinesList-1):
-                                    DeadlinesListWritten<=1'b1;
-
-                                    (maxAddrPeriodsList-1):
-                                    PeriodsListWritten<=1'b1;
-                                endcase
                             end
+                            //default : begin
+                            //slv_control_reg <= slv_control_reg;
+                            //slv_status_reg <= slv_status_reg;
+
+                            //end
+                        endcase
+                    end
+                else
+                    begin
+
+                        if (slv_status_reg == state_uninitialized)
+                        begin
+                            if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset) < maxAddrTCBPtrsList)
+                                TCBPtrsList[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)] <= S_AXI_WDATA;
+                            else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset) < maxAddrWCETsList)
+                                WCETsList[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAddrTCBPtrsList]<= S_AXI_WDATA;
+                            else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset) < maxAddrDeadlinesList)
+                                DeadlinesList[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAddrWCETsList]<= S_AXI_WDATA;
+                            else if ((axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset) < maxAddrPeriodsList)
+                                PeriodsList[(axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)-maxAddrDeadlinesList]<= S_AXI_WDATA;
+
+                            case (axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)
+                                (maxAddrTCBPtrsList-1):
+                                TCBPtrsListWritten<=1'b1;
+
+                                (maxAddrWCETsList-1):
+                                WCETsListWritten<=1'b1;
+
+                                (maxAddrDeadlinesList-1):
+                                DeadlinesListWritten<=1'b1;
+
+                                (maxAddrPeriodsList-1):
+                                PeriodsListWritten<=1'b1;
+                            endcase
                         end
-                end
-            else begin
-                //new_slv_control_reg <= 1'b0;
-                if (control_valid && control_ack) //&& schedulerClkVsAxiClk==schedulerClkLowerAxiClk
-                    control_valid <= 1'b0;
+                    end
             end
-            //            oldSchedulerBitFlip<=schedulerBitFlip;
+
+            //control signal ACK system (from axi slave) and pulse generation
+            if (control_valid && control_ack)
+                control_valid <= 1'b0;
         end
     end
 
@@ -718,59 +700,42 @@ module scheduler_v1_0_S_AXI #
             end
     end
 
-    //----------------------------------------------------
-    //Example code to generate user logic interrupts
-    //Note: The example code presented here is to show you one way of generating
-    //      interrupts from the user logic. This code snippet generates a level
-    //      triggered interrupt when the intr_counter_reg counts down to zero.
-    //----------------------------------------------------
-
-    // Count down counter implementation  
-
-
-    //	always @ ( posedge S_AXI_ACLK )                                          
-    //	begin                                                                    
-    //	  if ( S_AXI_ARESETN == 1'b0 )                                           
-    //	    begin                                                                
-    //	      intr_counter[3:0] <= 4'hF;                                         
-    //	    end                                                                  
-    //	  else if (intr_counter [3:0] != 4'h0 )                                  
-    //	    begin                                                                
-    //	      intr_counter[3:0] <= intr_counter[3:0] - 1;                        
-    //	    end                                                                  
-    //	end                                                                      
-
+    //PULSE generation for taskWriteDone input signal
     reg oldTaskWriteDone;
-    always @ ( posedge S_AXI_ACLK )
+    always @(posedge S_AXI_ACLK)
     begin
-        oldTaskWriteDone <= 0;
-        if ( S_AXI_ARESETN == 1'b0)
+        if ( !S_AXI_ARESETN )
             begin
-                intr <= {C_NUM_OF_INTR{1'b0}};
-                oldTaskWriteDone <= 1'b0;
+                oldTaskWriteDone<=1'b0;
             end
         else
             begin
-
-                oldTaskWriteDone <= taskWriteDone;
-                if (taskWriteDone && !oldTaskWriteDone)
-                    intr <= {C_NUM_OF_INTR{1'b1}};
-                else
-                    begin
-                        intr <= {C_NUM_OF_INTR{1'b0}};
-                    end
+                oldTaskWriteDone<=taskWriteDone;
             end
-            //            begin
-            //                if (intr_counter[3:0] == 10)
-            //                    begin
-            //                        intr <= {C_NUM_OF_INTR{1'b1}};
-            //                    end
-            //                else
-            //                    begin
-            //                        intr <= {C_NUM_OF_INTR{1'b0}};
-            //                    end
-            //            end
     end
+    wire taskWriteDone_pulse;
+    assign taskWriteDone_pulse=taskWriteDone && !oldTaskWriteDone;
+    //____________________________________
+
+    //mapping interrupt to taskWriteDone pulse
+    assign intr={C_NUM_OF_INTR{taskWriteDone_pulse}};
+
+    //    always @ ( posedge S_AXI_ACLK )
+    //    begin
+    //        if ( S_AXI_ARESETN == 1'b0)
+    //            begin
+    //                intr <= {C_NUM_OF_INTR{1'b0}};
+    //            end
+    //        else
+    //            begin
+    //                if (taskWriteDone_pulse)
+    //                    intr <= {C_NUM_OF_INTR{1'b1}};
+    //                else
+    //                    begin
+    //                        intr <= {C_NUM_OF_INTR{1'b0}};
+    //                    end
+    //            end
+    //    end
 
     // detects interrupt in any intr input                             
     always @ ( posedge S_AXI_ACLK)
@@ -1066,7 +1031,6 @@ module scheduler_v1_0_S_AXI #
 
     //control signal ACK system (from axi slave) and pulse generation
     reg control_valid_old;
-    reg control_ack;
     always @(posedge SCHEDULER_CLK)
     begin
         if ( ! SCHEDULER_ARESETN ) begin //reset
@@ -1086,22 +1050,39 @@ module scheduler_v1_0_S_AXI #
     assign control_valid_pulse= control_valid && !control_valid_old;
     //__________________________________________________________
 
+    //PULSE generation for new running task from S_AXI
+    reg runningTaskFlop;
+    reg oldRunningTaskFlop;
+    always @(posedge SCHEDULER_CLK)
+    begin
+        if ( ! SCHEDULER_ARESETN ) begin //reset
+            oldRunningTaskFlop<=1'b0;
+        end
+        else
+            begin
+                oldRunningTaskFlop<=runningTaskFlop;
+            end
+    end
+    wire newRunningTask_pulse;
+    assign newRunningTask_pulse=runningTaskFlop!=oldRunningTaskFlop;
+
+    //___________________________________
+
+
     reg[7:0] copyIterator;
     reg startPending;
 
     reg[31:0] executionTimes [maxTasks-1:0];
+    reg [1:0] executionMode [maxTasks-1:0];
+    reg[3:0] reExecutions[ maxTasks-1 : 0 ];
+
     (* MARK_DEBUG = "TRUE" *) reg runningTaskKilled;
     reg nextRunningTaskKilled;
-    reg runningTaskFlop;
-    reg oldRunningTaskFlop;
 
-    (* MARK_DEBUG = "TRUE" *)  reg WCETexceeded;
-    reg controlEndJob;
 
     (* MARK_DEBUG = "TRUE" *) wire[7:0] HighestPriorityTaskIndex;
     (* MARK_DEBUG = "TRUE" *) wire[31:0] HighestPriorityTaskDeadline;
-
-    reg [1:0] executionMode [maxTasks-1:0];
+    (* MARK_DEBUG = "TRUE" *) reg[7:0] runningTaskIndex;
 
     integer m;
     always @(posedge SCHEDULER_CLK)
@@ -1110,12 +1091,8 @@ module scheduler_v1_0_S_AXI #
             copyIterator<=8'b0;
             startPending<=1'b0;
 
-//            schedulerBitFlip<=1'b0;
-
             runningTaskKilled<=1'b1;
             nextRunningTaskKilled<=1'b0;
-
-            oldRunningTaskFlop<=1'b0;
 
             slv_status_reg<=state_uninitialized;
         end
@@ -1173,16 +1150,18 @@ module scheduler_v1_0_S_AXI #
                     //reg runningTaskKilledInThisCC;
                     //reg nextRunningTaskKilledInThisCC;
                     reg runningTaskReactivated;
+                    reg WCETexceeded;
+                    reg controlEndJob;
 
                     //runningTaskKilledInThisCC=0;
                     //nextRunningTaskKilledInThisCC=0;
                     runningTaskReactivated=0;
 
-                    runningTaskKilled = runningTaskKilled && (runningTaskFlop==oldRunningTaskFlop || nextRunningTaskKilled);
-
-                    nextRunningTaskKilled=nextRunningTaskKilled && runningTaskFlop==oldRunningTaskFlop;
+                    runningTaskKilled = runningTaskKilled && (!newRunningTask_pulse || nextRunningTaskKilled);
+                    nextRunningTaskKilled=nextRunningTaskKilled && !newRunningTask_pulse;
 
                     //what happens in this tick?
+
                     WCETexceeded = (runningTaskKilled || runningTaskIndex==8'hFF) ? 0 : executionTimes[runningTaskIndex]>=WCETsList[runningTaskIndex];
                     controlEndJob=(!runningTaskKilled && runningTaskIndex!=8'hFF && control_valid_pulse && slv_control_reg[31:16]==control_jobEnded && (slv_control_reg[7:0]-1)==runningTaskIndex); //&& number_of_ready_tasks_reg>0 
                     //____________________________		
@@ -1298,9 +1277,6 @@ module scheduler_v1_0_S_AXI #
                         executionTimes[runningTaskIndex]<=0;
                     else if (runningTaskIndex!=8'hFF && !runningTaskKilled)
                         executionTimes[runningTaskIndex] <=executionTimes[runningTaskIndex]+1;
-
-                    oldRunningTaskFlop<=runningTaskFlop;
-                    //                    schedulerBitFlip<=!schedulerBitFlip;
                 end
             endcase
         end
@@ -1401,27 +1377,49 @@ module scheduler_v1_0_S_AXI #
         end
     endgenerate
 
-    (* MARK_DEBUG = "TRUE" *) reg waitingAck;
-    reg [7:0] nextRunningTaskIndex;
-    (* MARK_DEBUG = "TRUE" *) reg[7:0] runningTaskIndex;
-    reg taskPending;
-
+    //PULSE generations for AXI slave
     reg oldIntrStatus;
-    reg oldTaskWriteDone1;
-    reg oldRunningTaskKilled;
-
     always @(posedge S_AXI_ACLK)
     begin
         if ( !S_AXI_ARESETN )
             begin
                 oldIntrStatus<=1'b0;
-                oldTaskWriteDone1<=1'b0;
+            end
+        else
+            begin
+                oldIntrStatus<=det_intr[0];
+            end
+    end
+    wire intr_ack_pulse;
+    assign intr_ack_pulse=oldIntrStatus && !det_intr[0];
 
+    reg oldRunningTaskKilled;
+    always @(posedge S_AXI_ACLK)
+    begin
+        if ( !S_AXI_ARESETN )
+            begin
+                oldRunningTaskKilled<=1'b0;
+            end
+        else
+            begin
+                oldRunningTaskKilled<=runningTaskKilled;
+            end
+    end
+    wire runningTaskKilled_pulse;
+    assign runningTaskKilled_pulse=runningTaskKilled && !oldRunningTaskKilled;
+
+    //_____________________________
+
+    (* MARK_DEBUG = "TRUE" *) reg waitingAck;
+    reg [7:0] nextRunningTaskIndex;
+
+    always @(posedge S_AXI_ACLK)
+    begin
+        if ( !S_AXI_ARESETN )
+            begin
                 waitingAck<=1'b0;
                 runningTaskIndex<=8'hFF;
                 nextRunningTaskIndex<=8'hFF;
-
-                oldRunningTaskKilled<=1'b0;
 
                 runningTaskFlop<=1'b0;
             end
@@ -1429,18 +1427,18 @@ module scheduler_v1_0_S_AXI #
             begin
                 if(slv_status_reg==state_running)
                 begin
-                    if (runningTaskKilled && !oldRunningTaskKilled)
+                    if (runningTaskKilled_pulse)
                         runningTaskIndex=8'hFF;
 
                     if (waitingAck)
                         begin
-                            if (oldIntrStatus && !det_intr[0])
+                            if (intr_ack_pulse)
                                 begin
                                     waitingAck<=1'b0;
                                     runningTaskIndex = nextRunningTaskKilled ? 8'hFF : nextRunningTaskIndex;
                                     runningTaskFlop<=!runningTaskFlop;
                                 end
-                            else if (taskWriteDone && !oldTaskWriteDone1)
+                            else if (taskWriteDone_pulse)
                                 begin
                                     runningTaskIndex = 8'hFF;
                                 end
@@ -1460,9 +1458,6 @@ module scheduler_v1_0_S_AXI #
                         waitingAck<=1'b1;
                     end
                 end
-                oldIntrStatus<=det_intr[0];
-                oldTaskWriteDone1<=taskWriteDone;
-                oldRunningTaskKilled<=runningTaskKilled;
             end
     end
 
