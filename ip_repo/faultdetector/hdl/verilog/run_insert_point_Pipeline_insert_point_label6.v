@@ -184,7 +184,7 @@ reg   [0:0] icmp_ln365_reg_531;
 reg    ap_condition_exit_pp0_iter0_stage1;
 wire    ap_loop_exit_ready;
 reg    ap_ready_int;
-reg   [31:0] empty_54_reg_216;
+reg   [31:0] empty_55_reg_216;
 wire    ap_block_pp0_stage1_11001;
 wire    ap_block_state1_pp0_stage0_iter0;
 wire    ap_block_state3_pp0_stage0_iter1;
@@ -231,8 +231,8 @@ reg   [31:0] add_reg_625;
 reg   [31:0] conv_reg_630;
 reg    ap_enable_reg_pp0_iter0_reg;
 wire    ap_block_pp0_stage0_subdone;
-wire   [31:0] ap_phi_reg_pp0_iter0_empty_54_reg_216;
-reg   [31:0] ap_phi_reg_pp0_iter1_empty_54_reg_216;
+wire   [31:0] ap_phi_reg_pp0_iter0_empty_55_reg_216;
+reg   [31:0] ap_phi_reg_pp0_iter1_empty_55_reg_216;
 wire   [31:0] ap_phi_reg_pp0_iter0_empty_reg_226;
 reg   [31:0] ap_phi_reg_pp0_iter1_empty_reg_226;
 reg   [31:0] ap_phi_reg_pp0_iter2_empty_reg_226;
@@ -497,11 +497,11 @@ end
 
 always @ (posedge ap_clk) begin
     if (((icmp_ln365_reg_531 == 1'd0) & (1'b0 == ap_block_pp0_stage0_11001) & (ap_enable_reg_pp0_iter1 == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0) & (1'd0 == and_ln366_1_fu_424_p2))) begin
-        ap_phi_reg_pp0_iter1_empty_54_reg_216 <= tmp_92_reg_594;
+        ap_phi_reg_pp0_iter1_empty_55_reg_216 <= tmp_92_reg_594;
     end else if (((1'd1 == and_ln366_1_fu_424_p2) & (icmp_ln365_reg_531 == 1'd0) & (1'b0 == ap_block_pp0_stage0_11001) & (ap_enable_reg_pp0_iter1 == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0))) begin
-        ap_phi_reg_pp0_iter1_empty_54_reg_216 <= tmp_s_reg_585;
+        ap_phi_reg_pp0_iter1_empty_55_reg_216 <= tmp_s_reg_585;
     end else if (((1'b0 == ap_block_pp0_stage1_11001) & (ap_enable_reg_pp0_iter0 == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage1))) begin
-        ap_phi_reg_pp0_iter1_empty_54_reg_216 <= ap_phi_reg_pp0_iter0_empty_54_reg_216;
+        ap_phi_reg_pp0_iter1_empty_55_reg_216 <= ap_phi_reg_pp0_iter0_empty_55_reg_216;
     end
 end
 
@@ -548,7 +548,7 @@ end
 
 always @ (posedge ap_clk) begin
     if (((1'b0 == ap_block_pp0_stage1_11001) & (ap_enable_reg_pp0_iter1 == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage1))) begin
-        empty_54_reg_216 <= ap_phi_reg_pp0_iter1_empty_54_reg_216;
+        empty_55_reg_216 <= ap_phi_reg_pp0_iter1_empty_55_reg_216;
     end
 end
 
@@ -971,7 +971,7 @@ assign ap_enable_pp0 = (ap_idle_pp0 ^ 1'b1);
 
 assign ap_loop_exit_ready = ap_condition_exit_pp0_iter0_stage1;
 
-assign ap_phi_reg_pp0_iter0_empty_54_reg_216 = 'bx;
+assign ap_phi_reg_pp0_iter0_empty_55_reg_216 = 'bx;
 
 assign ap_phi_reg_pp0_iter0_empty_reg_226 = 'bx;
 
@@ -995,7 +995,7 @@ assign grp_fu_1723_p_ce = 1'b1;
 
 assign grp_fu_1723_p_din0 = ap_phi_reg_pp0_iter2_empty_reg_226;
 
-assign grp_fu_1723_p_din1 = empty_54_reg_216;
+assign grp_fu_1723_p_din1 = empty_55_reg_216;
 
 assign grp_fu_1723_p_opcode = 2'd0;
 

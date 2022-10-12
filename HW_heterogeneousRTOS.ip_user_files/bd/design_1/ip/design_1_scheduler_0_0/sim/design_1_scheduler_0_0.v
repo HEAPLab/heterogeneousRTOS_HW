@@ -48,7 +48,7 @@
 
 
 // IP VLNV: user.org:user:scheduler:1.0
-// IP Revision: 133
+// IP Revision: 135
 
 `timescale 1ns/1ps
 
@@ -107,7 +107,10 @@ module design_1_scheduler_0_0 (
   m_axi_rresp,
   m_axi_rvalid,
   m_axi_rready,
-  irq
+  irq,
+  failedTask,
+  failedTask_valid,
+  failedTask_ack
 );
 
 (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SCHEDULER_CLK, ASSOCIATED_RESET SCHEDULER_ARESETN:SCHEDULER_ASESETN, FREQ_HZ 50000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *)
@@ -220,6 +223,9 @@ output wire m_axi_rready;
 (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME irq, SENSITIVITY LEVEL_HIGH, PortWidth 1" *)
 (* X_INTERFACE_INFO = "xilinx.com:signal:interrupt:1.0 irq INTERRUPT" *)
 output wire irq;
+input wire [7 : 0] failedTask;
+input wire failedTask_valid;
+output wire failedTask_ack;
 
   scheduler_v1_0 #(
     .C_M_AXI_TARGET_SLAVE_BASE_ADDR(32'H10000000),  // The master requires a target slave base address.
@@ -285,6 +291,9 @@ output wire irq;
     .m_axi_rresp(m_axi_rresp),
     .m_axi_rvalid(m_axi_rvalid),
     .m_axi_rready(m_axi_rready),
-    .irq(irq)
+    .irq(irq),
+    .failedTask(failedTask),
+    .failedTask_valid(failedTask_valid),
+    .failedTask_ack(failedTask_ack)
   );
 endmodule

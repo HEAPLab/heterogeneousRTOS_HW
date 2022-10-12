@@ -23,6 +23,7 @@ port (
     errorInTask_d0 : OUT STD_LOGIC_VECTOR (7 downto 0);
     errorInTask1 : IN STD_LOGIC_VECTOR (3 downto 0);
     checkId : IN STD_LOGIC_VECTOR (7 downto 0);
+    taskId : IN STD_LOGIC_VECTOR (7 downto 0);
     uniId : IN STD_LOGIC_VECTOR (15 downto 0);
     error : IN STD_LOGIC_VECTOR (0 downto 0);
     outcomeInRam_address0 : OUT STD_LOGIC_VECTOR (3 downto 0);
@@ -36,23 +37,29 @@ port (
     p_read4 : IN STD_LOGIC_VECTOR (31 downto 0);
     p_read5 : IN STD_LOGIC_VECTOR (31 downto 0);
     p_read6 : IN STD_LOGIC_VECTOR (31 downto 0);
-    p_read7 : IN STD_LOGIC_VECTOR (31 downto 0) );
+    p_read7 : IN STD_LOGIC_VECTOR (31 downto 0);
+    failedTask : OUT STD_LOGIC_VECTOR (7 downto 0);
+    failedTask_ap_vld : OUT STD_LOGIC;
+    failedTask_ap_ack : IN STD_LOGIC );
 end;
 
 
 architecture behav of run_writeOutcome is 
     constant ap_const_logic_1 : STD_LOGIC := '1';
     constant ap_const_logic_0 : STD_LOGIC := '0';
-    constant ap_ST_fsm_state1 : STD_LOGIC_VECTOR (7 downto 0) := "00000001";
-    constant ap_ST_fsm_state2 : STD_LOGIC_VECTOR (7 downto 0) := "00000010";
-    constant ap_ST_fsm_state3 : STD_LOGIC_VECTOR (7 downto 0) := "00000100";
-    constant ap_ST_fsm_state4 : STD_LOGIC_VECTOR (7 downto 0) := "00001000";
-    constant ap_ST_fsm_state5 : STD_LOGIC_VECTOR (7 downto 0) := "00010000";
-    constant ap_ST_fsm_state6 : STD_LOGIC_VECTOR (7 downto 0) := "00100000";
-    constant ap_ST_fsm_state7 : STD_LOGIC_VECTOR (7 downto 0) := "01000000";
-    constant ap_ST_fsm_state8 : STD_LOGIC_VECTOR (7 downto 0) := "10000000";
+    constant ap_ST_fsm_state1 : STD_LOGIC_VECTOR (8 downto 0) := "000000001";
+    constant ap_ST_fsm_state2 : STD_LOGIC_VECTOR (8 downto 0) := "000000010";
+    constant ap_ST_fsm_state3 : STD_LOGIC_VECTOR (8 downto 0) := "000000100";
+    constant ap_ST_fsm_state4 : STD_LOGIC_VECTOR (8 downto 0) := "000001000";
+    constant ap_ST_fsm_state5 : STD_LOGIC_VECTOR (8 downto 0) := "000010000";
+    constant ap_ST_fsm_state6 : STD_LOGIC_VECTOR (8 downto 0) := "000100000";
+    constant ap_ST_fsm_state7 : STD_LOGIC_VECTOR (8 downto 0) := "001000000";
+    constant ap_ST_fsm_state8 : STD_LOGIC_VECTOR (8 downto 0) := "010000000";
+    constant ap_ST_fsm_state9 : STD_LOGIC_VECTOR (8 downto 0) := "100000000";
     constant ap_const_boolean_1 : BOOLEAN := true;
     constant ap_const_lv32_0 : STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000000";
+    constant ap_const_lv32_7 : STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000111";
+    constant ap_const_lv1_1 : STD_LOGIC_VECTOR (0 downto 0) := "1";
     constant ap_const_lv32_2 : STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000010";
     constant ap_const_lv32_3 : STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000011";
     constant ap_const_lv32_4 : STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000100";
@@ -67,33 +74,36 @@ architecture behav of run_writeOutcome is
     constant ap_const_lv64_5 : STD_LOGIC_VECTOR (63 downto 0) := "0000000000000000000000000000000000000000000000000000000000000101";
     constant ap_const_lv64_6 : STD_LOGIC_VECTOR (63 downto 0) := "0000000000000000000000000000000000000000000000000000000000000110";
     constant ap_const_lv64_7 : STD_LOGIC_VECTOR (63 downto 0) := "0000000000000000000000000000000000000000000000000000000000000111";
-    constant ap_const_lv32_7 : STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000111";
     constant ap_const_lv36_0 : STD_LOGIC_VECTOR (35 downto 0) := "000000000000000000000000000000000000";
     constant ap_const_lv36_FFFFFFFFF : STD_LOGIC_VECTOR (35 downto 0) := "111111111111111111111111111111111111";
     constant ap_const_lv8_0 : STD_LOGIC_VECTOR (7 downto 0) := "00000000";
+    constant ap_const_lv32_8 : STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000001000";
 
 attribute shreg_extract : string;
-    signal ap_CS_fsm : STD_LOGIC_VECTOR (7 downto 0) := "00000001";
+    signal ap_CS_fsm : STD_LOGIC_VECTOR (8 downto 0) := "000000001";
     attribute fsm_encoding : string;
     attribute fsm_encoding of ap_CS_fsm : signal is "none";
     signal ap_CS_fsm_state1 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state1 : signal is "none";
+    signal failedTask_blk_n : STD_LOGIC;
+    signal ap_CS_fsm_state8 : STD_LOGIC;
+    attribute fsm_encoding of ap_CS_fsm_state8 : signal is "none";
     signal ap_CS_fsm_state3 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state3 : signal is "none";
     signal outcome_AOV_q1 : STD_LOGIC_VECTOR (31 downto 0);
-    signal outcome_AOV_load_reg_394 : STD_LOGIC_VECTOR (31 downto 0);
+    signal outcome_AOV_load_reg_414 : STD_LOGIC_VECTOR (31 downto 0);
     signal ap_CS_fsm_state4 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state4 : signal is "none";
     signal outcome_AOV_q0 : STD_LOGIC_VECTOR (31 downto 0);
-    signal outcome_AOV_load_1_reg_399 : STD_LOGIC_VECTOR (31 downto 0);
-    signal outcome_AOV_load_2_reg_414 : STD_LOGIC_VECTOR (31 downto 0);
+    signal outcome_AOV_load_1_reg_419 : STD_LOGIC_VECTOR (31 downto 0);
+    signal outcome_AOV_load_2_reg_434 : STD_LOGIC_VECTOR (31 downto 0);
     signal ap_CS_fsm_state5 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state5 : signal is "none";
-    signal outcome_AOV_load_3_reg_419 : STD_LOGIC_VECTOR (31 downto 0);
-    signal outcome_AOV_load_4_reg_434 : STD_LOGIC_VECTOR (31 downto 0);
+    signal outcome_AOV_load_3_reg_439 : STD_LOGIC_VECTOR (31 downto 0);
+    signal outcome_AOV_load_4_reg_454 : STD_LOGIC_VECTOR (31 downto 0);
     signal ap_CS_fsm_state6 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state6 : signal is "none";
-    signal outcome_AOV_load_5_reg_439 : STD_LOGIC_VECTOR (31 downto 0);
+    signal outcome_AOV_load_5_reg_459 : STD_LOGIC_VECTOR (31 downto 0);
     signal ap_CS_fsm_state7 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state7 : signal is "none";
     signal outcome_AOV_address0 : STD_LOGIC_VECTOR (2 downto 0);
@@ -101,29 +111,31 @@ attribute shreg_extract : string;
     signal outcome_AOV_we0 : STD_LOGIC;
     signal outcome_AOV_address1 : STD_LOGIC_VECTOR (2 downto 0);
     signal outcome_AOV_ce1 : STD_LOGIC;
-    signal grp_writeOutcome_Pipeline_1_fu_259_ap_start : STD_LOGIC;
-    signal grp_writeOutcome_Pipeline_1_fu_259_ap_done : STD_LOGIC;
-    signal grp_writeOutcome_Pipeline_1_fu_259_ap_idle : STD_LOGIC;
-    signal grp_writeOutcome_Pipeline_1_fu_259_ap_ready : STD_LOGIC;
-    signal grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_address0 : STD_LOGIC_VECTOR (2 downto 0);
-    signal grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_ce0 : STD_LOGIC;
-    signal grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_we0 : STD_LOGIC;
-    signal grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_d0 : STD_LOGIC_VECTOR (31 downto 0);
-    signal grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg : STD_LOGIC := '0';
+    signal grp_writeOutcome_Pipeline_1_fu_279_ap_start : STD_LOGIC;
+    signal grp_writeOutcome_Pipeline_1_fu_279_ap_done : STD_LOGIC;
+    signal grp_writeOutcome_Pipeline_1_fu_279_ap_idle : STD_LOGIC;
+    signal grp_writeOutcome_Pipeline_1_fu_279_ap_ready : STD_LOGIC;
+    signal grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_address0 : STD_LOGIC_VECTOR (2 downto 0);
+    signal grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_ce0 : STD_LOGIC;
+    signal grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_we0 : STD_LOGIC;
+    signal grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_d0 : STD_LOGIC_VECTOR (31 downto 0);
+    signal grp_writeOutcome_Pipeline_1_fu_279_ap_start_reg : STD_LOGIC := '0';
     signal ap_CS_fsm_state2 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state2 : signal is "none";
-    signal errorInTask1_cast_fu_334_p1 : STD_LOGIC_VECTOR (63 downto 0);
-    signal ap_CS_fsm_state8 : STD_LOGIC;
-    attribute fsm_encoding of ap_CS_fsm_state8 : signal is "none";
-    signal empty_53_fu_303_p1 : STD_LOGIC_VECTOR (31 downto 0);
-    signal empty_52_fu_299_p1 : STD_LOGIC_VECTOR (31 downto 0);
-    signal empty_51_fu_296_p1 : STD_LOGIC_VECTOR (31 downto 0);
-    signal empty_50_fu_293_p1 : STD_LOGIC_VECTOR (31 downto 0);
-    signal empty_49_fu_290_p1 : STD_LOGIC_VECTOR (31 downto 0);
-    signal empty_48_fu_287_p1 : STD_LOGIC_VECTOR (31 downto 0);
-    signal empty_47_fu_284_p1 : STD_LOGIC_VECTOR (31 downto 0);
-    signal empty_fu_281_p1 : STD_LOGIC_VECTOR (31 downto 0);
-    signal ap_NS_fsm : STD_LOGIC_VECTOR (7 downto 0);
+    signal errorInTask1_cast_fu_354_p1 : STD_LOGIC_VECTOR (63 downto 0);
+    signal ap_block_state8 : BOOLEAN;
+    signal ap_block_state8_io : BOOLEAN;
+    signal empty_54_fu_323_p1 : STD_LOGIC_VECTOR (31 downto 0);
+    signal empty_53_fu_319_p1 : STD_LOGIC_VECTOR (31 downto 0);
+    signal empty_52_fu_316_p1 : STD_LOGIC_VECTOR (31 downto 0);
+    signal empty_51_fu_313_p1 : STD_LOGIC_VECTOR (31 downto 0);
+    signal empty_50_fu_310_p1 : STD_LOGIC_VECTOR (31 downto 0);
+    signal empty_49_fu_307_p1 : STD_LOGIC_VECTOR (31 downto 0);
+    signal empty_48_fu_304_p1 : STD_LOGIC_VECTOR (31 downto 0);
+    signal empty_fu_301_p1 : STD_LOGIC_VECTOR (31 downto 0);
+    signal ap_CS_fsm_state9 : STD_LOGIC;
+    attribute fsm_encoding of ap_CS_fsm_state9 : signal is "none";
+    signal ap_NS_fsm : STD_LOGIC_VECTOR (8 downto 0);
     signal ap_ST_fsm_state1_blk : STD_LOGIC;
     signal ap_ST_fsm_state2_blk : STD_LOGIC;
     signal ap_ST_fsm_state3_blk : STD_LOGIC;
@@ -132,6 +144,7 @@ attribute shreg_extract : string;
     signal ap_ST_fsm_state6_blk : STD_LOGIC;
     signal ap_ST_fsm_state7_blk : STD_LOGIC;
     signal ap_ST_fsm_state8_blk : STD_LOGIC;
+    signal ap_ST_fsm_state9_blk : STD_LOGIC;
     signal ap_ce_reg : STD_LOGIC;
 
     component run_writeOutcome_Pipeline_1 IS
@@ -189,20 +202,20 @@ begin
         address0 => outcome_AOV_address0,
         ce0 => outcome_AOV_ce0,
         we0 => outcome_AOV_we0,
-        d0 => grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_d0,
+        d0 => grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_d0,
         q0 => outcome_AOV_q0,
         address1 => outcome_AOV_address1,
         ce1 => outcome_AOV_ce1,
         q1 => outcome_AOV_q1);
 
-    grp_writeOutcome_Pipeline_1_fu_259 : component run_writeOutcome_Pipeline_1
+    grp_writeOutcome_Pipeline_1_fu_279 : component run_writeOutcome_Pipeline_1
     port map (
         ap_clk => ap_clk,
         ap_rst => ap_rst,
-        ap_start => grp_writeOutcome_Pipeline_1_fu_259_ap_start,
-        ap_done => grp_writeOutcome_Pipeline_1_fu_259_ap_done,
-        ap_idle => grp_writeOutcome_Pipeline_1_fu_259_ap_idle,
-        ap_ready => grp_writeOutcome_Pipeline_1_fu_259_ap_ready,
+        ap_start => grp_writeOutcome_Pipeline_1_fu_279_ap_start,
+        ap_done => grp_writeOutcome_Pipeline_1_fu_279_ap_done,
+        ap_idle => grp_writeOutcome_Pipeline_1_fu_279_ap_idle,
+        ap_ready => grp_writeOutcome_Pipeline_1_fu_279_ap_ready,
         p_read => p_read,
         p_read1 => p_read1,
         p_read2 => p_read2,
@@ -211,10 +224,10 @@ begin
         p_read5 => p_read5,
         p_read6 => p_read6,
         p_read7 => p_read7,
-        outcome_AOV_address0 => grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_address0,
-        outcome_AOV_ce0 => grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_ce0,
-        outcome_AOV_we0 => grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_we0,
-        outcome_AOV_d0 => grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_d0);
+        outcome_AOV_address0 => grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_address0,
+        outcome_AOV_ce0 => grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_ce0,
+        outcome_AOV_we0 => grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_we0,
+        outcome_AOV_d0 => grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_d0);
 
 
 
@@ -232,16 +245,16 @@ begin
     end process;
 
 
-    grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg_assign_proc : process(ap_clk)
+    grp_writeOutcome_Pipeline_1_fu_279_ap_start_reg_assign_proc : process(ap_clk)
     begin
         if (ap_clk'event and ap_clk =  '1') then
             if (ap_rst = '1') then
-                grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg <= ap_const_logic_0;
+                grp_writeOutcome_Pipeline_1_fu_279_ap_start_reg <= ap_const_logic_0;
             else
                 if (((ap_const_logic_1 = ap_CS_fsm_state1) and (ap_start = ap_const_logic_1))) then 
-                    grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg <= ap_const_logic_1;
-                elsif ((grp_writeOutcome_Pipeline_1_fu_259_ap_ready = ap_const_logic_1)) then 
-                    grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg <= ap_const_logic_0;
+                    grp_writeOutcome_Pipeline_1_fu_279_ap_start_reg <= ap_const_logic_1;
+                elsif ((grp_writeOutcome_Pipeline_1_fu_279_ap_ready = ap_const_logic_1)) then 
+                    grp_writeOutcome_Pipeline_1_fu_279_ap_start_reg <= ap_const_logic_0;
                 end if; 
             end if;
         end if;
@@ -251,8 +264,8 @@ begin
     begin
         if (ap_clk'event and ap_clk = '1') then
             if ((ap_const_logic_1 = ap_CS_fsm_state4)) then
-                outcome_AOV_load_1_reg_399 <= outcome_AOV_q0;
-                outcome_AOV_load_reg_394 <= outcome_AOV_q1;
+                outcome_AOV_load_1_reg_419 <= outcome_AOV_q0;
+                outcome_AOV_load_reg_414 <= outcome_AOV_q1;
             end if;
         end if;
     end process;
@@ -260,8 +273,8 @@ begin
     begin
         if (ap_clk'event and ap_clk = '1') then
             if ((ap_const_logic_1 = ap_CS_fsm_state5)) then
-                outcome_AOV_load_2_reg_414 <= outcome_AOV_q1;
-                outcome_AOV_load_3_reg_419 <= outcome_AOV_q0;
+                outcome_AOV_load_2_reg_434 <= outcome_AOV_q1;
+                outcome_AOV_load_3_reg_439 <= outcome_AOV_q0;
             end if;
         end if;
     end process;
@@ -269,13 +282,13 @@ begin
     begin
         if (ap_clk'event and ap_clk = '1') then
             if ((ap_const_logic_1 = ap_CS_fsm_state6)) then
-                outcome_AOV_load_4_reg_434 <= outcome_AOV_q1;
-                outcome_AOV_load_5_reg_439 <= outcome_AOV_q0;
+                outcome_AOV_load_4_reg_454 <= outcome_AOV_q1;
+                outcome_AOV_load_5_reg_459 <= outcome_AOV_q0;
             end if;
         end if;
     end process;
 
-    ap_NS_fsm_assign_proc : process (ap_start, ap_CS_fsm, ap_CS_fsm_state1, grp_writeOutcome_Pipeline_1_fu_259_ap_done, ap_CS_fsm_state2)
+    ap_NS_fsm_assign_proc : process (ap_start, ap_CS_fsm, ap_CS_fsm_state1, error, failedTask_ap_ack, ap_CS_fsm_state8, grp_writeOutcome_Pipeline_1_fu_279_ap_done, ap_CS_fsm_state2, ap_block_state8_io)
     begin
         case ap_CS_fsm is
             when ap_ST_fsm_state1 => 
@@ -285,7 +298,7 @@ begin
                     ap_NS_fsm <= ap_ST_fsm_state1;
                 end if;
             when ap_ST_fsm_state2 => 
-                if (((ap_const_logic_1 = ap_CS_fsm_state2) and (grp_writeOutcome_Pipeline_1_fu_259_ap_done = ap_const_logic_1))) then
+                if (((ap_const_logic_1 = ap_CS_fsm_state2) and (grp_writeOutcome_Pipeline_1_fu_279_ap_done = ap_const_logic_1))) then
                     ap_NS_fsm <= ap_ST_fsm_state3;
                 else
                     ap_NS_fsm <= ap_ST_fsm_state2;
@@ -301,9 +314,15 @@ begin
             when ap_ST_fsm_state7 => 
                 ap_NS_fsm <= ap_ST_fsm_state8;
             when ap_ST_fsm_state8 => 
+                if ((not(((ap_const_boolean_1 = ap_block_state8_io) or ((error = ap_const_lv1_1) and (failedTask_ap_ack = ap_const_logic_0)))) and (ap_const_logic_1 = ap_CS_fsm_state8))) then
+                    ap_NS_fsm <= ap_ST_fsm_state9;
+                else
+                    ap_NS_fsm <= ap_ST_fsm_state8;
+                end if;
+            when ap_ST_fsm_state9 => 
                 ap_NS_fsm <= ap_ST_fsm_state1;
             when others =>  
-                ap_NS_fsm <= "XXXXXXXX";
+                ap_NS_fsm <= "XXXXXXXXX";
         end case;
     end process;
     ap_CS_fsm_state1 <= ap_CS_fsm(0);
@@ -314,6 +333,7 @@ begin
     ap_CS_fsm_state6 <= ap_CS_fsm(5);
     ap_CS_fsm_state7 <= ap_CS_fsm(6);
     ap_CS_fsm_state8 <= ap_CS_fsm(7);
+    ap_CS_fsm_state9 <= ap_CS_fsm(8);
 
     ap_ST_fsm_state1_blk_assign_proc : process(ap_start)
     begin
@@ -325,9 +345,9 @@ begin
     end process;
 
 
-    ap_ST_fsm_state2_blk_assign_proc : process(grp_writeOutcome_Pipeline_1_fu_259_ap_done)
+    ap_ST_fsm_state2_blk_assign_proc : process(grp_writeOutcome_Pipeline_1_fu_279_ap_done)
     begin
-        if ((grp_writeOutcome_Pipeline_1_fu_259_ap_done = ap_const_logic_0)) then 
+        if ((grp_writeOutcome_Pipeline_1_fu_279_ap_done = ap_const_logic_0)) then 
             ap_ST_fsm_state2_blk <= ap_const_logic_1;
         else 
             ap_ST_fsm_state2_blk <= ap_const_logic_0;
@@ -339,11 +359,33 @@ begin
     ap_ST_fsm_state5_blk <= ap_const_logic_0;
     ap_ST_fsm_state6_blk <= ap_const_logic_0;
     ap_ST_fsm_state7_blk <= ap_const_logic_0;
-    ap_ST_fsm_state8_blk <= ap_const_logic_0;
 
-    ap_done_assign_proc : process(ap_start, ap_CS_fsm_state1, ap_CS_fsm_state8)
+    ap_ST_fsm_state8_blk_assign_proc : process(error, failedTask_ap_ack, ap_block_state8_io)
     begin
-        if (((ap_const_logic_1 = ap_CS_fsm_state8) or ((ap_const_logic_1 = ap_CS_fsm_state1) and (ap_start = ap_const_logic_0)))) then 
+        if (((ap_const_boolean_1 = ap_block_state8_io) or ((error = ap_const_lv1_1) and (failedTask_ap_ack = ap_const_logic_0)))) then 
+            ap_ST_fsm_state8_blk <= ap_const_logic_1;
+        else 
+            ap_ST_fsm_state8_blk <= ap_const_logic_0;
+        end if; 
+    end process;
+
+    ap_ST_fsm_state9_blk <= ap_const_logic_0;
+
+    ap_block_state8_assign_proc : process(error, failedTask_ap_ack)
+    begin
+                ap_block_state8 <= ((error = ap_const_lv1_1) and (failedTask_ap_ack = ap_const_logic_0));
+    end process;
+
+
+    ap_block_state8_io_assign_proc : process(error, failedTask_ap_ack)
+    begin
+                ap_block_state8_io <= ((error = ap_const_lv1_1) and (failedTask_ap_ack = ap_const_logic_0));
+    end process;
+
+
+    ap_done_assign_proc : process(ap_start, ap_CS_fsm_state1, ap_CS_fsm_state9)
+    begin
+        if (((ap_const_logic_1 = ap_CS_fsm_state9) or ((ap_const_logic_1 = ap_CS_fsm_state1) and (ap_start = ap_const_logic_0)))) then 
             ap_done <= ap_const_logic_1;
         else 
             ap_done <= ap_const_logic_0;
@@ -361,29 +403,29 @@ begin
     end process;
 
 
-    ap_ready_assign_proc : process(ap_CS_fsm_state8)
+    ap_ready_assign_proc : process(ap_CS_fsm_state9)
     begin
-        if ((ap_const_logic_1 = ap_CS_fsm_state8)) then 
+        if ((ap_const_logic_1 = ap_CS_fsm_state9)) then 
             ap_ready <= ap_const_logic_1;
         else 
             ap_ready <= ap_const_logic_0;
         end if; 
     end process;
 
-    empty_47_fu_284_p1 <= outcome_AOV_load_1_reg_399;
-    empty_48_fu_287_p1 <= outcome_AOV_load_2_reg_414;
-    empty_49_fu_290_p1 <= outcome_AOV_load_3_reg_419;
-    empty_50_fu_293_p1 <= outcome_AOV_load_4_reg_434;
-    empty_51_fu_296_p1 <= outcome_AOV_load_5_reg_439;
-    empty_52_fu_299_p1 <= outcome_AOV_q1;
-    empty_53_fu_303_p1 <= outcome_AOV_q0;
-    empty_fu_281_p1 <= outcome_AOV_load_reg_394;
-    errorInTask1_cast_fu_334_p1 <= std_logic_vector(IEEE.numeric_std.resize(unsigned(errorInTask1),64));
-    errorInTask_address0 <= errorInTask1_cast_fu_334_p1(4 - 1 downto 0);
+    empty_48_fu_304_p1 <= outcome_AOV_load_1_reg_419;
+    empty_49_fu_307_p1 <= outcome_AOV_load_2_reg_434;
+    empty_50_fu_310_p1 <= outcome_AOV_load_3_reg_439;
+    empty_51_fu_313_p1 <= outcome_AOV_load_4_reg_454;
+    empty_52_fu_316_p1 <= outcome_AOV_load_5_reg_459;
+    empty_53_fu_319_p1 <= outcome_AOV_q1;
+    empty_54_fu_323_p1 <= outcome_AOV_q0;
+    empty_fu_301_p1 <= outcome_AOV_load_reg_414;
+    errorInTask1_cast_fu_354_p1 <= std_logic_vector(IEEE.numeric_std.resize(unsigned(errorInTask1),64));
+    errorInTask_address0 <= errorInTask1_cast_fu_354_p1(4 - 1 downto 0);
 
-    errorInTask_ce0_assign_proc : process(ap_CS_fsm_state8)
+    errorInTask_ce0_assign_proc : process(error, failedTask_ap_ack, ap_CS_fsm_state8, ap_block_state8_io)
     begin
-        if ((ap_const_logic_1 = ap_CS_fsm_state8)) then 
+        if ((not(((ap_const_boolean_1 = ap_block_state8_io) or ((error = ap_const_lv1_1) and (failedTask_ap_ack = ap_const_logic_0)))) and (ap_const_logic_1 = ap_CS_fsm_state8))) then 
             errorInTask_ce0 <= ap_const_logic_1;
         else 
             errorInTask_ce0 <= ap_const_logic_0;
@@ -392,28 +434,49 @@ begin
 
     errorInTask_d0 <= std_logic_vector(IEEE.numeric_std.resize(unsigned(error),8));
 
-    errorInTask_we0_assign_proc : process(ap_CS_fsm_state8)
+    errorInTask_we0_assign_proc : process(error, failedTask_ap_ack, ap_CS_fsm_state8, ap_block_state8_io)
     begin
-        if ((ap_const_logic_1 = ap_CS_fsm_state8)) then 
+        if ((not(((ap_const_boolean_1 = ap_block_state8_io) or ((error = ap_const_lv1_1) and (failedTask_ap_ack = ap_const_logic_0)))) and (ap_const_logic_1 = ap_CS_fsm_state8))) then 
             errorInTask_we0 <= ap_const_logic_1;
         else 
             errorInTask_we0 <= ap_const_logic_0;
         end if; 
     end process;
 
-    grp_writeOutcome_Pipeline_1_fu_259_ap_start <= grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg;
+    failedTask <= taskId;
+
+    failedTask_ap_vld_assign_proc : process(error, failedTask_ap_ack, ap_CS_fsm_state8, ap_block_state8_io)
+    begin
+        if ((not(((ap_const_boolean_1 = ap_block_state8_io) or ((error = ap_const_lv1_1) and (failedTask_ap_ack = ap_const_logic_0)))) and (error = ap_const_lv1_1) and (ap_const_logic_1 = ap_CS_fsm_state8))) then 
+            failedTask_ap_vld <= ap_const_logic_1;
+        else 
+            failedTask_ap_vld <= ap_const_logic_0;
+        end if; 
+    end process;
+
+
+    failedTask_blk_n_assign_proc : process(error, failedTask_ap_ack, ap_CS_fsm_state8)
+    begin
+        if (((error = ap_const_lv1_1) and (ap_const_logic_1 = ap_CS_fsm_state8))) then 
+            failedTask_blk_n <= failedTask_ap_ack;
+        else 
+            failedTask_blk_n <= ap_const_logic_1;
+        end if; 
+    end process;
+
+    grp_writeOutcome_Pipeline_1_fu_279_ap_start <= grp_writeOutcome_Pipeline_1_fu_279_ap_start_reg;
     outcomeInRam_address0 <= ap_const_lv64_0(4 - 1 downto 0);
 
-    outcomeInRam_ce0_assign_proc : process(ap_CS_fsm_state7, ap_CS_fsm_state8)
+    outcomeInRam_ce0_assign_proc : process(error, failedTask_ap_ack, ap_CS_fsm_state8, ap_CS_fsm_state7, ap_block_state8_io)
     begin
-        if (((ap_const_logic_1 = ap_CS_fsm_state8) or (ap_const_logic_1 = ap_CS_fsm_state7))) then 
+        if (((ap_const_logic_1 = ap_CS_fsm_state7) or (not(((ap_const_boolean_1 = ap_block_state8_io) or ((error = ap_const_lv1_1) and (failedTask_ap_ack = ap_const_logic_0)))) and (ap_const_logic_1 = ap_CS_fsm_state8)))) then 
             outcomeInRam_ce0 <= ap_const_logic_1;
         else 
             outcomeInRam_ce0 <= ap_const_logic_0;
         end if; 
     end process;
 
-    outcomeInRam_d0 <= ((((((((((empty_53_fu_303_p1 & empty_52_fu_299_p1) & empty_51_fu_296_p1) & empty_50_fu_293_p1) & empty_49_fu_290_p1) & empty_48_fu_287_p1) & empty_47_fu_284_p1) & empty_fu_281_p1) & uniId) & ap_const_lv8_0) & checkId);
+    outcomeInRam_d0 <= ((((((((((empty_54_fu_323_p1 & empty_53_fu_319_p1) & empty_52_fu_316_p1) & empty_51_fu_313_p1) & empty_50_fu_310_p1) & empty_49_fu_307_p1) & empty_48_fu_304_p1) & empty_fu_301_p1) & uniId) & ap_const_lv8_0) & checkId);
 
     outcomeInRam_we0_assign_proc : process(ap_CS_fsm_state7)
     begin
@@ -425,7 +488,7 @@ begin
     end process;
 
 
-    outcome_AOV_address0_assign_proc : process(ap_CS_fsm_state3, ap_CS_fsm_state4, ap_CS_fsm_state5, ap_CS_fsm_state6, grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_address0, ap_CS_fsm_state2)
+    outcome_AOV_address0_assign_proc : process(ap_CS_fsm_state3, ap_CS_fsm_state4, ap_CS_fsm_state5, ap_CS_fsm_state6, grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_address0, ap_CS_fsm_state2)
     begin
         if ((ap_const_logic_1 = ap_CS_fsm_state6)) then 
             outcome_AOV_address0 <= ap_const_lv64_7(3 - 1 downto 0);
@@ -436,7 +499,7 @@ begin
         elsif ((ap_const_logic_1 = ap_CS_fsm_state3)) then 
             outcome_AOV_address0 <= ap_const_lv64_1(3 - 1 downto 0);
         elsif ((ap_const_logic_1 = ap_CS_fsm_state2)) then 
-            outcome_AOV_address0 <= grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_address0;
+            outcome_AOV_address0 <= grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_address0;
         else 
             outcome_AOV_address0 <= "XXX";
         end if; 
@@ -459,12 +522,12 @@ begin
     end process;
 
 
-    outcome_AOV_ce0_assign_proc : process(ap_CS_fsm_state3, ap_CS_fsm_state4, ap_CS_fsm_state5, ap_CS_fsm_state6, grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_ce0, ap_CS_fsm_state2)
+    outcome_AOV_ce0_assign_proc : process(ap_CS_fsm_state3, ap_CS_fsm_state4, ap_CS_fsm_state5, ap_CS_fsm_state6, grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_ce0, ap_CS_fsm_state2)
     begin
-        if (((ap_const_logic_1 = ap_CS_fsm_state5) or (ap_const_logic_1 = ap_CS_fsm_state4) or (ap_const_logic_1 = ap_CS_fsm_state3) or (ap_const_logic_1 = ap_CS_fsm_state6))) then 
+        if (((ap_const_logic_1 = ap_CS_fsm_state4) or (ap_const_logic_1 = ap_CS_fsm_state3) or (ap_const_logic_1 = ap_CS_fsm_state6) or (ap_const_logic_1 = ap_CS_fsm_state5))) then 
             outcome_AOV_ce0 <= ap_const_logic_1;
         elsif ((ap_const_logic_1 = ap_CS_fsm_state2)) then 
-            outcome_AOV_ce0 <= grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_ce0;
+            outcome_AOV_ce0 <= grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_ce0;
         else 
             outcome_AOV_ce0 <= ap_const_logic_0;
         end if; 
@@ -473,7 +536,7 @@ begin
 
     outcome_AOV_ce1_assign_proc : process(ap_CS_fsm_state3, ap_CS_fsm_state4, ap_CS_fsm_state5, ap_CS_fsm_state6)
     begin
-        if (((ap_const_logic_1 = ap_CS_fsm_state5) or (ap_const_logic_1 = ap_CS_fsm_state4) or (ap_const_logic_1 = ap_CS_fsm_state3) or (ap_const_logic_1 = ap_CS_fsm_state6))) then 
+        if (((ap_const_logic_1 = ap_CS_fsm_state4) or (ap_const_logic_1 = ap_CS_fsm_state3) or (ap_const_logic_1 = ap_CS_fsm_state6) or (ap_const_logic_1 = ap_CS_fsm_state5))) then 
             outcome_AOV_ce1 <= ap_const_logic_1;
         else 
             outcome_AOV_ce1 <= ap_const_logic_0;
@@ -481,10 +544,10 @@ begin
     end process;
 
 
-    outcome_AOV_we0_assign_proc : process(grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_we0, ap_CS_fsm_state2)
+    outcome_AOV_we0_assign_proc : process(grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_we0, ap_CS_fsm_state2)
     begin
         if ((ap_const_logic_1 = ap_CS_fsm_state2)) then 
-            outcome_AOV_we0 <= grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_we0;
+            outcome_AOV_we0 <= grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_we0;
         else 
             outcome_AOV_we0 <= ap_const_logic_0;
         end if; 

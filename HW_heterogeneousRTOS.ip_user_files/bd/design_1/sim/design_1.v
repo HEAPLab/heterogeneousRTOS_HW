@@ -1,7 +1,7 @@
 //Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-//Date        : Tue Oct 11 19:05:56 2022
+//Date        : Wed Oct 12 10:26:16 2022
 //Host        : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
 //Command     : generate_target design_1.bd
 //Design      : design_1
@@ -9,7 +9,7 @@
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CORE_GENERATION_INFO = "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=24,numReposBlks=16,numNonXlnxBlks=5,numHierBlks=8,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=1,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=10,da_clkrst_cnt=44,da_ps7_cnt=1,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "design_1.hwdef" *) 
+(* CORE_GENERATION_INFO = "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=25,numReposBlks=17,numNonXlnxBlks=5,numHierBlks=8,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=1,numHdlrefBlks=1,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=10,da_clkrst_cnt=44,da_ps7_cnt=1,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "design_1.hwdef" *) 
 module design_1
    (DDR_addr,
     DDR_ba,
@@ -70,6 +70,8 @@ module design_1
   output LD6;
   output LD7;
 
+  wire [7:0]Net;
+  wire Net1;
   wire [63:0]S01_AXI_1_ARADDR;
   wire [1:0]S01_AXI_1_ARBURST;
   wire [3:0]S01_AXI_1_ARCACHE;
@@ -330,6 +332,7 @@ module design_1
   wire scheduler_0_M_AXI_WREADY;
   wire [3:0]scheduler_0_M_AXI_WSTRB;
   wire scheduler_0_M_AXI_WVALID;
+  wire scheduler_0_failedTask_ack;
   wire scheduler_0_irq;
   wire scheduler_0_led1;
   wire scheduler_0_led2;
@@ -358,6 +361,7 @@ module design_1
   wire scheduler_1_M_AXI_WREADY;
   wire [3:0]scheduler_1_M_AXI_WSTRB;
   wire scheduler_1_M_AXI_WVALID;
+  wire scheduler_1_failedTask_ack;
   wire scheduler_1_irq;
   wire [31:0]scheduler_2_M_AXI_ARADDR;
   wire [2:0]scheduler_2_M_AXI_ARPROT;
@@ -378,7 +382,9 @@ module design_1
   wire scheduler_2_M_AXI_WREADY;
   wire [3:0]scheduler_2_M_AXI_WSTRB;
   wire scheduler_2_M_AXI_WVALID;
+  wire scheduler_2_failedTask_ack;
   wire scheduler_2_irq;
+  wire [0:0]tmrVoter_0_out;
 
   assign LD0 = scheduler_0_uninitializedLed;
   assign LD1 = scheduler_0_readyLed;
@@ -853,6 +859,9 @@ module design_1
   design_1_run_0_1 run_0
        (.ap_clk(processing_system7_0_FCLK_CLK0),
         .ap_rst_n(rst_ps7_0_100M_peripheral_aresetn),
+        .failedTask(Net),
+        .failedTask_ap_ack(tmrVoter_0_out),
+        .failedTask_ap_vld(Net1),
         .m_axi_gmem_ARADDR(S01_AXI_1_ARADDR),
         .m_axi_gmem_ARBURST(S01_AXI_1_ARBURST),
         .m_axi_gmem_ARCACHE(S01_AXI_1_ARCACHE),
@@ -906,6 +915,9 @@ module design_1
   design_1_scheduler_0_0 scheduler_0
        (.SCHEDULER_ARESETN(rst_ps7_0_100M_peripheral_aresetn),
         .SCHEDULER_CLK(processing_system7_0_FCLK_CLK0),
+        .failedTask(Net),
+        .failedTask_ack(scheduler_0_failedTask_ack),
+        .failedTask_valid(Net1),
         .irq(scheduler_0_irq),
         .led1(scheduler_0_led1),
         .led2(scheduler_0_led2),
@@ -960,6 +972,9 @@ module design_1
   design_1_scheduler_0_1 scheduler_1
        (.SCHEDULER_ARESETN(rst_ps7_0_100M_peripheral_aresetn),
         .SCHEDULER_CLK(processing_system7_0_FCLK_CLK0),
+        .failedTask(Net),
+        .failedTask_ack(scheduler_1_failedTask_ack),
+        .failedTask_valid(Net1),
         .irq(scheduler_1_irq),
         .m_axi_aclk(processing_system7_0_FCLK_CLK0),
         .m_axi_araddr(scheduler_1_M_AXI_ARADDR),
@@ -1006,6 +1021,9 @@ module design_1
   design_1_scheduler_0_2 scheduler_2
        (.SCHEDULER_ARESETN(rst_ps7_0_100M_peripheral_aresetn),
         .SCHEDULER_CLK(processing_system7_0_FCLK_CLK0),
+        .failedTask(Net),
+        .failedTask_ack(scheduler_2_failedTask_ack),
+        .failedTask_valid(Net1),
         .irq(scheduler_2_irq),
         .m_axi_aclk(processing_system7_0_FCLK_CLK0),
         .m_axi_araddr(scheduler_2_M_AXI_ARADDR),
@@ -1049,6 +1067,11 @@ module design_1
         .s_axi_wready(axisvoter_0_M02_AXI_IN_WREADY),
         .s_axi_wstrb(axisvoter_0_M02_AXI_IN_WSTRB),
         .s_axi_wvalid(axisvoter_0_M02_AXI_IN_WVALID));
+  design_1_tmrVoter_0_0 tmrVoter_0
+       (.in1(scheduler_1_failedTask_ack),
+        .in2(scheduler_2_failedTask_ack),
+        .in3(scheduler_0_failedTask_ack),
+        .votedOut(tmrVoter_0_out));
 endmodule
 
 module design_1_axi_mem_intercon_0

@@ -48,13 +48,15 @@
 
 
 // IP VLNV: xilinx.com:hls:run:1.0
-// IP Revision: 2112715229
+// IP Revision: 2112721880
 
 `timescale 1ns/1ps
 
 (* IP_DEFINITION_SOURCE = "HLS" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module design_1_run_0_1 (
+  failedTask_ap_vld,
+  failedTask_ap_ack,
   s_axi_control_AWADDR,
   s_axi_control_AWVALID,
   s_axi_control_AWREADY,
@@ -109,9 +111,12 @@ module design_1_run_0_1 (
   m_axi_gmem_RRESP,
   m_axi_gmem_RLAST,
   m_axi_gmem_RVALID,
-  m_axi_gmem_RREADY
+  m_axi_gmem_RREADY,
+  failedTask
 );
 
+output wire failedTask_ap_vld;
+input wire failedTask_ap_ack;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 s_axi_control AWADDR" *)
 input wire [10 : 0] s_axi_control_AWADDR;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 s_axi_control AWVALID" *)
@@ -229,6 +234,9 @@ input wire m_axi_gmem_RVALID;
 ign_1_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi_gmem RREADY" *)
 output wire m_axi_gmem_RREADY;
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME failedTask, LAYERED_METADATA undef" *)
+(* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 failedTask DATA" *)
+output wire [7 : 0] failedTask;
 
 (* SDX_KERNEL = "true" *)
 (* SDX_KERNEL_TYPE = "hls" *)
@@ -248,6 +256,8 @@ output wire m_axi_gmem_RREADY;
     .C_M_AXI_GMEM_PROT_VALUE(3'B000),
     .C_M_AXI_GMEM_CACHE_VALUE(4'B0011)
   ) inst (
+    .failedTask_ap_vld(failedTask_ap_vld),
+    .failedTask_ap_ack(failedTask_ap_ack),
     .s_axi_control_AWADDR(s_axi_control_AWADDR),
     .s_axi_control_AWVALID(s_axi_control_AWVALID),
     .s_axi_control_AWREADY(s_axi_control_AWREADY),
@@ -312,6 +322,7 @@ output wire m_axi_gmem_RREADY;
     .m_axi_gmem_RLAST(m_axi_gmem_RLAST),
     .m_axi_gmem_RUSER(1'B0),
     .m_axi_gmem_RVALID(m_axi_gmem_RVALID),
-    .m_axi_gmem_RREADY(m_axi_gmem_RREADY)
+    .m_axi_gmem_RREADY(m_axi_gmem_RREADY),
+    .failedTask(failedTask)
   );
 endmodule

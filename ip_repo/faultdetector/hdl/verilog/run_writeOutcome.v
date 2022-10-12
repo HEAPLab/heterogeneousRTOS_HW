@@ -20,6 +20,7 @@ module run_writeOutcome (
         errorInTask_d0,
         errorInTask1,
         checkId,
+        taskId,
         uniId,
         error,
         outcomeInRam_address0,
@@ -33,17 +34,21 @@ module run_writeOutcome (
         p_read4,
         p_read5,
         p_read6,
-        p_read7
+        p_read7,
+        failedTask,
+        failedTask_ap_vld,
+        failedTask_ap_ack
 );
 
-parameter    ap_ST_fsm_state1 = 8'd1;
-parameter    ap_ST_fsm_state2 = 8'd2;
-parameter    ap_ST_fsm_state3 = 8'd4;
-parameter    ap_ST_fsm_state4 = 8'd8;
-parameter    ap_ST_fsm_state5 = 8'd16;
-parameter    ap_ST_fsm_state6 = 8'd32;
-parameter    ap_ST_fsm_state7 = 8'd64;
-parameter    ap_ST_fsm_state8 = 8'd128;
+parameter    ap_ST_fsm_state1 = 9'd1;
+parameter    ap_ST_fsm_state2 = 9'd2;
+parameter    ap_ST_fsm_state3 = 9'd4;
+parameter    ap_ST_fsm_state4 = 9'd8;
+parameter    ap_ST_fsm_state5 = 9'd16;
+parameter    ap_ST_fsm_state6 = 9'd32;
+parameter    ap_ST_fsm_state7 = 9'd64;
+parameter    ap_ST_fsm_state8 = 9'd128;
+parameter    ap_ST_fsm_state9 = 9'd256;
 
 input   ap_clk;
 input   ap_rst;
@@ -57,6 +62,7 @@ output   errorInTask_we0;
 output  [7:0] errorInTask_d0;
 input  [3:0] errorInTask1;
 input  [7:0] checkId;
+input  [7:0] taskId;
 input  [15:0] uniId;
 input  [0:0] error;
 output  [3:0] outcomeInRam_address0;
@@ -71,6 +77,9 @@ input  [31:0] p_read4;
 input  [31:0] p_read5;
 input  [31:0] p_read6;
 input  [31:0] p_read7;
+output  [7:0] failedTask;
+output   failedTask_ap_vld;
+input   failedTask_ap_ack;
 
 reg ap_done;
 reg ap_idle;
@@ -79,48 +88,53 @@ reg errorInTask_ce0;
 reg errorInTask_we0;
 reg outcomeInRam_ce0;
 reg[35:0] outcomeInRam_we0;
+reg failedTask_ap_vld;
 
-(* fsm_encoding = "none" *) reg   [7:0] ap_CS_fsm;
+(* fsm_encoding = "none" *) reg   [8:0] ap_CS_fsm;
 wire    ap_CS_fsm_state1;
+reg    failedTask_blk_n;
+wire    ap_CS_fsm_state8;
 wire    ap_CS_fsm_state3;
 wire   [31:0] outcome_AOV_q1;
-reg   [31:0] outcome_AOV_load_reg_394;
+reg   [31:0] outcome_AOV_load_reg_414;
 wire    ap_CS_fsm_state4;
 wire   [31:0] outcome_AOV_q0;
-reg   [31:0] outcome_AOV_load_1_reg_399;
-reg   [31:0] outcome_AOV_load_2_reg_414;
+reg   [31:0] outcome_AOV_load_1_reg_419;
+reg   [31:0] outcome_AOV_load_2_reg_434;
 wire    ap_CS_fsm_state5;
-reg   [31:0] outcome_AOV_load_3_reg_419;
-reg   [31:0] outcome_AOV_load_4_reg_434;
+reg   [31:0] outcome_AOV_load_3_reg_439;
+reg   [31:0] outcome_AOV_load_4_reg_454;
 wire    ap_CS_fsm_state6;
-reg   [31:0] outcome_AOV_load_5_reg_439;
+reg   [31:0] outcome_AOV_load_5_reg_459;
 wire    ap_CS_fsm_state7;
 reg   [2:0] outcome_AOV_address0;
 reg    outcome_AOV_ce0;
 reg    outcome_AOV_we0;
 reg   [2:0] outcome_AOV_address1;
 reg    outcome_AOV_ce1;
-wire    grp_writeOutcome_Pipeline_1_fu_259_ap_start;
-wire    grp_writeOutcome_Pipeline_1_fu_259_ap_done;
-wire    grp_writeOutcome_Pipeline_1_fu_259_ap_idle;
-wire    grp_writeOutcome_Pipeline_1_fu_259_ap_ready;
-wire   [2:0] grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_address0;
-wire    grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_ce0;
-wire    grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_we0;
-wire   [31:0] grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_d0;
-reg    grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg;
+wire    grp_writeOutcome_Pipeline_1_fu_279_ap_start;
+wire    grp_writeOutcome_Pipeline_1_fu_279_ap_done;
+wire    grp_writeOutcome_Pipeline_1_fu_279_ap_idle;
+wire    grp_writeOutcome_Pipeline_1_fu_279_ap_ready;
+wire   [2:0] grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_address0;
+wire    grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_ce0;
+wire    grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_we0;
+wire   [31:0] grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_d0;
+reg    grp_writeOutcome_Pipeline_1_fu_279_ap_start_reg;
 wire    ap_CS_fsm_state2;
-wire   [63:0] errorInTask1_cast_fu_334_p1;
-wire    ap_CS_fsm_state8;
-wire   [31:0] empty_53_fu_303_p1;
-wire   [31:0] empty_52_fu_299_p1;
-wire   [31:0] empty_51_fu_296_p1;
-wire   [31:0] empty_50_fu_293_p1;
-wire   [31:0] empty_49_fu_290_p1;
-wire   [31:0] empty_48_fu_287_p1;
-wire   [31:0] empty_47_fu_284_p1;
-wire   [31:0] empty_fu_281_p1;
-reg   [7:0] ap_NS_fsm;
+wire   [63:0] errorInTask1_cast_fu_354_p1;
+reg    ap_block_state8;
+reg    ap_block_state8_io;
+wire   [31:0] empty_54_fu_323_p1;
+wire   [31:0] empty_53_fu_319_p1;
+wire   [31:0] empty_52_fu_316_p1;
+wire   [31:0] empty_51_fu_313_p1;
+wire   [31:0] empty_50_fu_310_p1;
+wire   [31:0] empty_49_fu_307_p1;
+wire   [31:0] empty_48_fu_304_p1;
+wire   [31:0] empty_fu_301_p1;
+wire    ap_CS_fsm_state9;
+reg   [8:0] ap_NS_fsm;
 reg    ap_ST_fsm_state1_blk;
 reg    ap_ST_fsm_state2_blk;
 wire    ap_ST_fsm_state3_blk;
@@ -128,13 +142,14 @@ wire    ap_ST_fsm_state4_blk;
 wire    ap_ST_fsm_state5_blk;
 wire    ap_ST_fsm_state6_blk;
 wire    ap_ST_fsm_state7_blk;
-wire    ap_ST_fsm_state8_blk;
+reg    ap_ST_fsm_state8_blk;
+wire    ap_ST_fsm_state9_blk;
 wire    ap_ce_reg;
 
 // power-on initialization
 initial begin
-#0 ap_CS_fsm = 8'd1;
-#0 grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg = 1'b0;
+#0 ap_CS_fsm = 9'd1;
+#0 grp_writeOutcome_Pipeline_1_fu_279_ap_start_reg = 1'b0;
 end
 
 run_writeOutcome_outcome_AOV_RAM_AUTO_1R1W #(
@@ -147,20 +162,20 @@ outcome_AOV_U(
     .address0(outcome_AOV_address0),
     .ce0(outcome_AOV_ce0),
     .we0(outcome_AOV_we0),
-    .d0(grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_d0),
+    .d0(grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_d0),
     .q0(outcome_AOV_q0),
     .address1(outcome_AOV_address1),
     .ce1(outcome_AOV_ce1),
     .q1(outcome_AOV_q1)
 );
 
-run_writeOutcome_Pipeline_1 grp_writeOutcome_Pipeline_1_fu_259(
+run_writeOutcome_Pipeline_1 grp_writeOutcome_Pipeline_1_fu_279(
     .ap_clk(ap_clk),
     .ap_rst(ap_rst),
-    .ap_start(grp_writeOutcome_Pipeline_1_fu_259_ap_start),
-    .ap_done(grp_writeOutcome_Pipeline_1_fu_259_ap_done),
-    .ap_idle(grp_writeOutcome_Pipeline_1_fu_259_ap_idle),
-    .ap_ready(grp_writeOutcome_Pipeline_1_fu_259_ap_ready),
+    .ap_start(grp_writeOutcome_Pipeline_1_fu_279_ap_start),
+    .ap_done(grp_writeOutcome_Pipeline_1_fu_279_ap_done),
+    .ap_idle(grp_writeOutcome_Pipeline_1_fu_279_ap_idle),
+    .ap_ready(grp_writeOutcome_Pipeline_1_fu_279_ap_ready),
     .p_read(p_read),
     .p_read1(p_read1),
     .p_read2(p_read2),
@@ -169,10 +184,10 @@ run_writeOutcome_Pipeline_1 grp_writeOutcome_Pipeline_1_fu_259(
     .p_read5(p_read5),
     .p_read6(p_read6),
     .p_read7(p_read7),
-    .outcome_AOV_address0(grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_address0),
-    .outcome_AOV_ce0(grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_ce0),
-    .outcome_AOV_we0(grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_we0),
-    .outcome_AOV_d0(grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_d0)
+    .outcome_AOV_address0(grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_address0),
+    .outcome_AOV_ce0(grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_ce0),
+    .outcome_AOV_we0(grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_we0),
+    .outcome_AOV_d0(grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_d0)
 );
 
 always @ (posedge ap_clk) begin
@@ -185,34 +200,34 @@ end
 
 always @ (posedge ap_clk) begin
     if (ap_rst == 1'b1) begin
-        grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg <= 1'b0;
+        grp_writeOutcome_Pipeline_1_fu_279_ap_start_reg <= 1'b0;
     end else begin
         if (((1'b1 == ap_CS_fsm_state1) & (ap_start == 1'b1))) begin
-            grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg <= 1'b1;
-        end else if ((grp_writeOutcome_Pipeline_1_fu_259_ap_ready == 1'b1)) begin
-            grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg <= 1'b0;
+            grp_writeOutcome_Pipeline_1_fu_279_ap_start_reg <= 1'b1;
+        end else if ((grp_writeOutcome_Pipeline_1_fu_279_ap_ready == 1'b1)) begin
+            grp_writeOutcome_Pipeline_1_fu_279_ap_start_reg <= 1'b0;
         end
     end
 end
 
 always @ (posedge ap_clk) begin
     if ((1'b1 == ap_CS_fsm_state4)) begin
-        outcome_AOV_load_1_reg_399 <= outcome_AOV_q0;
-        outcome_AOV_load_reg_394 <= outcome_AOV_q1;
+        outcome_AOV_load_1_reg_419 <= outcome_AOV_q0;
+        outcome_AOV_load_reg_414 <= outcome_AOV_q1;
     end
 end
 
 always @ (posedge ap_clk) begin
     if ((1'b1 == ap_CS_fsm_state5)) begin
-        outcome_AOV_load_2_reg_414 <= outcome_AOV_q1;
-        outcome_AOV_load_3_reg_419 <= outcome_AOV_q0;
+        outcome_AOV_load_2_reg_434 <= outcome_AOV_q1;
+        outcome_AOV_load_3_reg_439 <= outcome_AOV_q0;
     end
 end
 
 always @ (posedge ap_clk) begin
     if ((1'b1 == ap_CS_fsm_state6)) begin
-        outcome_AOV_load_4_reg_434 <= outcome_AOV_q1;
-        outcome_AOV_load_5_reg_439 <= outcome_AOV_q0;
+        outcome_AOV_load_4_reg_454 <= outcome_AOV_q1;
+        outcome_AOV_load_5_reg_459 <= outcome_AOV_q0;
     end
 end
 
@@ -225,7 +240,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if ((grp_writeOutcome_Pipeline_1_fu_259_ap_done == 1'b0)) begin
+    if ((grp_writeOutcome_Pipeline_1_fu_279_ap_done == 1'b0)) begin
         ap_ST_fsm_state2_blk = 1'b1;
     end else begin
         ap_ST_fsm_state2_blk = 1'b0;
@@ -242,10 +257,18 @@ assign ap_ST_fsm_state6_blk = 1'b0;
 
 assign ap_ST_fsm_state7_blk = 1'b0;
 
-assign ap_ST_fsm_state8_blk = 1'b0;
+always @ (*) begin
+    if (((1'b1 == ap_block_state8_io) | ((error == 1'd1) & (failedTask_ap_ack == 1'b0)))) begin
+        ap_ST_fsm_state8_blk = 1'b1;
+    end else begin
+        ap_ST_fsm_state8_blk = 1'b0;
+    end
+end
+
+assign ap_ST_fsm_state9_blk = 1'b0;
 
 always @ (*) begin
-    if (((1'b1 == ap_CS_fsm_state8) | ((1'b1 == ap_CS_fsm_state1) & (ap_start == 1'b0)))) begin
+    if (((1'b1 == ap_CS_fsm_state9) | ((1'b1 == ap_CS_fsm_state1) & (ap_start == 1'b0)))) begin
         ap_done = 1'b1;
     end else begin
         ap_done = 1'b0;
@@ -261,7 +284,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if ((1'b1 == ap_CS_fsm_state8)) begin
+    if ((1'b1 == ap_CS_fsm_state9)) begin
         ap_ready = 1'b1;
     end else begin
         ap_ready = 1'b0;
@@ -269,7 +292,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if ((1'b1 == ap_CS_fsm_state8)) begin
+    if ((~((1'b1 == ap_block_state8_io) | ((error == 1'd1) & (failedTask_ap_ack == 1'b0))) & (1'b1 == ap_CS_fsm_state8))) begin
         errorInTask_ce0 = 1'b1;
     end else begin
         errorInTask_ce0 = 1'b0;
@@ -277,7 +300,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if ((1'b1 == ap_CS_fsm_state8)) begin
+    if ((~((1'b1 == ap_block_state8_io) | ((error == 1'd1) & (failedTask_ap_ack == 1'b0))) & (1'b1 == ap_CS_fsm_state8))) begin
         errorInTask_we0 = 1'b1;
     end else begin
         errorInTask_we0 = 1'b0;
@@ -285,7 +308,23 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if (((1'b1 == ap_CS_fsm_state8) | (1'b1 == ap_CS_fsm_state7))) begin
+    if ((~((1'b1 == ap_block_state8_io) | ((error == 1'd1) & (failedTask_ap_ack == 1'b0))) & (error == 1'd1) & (1'b1 == ap_CS_fsm_state8))) begin
+        failedTask_ap_vld = 1'b1;
+    end else begin
+        failedTask_ap_vld = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if (((error == 1'd1) & (1'b1 == ap_CS_fsm_state8))) begin
+        failedTask_blk_n = failedTask_ap_ack;
+    end else begin
+        failedTask_blk_n = 1'b1;
+    end
+end
+
+always @ (*) begin
+    if (((1'b1 == ap_CS_fsm_state7) | (~((1'b1 == ap_block_state8_io) | ((error == 1'd1) & (failedTask_ap_ack == 1'b0))) & (1'b1 == ap_CS_fsm_state8)))) begin
         outcomeInRam_ce0 = 1'b1;
     end else begin
         outcomeInRam_ce0 = 1'b0;
@@ -310,7 +349,7 @@ always @ (*) begin
     end else if ((1'b1 == ap_CS_fsm_state3)) begin
         outcome_AOV_address0 = 64'd1;
     end else if ((1'b1 == ap_CS_fsm_state2)) begin
-        outcome_AOV_address0 = grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_address0;
+        outcome_AOV_address0 = grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_address0;
     end else begin
         outcome_AOV_address0 = 'bx;
     end
@@ -331,17 +370,17 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if (((1'b1 == ap_CS_fsm_state5) | (1'b1 == ap_CS_fsm_state4) | (1'b1 == ap_CS_fsm_state3) | (1'b1 == ap_CS_fsm_state6))) begin
+    if (((1'b1 == ap_CS_fsm_state4) | (1'b1 == ap_CS_fsm_state3) | (1'b1 == ap_CS_fsm_state6) | (1'b1 == ap_CS_fsm_state5))) begin
         outcome_AOV_ce0 = 1'b1;
     end else if ((1'b1 == ap_CS_fsm_state2)) begin
-        outcome_AOV_ce0 = grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_ce0;
+        outcome_AOV_ce0 = grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_ce0;
     end else begin
         outcome_AOV_ce0 = 1'b0;
     end
 end
 
 always @ (*) begin
-    if (((1'b1 == ap_CS_fsm_state5) | (1'b1 == ap_CS_fsm_state4) | (1'b1 == ap_CS_fsm_state3) | (1'b1 == ap_CS_fsm_state6))) begin
+    if (((1'b1 == ap_CS_fsm_state4) | (1'b1 == ap_CS_fsm_state3) | (1'b1 == ap_CS_fsm_state6) | (1'b1 == ap_CS_fsm_state5))) begin
         outcome_AOV_ce1 = 1'b1;
     end else begin
         outcome_AOV_ce1 = 1'b0;
@@ -350,7 +389,7 @@ end
 
 always @ (*) begin
     if ((1'b1 == ap_CS_fsm_state2)) begin
-        outcome_AOV_we0 = grp_writeOutcome_Pipeline_1_fu_259_outcome_AOV_we0;
+        outcome_AOV_we0 = grp_writeOutcome_Pipeline_1_fu_279_outcome_AOV_we0;
     end else begin
         outcome_AOV_we0 = 1'b0;
     end
@@ -366,7 +405,7 @@ always @ (*) begin
             end
         end
         ap_ST_fsm_state2 : begin
-            if (((1'b1 == ap_CS_fsm_state2) & (grp_writeOutcome_Pipeline_1_fu_259_ap_done == 1'b1))) begin
+            if (((1'b1 == ap_CS_fsm_state2) & (grp_writeOutcome_Pipeline_1_fu_279_ap_done == 1'b1))) begin
                 ap_NS_fsm = ap_ST_fsm_state3;
             end else begin
                 ap_NS_fsm = ap_ST_fsm_state2;
@@ -388,6 +427,13 @@ always @ (*) begin
             ap_NS_fsm = ap_ST_fsm_state8;
         end
         ap_ST_fsm_state8 : begin
+            if ((~((1'b1 == ap_block_state8_io) | ((error == 1'd1) & (failedTask_ap_ack == 1'b0))) & (1'b1 == ap_CS_fsm_state8))) begin
+                ap_NS_fsm = ap_ST_fsm_state9;
+            end else begin
+                ap_NS_fsm = ap_ST_fsm_state8;
+            end
+        end
+        ap_ST_fsm_state9 : begin
             ap_NS_fsm = ap_ST_fsm_state1;
         end
         default : begin
@@ -412,32 +458,44 @@ assign ap_CS_fsm_state7 = ap_CS_fsm[32'd6];
 
 assign ap_CS_fsm_state8 = ap_CS_fsm[32'd7];
 
-assign empty_47_fu_284_p1 = outcome_AOV_load_1_reg_399;
+assign ap_CS_fsm_state9 = ap_CS_fsm[32'd8];
 
-assign empty_48_fu_287_p1 = outcome_AOV_load_2_reg_414;
+always @ (*) begin
+    ap_block_state8 = ((error == 1'd1) & (failedTask_ap_ack == 1'b0));
+end
 
-assign empty_49_fu_290_p1 = outcome_AOV_load_3_reg_419;
+always @ (*) begin
+    ap_block_state8_io = ((error == 1'd1) & (failedTask_ap_ack == 1'b0));
+end
 
-assign empty_50_fu_293_p1 = outcome_AOV_load_4_reg_434;
+assign empty_48_fu_304_p1 = outcome_AOV_load_1_reg_419;
 
-assign empty_51_fu_296_p1 = outcome_AOV_load_5_reg_439;
+assign empty_49_fu_307_p1 = outcome_AOV_load_2_reg_434;
 
-assign empty_52_fu_299_p1 = outcome_AOV_q1;
+assign empty_50_fu_310_p1 = outcome_AOV_load_3_reg_439;
 
-assign empty_53_fu_303_p1 = outcome_AOV_q0;
+assign empty_51_fu_313_p1 = outcome_AOV_load_4_reg_454;
 
-assign empty_fu_281_p1 = outcome_AOV_load_reg_394;
+assign empty_52_fu_316_p1 = outcome_AOV_load_5_reg_459;
 
-assign errorInTask1_cast_fu_334_p1 = errorInTask1;
+assign empty_53_fu_319_p1 = outcome_AOV_q1;
 
-assign errorInTask_address0 = errorInTask1_cast_fu_334_p1;
+assign empty_54_fu_323_p1 = outcome_AOV_q0;
+
+assign empty_fu_301_p1 = outcome_AOV_load_reg_414;
+
+assign errorInTask1_cast_fu_354_p1 = errorInTask1;
+
+assign errorInTask_address0 = errorInTask1_cast_fu_354_p1;
 
 assign errorInTask_d0 = error;
 
-assign grp_writeOutcome_Pipeline_1_fu_259_ap_start = grp_writeOutcome_Pipeline_1_fu_259_ap_start_reg;
+assign failedTask = taskId;
+
+assign grp_writeOutcome_Pipeline_1_fu_279_ap_start = grp_writeOutcome_Pipeline_1_fu_279_ap_start_reg;
 
 assign outcomeInRam_address0 = 64'd0;
 
-assign outcomeInRam_d0 = {{{{{{{{{{{empty_53_fu_303_p1}, {empty_52_fu_299_p1}}, {empty_51_fu_296_p1}}, {empty_50_fu_293_p1}}, {empty_49_fu_290_p1}}, {empty_48_fu_287_p1}}, {empty_47_fu_284_p1}}, {empty_fu_281_p1}}, {uniId}}, {8'd0}}, {checkId}};
+assign outcomeInRam_d0 = {{{{{{{{{{{empty_54_fu_323_p1}, {empty_53_fu_319_p1}}, {empty_52_fu_316_p1}}, {empty_51_fu_313_p1}}, {empty_50_fu_310_p1}}, {empty_49_fu_307_p1}}, {empty_48_fu_304_p1}}, {empty_fu_301_p1}}, {uniId}}, {8'd0}}, {checkId}};
 
 endmodule //run_writeOutcome

@@ -101,7 +101,7 @@ reg   [3:0] i_fu_68;
 wire    ap_loop_init;
 reg   [3:0] ap_sig_allocacmp_i_2;
 wire   [31:0] bitcast_ln89_fu_192_p1;
-wire   [7:0] tmp_67_fu_196_p4;
+wire   [7:0] tmp_s_fu_196_p4;
 wire   [22:0] trunc_ln89_fu_206_p1;
 wire   [0:0] or_ln89_fu_222_p2;
 wire   [0:0] or_ln89_3_fu_226_p2;
@@ -354,7 +354,7 @@ assign icmp_ln87_fu_155_p2 = ((ap_sig_allocacmp_i_2 == 4'd8) ? 1'b1 : 1'b0);
 
 assign icmp_ln89_2_fu_216_p2 = ((trunc_ln89_fu_206_p1 == 23'd0) ? 1'b1 : 1'b0);
 
-assign icmp_ln89_fu_210_p2 = ((tmp_67_fu_196_p4 != 8'd255) ? 1'b1 : 1'b0);
+assign icmp_ln89_fu_210_p2 = ((tmp_s_fu_196_p4 != 8'd255) ? 1'b1 : 1'b0);
 
 assign or_ln89_2_fu_238_p2 = (grp_fu_1711_p_dout0 | and_ln89_fu_232_p2);
 
@@ -362,7 +362,7 @@ assign or_ln89_3_fu_226_p2 = (grp_fu_1719_p_dout0 | grp_fu_1715_p_dout0);
 
 assign or_ln89_fu_222_p2 = (icmp_ln89_reg_271 | icmp_ln89_2_reg_276);
 
-assign tmp_67_fu_196_p4 = {{bitcast_ln89_fu_192_p1[30:23]}};
+assign tmp_s_fu_196_p4 = {{bitcast_ln89_fu_192_p1[30:23]}};
 
 assign trunc_ln89_fu_206_p1 = bitcast_ln89_fu_192_p1[22:0];
 
