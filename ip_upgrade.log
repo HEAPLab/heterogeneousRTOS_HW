@@ -1,6 +1,69 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 ------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Wed Oct 12 17:32:14 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_2'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_2 (user.org:user:scheduler:1.0) from (Rev. 135) to (Rev. 139)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Wed Oct 12 17:32:14 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 135) to (Rev. 139)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Wed Oct 12 17:32:14 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_0 (user.org:user:scheduler:1.0) from (Rev. 135) to (Rev. 139)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
 | Date         : Wed Oct 12 10:25:37 2022
 | Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
 | Command      : upgrade_ip

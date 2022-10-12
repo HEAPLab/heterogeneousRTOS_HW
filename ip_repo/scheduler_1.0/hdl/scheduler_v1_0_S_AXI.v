@@ -40,7 +40,9 @@ module scheduler_v1_0_S_AXI #
 	(
     // Users to add parameters here
     parameter[7:0] maxTasks = 16,
-    parameter [1:0] schedulerClkVsAxiClk=schedulerClkLowerAxiClk,
+    //parameter [1:0] schedulerClkVsAxiClk=schedulerClkLowerAxiClk,
+    parameter [3:0] maxReExecutions=4'd2,
+
 
     // User parameters ends
     // Do not modify the parameters beyond this line
@@ -213,7 +215,7 @@ module scheduler_v1_0_S_AXI #
     localparam[(C_S_AXI_DATA_WIDTH/2)-1:0] control_startScheduler=1, control_stopScheduler=2, control_resumeTask=3, control_taskEnded=4, control_taskSuspended=5, control_jobEnded=6;
     //    localparam[(C_S_AXI_DATA_WIDTH/2)-1:0] control_setTaskNum = C_S_AXI_DATA_WIDTH/2'd1, control_startScheduler=C_S_AXI_DATA_WIDTH/2'd2, control_startTask=C_S_AXI_DATA_WIDTH/2'd3, control_suspendTask=C_S_AXI_DATA_WIDTH/2'd4;
 
-    localparam[1:0] schedulerClkSameAxiClk=2'd0, schedulerClkHigherAxiClk=3'd1, schedulerClkLowerAxiClk=3'd2;
+//    localparam[1:0] schedulerClkSameAxiClk=2'd0, schedulerClkHigherAxiClk=3'd1, schedulerClkLowerAxiClk=3'd2;
 
     //FSM status reg
     reg [3:0]	slv_status_reg;
@@ -240,9 +242,11 @@ module scheduler_v1_0_S_AXI #
     reg[C_S_AXI_DATA_WIDTH-1:0] DeadlinesList [(maxTasks*DEADLINESIZEINWORDS)-1:0]; //activation queue index ordered by next activation ascending
     reg[C_S_AXI_DATA_WIDTH-1:0] PeriodsList [(maxTasks*PERIODSIZEINWORDS)-1:0]; //ready queue ordered by deadline ascending
 
-    reg controlPending;
-    reg schedulerBitFlip;
-    reg oldSchedulerBitFlip;
+    reg control_valid;
+    //    reg schedulerBitFlip;
+    //    reg oldSchedulerBitFlip;
+
+    reg[3:0] reExecutions[ maxTasks-1 : 0 ];
 
     integer byte_index;
     //________________________
@@ -324,7 +328,7 @@ module scheduler_v1_0_S_AXI #
             end
         else
             begin
-                if (~axi_wready && S_AXI_WVALID && S_AXI_AWVALID && aw_en && !controlPending)
+                if (~axi_wready && S_AXI_WVALID && S_AXI_AWVALID && aw_en && !control_valid) //if control_valid is asserted, a control signal is still pending
                     begin
                         // slave is ready to accept write data when 
                         // there is a valid write address and write data
@@ -451,8 +455,8 @@ module scheduler_v1_0_S_AXI #
                 slv_control_reg <= 0;
                 slv_number_of_tasks_reg<=0;
                 //new_slv_control_reg <= 1'b0;
-                controlPending <= 1'b0;
-                oldSchedulerBitFlip<=1'b0;
+                control_valid <= 1'b0;
+                //                oldSchedulerBitFlip<=1'b0;
 
                 TCBPtrsListWritten<=1'b0;
                 WCETsListWritten<=1'b0;
@@ -473,8 +477,8 @@ module scheduler_v1_0_S_AXI #
                                         slv_control_reg[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
 
                                         //new_slv_control_reg <= 1'b1;
-                                        if (schedulerClkVsAxiClk==schedulerClkLowerAxiClk)
-                                            controlPending <= 1'b1;
+                                        //                                        if (schedulerClkVsAxiClk==schedulerClkLowerAxiClk)
+                                        control_valid <= 1'b1;
                                     end
                                     //                                3'h6:
                                     //                                begin
@@ -548,12 +552,10 @@ module scheduler_v1_0_S_AXI #
                 end
             else begin
                 //new_slv_control_reg <= 1'b0;
-                if (controlPending && schedulerBitFlip != oldSchedulerBitFlip) //&& schedulerClkVsAxiClk==schedulerClkLowerAxiClk
-                begin
-                    controlPending <= 1'b0;
-                end
+                if (control_valid && control_ack) //&& schedulerClkVsAxiClk==schedulerClkLowerAxiClk
+                    control_valid <= 1'b0;
             end
-            oldSchedulerBitFlip<=schedulerBitFlip;
+            //            oldSchedulerBitFlip<=schedulerBitFlip;
         end
     end
 
@@ -1041,9 +1043,51 @@ module scheduler_v1_0_S_AXI #
 
     //control signals encoding
 
+    //failedTask ACK system and pulse generation
+    reg failedTask_valid_old;
+    always @(posedge SCHEDULER_CLK)
+    begin
+        if ( ! SCHEDULER_ARESETN ) begin //reset
+            failedTask_valid_old<=0;
+        end
+        else
+            begin
+                failedTask_valid_old<=failedTask_valid;
+                if (failedTask_valid)
+                    failedTask_ack<=1;
+                else
+                    failedTask_ack<=0;
+            end
+    end
+    wire failedTask_valid_pulse;
+    assign failedTask_valid_pulse=failedTask_valid && !failedTask_valid_old;
+    //___________________________________________________
+
+
+    //control signal ACK system (from axi slave) and pulse generation
+    reg control_valid_old;
+    reg control_ack;
+    always @(posedge SCHEDULER_CLK)
+    begin
+        if ( ! SCHEDULER_ARESETN ) begin //reset
+            control_valid_old<=0;
+            control_ack<=0;
+        end
+        else
+            begin
+                control_valid_old<=control_valid;
+                if (control_valid)
+                    control_ack<=1;
+                else
+                    control_ack<=0;
+            end
+    end
+    wire control_valid_pulse;
+    assign control_valid_pulse= control_valid && !control_valid_old;
+    //__________________________________________________________
+
     reg[7:0] copyIterator;
     reg startPending;
-
 
     reg[31:0] executionTimes [maxTasks-1:0];
     (* MARK_DEBUG = "TRUE" *) reg runningTaskKilled;
@@ -1052,7 +1096,7 @@ module scheduler_v1_0_S_AXI #
     reg oldRunningTaskFlop;
 
     (* MARK_DEBUG = "TRUE" *)  reg WCETexceeded;
-    reg controlKillRunningJob;
+    reg controlEndJob;
 
     (* MARK_DEBUG = "TRUE" *) wire[7:0] HighestPriorityTaskIndex;
     (* MARK_DEBUG = "TRUE" *) wire[31:0] HighestPriorityTaskDeadline;
@@ -1066,7 +1110,7 @@ module scheduler_v1_0_S_AXI #
             copyIterator<=8'b0;
             startPending<=1'b0;
 
-            schedulerBitFlip<=1'b0;
+//            schedulerBitFlip<=1'b0;
 
             runningTaskKilled<=1'b1;
             nextRunningTaskKilled<=1'b0;
@@ -1076,7 +1120,7 @@ module scheduler_v1_0_S_AXI #
             slv_status_reg<=state_uninitialized;
         end
         else begin //not reset
-            if (controlPending)
+            if (control_valid_pulse)
             begin
                 //new control signal supplied
 
@@ -1110,6 +1154,8 @@ module scheduler_v1_0_S_AXI #
 
                             executionTimes[copyIterator]<=0;
 
+                            reExecutions[copyIterator]<=0;
+
                             executionMode[copyIterator]<=EXECMODE_NORMAL;
 
                             copyIterator<=copyIterator+1;
@@ -1138,21 +1184,21 @@ module scheduler_v1_0_S_AXI #
 
                     //what happens in this tick?
                     WCETexceeded = (runningTaskKilled || runningTaskIndex==8'hFF) ? 0 : executionTimes[runningTaskIndex]>=WCETsList[runningTaskIndex];
-                    controlKillRunningJob=(!runningTaskKilled && runningTaskIndex!=8'hFF && controlPending && slv_control_reg[31:16]==control_jobEnded && (slv_control_reg[7:0]-1)==runningTaskIndex); //&& number_of_ready_tasks_reg>0 
+                    controlEndJob=(!runningTaskKilled && runningTaskIndex!=8'hFF && control_valid_pulse && slv_control_reg[31:16]==control_jobEnded && (slv_control_reg[7:0]-1)==runningTaskIndex); //&& number_of_ready_tasks_reg>0 
                     //____________________________		
 
-                    if (controlKillRunningJob)
+                    if (controlEndJob)
                     begin
                         executionMode[runningTaskIndex]<=EXECMODE_NORMAL;
                     end
 
-                    if (WCETexceeded && !controlKillRunningJob && AbsDeadlines[runningTaskIndex]!=0 && AbsActivations[runningTaskIndex]!=0) //last condition could be omitted
+                    if (WCETexceeded && !controlEndJob && AbsDeadlines[runningTaskIndex]!=0 && AbsActivations[runningTaskIndex]!=0) //last condition could be omitted
                     begin
                         executionMode[runningTaskIndex]<=EXECMODE_WCETEXCEEDED;
                     end
 
-                    //if (WCETexceeded || controlKillRunningJob)
-                    if (controlKillRunningJob)
+                    //if (WCETexceeded || controlEndJob)
+                    if (controlEndJob)
                     begin
                         AbsDeadlines[runningTaskIndex]=32'hFFFF_FFFF;
                         runningTaskKilled=1;
@@ -1160,43 +1206,49 @@ module scheduler_v1_0_S_AXI #
 
                     if (WCETexceeded)
                     begin
-                        runningTaskKilled=1;
+                        runningTaskKilled=1; //kill the task for reexecution
                         runningTaskReactivated=1;
+                        if (reExecutions [ failedTask ] < maxReExecutions)
+                            begin
+                                reExecutions [ failedTask ] <= reExecutions [ failedTask ] + 1;
+                            end
+                        else
+                            begin //avoid the reexecution
+                                AbsDeadlines [ runningTaskIndex ] = 32'hFFFF_FFFF;
+                            end
                     end
 
-                    if (failedTask_valid)
-                        begin
-                            if ( executionTimes[ failedTask ] != 0 && !(WCETexceeded && failedTask == runningTaskIndex) && AbsDeadlines[ failedTask ] != 0 ) //&& executionMode[ failedTask ] == EXECMODE_NORMAL ) //AbsDeadlines [ failedTask ] != 32'hFFFF_FFFF )
+                    //consider it only if if the reexec counter is less than max allowed reexecutions
+                    if ( failedTask_valid_pulse && reExecutions [ failedTask ] < maxReExecutions && executionTimes[ failedTask ] != 0 && !(WCETexceeded && failedTask == runningTaskIndex) && AbsDeadlines[ failedTask ] != 0 ) //&& executionMode[ failedTask ] == EXECMODE_NORMAL ) //AbsDeadlines [ failedTask ] != 32'hFFFF_FFFF )
+                    begin
+                        executionMode[failedTask]<=EXECMODE_FAULT;
+                        reExecutions [ failedTask ] <= reExecutions [ failedTask ] + 1;
+
+                        if ( failedTask == runningTaskIndex )
                             begin
-                                executionMode[failedTask]<=EXECMODE_FAULT;
-                                if ( failedTask == runningTaskIndex )
-                                    begin
-                                        runningTaskKilled=1;
-                                        //AbsDeadlines[runningTaskIndex]=32'hFFFF_FFFF;
-                                    end
-                                else
-                                    begin
-                                        executionTimes[ failedTask ] <= 0;
-                                    end
+                                runningTaskKilled=1; //kill the task for reexecution
+                                //AbsDeadlines[runningTaskIndex]=32'hFFFF_FFFF;
                             end
-                            failedTask_ack<=1;
-                        end
-                    else
-                        failedTask_ack<=0;
+                        else
+                            begin
+                                executionTimes[ failedTask ] <= 0;
+                            end
+                    end
+
 
                     for (m=0; m<maxTasks; m=m+1)
                         begin
                             if (AbsDeadlines[m]==0)
                                 begin //deadline miss
 
-                                    if (m==runningTaskIndex && !controlKillRunningJob)
+                                    if (m==runningTaskIndex && !controlEndJob)
                                     begin
                                         //real deadline miss, no end signal arrived at the same time
                                         executionMode[m]<=EXECMODE_DEADLINEMISS;
                                     end
 
                                     if (!(m==runningTaskIndex && //(WCETexceeded || 
-                                    controlKillRunningJob //)
+                                    controlEndJob //)
                                     ))
                                     begin
                                         if (AbsActivations[m]!=0) //no activation
@@ -1225,6 +1277,7 @@ module scheduler_v1_0_S_AXI #
                                 begin
                                     AbsActivations[m]=PeriodsList[m];
                                     AbsDeadlines[m]=DeadlinesList[m];
+                                    reExecutions [ failedTask ] <= 0;
                                     if (m == runningTaskIndex)
                                         runningTaskReactivated=1;
                                     else
@@ -1247,7 +1300,7 @@ module scheduler_v1_0_S_AXI #
                         executionTimes[runningTaskIndex] <=executionTimes[runningTaskIndex]+1;
 
                     oldRunningTaskFlop<=runningTaskFlop;
-                    schedulerBitFlip<=!schedulerBitFlip;
+                    //                    schedulerBitFlip<=!schedulerBitFlip;
                 end
             endcase
         end

@@ -2,8 +2,8 @@
 # Vivado v2022.1 (64-bit)
 # SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
 # IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
-# Start of session at: Tue Oct 11 22:52:12 2022
-# Process ID: 813949
+# Start of session at: Wed Oct 12 17:27:48 2022
+# Process ID: 1088456
 # Current directory: /home/francesco/workspace/ip_repo/edit_scheduler_v1_0.runs/synth_1
 # Command line: vivado -log scheduler_v1_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source scheduler_v1_0.tcl
 # Log file: /home/francesco/workspace/ip_repo/edit_scheduler_v1_0.runs/synth_1/scheduler_v1_0.vds
@@ -32,31 +32,32 @@ INFO: [Designutils 20-5440] No compile time benefit to using incremental synthes
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 813980
-WARNING: [Synth 8-6901] identifier 'schedulerClkLowerAxiClk' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:43]
-WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1140]
-WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1140]
-WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1140]
-WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1141]
-WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1141]
-WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1146]
-WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1149]
-WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1149]
-WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1151]
-WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1157]
-WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1169]
-WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1172]
+INFO: [Synth 8-7075] Helper process launched with PID 1088488
+WARNING: [Synth 8-6901] identifier 'control_ack' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:555]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1186]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1186]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1186]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1187]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1187]
 WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1192]
-WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1198]
-WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1204]
-WARNING: [Synth 8-6901] identifier 'nextRunningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1211]
-WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1228]
-WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1245]
-WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1246]
-WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1247]
-WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1247]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1195]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1195]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1197]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1203]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1217]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1222]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1227]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1244]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1250]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1256]
+WARNING: [Synth 8-6901] identifier 'nextRunningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1263]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1281]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1298]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1299]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1300]
+WARNING: [Synth 8-6901] identifier 'runningTaskIndex' is used before its declaration [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1300]
 ---------------------------------------------------------------------------------
-Starting Synthesize : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2913.891 ; gain = 0.000 ; free physical = 177 ; free virtual = 4045
+Starting Synthesize : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2913.891 ; gain = 0.000 ; free physical = 177 ; free virtual = 2546
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'scheduler_v1_0' [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0.v:4]
 INFO: [Synth 8-6157] synthesizing module 'scheduler_v1_0_S_AXI' [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:39]
@@ -65,11 +66,11 @@ INFO: [Synth 8-6157] synthesizing module 'scheduler_v1_0_S_AXI' [/home/francesco
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 14 - type: integer 
 INFO: [Synth 8-6157] synthesizing module 'Comparator' [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:15]
 INFO: [Synth 8-6155] done synthesizing module 'Comparator' (0#1) [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:15]
-INFO: [Synth 8-155] case statement is not full and has no default [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:467]
-INFO: [Synth 8-155] case statement is not full and has no default [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:533]
-INFO: [Synth 8-155] case statement is not full and has no default [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1084]
-INFO: [Synth 8-155] case statement is not full and has no default [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1096]
-INFO: [Synth 8-155] case statement is not full and has no default [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1425]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:471]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:537]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1128]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1140]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1478]
 INFO: [Synth 8-6155] done synthesizing module 'scheduler_v1_0_S_AXI' (0#1) [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:39]
 INFO: [Synth 8-6157] synthesizing module 'scheduler_v1_0_M_AXI' [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_M_AXI.v:4]
 	Parameter C_M_TARGET_SLAVE_BASE_ADDR bound to: 268435456 - type: integer 
@@ -79,16 +80,16 @@ INFO: [Synth 8-155] case statement is not full and has no default [/home/frances
 INFO: [Synth 8-155] case statement is not full and has no default [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_M_AXI.v:581]
 INFO: [Synth 8-6155] done synthesizing module 'scheduler_v1_0_M_AXI' (0#1) [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_M_AXI.v:4]
 INFO: [Synth 8-6155] done synthesizing module 'scheduler_v1_0' (0#1) [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0.v:4]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'Comp[3].InternalComp[0].cl1'. This will prevent further optimization [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1316]
-WARNING: [Synth 8-6014] Unused sequential element intr_all_ff_reg was removed.  [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:806]
-WARNING: [Synth 8-6014] Unused sequential element stateRunning.runningTaskReactivated_reg was removed.  [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1133]
-WARNING: [Synth 8-6014] Unused sequential element controlKillRunningJob_reg was removed.  [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1141]
-WARNING: [Synth 8-6014] Unused sequential element oldTaskWriteDone1_reg was removed.  [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1365]
-WARNING: [Synth 8-3848] Net led1 in module/entity scheduler_v1_0_S_AXI does not have driver. [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:79]
-WARNING: [Synth 8-3848] Net led2 in module/entity scheduler_v1_0_S_AXI does not have driver. [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:80]
-WARNING: [Synth 8-3848] Net led3 in module/entity scheduler_v1_0_S_AXI does not have driver. [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:81]
-WARNING: [Synth 8-3848] Net led4 in module/entity scheduler_v1_0_S_AXI does not have driver. [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:82]
-WARNING: [Synth 8-3848] Net led5 in module/entity scheduler_v1_0_S_AXI does not have driver. [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:83]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'Comp[3].InternalComp[0].cl1'. This will prevent further optimization [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1369]
+WARNING: [Synth 8-6014] Unused sequential element intr_all_ff_reg was removed.  [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:808]
+WARNING: [Synth 8-6014] Unused sequential element stateRunning.runningTaskReactivated_reg was removed.  [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1179]
+WARNING: [Synth 8-6014] Unused sequential element controlEndJob_reg was removed.  [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1187]
+WARNING: [Synth 8-6014] Unused sequential element oldTaskWriteDone1_reg was removed.  [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1418]
+WARNING: [Synth 8-3848] Net led1 in module/entity scheduler_v1_0_S_AXI does not have driver. [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:81]
+WARNING: [Synth 8-3848] Net led2 in module/entity scheduler_v1_0_S_AXI does not have driver. [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:82]
+WARNING: [Synth 8-3848] Net led3 in module/entity scheduler_v1_0_S_AXI does not have driver. [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:83]
+WARNING: [Synth 8-3848] Net led4 in module/entity scheduler_v1_0_S_AXI does not have driver. [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:84]
+WARNING: [Synth 8-3848] Net led5 in module/entity scheduler_v1_0_S_AXI does not have driver. [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:85]
 WARNING: [Synth 8-6014] Unused sequential element start_single_read_reg was removed.  [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_M_AXI.v:573]
 WARNING: [Synth 8-6014] Unused sequential element read_issued_reg was removed.  [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_M_AXI.v:574]
 WARNING: [Synth 8-3848] Net axi_araddr in module/entity scheduler_v1_0_M_AXI does not have driver. [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_M_AXI.v:145]
@@ -146,23 +147,23 @@ WARNING: [Synth 8-7129] Port S_AXI_ARPROT[2] in module scheduler_v1_0_S_AXI is e
 WARNING: [Synth 8-7129] Port S_AXI_ARPROT[1] in module scheduler_v1_0_S_AXI is either unconnected or has no load
 WARNING: [Synth 8-7129] Port S_AXI_ARPROT[0] in module scheduler_v1_0_S_AXI is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished Synthesize : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2913.891 ; gain = 0.000 ; free physical = 1265 ; free virtual = 5096
+Finished Synthesize : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2913.891 ; gain = 0.000 ; free physical = 1246 ; free virtual = 3593
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 2913.891 ; gain = 0.000 ; free physical = 1271 ; free virtual = 5104
+Finished Constraint Validation : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 2913.891 ; gain = 0.000 ; free physical = 1250 ; free virtual = 3590
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7z020clg484-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 2921.895 ; gain = 8.004 ; free physical = 1271 ; free virtual = 5104
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 2921.895 ; gain = 8.004 ; free physical = 1250 ; free virtual = 3590
 ---------------------------------------------------------------------------------
 INFO: [Device 21-403] Loading part xc7z020clg484-1
 INFO: [Synth 8-802] inferred FSM for state register 'mst_exec_state_reg' in module 'scheduler_v1_0_M_AXI'
-WARNING: [Synth 8-327] inferring latch for variable 'uninitializedLed_reg' [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1428]
-WARNING: [Synth 8-327] inferring latch for variable 'readyLed_reg' [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1429]
-WARNING: [Synth 8-327] inferring latch for variable 'runningLed_reg' [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1430]
+WARNING: [Synth 8-327] inferring latch for variable 'uninitializedLed_reg' [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1481]
+WARNING: [Synth 8-327] inferring latch for variable 'readyLed_reg' [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1482]
+WARNING: [Synth 8-327] inferring latch for variable 'runningLed_reg' [/home/francesco/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1483]
 ---------------------------------------------------------------------------------------------------
                    State |                     New Encoding |                Previous Encoding 
 ---------------------------------------------------------------------------------------------------
@@ -171,7 +172,7 @@ WARNING: [Synth 8-327] inferring latch for variable 'runningLed_reg' [/home/fran
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'mst_exec_state_reg' using encoding 'sequential' in module 'scheduler_v1_0_M_AXI'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:14 ; elapsed = 00:00:12 . Memory (MB): peak = 2921.895 ; gain = 8.004 ; free physical = 925 ; free virtual = 4754
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:13 ; elapsed = 00:00:11 . Memory (MB): peak = 2921.895 ; gain = 8.004 ; free physical = 904 ; free virtual = 3276
 ---------------------------------------------------------------------------------
 No constraint files found.
 ---------------------------------------------------------------------------------
@@ -181,7 +182,8 @@ Detailed RTL Component Info :
 +---Adders : 
 	   2 Input   32 Bit       Adders := 36    
 	   2 Input   12 Bit       Adders := 2     
-	   2 Input    5 Bit       Adders := 1     
+	   2 Input    5 Bit       Adders := 2     
+	   2 Input    4 Bit       Adders := 1     
 	   2 Input    2 Bit       Adders := 1     
 +---Registers : 
 	               32 Bit    Registers := 85    
@@ -194,17 +196,21 @@ Detailed RTL Component Info :
 +---RAMs : 
 	              512 Bit	(16 X 32 bit)          RAMs := 2     
 +---Muxes : 
-	   2 Input   32 Bit        Muxes := 366   
+	   2 Input   32 Bit        Muxes := 409   
 	   3 Input   32 Bit        Muxes := 1     
 	   4 Input   32 Bit        Muxes := 48    
 	   2 Input    8 Bit        Muxes := 22    
+	   6 Input    4 Bit        Muxes := 2     
+	   2 Input    4 Bit        Muxes := 3     
+	  17 Input    4 Bit        Muxes := 1     
 	   2 Input    3 Bit        Muxes := 2     
 	   3 Input    3 Bit        Muxes := 1     
-	   2 Input    2 Bit        Muxes := 54    
+	   2 Input    2 Bit        Muxes := 80    
 	   4 Input    2 Bit        Muxes := 16    
-	   2 Input    1 Bit        Muxes := 509   
-	   4 Input    1 Bit        Muxes := 74    
+	   2 Input    1 Bit        Muxes := 564   
 	   3 Input    1 Bit        Muxes := 2     
+	   4 Input    1 Bit        Muxes := 74    
+	   6 Input    1 Bit        Muxes := 1     
 	   5 Input    1 Bit        Muxes := 4     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
@@ -284,19 +290,20 @@ WARNING: [Synth 8-7129] Port m_axi_rdata[0] in module scheduler_v1_0 is either u
 WARNING: [Synth 8-7129] Port m_axi_rresp[1] in module scheduler_v1_0 is either unconnected or has no load
 INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:35 ; elapsed = 00:00:33 . Memory (MB): peak = 2963.895 ; gain = 50.004 ; free physical = 896 ; free virtual = 4727
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:32 ; elapsed = 00:00:31 . Memory (MB): peak = 3031.895 ; gain = 118.004 ; free physical = 840 ; free virtual = 3241
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
 
 Distributed RAM: Preliminary Mapping Report (see note below)
-+--------------------------+-----------------+-----------+----------------------+--------------+
-|Module Name               | RTL Object      | Inference | Size (Depth x Width) | Primitives   | 
-+--------------------------+-----------------+-----------+----------------------+--------------+
-|scheduler_v1_0_S_AXI_inst | WCETsList_reg   | Implied   | 16 x 32              | RAM32M x 12  | 
-|scheduler_v1_0_S_AXI_inst | TCBPtrsList_reg | Implied   | 16 x 32              | RAM32M x 12  | 
-+--------------------------+-----------------+-----------+----------------------+--------------+
++--------------------------+------------------+-----------+----------------------+--------------+
+|Module Name               | RTL Object       | Inference | Size (Depth x Width) | Primitives   | 
++--------------------------+------------------+-----------+----------------------+--------------+
+|scheduler_v1_0_S_AXI_inst | reExecutions_reg | Implied   | 16 x 4               | RAM32M x 2   | 
+|scheduler_v1_0_S_AXI_inst | WCETsList_reg    | Implied   | 16 x 32              | RAM32M x 12  | 
+|scheduler_v1_0_S_AXI_inst | TCBPtrsList_reg  | Implied   | 16 x 32              | RAM32M x 12  | 
++--------------------------+------------------+-----------+----------------------+--------------+
 
 Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
 ---------------------------------------------------------------------------------
@@ -307,19 +314,20 @@ No constraint files found.
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:35 ; elapsed = 00:00:34 . Memory (MB): peak = 2963.895 ; gain = 50.004 ; free physical = 897 ; free virtual = 4727
+Finished Timing Optimization : Time (s): cpu = 00:00:33 ; elapsed = 00:00:31 . Memory (MB): peak = 3031.895 ; gain = 118.004 ; free physical = 842 ; free virtual = 3237
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
 
 Distributed RAM: Final Mapping Report
-+--------------------------+-----------------+-----------+----------------------+--------------+
-|Module Name               | RTL Object      | Inference | Size (Depth x Width) | Primitives   | 
-+--------------------------+-----------------+-----------+----------------------+--------------+
-|scheduler_v1_0_S_AXI_inst | WCETsList_reg   | Implied   | 16 x 32              | RAM32M x 12  | 
-|scheduler_v1_0_S_AXI_inst | TCBPtrsList_reg | Implied   | 16 x 32              | RAM32M x 12  | 
-+--------------------------+-----------------+-----------+----------------------+--------------+
++--------------------------+------------------+-----------+----------------------+--------------+
+|Module Name               | RTL Object       | Inference | Size (Depth x Width) | Primitives   | 
++--------------------------+------------------+-----------+----------------------+--------------+
+|scheduler_v1_0_S_AXI_inst | reExecutions_reg | Implied   | 16 x 4               | RAM32M x 2   | 
+|scheduler_v1_0_S_AXI_inst | WCETsList_reg    | Implied   | 16 x 32              | RAM32M x 12  | 
+|scheduler_v1_0_S_AXI_inst | TCBPtrsList_reg  | Implied   | 16 x 32              | RAM32M x 12  | 
++--------------------------+------------------+-----------+----------------------+--------------+
 
 ---------------------------------------------------------------------------------
 Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -328,7 +336,7 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:39 ; elapsed = 00:00:38 . Memory (MB): peak = 2963.895 ; gain = 50.004 ; free physical = 879 ; free virtual = 4720
+Finished Technology Mapping : Time (s): cpu = 00:00:38 ; elapsed = 00:00:37 . Memory (MB): peak = 3031.895 ; gain = 118.004 ; free physical = 819 ; free virtual = 3223
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -346,37 +354,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:42 ; elapsed = 00:00:41 . Memory (MB): peak = 2963.895 ; gain = 50.004 ; free physical = 890 ; free virtual = 4711
+Finished IO Insertion : Time (s): cpu = 00:00:41 ; elapsed = 00:00:40 . Memory (MB): peak = 3031.895 ; gain = 118.004 ; free physical = 824 ; free virtual = 3219
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:42 ; elapsed = 00:00:41 . Memory (MB): peak = 2963.895 ; gain = 50.004 ; free physical = 890 ; free virtual = 4711
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:41 ; elapsed = 00:00:40 . Memory (MB): peak = 3031.895 ; gain = 118.004 ; free physical = 824 ; free virtual = 3219
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:42 ; elapsed = 00:00:41 . Memory (MB): peak = 2963.895 ; gain = 50.004 ; free physical = 890 ; free virtual = 4711
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:41 ; elapsed = 00:00:40 . Memory (MB): peak = 3031.895 ; gain = 118.004 ; free physical = 823 ; free virtual = 3220
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:42 ; elapsed = 00:00:41 . Memory (MB): peak = 2963.895 ; gain = 50.004 ; free physical = 890 ; free virtual = 4711
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:41 ; elapsed = 00:00:40 . Memory (MB): peak = 3031.895 ; gain = 118.004 ; free physical = 823 ; free virtual = 3220
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:42 ; elapsed = 00:00:41 . Memory (MB): peak = 2963.895 ; gain = 50.004 ; free physical = 890 ; free virtual = 4711
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:42 ; elapsed = 00:00:41 . Memory (MB): peak = 3031.895 ; gain = 118.004 ; free physical = 823 ; free virtual = 3220
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:42 ; elapsed = 00:00:41 . Memory (MB): peak = 2963.895 ; gain = 50.004 ; free physical = 890 ; free virtual = 4711
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:42 ; elapsed = 00:00:41 . Memory (MB): peak = 3031.895 ; gain = 118.004 ; free physical = 823 ; free virtual = 3220
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -394,20 +402,20 @@ Report Cell Usage:
 +------+---------+------+
 |1     |BUFG     |     3|
 |2     |CARRY4   |   337|
-|3     |LUT1     |   549|
-|4     |LUT2     |  1325|
-|5     |LUT3     |   638|
-|6     |LUT4     |   767|
-|7     |LUT5     |  1382|
-|8     |LUT6     |  2056|
-|9     |MUXF7    |   244|
-|10    |MUXF8    |   106|
-|11    |RAM32M   |    20|
+|3     |LUT1     |   530|
+|4     |LUT2     |   448|
+|5     |LUT3     |  1303|
+|6     |LUT4     |   853|
+|7     |LUT5     |  1316|
+|8     |LUT6     |  3110|
+|9     |MUXF7    |   241|
+|10    |MUXF8    |   105|
+|11    |RAM32M   |    22|
 |12    |RAM32X1D |     8|
-|13    |FDRE     |  2816|
+|13    |FDRE     |  2818|
 |14    |FDSE     |    19|
 |15    |LD       |     3|
-|16    |IBUF     |    76|
+|16    |IBUF     |    83|
 |17    |OBUF     |   156|
 |18    |OBUFT    |     7|
 +------+---------+------+
@@ -416,36 +424,36 @@ Report Instance Areas:
 +------+----------------------------------+---------------------+------+
 |      |Instance                          |Module               |Cells |
 +------+----------------------------------+---------------------+------+
-|1     |top                               |                     | 10512|
+|1     |top                               |                     | 11362|
 |2     |  scheduler_v1_0_M_AXI_inst       |scheduler_v1_0_M_AXI |    60|
-|3     |  scheduler_v1_0_S_AXI_inst       |scheduler_v1_0_S_AXI | 10210|
+|3     |  scheduler_v1_0_S_AXI_inst       |scheduler_v1_0_S_AXI | 11053|
 |4     |    \Comp[3].InternalComp[0].cl1  |Comparator           |    72|
 +------+----------------------------------+---------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:42 ; elapsed = 00:00:41 . Memory (MB): peak = 2963.895 ; gain = 50.004 ; free physical = 890 ; free virtual = 4711
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:42 ; elapsed = 00:00:41 . Memory (MB): peak = 3031.895 ; gain = 118.004 ; free physical = 823 ; free virtual = 3220
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 152 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:43 ; elapsed = 00:00:41 . Memory (MB): peak = 2963.895 ; gain = 50.004 ; free physical = 896 ; free virtual = 4717
-Synthesis Optimization Complete : Time (s): cpu = 00:00:43 ; elapsed = 00:00:41 . Memory (MB): peak = 2963.902 ; gain = 50.004 ; free physical = 896 ; free virtual = 4717
+Synthesis finished with 0 errors, 0 critical warnings and 153 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:42 ; elapsed = 00:00:41 . Memory (MB): peak = 3031.895 ; gain = 118.004 ; free physical = 828 ; free virtual = 3225
+Synthesis Optimization Complete : Time (s): cpu = 00:00:42 ; elapsed = 00:00:41 . Memory (MB): peak = 3031.902 ; gain = 118.004 ; free physical = 828 ; free virtual = 3225
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00.05 ; elapsed = 00:00:00.04 . Memory (MB): peak = 2963.902 ; gain = 0.000 ; free physical = 985 ; free virtual = 4806
-INFO: [Netlist 29-17] Analyzing 718 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00.05 ; elapsed = 00:00:00.05 . Memory (MB): peak = 3031.902 ; gain = 0.000 ; free physical = 916 ; free virtual = 3312
+INFO: [Netlist 29-17] Analyzing 716 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 WARNING: [Netlist 29-101] Netlist 'scheduler_v1_0' is not ideal for floorplanning, since the cellview 'scheduler_v1_0_S_AXI' contains a large number of primitives.  Please consider enabling hierarchy in synthesis if you want to do floorplanning.
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3019.922 ; gain = 0.000 ; free physical = 914 ; free virtual = 4735
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3087.922 ; gain = 0.000 ; free physical = 841 ; free virtual = 3245
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 31 instances were transformed.
+  A total of 33 instances were transformed.
   LD => LDCE: 3 instances
-  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 20 instances
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 22 instances
   RAM32X1D => RAM32X1D (RAMD32(x2)): 8 instances
 
-Synth Design complete, checksum: 843fd68b
+Synth Design complete, checksum: 40a5b033
 INFO: [Common 17-83] Releasing license: Synthesis
-39 Infos, 155 Warnings, 0 Critical Warnings and 0 Errors encountered.
+39 Infos, 156 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:49 ; elapsed = 00:00:44 . Memory (MB): peak = 3019.922 ; gain = 106.031 ; free physical = 1135 ; free virtual = 4956
+synth_design: Time (s): cpu = 00:00:49 ; elapsed = 00:00:44 . Memory (MB): peak = 3087.922 ; gain = 174.031 ; free physical = 1062 ; free virtual = 3466
 INFO: [Common 17-1381] The checkpoint '/home/francesco/workspace/ip_repo/edit_scheduler_v1_0.runs/synth_1/scheduler_v1_0.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file scheduler_v1_0_utilization_synth.rpt -pb scheduler_v1_0_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Tue Oct 11 22:53:04 2022...
+INFO: [Common 17-206] Exiting Vivado at Wed Oct 12 17:28:40 2022...
