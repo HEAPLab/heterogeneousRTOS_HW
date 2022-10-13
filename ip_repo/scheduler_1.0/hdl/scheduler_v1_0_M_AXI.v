@@ -26,6 +26,7 @@
 	(
     // Users to add ports here
 	input wire [2:0] taskExecutionMode,
+	input wire [7:0] taskExecutionId,
     input wire [31:0] taskPtr,
 
     // User ports ends
@@ -293,7 +294,7 @@
                 end
                 2: begin
                     axi_awaddr=32'h4;
-                    axi_wdata={29'h0, taskExecutionMode};
+                    axi_wdata={taskExecutionId, 21'h0, taskExecutionMode};
                 end
                 //default: axi_awaddr=0;
             endcase

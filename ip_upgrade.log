@@ -1,6 +1,384 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 ------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Thu Oct 13 21:41:46 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_2'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_2 (user.org:user:scheduler:1.0) from (Rev. 152) to (Rev. 154)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Thu Oct 13 21:41:46 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 152) to (Rev. 154)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Thu Oct 13 21:41:46 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_0 (user.org:user:scheduler:1.0) from (Rev. 152) to (Rev. 154)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Thu Oct 13 21:14:05 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_2'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_2 (user.org:user:scheduler:1.0) from (Rev. 149) to (Rev. 152)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Thu Oct 13 21:14:05 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 149) to (Rev. 152)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Thu Oct 13 21:14:05 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_0 (user.org:user:scheduler:1.0) from (Rev. 149) to (Rev. 152)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Thu Oct 13 19:00:35 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_2'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_2 (user.org:user:scheduler:1.0) from (Rev. 147) to (Rev. 149)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Thu Oct 13 19:00:35 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 147) to (Rev. 149)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Thu Oct 13 19:00:35 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_0 (user.org:user:scheduler:1.0) from (Rev. 147) to (Rev. 149)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Thu Oct 13 18:28:19 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_2'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_2 (user.org:user:scheduler:1.0) from (Rev. 146) to (Rev. 147)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Thu Oct 13 18:28:19 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 146) to (Rev. 147)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Thu Oct 13 18:28:19 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_0 (user.org:user:scheduler:1.0) from (Rev. 146) to (Rev. 147)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Thu Oct 13 17:07:46 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_2'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_2 (user.org:user:scheduler:1.0) from (Rev. 144) to (Rev. 146)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Thu Oct 13 17:07:46 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 144) to (Rev. 146)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Thu Oct 13 17:07:46 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_0 (user.org:user:scheduler:1.0) from (Rev. 144) to (Rev. 146)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Thu Oct 13 16:57:46 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_2'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_2 (user.org:user:scheduler:1.0) from (Rev. 143) to (Rev. 144)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Thu Oct 13 16:57:46 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 143) to (Rev. 144)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Thu Oct 13 16:57:46 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_0 (user.org:user:scheduler:1.0) from (Rev. 143) to (Rev. 144)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
 | Date         : Thu Oct 13 15:45:19 2022
 | Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
 | Command      : upgrade_ip

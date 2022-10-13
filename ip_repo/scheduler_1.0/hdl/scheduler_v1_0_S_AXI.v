@@ -70,6 +70,7 @@ module scheduler_v1_0_S_AXI #
     input wire taskWriteStarted,
     output reg taskReady,
     output reg [2:0] taskExecutionMode,
+    output reg [7:0] taskExecutionId,
     output reg [31:0] taskPtr,
 
 
@@ -209,8 +210,8 @@ module scheduler_v1_0_S_AXI #
     //------------------------------------------------
     //-- Number of Slave Registers 8
 
-    reg [C_S_AXI_DATA_WIDTH-1:0]	slv_control_reg;
-    localparam[(C_S_AXI_DATA_WIDTH/2)-1:0] control_startScheduler=1, control_stopScheduler=2, control_resumeTask=3, control_taskEnded=4, control_taskSuspended=5, control_jobEnded=6;
+    reg [C_S_AXI_DATA_WIDTH-1:0] slv_control_reg;
+    localparam[7:0] control_startScheduler=1, control_stopScheduler=2, control_resumeTask=3, control_taskEnded=4, control_taskSuspended=5, control_jobEnded=6;
 
     //FSM status reg
     reg [3:0]	slv_status_reg;
@@ -1074,6 +1075,7 @@ module scheduler_v1_0_S_AXI #
     reg[31:0] executionTimes [maxTasks-1:0];
     reg [1:0] executionMode [maxTasks-1:0];
     reg[3:0] reExecutions[ maxTasks-1 : 0 ];
+    reg [7:0] executionIds [ maxTasks-1 : 0 ];
 
     (* MARK_DEBUG = "TRUE" *) reg runningTaskStopped;
     reg nextRunningTaskStopped;
@@ -1082,6 +1084,14 @@ module scheduler_v1_0_S_AXI #
     (* MARK_DEBUG = "TRUE" *) wire[7:0] HighestPriorityTaskIndex;
     (* MARK_DEBUG = "TRUE" *) wire[31:0] HighestPriorityTaskDeadline;
     (* MARK_DEBUG = "TRUE" *) reg[7:0] runningTaskIndex;
+
+    //control command supplied by the software
+    wire [7:0] control_taskId;
+    wire [7:0] control_executionId;
+    wire [7:0] control_command;
+    assign control_command=slv_control_reg[31:24];
+    assign control_executionId=slv_control_reg[15:8];
+    assign control_taskId=slv_control_reg[7:0]-1;
 
     integer m;
     always @(posedge SCHEDULER_CLK)
@@ -1106,7 +1116,7 @@ module scheduler_v1_0_S_AXI #
                 end
                 state_ready:
                 begin
-                    if (control_valid_pulse && slv_control_reg[31:16]==control_startScheduler)
+                    if (control_valid_pulse && control_command==control_startScheduler)
                     begin
                         startCommandPending<=1'b1;
                     end
@@ -1115,11 +1125,9 @@ module scheduler_v1_0_S_AXI #
                         begin
                             AbsDeadlines[copyIterator]<=DeadlinesList[copyIterator];
                             AbsActivations[copyIterator]<=PeriodsList[copyIterator];
-
                             executionTimes[copyIterator]<=0;
-
                             reExecutions[copyIterator]<=0;
-
+                            executionIds[ copyIterator ]<=0;
                             executionMode[copyIterator]<=EXECMODE_NORMAL;
 
                             copyIterator<=copyIterator+1;
@@ -1136,7 +1144,8 @@ module scheduler_v1_0_S_AXI #
                 begin: stateRunning
                     reg runningTaskReactivated_pulse; //used for tasks which are both killed or end in the current CC and are reactivated or reexecuted in the same CC
                     reg WCETexceeded_pulse;
-                    reg controlEndJob_pulse;
+                    reg controlEndRunningJob_pulse;
+                    reg controlEndNotRunningJob_pulse; //could probably happen due to latencies, handle this case too
 
                     runningTaskReactivated_pulse=0;
                     runningTaskStopped =  (runningTaskStopped && !newRunningTask_pulse)  ||  ( newRunningTask_pulse && nextRunningTaskStopped ) ;
@@ -1145,28 +1154,49 @@ module scheduler_v1_0_S_AXI #
 
                     //what happens in this tick?
                     WCETexceeded_pulse = (runningTaskStopped || runningTaskIndex==8'hFF) ? 0 : executionTimes[runningTaskIndex]>=WCETsList[runningTaskIndex];
-                    controlEndJob_pulse=(!runningTaskStopped && runningTaskIndex!=8'hFF && control_valid_pulse && slv_control_reg[31:16]==control_jobEnded && (slv_control_reg[7:0]-1)==runningTaskIndex); //&& number_of_ready_tasks_reg>0 
-                    //____________________________		
 
-                    if (controlEndJob_pulse)
+                    controlEndRunningJob_pulse=(!runningTaskStopped && runningTaskIndex!=8'hFF && control_valid_pulse && control_command==control_jobEnded && control_taskId==runningTaskIndex
+                    && executionIds[control_taskId]==control_executionId ); //check if command is related to same job 
+
+                    controlEndNotRunningJob_pulse = !controlEndRunningJob_pulse && control_valid_pulse && control_command==control_jobEnded &&
+                    AbsDeadlines[control_taskId]!=32'hFFFF_FFFF //already terminated for whathever reason 
+                    && executionIds[control_taskId]==control_executionId; //check if command is related to same job
+                    //____________________________	
+
+                    if (controlEndNotRunningJob_pulse)
+                    begin
+                        executionMode[control_taskId]<=EXECMODE_NORMAL;
+                        if (AbsActivations[ control_taskId ]!=0)
+                            AbsDeadlines[control_taskId]=32'hFFFF_FFFF;
+                        if (control_taskId==nextRunningTaskIndex)
+                            nextRunningTaskStopped=1;
+                    end
+
+                    if (controlEndRunningJob_pulse)
                         begin
                             executionMode[runningTaskIndex]<=EXECMODE_NORMAL;
-                            AbsDeadlines[runningTaskIndex]=32'hFFFF_FFFF;
+                            if (AbsActivations[ runningTaskIndex ]!=0)
+                                AbsDeadlines[runningTaskIndex]=32'hFFFF_FFFF;
                             runningTaskStopped=1;
                         end
-                    else if (WCETexceeded_pulse && AbsDeadlines[runningTaskIndex]!=0)
+                    else if (WCETexceeded_pulse
+                    && AbsDeadlines[runningTaskIndex]!=0) //deadline miss, no reschedule, deadline miss has priority
                     begin
                         executionMode[runningTaskIndex]<=EXECMODE_WCETEXCEEDED;
                         runningTaskStopped=1; //kill the task for reexecution
-                        if (reExecutions [ failedTask ] < maxReExecutions)
-                            begin
-                                runningTaskReactivated_pulse=1;
-                                reExecutions [ failedTask ] <= reExecutions [ failedTask ] + 1;
-                            end
-                        else
-                            begin //avoid the reexecution
-                                AbsDeadlines [ runningTaskIndex ] = 32'hFFFF_FFFF;
-                            end
+                        if (AbsActivations[ runningTaskIndex ]!=0)
+                        begin
+                            if (reExecutions [ runningTaskIndex ] < maxReExecutions)
+                                begin
+                                    runningTaskReactivated_pulse=1;
+                                    reExecutions [ runningTaskIndex ] <= reExecutions [ runningTaskIndex ] + 1;
+                                    executionIds [ runningTaskIndex ] <= executionIds [ runningTaskIndex ] + 1;
+                                end
+                            else
+                                begin //avoid the reexecution
+                                    AbsDeadlines [ runningTaskIndex ] = 32'hFFFF_FFFF;
+                                end
+                        end
                     end
 
                     //consider it only if if the reexec counter is less than max allowed reexecutions
@@ -1176,10 +1206,12 @@ module scheduler_v1_0_S_AXI #
                     && AbsDeadlines[ failedTask ] != 0 //not a deadline miss in this CC
                     && AbsDeadlines[ failedTask ] != 32'hFFFF_FFFF //hasn't already been killed for any reason
                     && executionTimes[ failedTask ] != 0) //make sure we aren't marking as "faulty" a new job of the task, previously killed for whathever reason
-                    //note: no check for controlEndJob_pulse because controlEndJob function MUST be (and is) called in software only after waiting for fault detector to complete processing.
+                    //note: no check for controlEndRunningJob_pulse because controlEndJob function MUST be (and is) called in software only after waiting for fault detector to complete processing.
                     begin
                         executionMode[failedTask]<=EXECMODE_FAULT;
                         reExecutions [ failedTask ] <= reExecutions [ failedTask ] + 1;
+                        executionIds [ failedTask ] <= executionIds [ failedTask ] + 1;
+
 
                         if ( failedTask == runningTaskIndex ) //&& !runningTaskStopped )
                             begin
@@ -1190,6 +1222,7 @@ module scheduler_v1_0_S_AXI #
                             begin
                                 executionTimes[ failedTask ] <= 0;
                             end
+                            
                         if (failedTask==nextRunningTaskIndex)
                             nextRunningTaskStopped=1;
                     end
@@ -1199,7 +1232,7 @@ module scheduler_v1_0_S_AXI #
                         begin
                             if (AbsDeadlines[m]==0)
                                 begin
-                                    if (!(m==runningTaskIndex && controlEndJob_pulse))
+                                    if (!(m==control_taskId && (controlEndRunningJob_pulse || controlEndNotRunningJob_pulse))) //No job end command at the same time of deadline miss
                                     begin
                                         //real deadline miss
                                         executionMode[m]<=EXECMODE_DEADLINEMISS;
@@ -1226,7 +1259,9 @@ module scheduler_v1_0_S_AXI #
                                 begin
                                     AbsActivations[m]=PeriodsList[m];
                                     AbsDeadlines[m]=DeadlinesList[m];
-                                    reExecutions [ failedTask ] <= 0;
+                                    reExecutions [m] <= 0;
+                                    executionIds [m] <= executionIds [m] + 1;
+
                                     if (m == runningTaskIndex)
                                         runningTaskReactivated_pulse=1;
                                     else
@@ -1418,6 +1453,7 @@ module scheduler_v1_0_S_AXI #
                         nextRunningTaskIndex<=HighestPriorityTaskIndex;
                         taskPtr<=TCBPtrsList[HighestPriorityTaskIndex];
                         taskExecutionMode <= ( executionMode[HighestPriorityTaskIndex] == EXECMODE_NORMAL && executionTimes[HighestPriorityTaskIndex] == 32'h0 ) ? EXECMODE_NORMAL_NEWJOB : { 1'h0, executionMode[HighestPriorityTaskIndex] };
+                        taskExecutionId <= executionIds [ HighestPriorityTaskIndex ];
                         taskReady<=1'b1;
 
                         waitingAck<=1'b1;

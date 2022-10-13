@@ -46,37 +46,40 @@ u32 SCHEDULER_getStatus(void * baseaddr_p)
 }
 
 /* control signals */
-void SCHEDULER_sendControl(void * baseaddr_p, u16 control_instr, u16 instr_payload)
+/*
+void SCHEDULER_sendControl(void * baseaddr_p, u8 control_instr, u16 instr_payload)
 {
-  u32 controlword= ( (((u32)instr_payload) & (0x0000FFFF)) | ( ((u32)control_instr)<<16) );
+  u32 controlword= ( (((u32)instr_payload) & (0x0000FFFF)) | ( ((u32)control_instr)<<24) );
   SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, controlword);
-}
+}*/
 
 void SCHEDULER_start(void * baseaddr_p) {
-	  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, (u32)(0x00010000));
+	  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, (u32)(0x01000000));
 }
 void SCHEDULER_stop(void * baseaddr_p) {
-	  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, (u32)(0x00020000));
+	  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, (u32)(0x02000000));
 }
-void SCHEDULER_resumeTask(void * baseaddr_p,  u16 uxTaskNumber)
+/*
+void SCHEDULER_resumeTask(void * baseaddr_p,  u8 uxTaskNumber)
 {
-  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, (u32) ((0x00030000) | (((u32)uxTaskNumber) & (0x0000FFFF))));
+  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, (u32) ((0x03000000) | (((u32)uxTaskNumber) & (0x0000FFFF))));
 }
-void SCHEDULER_signalTaskEnded(void * baseaddr_p, u16 uxTaskNumber)
+void SCHEDULER_signalTaskEnded(void * baseaddr_p, u8 uxTaskNumber)
 {
-  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, (u32) ((0x00040000) | (((u32)uxTaskNumber) & (0x0000FFFF))));
+  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, (u32) ((0x04000000) | (((u32)uxTaskNumber) & (0x0000FFFF))));
 }
-void SCHEDULER_signalTaskSuspended(void * baseaddr_p, u16 uxTaskNumber)
+void SCHEDULER_signalTaskSuspended(void * baseaddr_p, u8 uxTaskNumber)
 {
-  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, (u32) ((0x00050000) | (((u32)uxTaskNumber) & (0x0000FFFF))));
+  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, (u32) ((0x05000000) | (((u32)uxTaskNumber) & (0x0000FFFF))));
 }
-void SCHEDULER_signalJobEnded(void * baseaddr_p, u16 uxTaskNumber)
+*/
+void SCHEDULER_signalJobEnded(void * baseaddr_p, u8 uxTaskNumber, u8 executionId)
 {
-  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, (u32) ((0x00060000) | (((u32)uxTaskNumber) & (0x0000FFFF))));
+  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, (u32) ((0x06000000) | (((u32)uxTaskNumber) & (0x000000FF)) | (((u32)executionId) & (0x0000FF00))));
 }
 
 /* data structures */
-void SCHEDULER_setNumberOfTasks(void * baseaddr_p,  u32 numberOfTasks)
+void SCHEDULER_setNumberOfTasks(void * baseaddr_p,  u8 numberOfTasks)
 {
   SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_NUMOFTASKS_OFFSET, numberOfTasks);
 }
