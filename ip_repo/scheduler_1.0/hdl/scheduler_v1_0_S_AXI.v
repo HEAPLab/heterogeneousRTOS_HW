@@ -1068,16 +1068,15 @@ module scheduler_v1_0_S_AXI #
 
     //___________________________________
 
-
     reg[7:0] copyIterator;
-    reg startPending;
+    reg startCommandPending;
 
     reg[31:0] executionTimes [maxTasks-1:0];
     reg [1:0] executionMode [maxTasks-1:0];
     reg[3:0] reExecutions[ maxTasks-1 : 0 ];
 
-    (* MARK_DEBUG = "TRUE" *) reg runningTaskKilled;
-    reg nextRunningTaskKilled;
+    (* MARK_DEBUG = "TRUE" *) reg runningTaskStopped;
+    reg nextRunningTaskStopped;
 
 
     (* MARK_DEBUG = "TRUE" *) wire[7:0] HighestPriorityTaskIndex;
@@ -1089,31 +1088,14 @@ module scheduler_v1_0_S_AXI #
     begin
         if ( ! SCHEDULER_ARESETN ) begin //reset
             copyIterator<=8'b0;
-            startPending<=1'b0;
+            startCommandPending<=1'b0;
 
-            runningTaskKilled<=1'b1;
-            nextRunningTaskKilled<=1'b0;
+            runningTaskStopped<=1'b1;
+            nextRunningTaskStopped<=1'b0;
 
             slv_status_reg<=state_uninitialized;
         end
-        else begin //not reset
-            if (control_valid_pulse)
-            begin
-                //new control signal supplied
-
-                //FSM logic which reacts to control signal changes changing states
-                case (slv_control_reg[31:16])
-                    control_startScheduler:
-                    begin
-                        if (slv_status_reg==state_ready)
-                        begin
-                            //slv_status_reg<=state_running;
-                            startPending<=1'b1;
-                        end
-                    end
-                endcase
-            end
-
+        else begin
             case(slv_status_reg)
                 state_uninitialized:
                 begin
@@ -1124,6 +1106,11 @@ module scheduler_v1_0_S_AXI #
                 end
                 state_ready:
                 begin
+                    if (control_valid_pulse && slv_control_reg[31:16]==control_startScheduler)
+                    begin
+                        startCommandPending<=1'b1;
+                    end
+
                     if ( copyIterator < maxTasks )
                         begin
                             AbsDeadlines[copyIterator]<=DeadlinesList[copyIterator];
@@ -1137,58 +1124,43 @@ module scheduler_v1_0_S_AXI #
 
                             copyIterator<=copyIterator+1;
                         end
-                    else if (startPending)
+                    else if (startCommandPending)
                     begin
                         slv_status_reg<=state_running;
-                        startPending<=1'b0;
+                        startCommandPending<=1'b0;
                     end
                 end
                 state_running:
 
                 //update deadlines, activations, deadline misses
                 begin: stateRunning
-                    //reg runningTaskKilledInThisCC;
-                    //reg nextRunningTaskKilledInThisCC;
-                    reg runningTaskReactivated;
-                    reg WCETexceeded;
-                    reg controlEndJob;
+                    reg runningTaskReactivated_pulse; //used for tasks which are both killed or end in the current CC and are reactivated or reexecuted in the same CC
+                    reg WCETexceeded_pulse;
+                    reg controlEndJob_pulse;
 
-                    //runningTaskKilledInThisCC=0;
-                    //nextRunningTaskKilledInThisCC=0;
-                    runningTaskReactivated=0;
-
-                    runningTaskKilled = runningTaskKilled && (!newRunningTask_pulse || nextRunningTaskKilled);
-                    nextRunningTaskKilled=nextRunningTaskKilled && !newRunningTask_pulse;
+                    runningTaskReactivated_pulse=0;
+                    runningTaskStopped =  (runningTaskStopped && !newRunningTask_pulse)  ||  ( newRunningTask_pulse && nextRunningTaskStopped ) ;
+                    //if AXI master has requested a context switch (nextRunningTask) -not completed yet- for a task which is already been stopped (due to a deadline miss), as soon as the context switches ends and scheduler gets ACK from software, runningTaskStopped gets true. nextRunningTaskStopped is used for this purpose
+                    nextRunningTaskStopped=nextRunningTaskStopped && !newRunningTask_pulse;
 
                     //what happens in this tick?
-
-                    WCETexceeded = (runningTaskKilled || runningTaskIndex==8'hFF) ? 0 : executionTimes[runningTaskIndex]>=WCETsList[runningTaskIndex];
-                    controlEndJob=(!runningTaskKilled && runningTaskIndex!=8'hFF && control_valid_pulse && slv_control_reg[31:16]==control_jobEnded && (slv_control_reg[7:0]-1)==runningTaskIndex); //&& number_of_ready_tasks_reg>0 
+                    WCETexceeded_pulse = (runningTaskStopped || runningTaskIndex==8'hFF) ? 0 : executionTimes[runningTaskIndex]>=WCETsList[runningTaskIndex];
+                    controlEndJob_pulse=(!runningTaskStopped && runningTaskIndex!=8'hFF && control_valid_pulse && slv_control_reg[31:16]==control_jobEnded && (slv_control_reg[7:0]-1)==runningTaskIndex); //&& number_of_ready_tasks_reg>0 
                     //____________________________		
 
-                    if (controlEndJob)
-                    begin
-                        executionMode[runningTaskIndex]<=EXECMODE_NORMAL;
-                    end
-
-                    if (WCETexceeded && !controlEndJob && AbsDeadlines[runningTaskIndex]!=0 && AbsActivations[runningTaskIndex]!=0) //last condition could be omitted
+                    if (controlEndJob_pulse)
+                        begin
+                            executionMode[runningTaskIndex]<=EXECMODE_NORMAL;
+                            AbsDeadlines[runningTaskIndex]=32'hFFFF_FFFF;
+                            runningTaskStopped=1;
+                        end
+                    else if (WCETexceeded_pulse && AbsDeadlines[runningTaskIndex]!=0)
                     begin
                         executionMode[runningTaskIndex]<=EXECMODE_WCETEXCEEDED;
-                    end
-
-                    //if (WCETexceeded || controlEndJob)
-                    if (controlEndJob)
-                    begin
-                        AbsDeadlines[runningTaskIndex]=32'hFFFF_FFFF;
-                        runningTaskKilled=1;
-                    end
-
-                    if (WCETexceeded)
-                    begin
-                        runningTaskKilled=1; //kill the task for reexecution
-                        runningTaskReactivated=1;
+                        runningTaskStopped=1; //kill the task for reexecution
                         if (reExecutions [ failedTask ] < maxReExecutions)
                             begin
+                                runningTaskReactivated_pulse=1;
                                 reExecutions [ failedTask ] <= reExecutions [ failedTask ] + 1;
                             end
                         else
@@ -1198,84 +1170,77 @@ module scheduler_v1_0_S_AXI #
                     end
 
                     //consider it only if if the reexec counter is less than max allowed reexecutions
-                    if ( failedTask_valid_pulse && reExecutions [ failedTask ] < maxReExecutions && executionTimes[ failedTask ] != 0 && !(WCETexceeded && failedTask == runningTaskIndex) && AbsDeadlines[ failedTask ] != 0 ) //&& executionMode[ failedTask ] == EXECMODE_NORMAL ) //AbsDeadlines [ failedTask ] != 32'hFFFF_FFFF )
+                    if ( failedTask_valid_pulse
+                    && reExecutions [ failedTask ] < maxReExecutions //if #reexecutions doesn't exceed the max 
+                    && !(WCETexceeded_pulse && failedTask == runningTaskIndex) //not a WCET exceeded if the faulty task is the running task
+                    && AbsDeadlines[ failedTask ] != 0 //not a deadline miss in this CC
+                    && AbsDeadlines[ failedTask ] != 32'hFFFF_FFFF //hasn't already been killed for any reason
+                    && executionTimes[ failedTask ] != 0) //make sure we aren't marking as "faulty" a new job of the task, previously killed for whathever reason
+                    //note: no check for controlEndJob_pulse because controlEndJob function MUST be (and is) called in software only after waiting for fault detector to complete processing.
                     begin
                         executionMode[failedTask]<=EXECMODE_FAULT;
                         reExecutions [ failedTask ] <= reExecutions [ failedTask ] + 1;
 
-                        if ( failedTask == runningTaskIndex )
+                        if ( failedTask == runningTaskIndex ) //&& !runningTaskStopped )
                             begin
-                                runningTaskKilled=1; //kill the task for reexecution
-                                //AbsDeadlines[runningTaskIndex]=32'hFFFF_FFFF;
+                                runningTaskStopped=1; //kill the task for reexecution
+                                runningTaskReactivated_pulse=1;
                             end
                         else
                             begin
                                 executionTimes[ failedTask ] <= 0;
                             end
+                        if (failedTask==nextRunningTaskIndex)
+                            nextRunningTaskStopped=1;
                     end
 
 
                     for (m=0; m<maxTasks; m=m+1)
                         begin
                             if (AbsDeadlines[m]==0)
-                                begin //deadline miss
-
-                                    if (m==runningTaskIndex && !controlEndJob)
+                                begin
+                                    if (!(m==runningTaskIndex && controlEndJob_pulse))
                                     begin
-                                        //real deadline miss, no end signal arrived at the same time
+                                        //real deadline miss
                                         executionMode[m]<=EXECMODE_DEADLINEMISS;
-                                    end
-
-                                    if (!(m==runningTaskIndex && //(WCETexceeded || 
-                                    controlEndJob //)
-                                    ))
-                                    begin
-                                        if (AbsActivations[m]!=0) //no activation
+                                        if (AbsActivations[m]!=0)
+                                            //deadline miss, no activation
                                             AbsDeadlines[m]=32'hFFFF_FFFF;
-                                        if (m==runningTaskIndex //should never happen, WCET exceeded should come happen first
-                                        // && !WCETexceeded
-                                        )
-                                            begin
-                                                runningTaskKilled=1;
-                                                //runningTaskKilledInThisCC=1;
-                                            end
-                                        else if (m==nextRunningTaskIndex)
-                                        begin
-                                            nextRunningTaskKilled=1;
-                                            //nextRunningTaskKilledInThisCC=1;
-                                        end
+
+                                        if (m==runningTaskIndex)
+                                            runningTaskStopped=1;
+                                        if (m==nextRunningTaskIndex)
+                                            nextRunningTaskStopped=1;
                                     end
                                 end
-                            else if (AbsActivations[m]!=0) //no deadline miss and no activation
+                            else if (AbsActivations[m]!=0)
+                            //no deadline miss and no activation
                             begin
                                 if (AbsDeadlines[m]!=32'hFFFF_FFFF)
+                                    //update deadline counter
                                     AbsDeadlines[m]=AbsDeadlines[m]-1;
                             end
 
-                            if (AbsActivations[m]==0) //new activation
+                            if (AbsActivations[m]==0)
+                                //new activation
                                 begin
                                     AbsActivations[m]=PeriodsList[m];
                                     AbsDeadlines[m]=DeadlinesList[m];
                                     reExecutions [ failedTask ] <= 0;
                                     if (m == runningTaskIndex)
-                                        runningTaskReactivated=1;
+                                        runningTaskReactivated_pulse=1;
                                     else
                                         executionTimes[m]<=0;
                                 end
                             else if (AbsActivations[m]!=32'hFFFF_FFFF)
+                                //update activation counter
                                 AbsActivations[m]=AbsActivations[m]-1;
                         end
 
-                        //________________________________
-                        //if (runningTaskKilledInThisCC && HighestPriorityTaskIndex==runningTaskIndex && HighestPriorityTaskDeadline!=32'hFFFF_FFFF && executionTimes[runningTaskIndex]==0)
-                        //	runningTaskKilled=0;
-
-                        //if (nextRunningTaskKilledInThisCC && HighestPriorityTaskIndex==nextRunningTaskIndex && HighestPriorityTaskDeadline!=32'hFFFF_FFFF && executionTimes[nextRunningTaskIndex]==0)
-                        //	nextRunningTaskKilled=0;
-
-                    if (runningTaskReactivated) //&& runningTaskKilled)
+                        //manage execution times
+                    if (runningTaskReactivated_pulse)
                         executionTimes[runningTaskIndex]<=0;
-                    else if (runningTaskIndex!=8'hFF && !runningTaskKilled)
+                    else if (runningTaskIndex!=8'hFF && !runningTaskStopped)
                         executionTimes[runningTaskIndex] <=executionTimes[runningTaskIndex]+1;
                 end
             endcase
@@ -1393,20 +1358,20 @@ module scheduler_v1_0_S_AXI #
     wire intr_ack_pulse;
     assign intr_ack_pulse=oldIntrStatus && !det_intr[0];
 
-    reg oldRunningTaskKilled;
+    reg oldRunningTaskStopped;
     always @(posedge S_AXI_ACLK)
     begin
         if ( !S_AXI_ARESETN )
             begin
-                oldRunningTaskKilled<=1'b0;
+                oldRunningTaskStopped<=1'b0;
             end
         else
             begin
-                oldRunningTaskKilled<=runningTaskKilled;
+                oldRunningTaskStopped<=runningTaskStopped;
             end
     end
-    wire runningTaskKilled_pulse;
-    assign runningTaskKilled_pulse=runningTaskKilled && !oldRunningTaskKilled;
+    wire runningTaskStopped_pulse;
+    assign runningTaskStopped_pulse=runningTaskStopped && !oldRunningTaskStopped;
 
     //_____________________________
 
@@ -1427,7 +1392,7 @@ module scheduler_v1_0_S_AXI #
             begin
                 if(slv_status_reg==state_running)
                 begin
-                    if (runningTaskKilled_pulse)
+                    if (runningTaskStopped_pulse)
                         runningTaskIndex=8'hFF;
 
                     if (waitingAck)
@@ -1435,7 +1400,8 @@ module scheduler_v1_0_S_AXI #
                             if (intr_ack_pulse)
                                 begin
                                     waitingAck<=1'b0;
-                                    runningTaskIndex = nextRunningTaskKilled ? 8'hFF : nextRunningTaskIndex;
+                                    runningTaskIndex = nextRunningTaskStopped ? 8'hFF : nextRunningTaskIndex;
+                                    nextRunningTaskIndex <= 8'hFF;
                                     runningTaskFlop<=!runningTaskFlop;
                                 end
                             else if (taskWriteDone_pulse)
@@ -1451,8 +1417,7 @@ module scheduler_v1_0_S_AXI #
                     begin
                         nextRunningTaskIndex<=HighestPriorityTaskIndex;
                         taskPtr<=TCBPtrsList[HighestPriorityTaskIndex];
-                        taskExecutionMode <= ( executionMode[HighestPriorityTaskIndex] == EXECMODE_NORMAL && executionTimes[HighestPriorityTaskIndex] == 32'h0 )
-                        ? EXECMODE_NORMAL_NEWJOB : { 1'h0, executionMode[HighestPriorityTaskIndex] };
+                        taskExecutionMode <= ( executionMode[HighestPriorityTaskIndex] == EXECMODE_NORMAL && executionTimes[HighestPriorityTaskIndex] == 32'h0 ) ? EXECMODE_NORMAL_NEWJOB : { 1'h0, executionMode[HighestPriorityTaskIndex] };
                         taskReady<=1'b1;
 
                         waitingAck<=1'b1;
