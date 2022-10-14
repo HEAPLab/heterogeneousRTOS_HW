@@ -133,7 +133,7 @@ typedef struct REGION_T{
 
 typedef struct {
 	u8 checkId;
-	char gap0;
+	u8 executionId;
 	u16 uniId;
 	float AOV[FAULTDETECTOR_MAX_AOV_DIM];
 } FAULTDETECTOR_OutcomeStr;
@@ -141,12 +141,12 @@ typedef struct {
 typedef struct {
 	u8 checkId;
 	u8 taskId;
+	u8 executionId;
 	u16 uniId;
 	char command;
-	char gap0[3];
+	char gap0[2];
 	float AOV[FAULTDETECTOR_MAX_AOV_DIM];
 } FAULTDETECTOR_controlStr;
-
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifndef __linux__
@@ -226,7 +226,6 @@ void XRun_InterruptDisable(XRun *InstancePtr, u32 Mask);
 void XRun_InterruptClear(XRun *InstancePtr, u32 Mask);
 u32 XRun_InterruptGetEnabled(XRun *InstancePtr);
 u32 XRun_InterruptGetStatus(XRun *InstancePtr);
-
 
 void FAULTDETECTOR_setTrainedRegion(XRun *InstancePtr, region_t* region);
 region_t FAULTDETECTOR_getTrainedRegion(XRun *InstancePtr);

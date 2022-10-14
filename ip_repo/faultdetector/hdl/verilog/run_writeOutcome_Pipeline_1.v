@@ -14,7 +14,6 @@ module run_writeOutcome_Pipeline_1 (
         ap_done,
         ap_idle,
         ap_ready,
-        p_read,
         p_read1,
         p_read2,
         p_read3,
@@ -22,6 +21,7 @@ module run_writeOutcome_Pipeline_1 (
         p_read5,
         p_read6,
         p_read7,
+        p_read8,
         outcome_AOV_address0,
         outcome_AOV_ce0,
         outcome_AOV_we0,
@@ -36,7 +36,6 @@ input   ap_start;
 output   ap_done;
 output   ap_idle;
 output   ap_ready;
-input  [31:0] p_read;
 input  [31:0] p_read1;
 input  [31:0] p_read2;
 input  [31:0] p_read3;
@@ -44,6 +43,7 @@ input  [31:0] p_read4;
 input  [31:0] p_read5;
 input  [31:0] p_read6;
 input  [31:0] p_read7;
+input  [31:0] p_read8;
 output  [2:0] outcome_AOV_address0;
 output   outcome_AOV_ce0;
 output   outcome_AOV_we0;
@@ -93,15 +93,15 @@ run_mux_84_32_1_1 #(
     .din7_WIDTH( 32 ),
     .din8_WIDTH( 4 ),
     .dout_WIDTH( 32 ))
-mux_84_32_1_1_U166(
-    .din0(p_read),
-    .din1(p_read1),
-    .din2(p_read2),
-    .din3(p_read3),
-    .din4(p_read4),
-    .din5(p_read5),
-    .din6(p_read6),
-    .din7(p_read7),
+mux_84_32_1_1_U170(
+    .din0(p_read1),
+    .din1(p_read2),
+    .din2(p_read3),
+    .din3(p_read4),
+    .din4(p_read5),
+    .din5(p_read6),
+    .din6(p_read7),
+    .din7(p_read8),
     .din8(ap_sig_allocacmp_loop_index3_load),
     .dout(tmp_fu_134_p10)
 );

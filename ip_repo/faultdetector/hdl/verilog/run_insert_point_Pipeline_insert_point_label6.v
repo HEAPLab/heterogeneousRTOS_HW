@@ -315,7 +315,7 @@ run_mux_21_32_1_1 #(
     .din1_WIDTH( 32 ),
     .din2_WIDTH( 1 ),
     .dout_WIDTH( 32 ))
-mux_21_32_1_1_U67(
+mux_21_32_1_1_U71(
     .din0(regions_min_0_q1),
     .din1(regions_min_1_q1),
     .din2(trunc_ln268_7),
@@ -329,7 +329,7 @@ run_mux_21_32_1_1 #(
     .din1_WIDTH( 32 ),
     .din2_WIDTH( 1 ),
     .dout_WIDTH( 32 ))
-mux_21_32_1_1_U68(
+mux_21_32_1_1_U72(
     .din0(regions_min_0_q0),
     .din1(regions_min_1_q0),
     .din2(trunc_ln268_5),
@@ -343,7 +343,7 @@ run_mux_21_32_1_1 #(
     .din1_WIDTH( 32 ),
     .din2_WIDTH( 1 ),
     .dout_WIDTH( 32 ))
-mux_21_32_1_1_U69(
+mux_21_32_1_1_U73(
     .din0(regions_max_0_q1),
     .din1(regions_max_1_q1),
     .din2(trunc_ln268_7),
@@ -357,7 +357,7 @@ run_mux_21_32_1_1 #(
     .din1_WIDTH( 32 ),
     .din2_WIDTH( 1 ),
     .dout_WIDTH( 32 ))
-mux_21_32_1_1_U70(
+mux_21_32_1_1_U74(
     .din0(regions_max_0_q0),
     .din1(regions_max_1_q0),
     .din2(trunc_ln268_5),

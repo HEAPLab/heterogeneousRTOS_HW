@@ -801,7 +801,7 @@ run_fsub_32ns_32ns_32_4_full_dsp_1 #(
     .din0_WIDTH( 32 ),
     .din1_WIDTH( 32 ),
     .dout_WIDTH( 32 ))
-fsub_32ns_32ns_32_4_full_dsp_1_U32(
+fsub_32ns_32ns_32_4_full_dsp_1_U36(
     .clk(ap_clk),
     .reset(ap_rst),
     .din0(grp_fu_966_p0),
@@ -816,7 +816,7 @@ run_fsub_32ns_32ns_32_4_full_dsp_1 #(
     .din0_WIDTH( 32 ),
     .din1_WIDTH( 32 ),
     .dout_WIDTH( 32 ))
-fsub_32ns_32ns_32_4_full_dsp_1_U33(
+fsub_32ns_32ns_32_4_full_dsp_1_U37(
     .clk(ap_clk),
     .reset(ap_rst),
     .din0(grp_fu_970_p0),
@@ -831,7 +831,7 @@ run_fsub_32ns_32ns_32_4_full_dsp_1 #(
     .din0_WIDTH( 32 ),
     .din1_WIDTH( 32 ),
     .dout_WIDTH( 32 ))
-fsub_32ns_32ns_32_4_full_dsp_1_U34(
+fsub_32ns_32ns_32_4_full_dsp_1_U38(
     .clk(ap_clk),
     .reset(ap_rst),
     .din0(grp_fu_974_p0),
@@ -846,7 +846,7 @@ run_fsub_32ns_32ns_32_4_full_dsp_1 #(
     .din0_WIDTH( 32 ),
     .din1_WIDTH( 32 ),
     .dout_WIDTH( 32 ))
-fsub_32ns_32ns_32_4_full_dsp_1_U35(
+fsub_32ns_32ns_32_4_full_dsp_1_U39(
     .clk(ap_clk),
     .reset(ap_rst),
     .din0(grp_fu_978_p0),
@@ -861,7 +861,7 @@ run_faddfsub_32ns_32ns_32_4_full_dsp_1 #(
     .din0_WIDTH( 32 ),
     .din1_WIDTH( 32 ),
     .dout_WIDTH( 32 ))
-faddfsub_32ns_32ns_32_4_full_dsp_1_U36(
+faddfsub_32ns_32ns_32_4_full_dsp_1_U40(
     .clk(ap_clk),
     .reset(ap_rst),
     .din0(grp_fu_982_p0),
@@ -877,7 +877,7 @@ run_faddfsub_32ns_32ns_32_4_full_dsp_1 #(
     .din0_WIDTH( 32 ),
     .din1_WIDTH( 32 ),
     .dout_WIDTH( 32 ))
-faddfsub_32ns_32ns_32_4_full_dsp_1_U37(
+faddfsub_32ns_32ns_32_4_full_dsp_1_U41(
     .clk(ap_clk),
     .reset(ap_rst),
     .din0(grp_fu_987_p0),
@@ -893,7 +893,7 @@ run_fadd_32ns_32ns_32_4_full_dsp_1 #(
     .din0_WIDTH( 32 ),
     .din1_WIDTH( 32 ),
     .dout_WIDTH( 32 ))
-fadd_32ns_32ns_32_4_full_dsp_1_U38(
+fadd_32ns_32ns_32_4_full_dsp_1_U42(
     .clk(ap_clk),
     .reset(ap_rst),
     .din0(reg_1296),
@@ -908,7 +908,7 @@ run_fmul_32ns_32ns_32_2_max_dsp_1 #(
     .din0_WIDTH( 32 ),
     .din1_WIDTH( 32 ),
     .dout_WIDTH( 32 ))
-fmul_32ns_32ns_32_2_max_dsp_1_U40(
+fmul_32ns_32ns_32_2_max_dsp_1_U44(
     .clk(ap_clk),
     .reset(ap_rst),
     .din0(grp_fu_999_p0),
@@ -924,7 +924,7 @@ run_mux_21_32_1_1 #(
     .din1_WIDTH( 32 ),
     .din2_WIDTH( 1 ),
     .dout_WIDTH( 32 ))
-mux_21_32_1_1_U44(
+mux_21_32_1_1_U48(
     .din0(regions_center_0_q1),
     .din1(regions_center_1_q1),
     .din2(grp_fu_1017_p3),
@@ -938,7 +938,7 @@ run_mux_21_32_1_1 #(
     .din1_WIDTH( 32 ),
     .din2_WIDTH( 1 ),
     .dout_WIDTH( 32 ))
-mux_21_32_1_1_U45(
+mux_21_32_1_1_U49(
     .din0(regions_center_0_q0),
     .din1(regions_center_1_q0),
     .din2(trunc_ln268_reg_3228),
@@ -952,7 +952,7 @@ run_mux_21_32_1_1 #(
     .din1_WIDTH( 32 ),
     .din2_WIDTH( 1 ),
     .dout_WIDTH( 32 ))
-mux_21_32_1_1_U46(
+mux_21_32_1_1_U50(
     .din0(regions_max_0_q1),
     .din1(regions_max_1_q1),
     .din2(grp_fu_1035_p3),
@@ -966,7 +966,7 @@ run_mux_21_32_1_1 #(
     .din1_WIDTH( 32 ),
     .din2_WIDTH( 1 ),
     .dout_WIDTH( 32 ))
-mux_21_32_1_1_U47(
+mux_21_32_1_1_U51(
     .din0(regions_min_0_q1),
     .din1(regions_min_1_q1),
     .din2(grp_fu_1044_p3),
@@ -980,7 +980,7 @@ run_mux_21_32_1_1 #(
     .din1_WIDTH( 32 ),
     .din2_WIDTH( 1 ),
     .dout_WIDTH( 32 ))
-mux_21_32_1_1_U48(
+mux_21_32_1_1_U52(
     .din0(regions_max_0_q0),
     .din1(regions_max_1_q0),
     .din2(trunc_ln268_reg_3228),
@@ -994,7 +994,7 @@ run_mux_21_32_1_1 #(
     .din1_WIDTH( 32 ),
     .din2_WIDTH( 1 ),
     .dout_WIDTH( 32 ))
-mux_21_32_1_1_U49(
+mux_21_32_1_1_U53(
     .din0(regions_min_0_q0),
     .din1(regions_min_1_q0),
     .din2(trunc_ln268_reg_3228),

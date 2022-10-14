@@ -623,7 +623,7 @@ attribute shreg_extract : string;
 
 
 begin
-    mux_21_32_1_1_U117 : component run_mux_21_32_1_1
+    mux_21_32_1_1_U121 : component run_mux_21_32_1_1
     generic map (
         ID => 1,
         NUM_STAGE => 1,
@@ -637,7 +637,7 @@ begin
         din2 => trunc_ln1073_reg_1715,
         dout => grp_fu_558_p4);
 
-    mux_21_32_1_1_U118 : component run_mux_21_32_1_1
+    mux_21_32_1_1_U122 : component run_mux_21_32_1_1
     generic map (
         ID => 1,
         NUM_STAGE => 1,

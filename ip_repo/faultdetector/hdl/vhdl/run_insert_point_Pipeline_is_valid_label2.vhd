@@ -175,7 +175,7 @@ attribute shreg_extract : string;
 
 
 begin
-    mux_84_32_1_1_U4 : component run_mux_84_32_1_1
+    mux_84_32_1_1_U8 : component run_mux_84_32_1_1
     generic map (
         ID => 1,
         NUM_STAGE => 1,

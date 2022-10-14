@@ -102,16 +102,18 @@ void SCHEDULER_ACKInterrupt(void * baseaddr_p);
 u32 SCHEDULER_getStatus(void * baseaddr_p);
 
 //control signals
-void SCHEDULER_sendControl(void * baseaddr_p, u16 control_instr, u16 instr_payload);
+//void SCHEDULER_sendControl(void * baseaddr_p, u16 control_instr, u16 instr_payload);
 void SCHEDULER_start(void * baseaddr_p);
 void SCHEDULER_stop(void * baseaddr_p);
-void SCHEDULER_resumeTask(void * baseaddr_p,  u16 uxTaskNumber);
-void SCHEDULER_signalTaskEnded(void * baseaddr_p, u16 uxTaskNumber);
-void SCHEDULER_signalTaskSuspended(void * baseaddr_p, u16 uxTaskNumber);
-void SCHEDULER_signalJobEnded(void * baseaddr_p, u16 uxTaskNumber);
+/*
+void SCHEDULER_resumeTask(void * baseaddr_p,  u8 uxTaskNumber);
+void SCHEDULER_signalTaskEnded(void * baseaddr_p, u8 uxTaskNumber);
+void SCHEDULER_signalTaskSuspended(void * baseaddr_p, u8 uxTaskNumber);
+*/
+void SCHEDULER_signalJobEnded(void * baseaddr_p, u8 uxTaskNumber, u8 executionId);
 
 //data structures
-void SCHEDULER_setNumberOfTasks(void * baseaddr_p,  u32 numberOfTasks);
+void SCHEDULER_setNumberOfTasks(void * baseaddr_p,  u8 numberOfTasks);
 void SCHEDULER_copyTCBPtrs(void * baseaddr_p, const void * source);
 void SCHEDULER_copyWCETs(void * baseaddr_p, const void * source);
 void SCHEDULER_copyDeadlines(void * baseaddr_p, const void * source);

@@ -136,7 +136,7 @@ run_mux_84_32_1_1 #(
     .din7_WIDTH( 32 ),
     .din8_WIDTH( 4 ),
     .dout_WIDTH( 32 ))
-mux_84_32_1_1_U107(
+mux_84_32_1_1_U111(
     .din0(p_read1),
     .din1(p_read2),
     .din2(p_read3),

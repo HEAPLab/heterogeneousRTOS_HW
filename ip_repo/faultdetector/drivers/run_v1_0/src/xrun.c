@@ -507,6 +507,7 @@ u32 XRun_InterruptGetStatus(XRun *InstancePtr) {
     return XRun_ReadReg(InstancePtr->Control_BaseAddress, XRUN_CONTROL_ADDR_ISR);
 }
 
+
 FAULTDETECTOR_OutcomeStr FAULTDETECTOR_getLastFault(XRun *InstancePtr, u8 taskId, FAULTDETECTOR_OutcomeStr* dest) {
 	memcpy((void*) dest, (void*) (InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_OUTCOMEINRAM_BASE+sizeof(FAULTDETECTOR_OutcomeStr)*taskId), sizeof(FAULTDETECTOR_OutcomeStr));
 }

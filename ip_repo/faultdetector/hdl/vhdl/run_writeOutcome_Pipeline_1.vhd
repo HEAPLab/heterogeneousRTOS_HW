@@ -17,7 +17,6 @@ port (
     ap_done : OUT STD_LOGIC;
     ap_idle : OUT STD_LOGIC;
     ap_ready : OUT STD_LOGIC;
-    p_read : IN STD_LOGIC_VECTOR (31 downto 0);
     p_read1 : IN STD_LOGIC_VECTOR (31 downto 0);
     p_read2 : IN STD_LOGIC_VECTOR (31 downto 0);
     p_read3 : IN STD_LOGIC_VECTOR (31 downto 0);
@@ -25,6 +24,7 @@ port (
     p_read5 : IN STD_LOGIC_VECTOR (31 downto 0);
     p_read6 : IN STD_LOGIC_VECTOR (31 downto 0);
     p_read7 : IN STD_LOGIC_VECTOR (31 downto 0);
+    p_read8 : IN STD_LOGIC_VECTOR (31 downto 0);
     outcome_AOV_address0 : OUT STD_LOGIC_VECTOR (2 downto 0);
     outcome_AOV_ce0 : OUT STD_LOGIC;
     outcome_AOV_we0 : OUT STD_LOGIC;
@@ -116,7 +116,7 @@ attribute shreg_extract : string;
 
 
 begin
-    mux_84_32_1_1_U166 : component run_mux_84_32_1_1
+    mux_84_32_1_1_U170 : component run_mux_84_32_1_1
     generic map (
         ID => 1,
         NUM_STAGE => 1,
@@ -131,14 +131,14 @@ begin
         din8_WIDTH => 4,
         dout_WIDTH => 32)
     port map (
-        din0 => p_read,
-        din1 => p_read1,
-        din2 => p_read2,
-        din3 => p_read3,
-        din4 => p_read4,
-        din5 => p_read5,
-        din6 => p_read6,
-        din7 => p_read7,
+        din0 => p_read1,
+        din1 => p_read2,
+        din2 => p_read3,
+        din3 => p_read4,
+        din4 => p_read5,
+        din5 => p_read6,
+        din6 => p_read7,
+        din7 => p_read8,
         din8 => ap_sig_allocacmp_loop_index3_load,
         dout => tmp_fu_134_p10);
 

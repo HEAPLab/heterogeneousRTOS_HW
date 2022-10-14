@@ -91,21 +91,21 @@ port (
     d_read_43 : IN STD_LOGIC_VECTOR (31 downto 0);
     d_read_44 : IN STD_LOGIC_VECTOR (31 downto 0);
     d_read_45 : IN STD_LOGIC_VECTOR (31 downto 0);
-    grp_fu_614_p_din0 : OUT STD_LOGIC_VECTOR (31 downto 0);
-    grp_fu_614_p_din1 : OUT STD_LOGIC_VECTOR (31 downto 0);
-    grp_fu_614_p_opcode : OUT STD_LOGIC_VECTOR (4 downto 0);
-    grp_fu_614_p_dout0 : IN STD_LOGIC_VECTOR (0 downto 0);
-    grp_fu_614_p_ce : OUT STD_LOGIC;
-    grp_fu_618_p_din0 : OUT STD_LOGIC_VECTOR (31 downto 0);
-    grp_fu_618_p_din1 : OUT STD_LOGIC_VECTOR (31 downto 0);
-    grp_fu_618_p_opcode : OUT STD_LOGIC_VECTOR (4 downto 0);
-    grp_fu_618_p_dout0 : IN STD_LOGIC_VECTOR (0 downto 0);
-    grp_fu_618_p_ce : OUT STD_LOGIC;
-    grp_fu_622_p_din0 : OUT STD_LOGIC_VECTOR (31 downto 0);
-    grp_fu_622_p_din1 : OUT STD_LOGIC_VECTOR (31 downto 0);
-    grp_fu_622_p_opcode : OUT STD_LOGIC_VECTOR (4 downto 0);
-    grp_fu_622_p_dout0 : IN STD_LOGIC_VECTOR (0 downto 0);
-    grp_fu_622_p_ce : OUT STD_LOGIC );
+    grp_fu_1089_p_din0 : OUT STD_LOGIC_VECTOR (31 downto 0);
+    grp_fu_1089_p_din1 : OUT STD_LOGIC_VECTOR (31 downto 0);
+    grp_fu_1089_p_opcode : OUT STD_LOGIC_VECTOR (4 downto 0);
+    grp_fu_1089_p_dout0 : IN STD_LOGIC_VECTOR (0 downto 0);
+    grp_fu_1089_p_ce : OUT STD_LOGIC;
+    grp_fu_1093_p_din0 : OUT STD_LOGIC_VECTOR (31 downto 0);
+    grp_fu_1093_p_din1 : OUT STD_LOGIC_VECTOR (31 downto 0);
+    grp_fu_1093_p_opcode : OUT STD_LOGIC_VECTOR (4 downto 0);
+    grp_fu_1093_p_dout0 : IN STD_LOGIC_VECTOR (0 downto 0);
+    grp_fu_1093_p_ce : OUT STD_LOGIC;
+    grp_fu_1097_p_din0 : OUT STD_LOGIC_VECTOR (31 downto 0);
+    grp_fu_1097_p_din1 : OUT STD_LOGIC_VECTOR (31 downto 0);
+    grp_fu_1097_p_opcode : OUT STD_LOGIC_VECTOR (4 downto 0);
+    grp_fu_1097_p_dout0 : IN STD_LOGIC_VECTOR (0 downto 0);
+    grp_fu_1097_p_ce : OUT STD_LOGIC );
 end;
 
 
@@ -839,17 +839,17 @@ begin
         grp_fu_1711_p_din0 => grp_insert_point_Pipeline_is_valid_label2_fu_750_grp_fu_1711_p_din0,
         grp_fu_1711_p_din1 => grp_insert_point_Pipeline_is_valid_label2_fu_750_grp_fu_1711_p_din1,
         grp_fu_1711_p_opcode => grp_insert_point_Pipeline_is_valid_label2_fu_750_grp_fu_1711_p_opcode,
-        grp_fu_1711_p_dout0 => grp_fu_614_p_dout0,
+        grp_fu_1711_p_dout0 => grp_fu_1089_p_dout0,
         grp_fu_1711_p_ce => grp_insert_point_Pipeline_is_valid_label2_fu_750_grp_fu_1711_p_ce,
         grp_fu_1715_p_din0 => grp_insert_point_Pipeline_is_valid_label2_fu_750_grp_fu_1715_p_din0,
         grp_fu_1715_p_din1 => grp_insert_point_Pipeline_is_valid_label2_fu_750_grp_fu_1715_p_din1,
         grp_fu_1715_p_opcode => grp_insert_point_Pipeline_is_valid_label2_fu_750_grp_fu_1715_p_opcode,
-        grp_fu_1715_p_dout0 => grp_fu_618_p_dout0,
+        grp_fu_1715_p_dout0 => grp_fu_1093_p_dout0,
         grp_fu_1715_p_ce => grp_insert_point_Pipeline_is_valid_label2_fu_750_grp_fu_1715_p_ce,
         grp_fu_1719_p_din0 => grp_insert_point_Pipeline_is_valid_label2_fu_750_grp_fu_1719_p_din0,
         grp_fu_1719_p_din1 => grp_insert_point_Pipeline_is_valid_label2_fu_750_grp_fu_1719_p_din1,
         grp_fu_1719_p_opcode => grp_insert_point_Pipeline_is_valid_label2_fu_750_grp_fu_1719_p_opcode,
-        grp_fu_1719_p_dout0 => grp_fu_622_p_dout0,
+        grp_fu_1719_p_dout0 => grp_fu_1097_p_dout0,
         grp_fu_1719_p_ce => grp_insert_point_Pipeline_is_valid_label2_fu_750_grp_fu_1719_p_ce);
 
     grp_insert_point_Pipeline_insert_point_label4_fu_770 : component run_insert_point_Pipeline_insert_point_label4
@@ -947,17 +947,17 @@ begin
         grp_fu_1711_p_din0 => grp_insert_point_Pipeline_VITIS_LOOP_279_1_fu_796_grp_fu_1711_p_din0,
         grp_fu_1711_p_din1 => grp_insert_point_Pipeline_VITIS_LOOP_279_1_fu_796_grp_fu_1711_p_din1,
         grp_fu_1711_p_opcode => grp_insert_point_Pipeline_VITIS_LOOP_279_1_fu_796_grp_fu_1711_p_opcode,
-        grp_fu_1711_p_dout0 => grp_fu_614_p_dout0,
+        grp_fu_1711_p_dout0 => grp_fu_1089_p_dout0,
         grp_fu_1711_p_ce => grp_insert_point_Pipeline_VITIS_LOOP_279_1_fu_796_grp_fu_1711_p_ce,
         grp_fu_1715_p_din0 => grp_insert_point_Pipeline_VITIS_LOOP_279_1_fu_796_grp_fu_1715_p_din0,
         grp_fu_1715_p_din1 => grp_insert_point_Pipeline_VITIS_LOOP_279_1_fu_796_grp_fu_1715_p_din1,
         grp_fu_1715_p_opcode => grp_insert_point_Pipeline_VITIS_LOOP_279_1_fu_796_grp_fu_1715_p_opcode,
-        grp_fu_1715_p_dout0 => grp_fu_618_p_dout0,
+        grp_fu_1715_p_dout0 => grp_fu_1093_p_dout0,
         grp_fu_1715_p_ce => grp_insert_point_Pipeline_VITIS_LOOP_279_1_fu_796_grp_fu_1715_p_ce,
         grp_fu_1719_p_din0 => grp_insert_point_Pipeline_VITIS_LOOP_279_1_fu_796_grp_fu_1719_p_din0,
         grp_fu_1719_p_din1 => grp_insert_point_Pipeline_VITIS_LOOP_279_1_fu_796_grp_fu_1719_p_din1,
         grp_fu_1719_p_opcode => grp_insert_point_Pipeline_VITIS_LOOP_279_1_fu_796_grp_fu_1719_p_opcode,
-        grp_fu_1719_p_dout0 => grp_fu_622_p_dout0,
+        grp_fu_1719_p_dout0 => grp_fu_1097_p_dout0,
         grp_fu_1719_p_ce => grp_insert_point_Pipeline_VITIS_LOOP_279_1_fu_796_grp_fu_1719_p_ce,
         grp_fu_1723_p_din0 => grp_insert_point_Pipeline_VITIS_LOOP_279_1_fu_796_grp_fu_1723_p_din0,
         grp_fu_1723_p_din1 => grp_insert_point_Pipeline_VITIS_LOOP_279_1_fu_796_grp_fu_1723_p_din1,
@@ -1033,10 +1033,10 @@ begin
         grp_fu_1711_p_din0 => grp_insert_point_Pipeline_insert_point_label6_fu_815_grp_fu_1711_p_din0,
         grp_fu_1711_p_din1 => grp_insert_point_Pipeline_insert_point_label6_fu_815_grp_fu_1711_p_din1,
         grp_fu_1711_p_opcode => grp_insert_point_Pipeline_insert_point_label6_fu_815_grp_fu_1711_p_opcode,
-        grp_fu_1711_p_dout0 => grp_fu_614_p_dout0,
+        grp_fu_1711_p_dout0 => grp_fu_1089_p_dout0,
         grp_fu_1711_p_ce => grp_insert_point_Pipeline_insert_point_label6_fu_815_grp_fu_1711_p_ce);
 
-    faddfsub_32ns_32ns_32_4_full_dsp_1_U84 : component run_faddfsub_32ns_32ns_32_4_full_dsp_1
+    faddfsub_32ns_32ns_32_4_full_dsp_1_U88 : component run_faddfsub_32ns_32ns_32_4_full_dsp_1
     generic map (
         ID => 1,
         NUM_STAGE => 4,
@@ -1052,7 +1052,7 @@ begin
         ce => grp_fu_1723_ce,
         dout => grp_fu_1723_p2);
 
-    fmul_32ns_32ns_32_2_max_dsp_1_U85 : component run_fmul_32ns_32ns_32_2_max_dsp_1
+    fmul_32ns_32ns_32_2_max_dsp_1_U89 : component run_fmul_32ns_32ns_32_2_max_dsp_1
     generic map (
         ID => 1,
         NUM_STAGE => 2,
@@ -1551,6 +1551,18 @@ begin
     end process;
 
     empty_fu_1024_p1 <= n_regions_q0(1 - 1 downto 0);
+    grp_fu_1089_p_ce <= grp_fu_1711_ce;
+    grp_fu_1089_p_din0 <= grp_fu_1711_p0;
+    grp_fu_1089_p_din1 <= grp_fu_1711_p1;
+    grp_fu_1089_p_opcode <= grp_fu_1711_opcode;
+    grp_fu_1093_p_ce <= grp_fu_1715_ce;
+    grp_fu_1093_p_din0 <= grp_fu_1715_p0;
+    grp_fu_1093_p_din1 <= grp_fu_1715_p1;
+    grp_fu_1093_p_opcode <= grp_fu_1715_opcode;
+    grp_fu_1097_p_ce <= grp_fu_1719_ce;
+    grp_fu_1097_p_din0 <= grp_fu_1719_p0;
+    grp_fu_1097_p_din1 <= grp_fu_1719_p1;
+    grp_fu_1097_p_opcode <= grp_fu_1719_opcode;
 
     grp_fu_1711_ce_assign_proc : process(ap_CS_fsm_state2, grp_insert_point_Pipeline_is_valid_label2_fu_750_grp_fu_1711_p_ce, grp_insert_point_Pipeline_VITIS_LOOP_279_1_fu_796_grp_fu_1711_p_ce, grp_insert_point_Pipeline_insert_point_label6_fu_815_grp_fu_1711_p_ce, ap_CS_fsm_state6, ap_CS_fsm_state8)
     begin
@@ -1787,18 +1799,6 @@ begin
         end if; 
     end process;
 
-    grp_fu_614_p_ce <= grp_fu_1711_ce;
-    grp_fu_614_p_din0 <= grp_fu_1711_p0;
-    grp_fu_614_p_din1 <= grp_fu_1711_p1;
-    grp_fu_614_p_opcode <= grp_fu_1711_opcode;
-    grp_fu_618_p_ce <= grp_fu_1715_ce;
-    grp_fu_618_p_din0 <= grp_fu_1715_p0;
-    grp_fu_618_p_din1 <= grp_fu_1715_p1;
-    grp_fu_618_p_opcode <= grp_fu_1715_opcode;
-    grp_fu_622_p_ce <= grp_fu_1719_ce;
-    grp_fu_622_p_din0 <= grp_fu_1719_p0;
-    grp_fu_622_p_din1 <= grp_fu_1719_p1;
-    grp_fu_622_p_opcode <= grp_fu_1719_opcode;
     grp_insert_point_Pipeline_VITIS_LOOP_279_1_fu_796_ap_start <= grp_insert_point_Pipeline_VITIS_LOOP_279_1_fu_796_ap_start_reg;
     grp_insert_point_Pipeline_insert_point_label4_fu_770_ap_start <= grp_insert_point_Pipeline_insert_point_label4_fu_770_ap_start_reg;
     grp_insert_point_Pipeline_insert_point_label6_fu_815_ap_start <= grp_insert_point_Pipeline_insert_point_label6_fu_815_ap_start_reg;

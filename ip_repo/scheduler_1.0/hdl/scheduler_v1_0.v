@@ -108,7 +108,7 @@
 
     output wire  irq,
     
-    input wire [7:0] failedTask,
+    input wire [15:0] failedTask,
     input wire failedTask_valid,
     output wire failedTask_ack
 );

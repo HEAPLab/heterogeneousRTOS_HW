@@ -75,7 +75,7 @@ void SCHEDULER_signalTaskSuspended(void * baseaddr_p, u8 uxTaskNumber)
 */
 void SCHEDULER_signalJobEnded(void * baseaddr_p, u8 uxTaskNumber, u8 executionId)
 {
-  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, (u32) ((0x06000000) | (((u32)uxTaskNumber) & (0x000000FF)) | (((u32)executionId) & (0x0000FF00))));
+  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, (u32) ((0x06000000) | ((u32)(uxTaskNumber) & (0x000000FF)) | ((u32)(executionId << 8) & (0x0000FF00))));
 }
 
 /* data structures */

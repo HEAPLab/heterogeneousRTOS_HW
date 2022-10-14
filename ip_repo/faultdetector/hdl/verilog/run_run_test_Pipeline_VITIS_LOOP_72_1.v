@@ -553,7 +553,7 @@ run_mux_21_32_1_1 #(
     .din1_WIDTH( 32 ),
     .din2_WIDTH( 1 ),
     .dout_WIDTH( 32 ))
-mux_21_32_1_1_U117(
+mux_21_32_1_1_U121(
     .din0(regions_min_0_q0),
     .din1(regions_min_1_q0),
     .din2(trunc_ln1073_reg_1715),
@@ -567,7 +567,7 @@ run_mux_21_32_1_1 #(
     .din1_WIDTH( 32 ),
     .din2_WIDTH( 1 ),
     .dout_WIDTH( 32 ))
-mux_21_32_1_1_U118(
+mux_21_32_1_1_U122(
     .din0(regions_max_0_q0),
     .din1(regions_max_1_q0),
     .din2(trunc_ln1073_reg_1715),

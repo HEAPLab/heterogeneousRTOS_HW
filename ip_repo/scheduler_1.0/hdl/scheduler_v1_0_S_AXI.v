@@ -84,7 +84,7 @@ module scheduler_v1_0_S_AXI #
     output wire led4,
     output wire led5,
 
-    input wire [7:0] failedTask,
+    input wire [15:0] failedTask,
     input wire failedTask_valid,
     output reg failedTask_ack,
 
@@ -1086,12 +1086,22 @@ module scheduler_v1_0_S_AXI #
     (* MARK_DEBUG = "TRUE" *) reg[7:0] runningTaskIndex;
 
     //control command supplied by the software
-    wire [7:0] control_taskId;
-    wire [7:0] control_executionId;
+     (* MARK_DEBUG = "TRUE" *) wire [7:0] control_taskId;
+     (* MARK_DEBUG = "TRUE" *) wire [7:0] control_executionId;
     wire [7:0] control_command;
     assign control_command=slv_control_reg[31:24];
     assign control_executionId=slv_control_reg[15:8];
     assign control_taskId=slv_control_reg[7:0]-1;
+
+
+    (* MARK_DEBUG = "TRUE" *) wire [7:0] contr_execIdControl_taskId;
+    assign contr_execIdControl_taskId = executionIds[control_taskId];
+
+    //control command supplied by the fault detector
+     (* MARK_DEBUG = "TRUE" *) wire [7:0] failedTask_taskId;
+     (* MARK_DEBUG = "TRUE" *) wire [7:0] failedTask_executionId;
+    assign failedTask_taskId=failedTask[7:0];
+    assign failedTask_executionId=failedTask[15:8];
 
     integer m;
     always @(posedge SCHEDULER_CLK)
@@ -1156,11 +1166,11 @@ module scheduler_v1_0_S_AXI #
                     WCETexceeded_pulse = (runningTaskStopped || runningTaskIndex==8'hFF) ? 0 : executionTimes[runningTaskIndex]>=WCETsList[runningTaskIndex];
 
                     controlEndRunningJob_pulse=(!runningTaskStopped && runningTaskIndex!=8'hFF && control_valid_pulse && control_command==control_jobEnded && control_taskId==runningTaskIndex
-                    && executionIds[control_taskId]==control_executionId ); //check if command is related to same job 
+                    && executionIds[control_taskId]==control_executionId ); //check if command is related to same execution 
 
                     controlEndNotRunningJob_pulse = !controlEndRunningJob_pulse && control_valid_pulse && control_command==control_jobEnded &&
-                    AbsDeadlines[control_taskId]!=32'hFFFF_FFFF //already terminated for whathever reason 
-                    && executionIds[control_taskId]==control_executionId; //check if command is related to same job
+                    AbsDeadlines[control_taskId]!=32'hFFFF_FFFF //not already terminated for whathever reason 
+                    && executionIds[control_taskId]==control_executionId; //check if command is related to same execution
                     //____________________________	
 
                     if (controlEndNotRunningJob_pulse)
@@ -1201,29 +1211,28 @@ module scheduler_v1_0_S_AXI #
 
                     //consider it only if if the reexec counter is less than max allowed reexecutions
                     if ( failedTask_valid_pulse
-                    && reExecutions [ failedTask ] < maxReExecutions //if #reexecutions doesn't exceed the max 
-                    && !(WCETexceeded_pulse && failedTask == runningTaskIndex) //not a WCET exceeded if the faulty task is the running task
-                    && AbsDeadlines[ failedTask ] != 0 //not a deadline miss in this CC
-                    && AbsDeadlines[ failedTask ] != 32'hFFFF_FFFF //hasn't already been killed for any reason
-                    && executionTimes[ failedTask ] != 0) //make sure we aren't marking as "faulty" a new job of the task, previously killed for whathever reason
+                    && reExecutions [ failedTask_taskId ] < maxReExecutions //if #reexecutions doesn't exceed the max 
+                    && !(WCETexceeded_pulse && failedTask_taskId == runningTaskIndex) //not a WCET exceeded if the faulty task is the running task
+                    && AbsDeadlines[ failedTask_taskId ] != 0 //not a deadline miss in this CC
+                    && AbsDeadlines[ failedTask_taskId ] != 32'hFFFF_FFFF //hasn't already been killed for any reason
+                    && executionIds[ failedTask_taskId ] == failedTask_executionId ) //make sure we aren't considering as "faulty" a new execution of the task, previously killed for whathever reason
                     //note: no check for controlEndRunningJob_pulse because controlEndJob function MUST be (and is) called in software only after waiting for fault detector to complete processing.
                     begin
-                        executionMode[failedTask]<=EXECMODE_FAULT;
-                        reExecutions [ failedTask ] <= reExecutions [ failedTask ] + 1;
-                        executionIds [ failedTask ] <= executionIds [ failedTask ] + 1;
+                        executionMode[failedTask_taskId]<=EXECMODE_FAULT;
+                        reExecutions [ failedTask_taskId ] <= reExecutions [ failedTask_taskId ] + 1;
+                        executionIds [ failedTask_taskId ] <= executionIds [ failedTask_taskId ] + 1;
 
-
-                        if ( failedTask == runningTaskIndex ) //&& !runningTaskStopped )
+                        if ( failedTask_taskId == runningTaskIndex ) //&& !runningTaskStopped )
                             begin
                                 runningTaskStopped=1; //kill the task for reexecution
                                 runningTaskReactivated_pulse=1;
                             end
                         else
                             begin
-                                executionTimes[ failedTask ] <= 0;
+                                executionTimes[ failedTask_taskId ] <= 0;
                             end
-                            
-                        if (failedTask==nextRunningTaskIndex)
+
+                        if (failedTask_taskId==nextRunningTaskIndex)
                             nextRunningTaskStopped=1;
                     end
 
