@@ -116,6 +116,20 @@ typedef struct {
     u32 word_8;
 } XRun_Outcomeinram;
 
+typedef struct {
+    u32 word_0;
+    u32 word_1;
+    u32 word_2;
+    u32 word_3;
+    u32 word_4;
+    u32 word_5;
+    u32 word_6;
+    u32 word_7;
+    u32 word_8;
+} XRun_Sw_reset;
+
+
+
 #define FAULTDETECTOR_MAX_CHECKS 64
 #define FAULTDETECTOR_MAX_TASKS 16
 #define FAULTDETECTOR_MAX_AOV_DIM 8
@@ -147,6 +161,7 @@ typedef struct {
 	char gap0[2];
 	float AOV[FAULTDETECTOR_MAX_AOV_DIM];
 } FAULTDETECTOR_controlStr;
+
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifndef __linux__
@@ -186,10 +201,16 @@ u32 XRun_IsReady(XRun *InstancePtr);
 void XRun_EnableAutoRestart(XRun *InstancePtr);
 void XRun_DisableAutoRestart(XRun *InstancePtr);
 
-void XRun_Set_inputAOV(XRun *InstancePtr, u64 Data);
-u64 XRun_Get_inputAOV(XRun *InstancePtr);
 void XRun_Set_accel_mode(XRun *InstancePtr, u32 Data);
 u32 XRun_Get_accel_mode(XRun *InstancePtr);
+u32 XRun_Get_copying(XRun *InstancePtr);
+void XRun_Set_inputData(XRun *InstancePtr, u64 Data);
+u64 XRun_Get_inputData(XRun *InstancePtr);
+void XRun_Set_startCopy(XRun *InstancePtr, u32 Data);
+u32 XRun_Get_startCopy(XRun *InstancePtr);
+void XRun_Set_startCopy_vld(XRun *InstancePtr);
+u32 XRun_Get_startCopy_vld(XRun *InstancePtr);
+u32 XRun_Get_startCopy_ack(XRun *InstancePtr);
 void XRun_Set_trainedRegion_i(XRun *InstancePtr, XRun_Trainedregion_i Data);
 XRun_Trainedregion_i XRun_Get_trainedRegion_i(XRun *InstancePtr);
 XRun_Trainedregion_o XRun_Get_trainedRegion_o(XRun *InstancePtr);
@@ -227,6 +248,7 @@ void XRun_InterruptClear(XRun *InstancePtr, u32 Mask);
 u32 XRun_InterruptGetEnabled(XRun *InstancePtr);
 u32 XRun_InterruptGetStatus(XRun *InstancePtr);
 
+
 void FAULTDETECTOR_setTrainedRegion(XRun *InstancePtr, region_t* region);
 region_t FAULTDETECTOR_getTrainedRegion(XRun *InstancePtr);
 FAULTDETECTOR_OutcomeStr FAULTDETECTOR_getLastFault(XRun *InstancePtr, u8 taskId, FAULTDETECTOR_OutcomeStr* dest);
@@ -234,6 +256,8 @@ char FAULTDETECTOR_isFault(XRun *InstancePtr, u8 taskId);
 void FAULTDETECTOR_resetFault(XRun *InstancePtr, u8 taskId);
 void FAULTDETECTOR_initRegions(XRun *InstancePtr, region_t trainedRegions[FAULTDETECTOR_MAX_CHECKS][FAULTDETECTOR_MAX_REGIONS], u8 n_regions[FAULTDETECTOR_MAX_CHECKS]);
 void FAULTDETECTOR_dumpRegions(XRun *InstancePtr, region_t trainedRegions[FAULTDETECTOR_MAX_CHECKS][FAULTDETECTOR_MAX_REGIONS], u8 n_regions[FAULTDETECTOR_MAX_CHECKS]);
+void FAULTDETECTOR_startCopy(XRun *InstancePtr);
+char FAULTDETECTOR_isReadyForNextControl(XRun *InstancePtr);
 
 #ifdef __cplusplus
 }

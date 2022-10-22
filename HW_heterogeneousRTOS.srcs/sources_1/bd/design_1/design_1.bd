@@ -38,12 +38,12 @@
       "aximvoter_0": "",
       "axisvoter_0": "",
       "tmrVoter_0": "",
+      "axi_gpio_0": "",
+      "xlconcat_0": "",
       "scheduler_0": "",
       "scheduler_1": "",
       "scheduler_2": "",
-      "run_0": "",
-      "axi_gpio_0": "",
-      "xlconcat_0": ""
+      "run_0": ""
     },
     "interface_ports": {
       "DDR": {
@@ -3100,6 +3100,40 @@
           }
         }
       },
+      "axi_gpio_0": {
+        "vlnv": "xilinx.com:ip:axi_gpio:2.0",
+        "xci_name": "design_1_axi_gpio_0_0",
+        "xci_path": "ip/design_1_axi_gpio_0_0/design_1_axi_gpio_0_0.xci",
+        "inst_hier_path": "axi_gpio_0",
+        "parameters": {
+          "C_ALL_INPUTS": {
+            "value": "1"
+          },
+          "C_GPIO_WIDTH": {
+            "value": "1"
+          },
+          "C_INTERRUPT_PRESENT": {
+            "value": "1"
+          },
+          "C_IS_DUAL": {
+            "value": "0"
+          },
+          "GPIO_BOARD_INTERFACE": {
+            "value": "Custom"
+          }
+        }
+      },
+      "xlconcat_0": {
+        "vlnv": "xilinx.com:ip:xlconcat:2.1",
+        "xci_name": "design_1_xlconcat_0_0",
+        "xci_path": "ip/design_1_xlconcat_0_0/design_1_xlconcat_0_0.xci",
+        "inst_hier_path": "xlconcat_0",
+        "parameters": {
+          "NUM_PORTS": {
+            "value": "1"
+          }
+        }
+      },
       "scheduler_0": {
         "vlnv": "user.org:user:scheduler:1.0",
         "xci_name": "design_1_scheduler_0_0",
@@ -3216,40 +3250,6 @@
               "range": "16E",
               "width": "64"
             }
-          }
-        }
-      },
-      "axi_gpio_0": {
-        "vlnv": "xilinx.com:ip:axi_gpio:2.0",
-        "xci_name": "design_1_axi_gpio_0_0",
-        "xci_path": "ip/design_1_axi_gpio_0_0/design_1_axi_gpio_0_0.xci",
-        "inst_hier_path": "axi_gpio_0",
-        "parameters": {
-          "C_ALL_INPUTS": {
-            "value": "1"
-          },
-          "C_GPIO_WIDTH": {
-            "value": "1"
-          },
-          "C_INTERRUPT_PRESENT": {
-            "value": "1"
-          },
-          "C_IS_DUAL": {
-            "value": "0"
-          },
-          "GPIO_BOARD_INTERFACE": {
-            "value": "Custom"
-          }
-        }
-      },
-      "xlconcat_0": {
-        "vlnv": "xilinx.com:ip:xlconcat:2.1",
-        "xci_name": "design_1_xlconcat_0_0",
-        "xci_path": "ip/design_1_xlconcat_0_0/design_1_xlconcat_0_0.xci",
-        "inst_hier_path": "xlconcat_0",
-        "parameters": {
-          "NUM_PORTS": {
-            "value": "1"
           }
         }
       }
@@ -3404,6 +3404,8 @@
           "axisvoter_0/m00_axi_in_aclk",
           "axisvoter_0/m01_axi_in_aclk",
           "axisvoter_0/m02_axi_in_aclk",
+          "axi_gpio_0/s_axi_aclk",
+          "ps7_0_axi_periph/M02_ACLK",
           "scheduler_0/SCHEDULER_CLK",
           "scheduler_0/s_axi_aclk",
           "scheduler_0/m_axi_aclk",
@@ -3413,9 +3415,7 @@
           "scheduler_2/SCHEDULER_CLK",
           "scheduler_2/s_axi_aclk",
           "scheduler_2/m_axi_aclk",
-          "run_0/ap_clk",
-          "axi_gpio_0/s_axi_aclk",
-          "ps7_0_axi_periph/M02_ACLK"
+          "run_0/ap_clk"
         ]
       },
       "processing_system7_0_FCLK_RESET0_N": {
@@ -3443,6 +3443,8 @@
           "axisvoter_0/m00_axi_in_aresetn",
           "axisvoter_0/m01_axi_in_aresetn",
           "axisvoter_0/m02_axi_in_aresetn",
+          "axi_gpio_0/s_axi_aresetn",
+          "ps7_0_axi_periph/M02_ARESETN",
           "scheduler_0/SCHEDULER_ARESETN",
           "scheduler_0/s_axi_aresetn",
           "scheduler_0/m_axi_aresetn",
@@ -3452,9 +3454,7 @@
           "scheduler_2/SCHEDULER_ARESETN",
           "scheduler_2/s_axi_aresetn",
           "scheduler_2/m_axi_aresetn",
-          "run_0/ap_rst_n",
-          "axi_gpio_0/s_axi_aresetn",
-          "ps7_0_axi_periph/M02_ARESETN"
+          "run_0/ap_rst_n"
         ]
       },
       "scheduler_0_failedTask_ack": {
@@ -3535,7 +3535,7 @@
           "aximvoter_0/intr02_in"
         ]
       },
-      "tmrVoter_0_out": {
+      "tmrVoter_0_votedOut": {
         "ports": [
           "tmrVoter_0/votedOut",
           "run_0/failedTask_ap_ack"

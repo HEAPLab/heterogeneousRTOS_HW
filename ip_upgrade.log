@@ -1,6 +1,412 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 ------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Sat Oct 22 02:55:43 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_run_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_run_0_1 (xilinx.com:hls:run:1.0) from (Rev. 2112735807) to (Rev. 2112735833)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Sat Oct 22 02:35:28 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_run_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_run_0_1 (xilinx.com:hls:run:1.0) from (Rev. 2112735772) to (Rev. 2112735807)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Sat Oct 22 01:53:33 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_run_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_run_0_1 (xilinx.com:hls:run:1.0) from (Rev. 2112735693) to (Rev. 2112735772)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Sat Oct 22 00:35:43 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_run_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_run_0_1 (xilinx.com:hls:run:1.0) from (Rev. 2112735642) to (Rev. 2112735693)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Sat Oct 22 00:15:08 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_run_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the conversion of design_1_run_0_1 (xilinx.com:hls:run:1.0 (Rev. 2112735642)) to Vivado generation flows.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Fri Oct 21 23:43:30 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_run_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_run_0_1 (xilinx.com:hls:run:1.0) from (Rev. 2112735593) to (Rev. 2112735642)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Fri Oct 21 23:30:36 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_run_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the conversion of design_1_run_0_1 (xilinx.com:hls:run:1.0 (Rev. 2112735593)) to Vivado generation flows.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Fri Oct 21 22:55:37 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_run_0_1'
+
+1. Summary
+----------
+
+CAUTION (success, with warnings) in the upgrade of design_1_run_0_1 (xilinx.com:hls:run:1.0) from (Rev. 2112735433) to (Rev. 2112735593)
+
+After upgrade, an IP may have parameter and port differences compared to the original customization. Please review the parameters within the IP customization GUI to ensure proper functionality. Also, please review the updated IP instantiation template to ensure proper connectivity, and update your design if required.
+
+2. Connection Warnings
+----------------------
+
+Detected external port differences while upgrading 'design_1_run_0_1'. These changes may impact your design.
+
+
+-Upgraded port 'failedTask' out differs from original direction in
+
+-Upgraded port 'failedTask_ap_ack' in differs from original direction out
+
+-Upgraded port 'failedTask_ap_vld' out differs from original direction in
+
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Fri Oct 21 20:16:16 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_run_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_run_0_1 (xilinx.com:hls:run:1.0) from (Rev. 2112735414) to (Rev. 2112735433)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Fri Oct 21 20:04:56 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_2'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_2 (user.org:user:scheduler:1.0) from (Rev. 159) to (Rev. 161)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Fri Oct 21 20:04:56 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_1 (user.org:user:scheduler:1.0) from (Rev. 159) to (Rev. 161)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Fri Oct 21 20:04:56 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_scheduler_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_scheduler_0_0 (user.org:user:scheduler:1.0) from (Rev. 159) to (Rev. 161)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Fri Oct 21 20:04:56 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_run_0_1'
+
+1. Summary
+----------
+
+CAUTION (success, with warnings) in the upgrade of design_1_run_0_1 (xilinx.com:hls:run:1.0) from (Rev. 2112725222) to (Rev. 2112735414)
+
+After upgrade, an IP may have parameter differences compared to the original customization. Please review the parameters within the IP customization GUI to ensure proper functionality.
+
+2. Customization warnings
+-------------------------
+
+Parameter 'CLK_DOMAIN' is no longer present on the upgraded IP 'design_1_run_0_1', and cannot be set to 'design_1_processing_system7_0_0_FCLK_CLK0'
+
+Parameter 'FREQ_HZ' is no longer present on the upgraded IP 'design_1_run_0_1', and cannot be set to '50000000'
+
+
+3. Debug Commands
+-----------------
+
+  The following debug information can be passed to Vivado as Tcl commands,
+in order to validate or debug the output of the upgrade flow.
+  You may consult any warnings from within this upgrade, and alter or remove
+the configuration parameter(s) which caused the warning; then execute the Tcl
+commands, and use the IP Customization GUI to verify the IP configuration.
+
+create_ip -vlnv xilinx.com:hls:run:1.0 -user_name design_1_run_0_1
+set_property -dict "\
+  CONFIG.C_M_AXI_GMEM_ARUSER_WIDTH {1} \
+  CONFIG.C_M_AXI_GMEM_AWUSER_WIDTH {1} \
+  CONFIG.C_M_AXI_GMEM_BUSER_WIDTH {1} \
+  CONFIG.C_M_AXI_GMEM_CACHE_VALUE {"0011"} \
+  CONFIG.C_M_AXI_GMEM_DATA_WIDTH {512} \
+  CONFIG.C_M_AXI_GMEM_ENABLE_ID_PORTS {false} \
+  CONFIG.C_M_AXI_GMEM_ENABLE_USER_PORTS {false} \
+  CONFIG.C_M_AXI_GMEM_ID_WIDTH {1} \
+  CONFIG.C_M_AXI_GMEM_PROT_VALUE {"000"} \
+  CONFIG.C_M_AXI_GMEM_RUSER_WIDTH {1} \
+  CONFIG.C_M_AXI_GMEM_USER_VALUE {0x00000000} \
+  CONFIG.C_M_AXI_GMEM_WUSER_WIDTH {1} \
+  CONFIG.Component_Name {design_1_run_0_1} \
+  CONFIG.II {x} \
+  CONFIG.ap_clk.ASSOCIATED_BUSIF {s_axi_control:m_axi_gmem} \
+  CONFIG.ap_clk.ASSOCIATED_PORT {} \
+  CONFIG.ap_clk.ASSOCIATED_RESET {ap_rst_n} \
+  CONFIG.ap_clk.CLK_DOMAIN {} \
+  CONFIG.ap_clk.FREQ_HZ {100000000} \
+  CONFIG.ap_clk.FREQ_TOLERANCE_HZ {0} \
+  CONFIG.ap_clk.INSERT_VIP {0} \
+  CONFIG.ap_clk.PHASE {0.0} \
+  CONFIG.ap_rst_n.INSERT_VIP {0} \
+  CONFIG.ap_rst_n.POLARITY {ACTIVE_LOW} \
+  CONFIG.clk_period {20} \
+  CONFIG.combinational {0} \
+  CONFIG.failedTask.LAYERED_METADATA {undef} \
+  CONFIG.interrupt.PortWidth {1} \
+  CONFIG.interrupt.SENSITIVITY {LEVEL_HIGH} \
+  CONFIG.latency {undef} \
+  CONFIG.m_axi_gmem.ADDR_WIDTH {64} \
+  CONFIG.m_axi_gmem.ARUSER_WIDTH {0} \
+  CONFIG.m_axi_gmem.AWUSER_WIDTH {0} \
+  CONFIG.m_axi_gmem.BUSER_WIDTH {0} \
+  CONFIG.m_axi_gmem.CLK_DOMAIN {} \
+  CONFIG.m_axi_gmem.DATA_WIDTH {512} \
+  CONFIG.m_axi_gmem.FREQ_HZ {100000000} \
+  CONFIG.m_axi_gmem.HAS_BRESP {1} \
+  CONFIG.m_axi_gmem.HAS_BURST {0} \
+  CONFIG.m_axi_gmem.HAS_CACHE {1} \
+  CONFIG.m_axi_gmem.HAS_LOCK {1} \
+  CONFIG.m_axi_gmem.HAS_PROT {1} \
+  CONFIG.m_axi_gmem.HAS_QOS {1} \
+  CONFIG.m_axi_gmem.HAS_REGION {1} \
+  CONFIG.m_axi_gmem.HAS_RRESP {1} \
+  CONFIG.m_axi_gmem.HAS_WSTRB {1} \
+  CONFIG.m_axi_gmem.ID_WIDTH {0} \
+  CONFIG.m_axi_gmem.INSERT_VIP {0} \
+  CONFIG.m_axi_gmem.MAX_BURST_LENGTH {256} \
+  CONFIG.m_axi_gmem.MAX_READ_BURST_LENGTH {16} \
+  CONFIG.m_axi_gmem.MAX_WRITE_BURST_LENGTH {16} \
+  CONFIG.m_axi_gmem.NUM_READ_OUTSTANDING {16} \
+  CONFIG.m_axi_gmem.NUM_READ_THREADS {1} \
+  CONFIG.m_axi_gmem.NUM_WRITE_OUTSTANDING {16} \
+  CONFIG.m_axi_gmem.NUM_WRITE_THREADS {1} \
+  CONFIG.m_axi_gmem.PHASE {0.0} \
+  CONFIG.m_axi_gmem.PROTOCOL {AXI4} \
+  CONFIG.m_axi_gmem.READ_WRITE_MODE {READ_ONLY} \
+  CONFIG.m_axi_gmem.RUSER_BITS_PER_BYTE {0} \
+  CONFIG.m_axi_gmem.RUSER_WIDTH {0} \
+  CONFIG.m_axi_gmem.SUPPORTS_NARROW_BURST {0} \
+  CONFIG.m_axi_gmem.WUSER_BITS_PER_BYTE {0} \
+  CONFIG.m_axi_gmem.WUSER_WIDTH {0} \
+  CONFIG.machine {64} \
+  CONFIG.s_axi_control.ADDR_WIDTH {11} \
+  CONFIG.s_axi_control.ARUSER_WIDTH {0} \
+  CONFIG.s_axi_control.AWUSER_WIDTH {0} \
+  CONFIG.s_axi_control.BUSER_WIDTH {0} \
+  CONFIG.s_axi_control.CLK_DOMAIN {} \
+  CONFIG.s_axi_control.DATA_WIDTH {32} \
+  CONFIG.s_axi_control.FREQ_HZ {100000000} \
+  CONFIG.s_axi_control.HAS_BRESP {1} \
+  CONFIG.s_axi_control.HAS_BURST {0} \
+  CONFIG.s_axi_control.HAS_CACHE {0} \
+  CONFIG.s_axi_control.HAS_LOCK {0} \
+  CONFIG.s_axi_control.HAS_PROT {0} \
+  CONFIG.s_axi_control.HAS_QOS {0} \
+  CONFIG.s_axi_control.HAS_REGION {0} \
+  CONFIG.s_axi_control.HAS_RRESP {1} \
+  CONFIG.s_axi_control.HAS_WSTRB {1} \
+  CONFIG.s_axi_control.ID_WIDTH {0} \
+  CONFIG.s_axi_control.INSERT_VIP {0} \
+  CONFIG.s_axi_control.MAX_BURST_LENGTH {1} \
+  CONFIG.s_axi_control.NUM_READ_OUTSTANDING {1} \
+  CONFIG.s_axi_control.NUM_READ_THREADS {1} \
+  CONFIG.s_axi_control.NUM_WRITE_OUTSTANDING {1} \
+  CONFIG.s_axi_control.NUM_WRITE_THREADS {1} \
+  CONFIG.s_axi_control.PHASE {0.0} \
+  CONFIG.s_axi_control.PROTOCOL {AXI4LITE} \
+  CONFIG.s_axi_control.READ_WRITE_MODE {READ_WRITE} \
+  CONFIG.s_axi_control.RUSER_BITS_PER_BYTE {0} \
+  CONFIG.s_axi_control.RUSER_WIDTH {0} \
+  CONFIG.s_axi_control.SUPPORTS_NARROW_BURST {0} \
+  CONFIG.s_axi_control.WUSER_BITS_PER_BYTE {0} \
+  CONFIG.s_axi_control.WUSER_WIDTH {0} " [get_ips design_1_run_0_1]
+
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
 | Date         : Fri Oct 14 18:03:14 2022
 | Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
 | Command      : upgrade_ip

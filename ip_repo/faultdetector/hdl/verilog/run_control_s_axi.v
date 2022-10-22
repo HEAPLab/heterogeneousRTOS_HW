@@ -30,16 +30,22 @@ module run_control_s_axi
     output wire                          RVALID,
     input  wire                          RREADY,
     output wire                          interrupt,
+    output wire                          flush,
+    input  wire                          flush_done,
+    output wire [7:0]                    accel_mode,
+    output wire [7:0]                    copying,
+    output wire [63:0]                   inputData,
+    output wire [7:0]                    startCopy,
+    output wire                          startCopy_ap_vld,
+    input  wire                          startCopy_ap_ack,
+    output wire [7:0]                    IOCheckIdx,
     input  wire [3:0]                    errorInTask_address0,
     input  wire                          errorInTask_ce0,
     input  wire                          errorInTask_we0,
     input  wire [7:0]                    errorInTask_d0,
     output wire [7:0]                    errorInTask_q0,
-    output wire [63:0]                   inputAOV,
-    output wire [7:0]                    accel_mode,
     output wire [767:0]                  trainedRegion_i,
     input  wire [767:0]                  trainedRegion_o,
-    output wire [7:0]                    IOCheckIdx,
     output wire [7:0]                    IORegionIdx,
     output wire [7:0]                    n_regions_in_i,
     input  wire [7:0]                    n_regions_in_o,
@@ -50,7 +56,8 @@ module run_control_s_axi
     output wire                          ap_start,
     input  wire                          ap_done,
     input  wire                          ap_ready,
-    input  wire                          ap_idle
+    input  wire                          ap_idle,
+    output wire                          sw_reset
 );
 //------------------------Address Info-------------------
 // 0x000 : Control signals
@@ -58,7 +65,10 @@ module run_control_s_axi
 //         bit 1  - ap_done (Read/COR)
 //         bit 2  - ap_idle (Read)
 //         bit 3  - ap_ready (Read/COR)
+//         bit 5  - flush (Read/Write)
+//         bit 6  - flush_done (Read)
 //         bit 7  - auto_restart (Read/Write)
+//         bit 8  - sw_reset (Read/Write)
 //         bit 9  - interrupt (Read)
 //         others - reserved
 // 0x004 : Global Interrupt Enable Register
@@ -72,131 +82,142 @@ module run_control_s_axi
 //         bit 0 - ap_done (Read/COR)
 //         bit 1 - ap_ready (Read/COR)
 //         others - reserved
-// 0x020 : Data signal of inputAOV
-//         bit 31~0 - inputAOV[31:0] (Read/Write)
-// 0x024 : Data signal of inputAOV
-//         bit 31~0 - inputAOV[63:32] (Read/Write)
-// 0x028 : reserved
-// 0x02c : Data signal of accel_mode
+// 0x010 : Data signal of accel_mode
 //         bit 7~0 - accel_mode[7:0] (Read/Write)
 //         others  - reserved
-// 0x030 : reserved
-// 0x034 : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[31:0] (Read/Write)
-// 0x038 : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[63:32] (Read/Write)
-// 0x03c : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[95:64] (Read/Write)
-// 0x040 : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[127:96] (Read/Write)
-// 0x044 : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[159:128] (Read/Write)
-// 0x048 : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[191:160] (Read/Write)
-// 0x04c : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[223:192] (Read/Write)
-// 0x050 : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[255:224] (Read/Write)
-// 0x054 : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[287:256] (Read/Write)
-// 0x058 : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[319:288] (Read/Write)
-// 0x05c : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[351:320] (Read/Write)
-// 0x060 : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[383:352] (Read/Write)
-// 0x064 : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[415:384] (Read/Write)
-// 0x068 : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[447:416] (Read/Write)
-// 0x06c : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[479:448] (Read/Write)
-// 0x070 : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[511:480] (Read/Write)
-// 0x074 : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[543:512] (Read/Write)
-// 0x078 : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[575:544] (Read/Write)
-// 0x07c : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[607:576] (Read/Write)
-// 0x080 : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[639:608] (Read/Write)
-// 0x084 : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[671:640] (Read/Write)
-// 0x088 : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[703:672] (Read/Write)
-// 0x08c : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[735:704] (Read/Write)
-// 0x090 : Data signal of trainedRegion_i
-//         bit 31~0 - trainedRegion_i[767:736] (Read/Write)
-// 0x094 : reserved
-// 0x098 : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[31:0] (Read)
-// 0x09c : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[63:32] (Read)
-// 0x0a0 : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[95:64] (Read)
-// 0x0a4 : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[127:96] (Read)
-// 0x0a8 : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[159:128] (Read)
-// 0x0ac : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[191:160] (Read)
-// 0x0b0 : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[223:192] (Read)
-// 0x0b4 : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[255:224] (Read)
-// 0x0b8 : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[287:256] (Read)
-// 0x0bc : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[319:288] (Read)
-// 0x0c0 : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[351:320] (Read)
-// 0x0c4 : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[383:352] (Read)
-// 0x0c8 : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[415:384] (Read)
-// 0x0cc : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[447:416] (Read)
-// 0x0d0 : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[479:448] (Read)
-// 0x0d4 : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[511:480] (Read)
-// 0x0d8 : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[543:512] (Read)
-// 0x0dc : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[575:544] (Read)
-// 0x0e0 : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[607:576] (Read)
-// 0x0e4 : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[639:608] (Read)
-// 0x0e8 : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[671:640] (Read)
-// 0x0ec : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[703:672] (Read)
-// 0x0f0 : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[735:704] (Read)
-// 0x0f4 : Data signal of trainedRegion_o
-//         bit 31~0 - trainedRegion_o[767:736] (Read)
-// 0x0f8 : reserved
-// 0x160 : Data signal of IOCheckIdx
+// 0x014 : reserved
+// 0x018 : Data signal of copying
+//         bit 7~0 - copying[7:0] (Read/Write)
+//         others  - reserved
+// 0x01c : reserved
+// 0x020 : Data signal of inputData
+//         bit 31~0 - inputData[31:0] (Read/Write)
+// 0x024 : Data signal of inputData
+//         bit 31~0 - inputData[63:32] (Read/Write)
+// 0x028 : reserved
+// 0x02c : Data signal of startCopy
+//         bit 7~0 - startCopy[7:0] (Read/Write)
+//         others  - reserved
+// 0x030 : Control signal of startCopy
+//         bit 0  - startCopy_ap_vld (Read/Write/COH)
+//         bit 1  - startCopy_ap_ack (Read)
+//         others - reserved
+// 0x034 : Data signal of IOCheckIdx
 //         bit 7~0 - IOCheckIdx[7:0] (Read/Write)
 //         others  - reserved
-// 0x164 : reserved
-// 0x168 : Data signal of IORegionIdx
+// 0x038 : reserved
+// 0x050 : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[31:0] (Read/Write)
+// 0x054 : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[63:32] (Read/Write)
+// 0x058 : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[95:64] (Read/Write)
+// 0x05c : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[127:96] (Read/Write)
+// 0x060 : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[159:128] (Read/Write)
+// 0x064 : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[191:160] (Read/Write)
+// 0x068 : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[223:192] (Read/Write)
+// 0x06c : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[255:224] (Read/Write)
+// 0x070 : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[287:256] (Read/Write)
+// 0x074 : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[319:288] (Read/Write)
+// 0x078 : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[351:320] (Read/Write)
+// 0x07c : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[383:352] (Read/Write)
+// 0x080 : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[415:384] (Read/Write)
+// 0x084 : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[447:416] (Read/Write)
+// 0x088 : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[479:448] (Read/Write)
+// 0x08c : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[511:480] (Read/Write)
+// 0x090 : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[543:512] (Read/Write)
+// 0x094 : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[575:544] (Read/Write)
+// 0x098 : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[607:576] (Read/Write)
+// 0x09c : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[639:608] (Read/Write)
+// 0x0a0 : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[671:640] (Read/Write)
+// 0x0a4 : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[703:672] (Read/Write)
+// 0x0a8 : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[735:704] (Read/Write)
+// 0x0ac : Data signal of trainedRegion_i
+//         bit 31~0 - trainedRegion_i[767:736] (Read/Write)
+// 0x0b0 : reserved
+// 0x0b4 : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[31:0] (Read)
+// 0x0b8 : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[63:32] (Read)
+// 0x0bc : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[95:64] (Read)
+// 0x0c0 : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[127:96] (Read)
+// 0x0c4 : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[159:128] (Read)
+// 0x0c8 : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[191:160] (Read)
+// 0x0cc : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[223:192] (Read)
+// 0x0d0 : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[255:224] (Read)
+// 0x0d4 : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[287:256] (Read)
+// 0x0d8 : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[319:288] (Read)
+// 0x0dc : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[351:320] (Read)
+// 0x0e0 : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[383:352] (Read)
+// 0x0e4 : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[415:384] (Read)
+// 0x0e8 : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[447:416] (Read)
+// 0x0ec : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[479:448] (Read)
+// 0x0f0 : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[511:480] (Read)
+// 0x0f4 : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[543:512] (Read)
+// 0x0f8 : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[575:544] (Read)
+// 0x0fc : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[607:576] (Read)
+// 0x100 : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[639:608] (Read)
+// 0x104 : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[671:640] (Read)
+// 0x108 : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[703:672] (Read)
+// 0x10c : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[735:704] (Read)
+// 0x110 : Data signal of trainedRegion_o
+//         bit 31~0 - trainedRegion_o[767:736] (Read)
+// 0x114 : reserved
+// 0x17c : Data signal of IORegionIdx
 //         bit 7~0 - IORegionIdx[7:0] (Read/Write)
 //         others  - reserved
-// 0x16c : reserved
-// 0x170 : Data signal of n_regions_in_i
+// 0x180 : reserved
+// 0x184 : Data signal of n_regions_in_i
 //         bit 7~0 - n_regions_in_i[7:0] (Read/Write)
 //         others  - reserved
-// 0x174 : reserved
-// 0x178 : Data signal of n_regions_in_o
+// 0x188 : reserved
+// 0x18c : Data signal of n_regions_in_o
 //         bit 7~0 - n_regions_in_o[7:0] (Read)
 //         others  - reserved
-// 0x17c : reserved
-// 0x010 ~
-// 0x01f : Memory 'errorInTask' (16 * 8b)
+// 0x190 : reserved
+// 0x040 ~
+// 0x04f : Memory 'errorInTask' (16 * 8b)
 //         Word n : bit [ 7: 0] - errorInTask[4n]
 //                  bit [15: 8] - errorInTask[4n+1]
 //                  bit [23:16] - errorInTask[4n+2]
@@ -227,71 +248,75 @@ localparam
     ADDR_GIE                     = 11'h004,
     ADDR_IER                     = 11'h008,
     ADDR_ISR                     = 11'h00c,
-    ADDR_INPUTAOV_DATA_0         = 11'h020,
-    ADDR_INPUTAOV_DATA_1         = 11'h024,
-    ADDR_INPUTAOV_CTRL           = 11'h028,
-    ADDR_ACCEL_MODE_DATA_0       = 11'h02c,
-    ADDR_ACCEL_MODE_CTRL         = 11'h030,
-    ADDR_TRAINEDREGION_I_DATA_0  = 11'h034,
-    ADDR_TRAINEDREGION_I_DATA_1  = 11'h038,
-    ADDR_TRAINEDREGION_I_DATA_2  = 11'h03c,
-    ADDR_TRAINEDREGION_I_DATA_3  = 11'h040,
-    ADDR_TRAINEDREGION_I_DATA_4  = 11'h044,
-    ADDR_TRAINEDREGION_I_DATA_5  = 11'h048,
-    ADDR_TRAINEDREGION_I_DATA_6  = 11'h04c,
-    ADDR_TRAINEDREGION_I_DATA_7  = 11'h050,
-    ADDR_TRAINEDREGION_I_DATA_8  = 11'h054,
-    ADDR_TRAINEDREGION_I_DATA_9  = 11'h058,
-    ADDR_TRAINEDREGION_I_DATA_10 = 11'h05c,
-    ADDR_TRAINEDREGION_I_DATA_11 = 11'h060,
-    ADDR_TRAINEDREGION_I_DATA_12 = 11'h064,
-    ADDR_TRAINEDREGION_I_DATA_13 = 11'h068,
-    ADDR_TRAINEDREGION_I_DATA_14 = 11'h06c,
-    ADDR_TRAINEDREGION_I_DATA_15 = 11'h070,
-    ADDR_TRAINEDREGION_I_DATA_16 = 11'h074,
-    ADDR_TRAINEDREGION_I_DATA_17 = 11'h078,
-    ADDR_TRAINEDREGION_I_DATA_18 = 11'h07c,
-    ADDR_TRAINEDREGION_I_DATA_19 = 11'h080,
-    ADDR_TRAINEDREGION_I_DATA_20 = 11'h084,
-    ADDR_TRAINEDREGION_I_DATA_21 = 11'h088,
-    ADDR_TRAINEDREGION_I_DATA_22 = 11'h08c,
-    ADDR_TRAINEDREGION_I_DATA_23 = 11'h090,
-    ADDR_TRAINEDREGION_I_CTRL    = 11'h094,
-    ADDR_TRAINEDREGION_O_DATA_0  = 11'h098,
-    ADDR_TRAINEDREGION_O_DATA_1  = 11'h09c,
-    ADDR_TRAINEDREGION_O_DATA_2  = 11'h0a0,
-    ADDR_TRAINEDREGION_O_DATA_3  = 11'h0a4,
-    ADDR_TRAINEDREGION_O_DATA_4  = 11'h0a8,
-    ADDR_TRAINEDREGION_O_DATA_5  = 11'h0ac,
-    ADDR_TRAINEDREGION_O_DATA_6  = 11'h0b0,
-    ADDR_TRAINEDREGION_O_DATA_7  = 11'h0b4,
-    ADDR_TRAINEDREGION_O_DATA_8  = 11'h0b8,
-    ADDR_TRAINEDREGION_O_DATA_9  = 11'h0bc,
-    ADDR_TRAINEDREGION_O_DATA_10 = 11'h0c0,
-    ADDR_TRAINEDREGION_O_DATA_11 = 11'h0c4,
-    ADDR_TRAINEDREGION_O_DATA_12 = 11'h0c8,
-    ADDR_TRAINEDREGION_O_DATA_13 = 11'h0cc,
-    ADDR_TRAINEDREGION_O_DATA_14 = 11'h0d0,
-    ADDR_TRAINEDREGION_O_DATA_15 = 11'h0d4,
-    ADDR_TRAINEDREGION_O_DATA_16 = 11'h0d8,
-    ADDR_TRAINEDREGION_O_DATA_17 = 11'h0dc,
-    ADDR_TRAINEDREGION_O_DATA_18 = 11'h0e0,
-    ADDR_TRAINEDREGION_O_DATA_19 = 11'h0e4,
-    ADDR_TRAINEDREGION_O_DATA_20 = 11'h0e8,
-    ADDR_TRAINEDREGION_O_DATA_21 = 11'h0ec,
-    ADDR_TRAINEDREGION_O_DATA_22 = 11'h0f0,
-    ADDR_TRAINEDREGION_O_DATA_23 = 11'h0f4,
-    ADDR_TRAINEDREGION_O_CTRL    = 11'h0f8,
-    ADDR_IOCHECKIDX_DATA_0       = 11'h160,
-    ADDR_IOCHECKIDX_CTRL         = 11'h164,
-    ADDR_IOREGIONIDX_DATA_0      = 11'h168,
-    ADDR_IOREGIONIDX_CTRL        = 11'h16c,
-    ADDR_N_REGIONS_IN_I_DATA_0   = 11'h170,
-    ADDR_N_REGIONS_IN_I_CTRL     = 11'h174,
-    ADDR_N_REGIONS_IN_O_DATA_0   = 11'h178,
-    ADDR_N_REGIONS_IN_O_CTRL     = 11'h17c,
-    ADDR_ERRORINTASK_BASE        = 11'h010,
-    ADDR_ERRORINTASK_HIGH        = 11'h01f,
+    ADDR_ACCEL_MODE_DATA_0       = 11'h010,
+    ADDR_ACCEL_MODE_CTRL         = 11'h014,
+    ADDR_COPYING_DATA_0          = 11'h018,
+    ADDR_COPYING_CTRL            = 11'h01c,
+    ADDR_INPUTDATA_DATA_0        = 11'h020,
+    ADDR_INPUTDATA_DATA_1        = 11'h024,
+    ADDR_INPUTDATA_CTRL          = 11'h028,
+    ADDR_STARTCOPY_DATA_0        = 11'h02c,
+    ADDR_STARTCOPY_CTRL          = 11'h030,
+    ADDR_IOCHECKIDX_DATA_0       = 11'h034,
+    ADDR_IOCHECKIDX_CTRL         = 11'h038,
+    ADDR_TRAINEDREGION_I_DATA_0  = 11'h050,
+    ADDR_TRAINEDREGION_I_DATA_1  = 11'h054,
+    ADDR_TRAINEDREGION_I_DATA_2  = 11'h058,
+    ADDR_TRAINEDREGION_I_DATA_3  = 11'h05c,
+    ADDR_TRAINEDREGION_I_DATA_4  = 11'h060,
+    ADDR_TRAINEDREGION_I_DATA_5  = 11'h064,
+    ADDR_TRAINEDREGION_I_DATA_6  = 11'h068,
+    ADDR_TRAINEDREGION_I_DATA_7  = 11'h06c,
+    ADDR_TRAINEDREGION_I_DATA_8  = 11'h070,
+    ADDR_TRAINEDREGION_I_DATA_9  = 11'h074,
+    ADDR_TRAINEDREGION_I_DATA_10 = 11'h078,
+    ADDR_TRAINEDREGION_I_DATA_11 = 11'h07c,
+    ADDR_TRAINEDREGION_I_DATA_12 = 11'h080,
+    ADDR_TRAINEDREGION_I_DATA_13 = 11'h084,
+    ADDR_TRAINEDREGION_I_DATA_14 = 11'h088,
+    ADDR_TRAINEDREGION_I_DATA_15 = 11'h08c,
+    ADDR_TRAINEDREGION_I_DATA_16 = 11'h090,
+    ADDR_TRAINEDREGION_I_DATA_17 = 11'h094,
+    ADDR_TRAINEDREGION_I_DATA_18 = 11'h098,
+    ADDR_TRAINEDREGION_I_DATA_19 = 11'h09c,
+    ADDR_TRAINEDREGION_I_DATA_20 = 11'h0a0,
+    ADDR_TRAINEDREGION_I_DATA_21 = 11'h0a4,
+    ADDR_TRAINEDREGION_I_DATA_22 = 11'h0a8,
+    ADDR_TRAINEDREGION_I_DATA_23 = 11'h0ac,
+    ADDR_TRAINEDREGION_I_CTRL    = 11'h0b0,
+    ADDR_TRAINEDREGION_O_DATA_0  = 11'h0b4,
+    ADDR_TRAINEDREGION_O_DATA_1  = 11'h0b8,
+    ADDR_TRAINEDREGION_O_DATA_2  = 11'h0bc,
+    ADDR_TRAINEDREGION_O_DATA_3  = 11'h0c0,
+    ADDR_TRAINEDREGION_O_DATA_4  = 11'h0c4,
+    ADDR_TRAINEDREGION_O_DATA_5  = 11'h0c8,
+    ADDR_TRAINEDREGION_O_DATA_6  = 11'h0cc,
+    ADDR_TRAINEDREGION_O_DATA_7  = 11'h0d0,
+    ADDR_TRAINEDREGION_O_DATA_8  = 11'h0d4,
+    ADDR_TRAINEDREGION_O_DATA_9  = 11'h0d8,
+    ADDR_TRAINEDREGION_O_DATA_10 = 11'h0dc,
+    ADDR_TRAINEDREGION_O_DATA_11 = 11'h0e0,
+    ADDR_TRAINEDREGION_O_DATA_12 = 11'h0e4,
+    ADDR_TRAINEDREGION_O_DATA_13 = 11'h0e8,
+    ADDR_TRAINEDREGION_O_DATA_14 = 11'h0ec,
+    ADDR_TRAINEDREGION_O_DATA_15 = 11'h0f0,
+    ADDR_TRAINEDREGION_O_DATA_16 = 11'h0f4,
+    ADDR_TRAINEDREGION_O_DATA_17 = 11'h0f8,
+    ADDR_TRAINEDREGION_O_DATA_18 = 11'h0fc,
+    ADDR_TRAINEDREGION_O_DATA_19 = 11'h100,
+    ADDR_TRAINEDREGION_O_DATA_20 = 11'h104,
+    ADDR_TRAINEDREGION_O_DATA_21 = 11'h108,
+    ADDR_TRAINEDREGION_O_DATA_22 = 11'h10c,
+    ADDR_TRAINEDREGION_O_DATA_23 = 11'h110,
+    ADDR_TRAINEDREGION_O_CTRL    = 11'h114,
+    ADDR_IOREGIONIDX_DATA_0      = 11'h17c,
+    ADDR_IOREGIONIDX_CTRL        = 11'h180,
+    ADDR_N_REGIONS_IN_I_DATA_0   = 11'h184,
+    ADDR_N_REGIONS_IN_I_CTRL     = 11'h188,
+    ADDR_N_REGIONS_IN_O_DATA_0   = 11'h18c,
+    ADDR_N_REGIONS_IN_O_CTRL     = 11'h190,
+    ADDR_ERRORINTASK_BASE        = 11'h040,
+    ADDR_ERRORINTASK_HIGH        = 11'h04f,
     ADDR_OUTCOMEINRAM_BASE       = 11'h400,
     ADDR_OUTCOMEINRAM_HIGH       = 11'h7ff,
     WRIDLE                       = 2'd0,
@@ -316,6 +341,7 @@ localparam
     wire                          ar_hs;
     wire [ADDR_BITS-1:0]          raddr;
     // internal registers
+    reg                           int_sw_reset = 1'b0;
     reg                           int_ap_idle;
     reg                           int_ap_ready = 1'b0;
     wire                          task_ap_ready;
@@ -324,17 +350,23 @@ localparam
     reg                           int_task_ap_done = 1'b0;
     reg                           int_ap_start = 1'b0;
     reg                           int_interrupt = 1'b0;
+    reg                           int_flush = 1'b0;
+    reg                           int_flush_done = 1'b0;
     reg                           int_auto_restart = 1'b0;
     reg                           auto_restart_status = 1'b0;
     wire                          auto_restart_done;
     reg                           int_gie = 1'b0;
     reg  [1:0]                    int_ier = 2'b0;
     reg  [1:0]                    int_isr = 2'b0;
-    reg  [63:0]                   int_inputAOV = 'b0;
     reg  [7:0]                    int_accel_mode = 'b0;
+    reg  [7:0]                    int_copying = 'b0;
+    reg  [63:0]                   int_inputData = 'b0;
+    reg  [7:0]                    int_startCopy = 'b0;
+    reg                           int_startCopy_ap_vld;
+    wire                          int_startCopy_ap_ack;
+    reg  [7:0]                    int_IOCheckIdx = 'b0;
     reg  [767:0]                  int_trainedRegion_i = 'b0;
     reg  [767:0]                  int_trainedRegion_o = 'b0;
-    reg  [7:0]                    int_IOCheckIdx = 'b0;
     reg  [7:0]                    int_IORegionIdx = 'b0;
     reg  [7:0]                    int_n_regions_in_i = 'b0;
     reg  [7:0]                    int_n_regions_in_o = 'b0;
@@ -500,7 +532,10 @@ always @(posedge ACLK) begin
                     rdata[1] <= int_task_ap_done;
                     rdata[2] <= int_ap_idle;
                     rdata[3] <= int_ap_ready;
+                    rdata[5] <= int_flush;
+                    rdata[6] <= int_flush_done;
                     rdata[7] <= int_auto_restart;
+                    rdata[8] <= int_sw_reset;
                     rdata[9] <= int_interrupt;
                 end
                 ADDR_GIE: begin
@@ -512,14 +547,27 @@ always @(posedge ACLK) begin
                 ADDR_ISR: begin
                     rdata <= int_isr;
                 end
-                ADDR_INPUTAOV_DATA_0: begin
-                    rdata <= int_inputAOV[31:0];
-                end
-                ADDR_INPUTAOV_DATA_1: begin
-                    rdata <= int_inputAOV[63:32];
-                end
                 ADDR_ACCEL_MODE_DATA_0: begin
                     rdata <= int_accel_mode[7:0];
+                end
+                ADDR_COPYING_DATA_0: begin
+                    rdata <= int_copying[7:0];
+                end
+                ADDR_INPUTDATA_DATA_0: begin
+                    rdata <= int_inputData[31:0];
+                end
+                ADDR_INPUTDATA_DATA_1: begin
+                    rdata <= int_inputData[63:32];
+                end
+                ADDR_STARTCOPY_DATA_0: begin
+                    rdata <= int_startCopy[7:0];
+                end
+                ADDR_STARTCOPY_CTRL: begin
+                    rdata[0] <= int_startCopy_ap_vld;
+                    rdata[1] <= ~int_startCopy_ap_vld;
+                end
+                ADDR_IOCHECKIDX_DATA_0: begin
+                    rdata <= int_IOCheckIdx[7:0];
                 end
                 ADDR_TRAINEDREGION_I_DATA_0: begin
                     rdata <= int_trainedRegion_i[31:0];
@@ -665,9 +713,6 @@ always @(posedge ACLK) begin
                 ADDR_TRAINEDREGION_O_DATA_23: begin
                     rdata <= int_trainedRegion_o[767:736];
                 end
-                ADDR_IOCHECKIDX_DATA_0: begin
-                    rdata <= int_IOCheckIdx[7:0];
-                end
                 ADDR_IOREGIONIDX_DATA_0: begin
                     rdata <= int_IORegionIdx[7:0];
                 end
@@ -690,17 +735,23 @@ end
 
 
 //------------------------Register logic-----------------
-assign interrupt         = int_interrupt;
-assign ap_start          = int_ap_start;
-assign task_ap_done      = (ap_done && !auto_restart_status) || auto_restart_done;
-assign task_ap_ready     = ap_ready && !int_auto_restart;
-assign auto_restart_done = auto_restart_status && (ap_idle && !int_ap_idle);
-assign inputAOV          = int_inputAOV;
-assign accel_mode        = int_accel_mode;
-assign trainedRegion_i   = int_trainedRegion_i;
-assign IOCheckIdx        = int_IOCheckIdx;
-assign IORegionIdx       = int_IORegionIdx;
-assign n_regions_in_i    = int_n_regions_in_i;
+assign interrupt            = int_interrupt;
+assign ap_start             = int_ap_start;
+assign task_ap_done         = (ap_done && !auto_restart_status) || auto_restart_done;
+assign task_ap_ready        = ap_ready && !int_auto_restart;
+assign flush                = int_flush;
+assign auto_restart_done    = auto_restart_status && (ap_idle && !int_ap_idle);
+assign sw_reset             = int_sw_reset && int_flush_done;
+assign accel_mode           = int_accel_mode;
+assign copying              = int_copying;
+assign inputData            = int_inputData;
+assign startCopy            = int_startCopy;
+assign startCopy_ap_vld     = int_startCopy_ap_vld;
+assign int_startCopy_ap_ack = startCopy_ap_ack;
+assign IOCheckIdx           = int_IOCheckIdx;
+assign trainedRegion_i      = int_trainedRegion_i;
+assign IORegionIdx          = int_IORegionIdx;
+assign n_regions_in_i       = int_n_regions_in_i;
 // int_interrupt
 always @(posedge ACLK) begin
     if (ARESET)
@@ -767,6 +818,30 @@ always @(posedge ACLK) begin
     end
 end
 
+// int_flush
+always @(posedge ACLK) begin
+    if (ARESET)
+        int_flush <= 1'b0;
+    else if (ACLK_EN) begin
+        if (w_hs && waddr == ADDR_AP_CTRL && WSTRB[0] && WDATA[5])
+            int_flush <= 1'b1;
+        else if (int_sw_reset)
+            int_flush <= 1'b1;
+    end
+end
+
+// int_flush_done
+always @(posedge ACLK) begin
+    if (ARESET)
+        int_flush_done <= 1'b0;
+    else if (ACLK_EN) begin
+        if (flush_done)
+            int_flush_done <= 1'b1;
+        else if (ar_hs && raddr == ADDR_AP_CTRL)
+            int_flush_done <= 1'b0;
+    end
+end
+
 // int_auto_restart
 always @(posedge ACLK) begin
     if (ARESET)
@@ -786,6 +861,16 @@ always @(posedge ACLK) begin
             auto_restart_status <= 1'b1;
         else if (ap_idle)
             auto_restart_status <= 1'b0;
+    end
+end
+
+// int_sw_reset
+always @(posedge ACLK) begin
+    if (ARESET)
+        int_sw_reset <= 1'b0;
+    else if (ACLK_EN) begin
+        if (w_hs && waddr == ADDR_AP_CTRL && WSTRB[1] && WDATA[8])
+            int_sw_reset <= 1'b1;
     end
 end
 
@@ -833,26 +918,6 @@ always @(posedge ACLK) begin
     end
 end
 
-// int_inputAOV[31:0]
-always @(posedge ACLK) begin
-    if (ARESET)
-        int_inputAOV[31:0] <= 0;
-    else if (ACLK_EN) begin
-        if (w_hs && waddr == ADDR_INPUTAOV_DATA_0)
-            int_inputAOV[31:0] <= (WDATA[31:0] & wmask) | (int_inputAOV[31:0] & ~wmask);
-    end
-end
-
-// int_inputAOV[63:32]
-always @(posedge ACLK) begin
-    if (ARESET)
-        int_inputAOV[63:32] <= 0;
-    else if (ACLK_EN) begin
-        if (w_hs && waddr == ADDR_INPUTAOV_DATA_1)
-            int_inputAOV[63:32] <= (WDATA[31:0] & wmask) | (int_inputAOV[63:32] & ~wmask);
-    end
-end
-
 // int_accel_mode[7:0]
 always @(posedge ACLK) begin
     if (ARESET)
@@ -860,6 +925,68 @@ always @(posedge ACLK) begin
     else if (ACLK_EN) begin
         if (w_hs && waddr == ADDR_ACCEL_MODE_DATA_0)
             int_accel_mode[7:0] <= (WDATA[31:0] & wmask) | (int_accel_mode[7:0] & ~wmask);
+    end
+end
+
+// int_copying[7:0]
+always @(posedge ACLK) begin
+    if (ARESET)
+        int_copying[7:0] <= 0;
+    else if (ACLK_EN) begin
+        if (w_hs && waddr == ADDR_COPYING_DATA_0)
+            int_copying[7:0] <= (WDATA[31:0] & wmask) | (int_copying[7:0] & ~wmask);
+    end
+end
+
+// int_inputData[31:0]
+always @(posedge ACLK) begin
+    if (ARESET)
+        int_inputData[31:0] <= 0;
+    else if (ACLK_EN) begin
+        if (w_hs && waddr == ADDR_INPUTDATA_DATA_0)
+            int_inputData[31:0] <= (WDATA[31:0] & wmask) | (int_inputData[31:0] & ~wmask);
+    end
+end
+
+// int_inputData[63:32]
+always @(posedge ACLK) begin
+    if (ARESET)
+        int_inputData[63:32] <= 0;
+    else if (ACLK_EN) begin
+        if (w_hs && waddr == ADDR_INPUTDATA_DATA_1)
+            int_inputData[63:32] <= (WDATA[31:0] & wmask) | (int_inputData[63:32] & ~wmask);
+    end
+end
+
+// int_startCopy[7:0]
+always @(posedge ACLK) begin
+    if (ARESET)
+        int_startCopy[7:0] <= 0;
+    else if (ACLK_EN) begin
+        if (w_hs && waddr == ADDR_STARTCOPY_DATA_0)
+            int_startCopy[7:0] <= (WDATA[31:0] & wmask) | (int_startCopy[7:0] & ~wmask);
+    end
+end
+
+// int_startCopy_ap_vld
+always @(posedge ACLK) begin
+    if (ARESET)
+        int_startCopy_ap_vld <= 1'b0;
+    else if (ACLK_EN) begin
+        if (w_hs && waddr == ADDR_STARTCOPY_CTRL && WSTRB[0] && WDATA[0])
+            int_startCopy_ap_vld <= 1'b1;
+        else if (int_startCopy_ap_ack)
+            int_startCopy_ap_vld <= 1'b0; // clear on handshake
+    end
+end
+
+// int_IOCheckIdx[7:0]
+always @(posedge ACLK) begin
+    if (ARESET)
+        int_IOCheckIdx[7:0] <= 0;
+    else if (ACLK_EN) begin
+        if (w_hs && waddr == ADDR_IOCHECKIDX_DATA_0)
+            int_IOCheckIdx[7:0] <= (WDATA[31:0] & wmask) | (int_IOCheckIdx[7:0] & ~wmask);
     end
 end
 
@@ -1110,16 +1237,6 @@ always @(posedge ACLK) begin
     else if (ACLK_EN) begin
         if (ap_done)
             int_trainedRegion_o <= trainedRegion_o;
-    end
-end
-
-// int_IOCheckIdx[7:0]
-always @(posedge ACLK) begin
-    if (ARESET)
-        int_IOCheckIdx[7:0] <= 0;
-    else if (ACLK_EN) begin
-        if (w_hs && waddr == ADDR_IOCHECKIDX_DATA_0)
-            int_IOCheckIdx[7:0] <= (WDATA[31:0] & wmask) | (int_IOCheckIdx[7:0] & ~wmask);
     end
 end
 

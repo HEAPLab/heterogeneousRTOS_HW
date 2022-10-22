@@ -108,7 +108,7 @@
         <spirit:configurableElementValue spirit:referenceId="PROJECT_PARAM.USE_RDI_CUSTOMIZATION">TRUE</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="PROJECT_PARAM.USE_RDI_GENERATION">TRUE</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.IPCONTEXT">IP_Integrator</spirit:configurableElementValue>
-        <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.IPREVISION">2112725222</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.IPREVISION">2112735833</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.MANAGED">TRUE</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.OUTPUTDIR">../../../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ip/design_1_run_0_1</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.SELECTEDSIMMODEL"/>
@@ -126,44 +126,44 @@
             <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.AP_CLK.PHASE" xilinx:valuePermission="bd_and_user"/>
             <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.FAILEDTASK.LAYERED_METADATA" xilinx:valuePermission="bd_and_user"/>
             <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.INTERRUPT.PortWidth" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.ADDR_WIDTH" xilinx:valueSource="auto" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.ARUSER_WIDTH" xilinx:valueSource="auto" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.AWUSER_WIDTH" xilinx:valueSource="auto" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.BUSER_WIDTH" xilinx:valueSource="auto" xilinx:valuePermission="bd_and_user"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.ADDR_WIDTH" xilinx:valueSource="auto" xilinx:valuePermission="bd"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.ARUSER_WIDTH" xilinx:valueSource="auto" xilinx:valuePermission="bd"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.AWUSER_WIDTH" xilinx:valueSource="auto" xilinx:valuePermission="bd"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.BUSER_WIDTH" xilinx:valueSource="auto" xilinx:valuePermission="bd"/>
             <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.CLK_DOMAIN" xilinx:valueSource="default_prop" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.DATA_WIDTH" xilinx:valueSource="auto" xilinx:valuePermission="bd_and_user"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.DATA_WIDTH" xilinx:valueSource="auto" xilinx:valuePermission="bd"/>
             <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.FREQ_HZ" xilinx:valueSource="user_prop" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.HAS_BRESP" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.HAS_CACHE" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.HAS_LOCK" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.HAS_PROT" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.HAS_QOS" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.HAS_REGION" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.HAS_RRESP" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.HAS_WSTRB" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.ID_WIDTH" xilinx:valueSource="auto" xilinx:valuePermission="bd_and_user"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.HAS_BRESP" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.HAS_CACHE" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.HAS_LOCK" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.HAS_PROT" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.HAS_QOS" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.HAS_REGION" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.HAS_RRESP" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.HAS_WSTRB" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.ID_WIDTH" xilinx:valueSource="auto" xilinx:valuePermission="bd"/>
             <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.NUM_READ_THREADS" xilinx:valuePermission="bd_and_user"/>
             <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.NUM_WRITE_THREADS" xilinx:valuePermission="bd_and_user"/>
             <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.PHASE" xilinx:valuePermission="bd_and_user"/>
             <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.RUSER_BITS_PER_BYTE" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.RUSER_WIDTH" xilinx:valueSource="auto" xilinx:valuePermission="bd_and_user"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.RUSER_WIDTH" xilinx:valueSource="auto" xilinx:valuePermission="bd"/>
             <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.WUSER_BITS_PER_BYTE" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.WUSER_WIDTH" xilinx:valueSource="auto" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.ARUSER_WIDTH" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.AWUSER_WIDTH" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.BUSER_WIDTH" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_GMEM.WUSER_WIDTH" xilinx:valueSource="auto" xilinx:valuePermission="bd"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.ARUSER_WIDTH" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.AWUSER_WIDTH" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.BUSER_WIDTH" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
             <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.CLK_DOMAIN" xilinx:valueSource="default_prop" xilinx:valuePermission="bd_and_user"/>
             <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.FREQ_HZ" xilinx:valueSource="user_prop" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.HAS_BRESP" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.HAS_BURST" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.HAS_CACHE" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.HAS_LOCK" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.HAS_PROT" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.HAS_QOS" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.HAS_REGION" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.HAS_RRESP" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.HAS_WSTRB" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.ID_WIDTH" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.HAS_BRESP" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.HAS_BURST" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.HAS_CACHE" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.HAS_LOCK" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.HAS_PROT" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.HAS_QOS" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.HAS_REGION" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.HAS_RRESP" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.HAS_WSTRB" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.ID_WIDTH" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
             <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.MAX_BURST_LENGTH" xilinx:valueSource="auto" xilinx:valuePermission="bd_and_user"/>
             <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.NUM_READ_OUTSTANDING" xilinx:valueSource="auto" xilinx:valuePermission="bd_and_user"/>
             <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.NUM_READ_THREADS" xilinx:valuePermission="bd_and_user"/>
@@ -171,10 +171,10 @@
             <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.NUM_WRITE_THREADS" xilinx:valuePermission="bd_and_user"/>
             <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.PHASE" xilinx:valuePermission="bd_and_user"/>
             <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.RUSER_BITS_PER_BYTE" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.RUSER_WIDTH" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.RUSER_WIDTH" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
             <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.SUPPORTS_NARROW_BURST" xilinx:valueSource="auto" xilinx:valuePermission="bd_and_user"/>
             <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.WUSER_BITS_PER_BYTE" xilinx:valuePermission="bd_and_user"/>
-            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.WUSER_WIDTH" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
+            <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_CONTROL.WUSER_WIDTH" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
           </xilinx:configElementInfos>
           <xilinx:boundaryDescriptionInfo>
             <xilinx:boundaryDescription xilinx:boundaryDescriptionJSON="{
@@ -251,33 +251,33 @@
                       &quot;DATA_WIDTH&quot;: [ { &quot;value&quot;: &quot;32&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;usage&quot;: &quot;all&quot; } ],
                       &quot;PROTOCOL&quot;: [ { &quot;value&quot;: &quot;AXI4LITE&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;usage&quot;: &quot;all&quot; } ],
                       &quot;READ_WRITE_MODE&quot;: [ { &quot;value&quot;: &quot;READ_WRITE&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;usage&quot;: &quot;all&quot; } ],
-                      &quot;FREQ_HZ&quot;: [ { &quot;value&quot;: &quot;50000000&quot;, &quot;value_src&quot;: &quot;user_prop&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;ID_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;AWUSER_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;ARUSER_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;WUSER_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;RUSER_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;BUSER_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;HAS_BURST&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;HAS_LOCK&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;HAS_PROT&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;HAS_CACHE&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;HAS_QOS&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;HAS_REGION&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;HAS_WSTRB&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;HAS_BRESP&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;HAS_RRESP&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;SUPPORTS_NARROW_BURST&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;NUM_READ_OUTSTANDING&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;NUM_WRITE_OUTSTANDING&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;MAX_BURST_LENGTH&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;PHASE&quot;: [ { &quot;value&quot;: &quot;0.0&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;float&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;CLK_DOMAIN&quot;: [ { &quot;value&quot;: &quot;design_1_processing_system7_0_0_FCLK_CLK0&quot;, &quot;value_src&quot;: &quot;default_prop&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;NUM_READ_THREADS&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;NUM_WRITE_THREADS&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;RUSER_BITS_PER_BYTE&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;WUSER_BITS_PER_BYTE&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;INSERT_VIP&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;resolve_type&quot;: &quot;user&quot;, &quot;format&quot;: &quot;long&quot;, &quot;usage&quot;: &quot;simulation.rtl&quot;, &quot;is_static_object&quot;: false } ]
+                      &quot;FREQ_HZ&quot;: [ { &quot;value&quot;: &quot;50000000&quot;, &quot;value_src&quot;: &quot;user_prop&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;ID_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;AWUSER_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;ARUSER_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;WUSER_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;RUSER_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;BUSER_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;HAS_BURST&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;HAS_LOCK&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;HAS_PROT&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;HAS_CACHE&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;HAS_QOS&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;HAS_REGION&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;HAS_WSTRB&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;HAS_BRESP&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;HAS_RRESP&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;SUPPORTS_NARROW_BURST&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;NUM_READ_OUTSTANDING&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;NUM_WRITE_OUTSTANDING&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;MAX_BURST_LENGTH&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;PHASE&quot;: [ { &quot;value&quot;: &quot;0.0&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;float&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;CLK_DOMAIN&quot;: [ { &quot;value&quot;: &quot;design_1_processing_system7_0_0_FCLK_CLK0&quot;, &quot;value_src&quot;: &quot;default_prop&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;NUM_READ_THREADS&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;NUM_WRITE_THREADS&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;RUSER_BITS_PER_BYTE&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;WUSER_BITS_PER_BYTE&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;INSERT_VIP&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;resolve_type&quot;: &quot;user&quot;, &quot;format&quot;: &quot;long&quot;, &quot;usage&quot;: &quot;simulation.rtl&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ]
                     },
                     &quot;port_maps&quot;: {
                       &quot;AWADDR&quot;: [ { &quot;physical_name&quot;: &quot;s_axi_control_AWADDR&quot; } ],
@@ -306,12 +306,12 @@
                     &quot;parameters&quot;: {
                       &quot;ASSOCIATED_BUSIF&quot;: [ { &quot;value&quot;: &quot;s_axi_control:m_axi_gmem&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;usage&quot;: &quot;all&quot; } ],
                       &quot;ASSOCIATED_RESET&quot;: [ { &quot;value&quot;: &quot;ap_rst_n&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;usage&quot;: &quot;all&quot; } ],
-                      &quot;FREQ_HZ&quot;: [ { &quot;value&quot;: &quot;50000000&quot;, &quot;value_src&quot;: &quot;user_prop&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;FREQ_TOLERANCE_HZ&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;PHASE&quot;: [ { &quot;value&quot;: &quot;0.0&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;float&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;CLK_DOMAIN&quot;: [ { &quot;value&quot;: &quot;design_1_processing_system7_0_0_FCLK_CLK0&quot;, &quot;value_src&quot;: &quot;default_prop&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;ASSOCIATED_PORT&quot;: [ { &quot;value&quot;: &quot;&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;INSERT_VIP&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;resolve_type&quot;: &quot;user&quot;, &quot;format&quot;: &quot;long&quot;, &quot;usage&quot;: &quot;simulation.rtl&quot;, &quot;is_static_object&quot;: false } ]
+                      &quot;FREQ_HZ&quot;: [ { &quot;value&quot;: &quot;50000000&quot;, &quot;value_src&quot;: &quot;user_prop&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;FREQ_TOLERANCE_HZ&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;PHASE&quot;: [ { &quot;value&quot;: &quot;0.0&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;float&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;CLK_DOMAIN&quot;: [ { &quot;value&quot;: &quot;design_1_processing_system7_0_0_FCLK_CLK0&quot;, &quot;value_src&quot;: &quot;default_prop&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;ASSOCIATED_PORT&quot;: [ { &quot;value&quot;: &quot;&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;INSERT_VIP&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;resolve_type&quot;: &quot;user&quot;, &quot;format&quot;: &quot;long&quot;, &quot;usage&quot;: &quot;simulation.rtl&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ]
                     },
                     &quot;port_maps&quot;: {
                       &quot;CLK&quot;: [ { &quot;physical_name&quot;: &quot;ap_clk&quot; } ]
@@ -323,7 +323,7 @@
                     &quot;mode&quot;: &quot;slave&quot;,
                     &quot;parameters&quot;: {
                       &quot;POLARITY&quot;: [ { &quot;value&quot;: &quot;ACTIVE_LOW&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;usage&quot;: &quot;all&quot; } ],
-                      &quot;INSERT_VIP&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;resolve_type&quot;: &quot;user&quot;, &quot;format&quot;: &quot;long&quot;, &quot;usage&quot;: &quot;simulation.rtl&quot;, &quot;is_static_object&quot;: false } ]
+                      &quot;INSERT_VIP&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;resolve_type&quot;: &quot;user&quot;, &quot;format&quot;: &quot;long&quot;, &quot;usage&quot;: &quot;simulation.rtl&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ]
                     },
                     &quot;port_maps&quot;: {
                       &quot;RST&quot;: [ { &quot;physical_name&quot;: &quot;ap_rst_n&quot; } ]
@@ -335,7 +335,7 @@
                     &quot;mode&quot;: &quot;master&quot;,
                     &quot;parameters&quot;: {
                       &quot;SENSITIVITY&quot;: [ { &quot;value&quot;: &quot;LEVEL_HIGH&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;usage&quot;: &quot;all&quot; } ],
-                      &quot;PortWidth&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ]
+                      &quot;PortWidth&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ]
                     },
                     &quot;port_maps&quot;: {
                       &quot;INTERRUPT&quot;: [ { &quot;physical_name&quot;: &quot;interrupt&quot; } ]
@@ -356,30 +356,30 @@
                       &quot;READ_WRITE_MODE&quot;: [ { &quot;value&quot;: &quot;READ_ONLY&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;usage&quot;: &quot;all&quot; } ],
                       &quot;HAS_BURST&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;usage&quot;: &quot;all&quot; } ],
                       &quot;SUPPORTS_NARROW_BURST&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;usage&quot;: &quot;all&quot; } ],
-                      &quot;DATA_WIDTH&quot;: [ { &quot;value&quot;: &quot;512&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;FREQ_HZ&quot;: [ { &quot;value&quot;: &quot;50000000&quot;, &quot;value_src&quot;: &quot;user_prop&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;ID_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;ADDR_WIDTH&quot;: [ { &quot;value&quot;: &quot;64&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;AWUSER_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;ARUSER_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;WUSER_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;RUSER_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;BUSER_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;HAS_LOCK&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;HAS_PROT&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;HAS_CACHE&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;HAS_QOS&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;HAS_REGION&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;HAS_WSTRB&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;HAS_BRESP&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;HAS_RRESP&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;PHASE&quot;: [ { &quot;value&quot;: &quot;0.0&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;float&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;CLK_DOMAIN&quot;: [ { &quot;value&quot;: &quot;design_1_processing_system7_0_0_FCLK_CLK0&quot;, &quot;value_src&quot;: &quot;default_prop&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;NUM_READ_THREADS&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;NUM_WRITE_THREADS&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;RUSER_BITS_PER_BYTE&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;WUSER_BITS_PER_BYTE&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_static_object&quot;: false } ],
-                      &quot;INSERT_VIP&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;resolve_type&quot;: &quot;user&quot;, &quot;format&quot;: &quot;long&quot;, &quot;usage&quot;: &quot;simulation.rtl&quot;, &quot;is_static_object&quot;: false } ]
+                      &quot;DATA_WIDTH&quot;: [ { &quot;value&quot;: &quot;512&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;FREQ_HZ&quot;: [ { &quot;value&quot;: &quot;50000000&quot;, &quot;value_src&quot;: &quot;user_prop&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;ID_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;ADDR_WIDTH&quot;: [ { &quot;value&quot;: &quot;64&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;AWUSER_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;ARUSER_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;WUSER_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;RUSER_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;BUSER_WIDTH&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_src&quot;: &quot;auto&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;HAS_LOCK&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;HAS_PROT&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;HAS_CACHE&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;HAS_QOS&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;HAS_REGION&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;HAS_WSTRB&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;HAS_BRESP&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;HAS_RRESP&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_src&quot;: &quot;constant&quot;, &quot;value_permission&quot;: &quot;bd&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;PHASE&quot;: [ { &quot;value&quot;: &quot;0.0&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;float&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;CLK_DOMAIN&quot;: [ { &quot;value&quot;: &quot;design_1_processing_system7_0_0_FCLK_CLK0&quot;, &quot;value_src&quot;: &quot;default_prop&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;NUM_READ_THREADS&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;NUM_WRITE_THREADS&quot;: [ { &quot;value&quot;: &quot;1&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;RUSER_BITS_PER_BYTE&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;WUSER_BITS_PER_BYTE&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;format&quot;: &quot;long&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ],
+                      &quot;INSERT_VIP&quot;: [ { &quot;value&quot;: &quot;0&quot;, &quot;resolve_type&quot;: &quot;user&quot;, &quot;format&quot;: &quot;long&quot;, &quot;usage&quot;: &quot;simulation.rtl&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ]
                     },
                     &quot;port_maps&quot;: {
                       &quot;AWADDR&quot;: [ { &quot;physical_name&quot;: &quot;m_axi_gmem_AWADDR&quot; } ],
@@ -424,7 +424,7 @@
                     &quot;abstraction_type&quot;: &quot;xilinx.com:signal:data_rtl:1.0&quot;,
                     &quot;mode&quot;: &quot;master&quot;,
                     &quot;parameters&quot;: {
-                      &quot;LAYERED_METADATA&quot;: [ { &quot;value&quot;: &quot;undef&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;is_static_object&quot;: false } ]
+                      &quot;LAYERED_METADATA&quot;: [ { &quot;value&quot;: &quot;undef&quot;, &quot;value_permission&quot;: &quot;bd_and_user&quot;, &quot;resolve_type&quot;: &quot;generated&quot;, &quot;is_ips_inferred&quot;: true, &quot;is_static_object&quot;: false } ]
                     },
                     &quot;port_maps&quot;: {
                       &quot;DATA&quot;: [ { &quot;physical_name&quot;: &quot;failedTask&quot; } ]
@@ -494,11 +494,11 @@
                                 &quot;description&quot;: &quot;Control signal Register for &apos;auto_restart&apos;.&quot;,
                                 &quot;access&quot;: &quot;read-write&quot;
                               },
-                              &quot;RESERVED_2&quot;: {
+                              &quot;SW_RESET&quot;: {
                                 &quot;bit_offset&quot;: 8,
                                 &quot;bit_width&quot;: 1,
-                                &quot;description&quot;: &quot;Reserved.  0s on read.&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
+                                &quot;description&quot;: &quot;Control signal Register for &apos;sw_reset&apos;.&quot;,
+                                &quot;access&quot;: &quot;read-write&quot;
                               },
                               &quot;INTERRUPT&quot;: {
                                 &quot;bit_offset&quot;: 9,
@@ -592,40 +592,8 @@
                               }
                             }
                           },
-                          &quot;inputAOV_1&quot;: {
-                            &quot;address_offset&quot;: &quot;32&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;inputAOV_1&quot;,
-                            &quot;description&quot;: &quot;Data signal of inputAOV&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;inputAOV&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 31 to 0 of inputAOV&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;inputAOV_2&quot;: {
-                            &quot;address_offset&quot;: &quot;36&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;inputAOV_2&quot;,
-                            &quot;description&quot;: &quot;Data signal of inputAOV&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;inputAOV&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 63 to 32 of inputAOV&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
                           &quot;accel_mode&quot;: {
-                            &quot;address_offset&quot;: &quot;44&quot;,
+                            &quot;address_offset&quot;: &quot;16&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;accel_mode&quot;,
                             &quot;description&quot;: &quot;Data signal of accel_mode&quot;,
@@ -646,776 +614,112 @@
                               }
                             }
                           },
-                          &quot;trainedRegion_i_1&quot;: {
-                            &quot;address_offset&quot;: &quot;52&quot;,
+                          &quot;copying&quot;: {
+                            &quot;address_offset&quot;: &quot;24&quot;,
                             &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_1&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;display_name&quot;: &quot;copying&quot;,
+                            &quot;description&quot;: &quot;Data signal of copying&quot;,
                             &quot;access&quot;: &quot;write-only&quot;,
                             &quot;reset_value&quot;: &quot;0&quot;,
                             &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
+                              &quot;copying&quot;: {
                                 &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 31 to 0 of trainedRegion_i&quot;,
+                                &quot;bit_width&quot;: 8,
+                                &quot;description&quot;: &quot;Bit 7 to 0 of copying&quot;,
                                 &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_i_2&quot;: {
-                            &quot;address_offset&quot;: &quot;56&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_2&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 63 to 32 of trainedRegion_i&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_i_3&quot;: {
-                            &quot;address_offset&quot;: &quot;60&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_3&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 95 to 64 of trainedRegion_i&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_i_4&quot;: {
-                            &quot;address_offset&quot;: &quot;64&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_4&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 127 to 96 of trainedRegion_i&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_i_5&quot;: {
-                            &quot;address_offset&quot;: &quot;68&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_5&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 159 to 128 of trainedRegion_i&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_i_6&quot;: {
-                            &quot;address_offset&quot;: &quot;72&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_6&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 191 to 160 of trainedRegion_i&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_i_7&quot;: {
-                            &quot;address_offset&quot;: &quot;76&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_7&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 223 to 192 of trainedRegion_i&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_i_8&quot;: {
-                            &quot;address_offset&quot;: &quot;80&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_8&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 255 to 224 of trainedRegion_i&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_i_9&quot;: {
-                            &quot;address_offset&quot;: &quot;84&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_9&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 287 to 256 of trainedRegion_i&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_i_10&quot;: {
-                            &quot;address_offset&quot;: &quot;88&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_10&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 319 to 288 of trainedRegion_i&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_i_11&quot;: {
-                            &quot;address_offset&quot;: &quot;92&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_11&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 351 to 320 of trainedRegion_i&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_i_12&quot;: {
-                            &quot;address_offset&quot;: &quot;96&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_12&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 383 to 352 of trainedRegion_i&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_i_13&quot;: {
-                            &quot;address_offset&quot;: &quot;100&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_13&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 415 to 384 of trainedRegion_i&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_i_14&quot;: {
-                            &quot;address_offset&quot;: &quot;104&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_14&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 447 to 416 of trainedRegion_i&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_i_15&quot;: {
-                            &quot;address_offset&quot;: &quot;108&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_15&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 479 to 448 of trainedRegion_i&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_i_16&quot;: {
-                            &quot;address_offset&quot;: &quot;112&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_16&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 511 to 480 of trainedRegion_i&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_i_17&quot;: {
-                            &quot;address_offset&quot;: &quot;116&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_17&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 543 to 512 of trainedRegion_i&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_i_18&quot;: {
-                            &quot;address_offset&quot;: &quot;120&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_18&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 575 to 544 of trainedRegion_i&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_i_19&quot;: {
-                            &quot;address_offset&quot;: &quot;124&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_19&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 607 to 576 of trainedRegion_i&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_i_20&quot;: {
-                            &quot;address_offset&quot;: &quot;128&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_20&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 639 to 608 of trainedRegion_i&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_i_21&quot;: {
-                            &quot;address_offset&quot;: &quot;132&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_21&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 671 to 640 of trainedRegion_i&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_i_22&quot;: {
-                            &quot;address_offset&quot;: &quot;136&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_22&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 703 to 672 of trainedRegion_i&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_i_23&quot;: {
-                            &quot;address_offset&quot;: &quot;140&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_23&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 735 to 704 of trainedRegion_i&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_i_24&quot;: {
-                            &quot;address_offset&quot;: &quot;144&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_i_24&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_i&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 767 to 736 of trainedRegion_i&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_o_1&quot;: {
-                            &quot;address_offset&quot;: &quot;152&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_1&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 31 to 0 of trainedRegion_o&quot;,
+                              },
+                              &quot;RESERVED&quot;: {
+                                &quot;bit_offset&quot;: 8,
+                                &quot;bit_width&quot;: 24,
+                                &quot;description&quot;: &quot;Reserved.  0s on read.&quot;,
                                 &quot;access&quot;: &quot;read-only&quot;
                               }
                             }
                           },
-                          &quot;trainedRegion_o_2&quot;: {
-                            &quot;address_offset&quot;: &quot;156&quot;,
+                          &quot;inputData_1&quot;: {
+                            &quot;address_offset&quot;: &quot;32&quot;,
                             &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_2&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;display_name&quot;: &quot;inputData_1&quot;,
+                            &quot;description&quot;: &quot;Data signal of inputData&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
                             &quot;reset_value&quot;: &quot;0&quot;,
                             &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
+                              &quot;inputData&quot;: {
                                 &quot;bit_offset&quot;: 0,
                                 &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 63 to 32 of trainedRegion_o&quot;,
+                                &quot;description&quot;: &quot;Bit 31 to 0 of inputData&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;inputData_2&quot;: {
+                            &quot;address_offset&quot;: &quot;36&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;inputData_2&quot;,
+                            &quot;description&quot;: &quot;Data signal of inputData&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;inputData&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 63 to 32 of inputData&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;startCopy&quot;: {
+                            &quot;address_offset&quot;: &quot;44&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;startCopy&quot;,
+                            &quot;description&quot;: &quot;Data signal of startCopy&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;startCopy&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 8,
+                                &quot;description&quot;: &quot;Bit 7 to 0 of startCopy&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              },
+                              &quot;RESERVED&quot;: {
+                                &quot;bit_offset&quot;: 8,
+                                &quot;bit_width&quot;: 24,
+                                &quot;description&quot;: &quot;Reserved.  0s on read.&quot;,
                                 &quot;access&quot;: &quot;read-only&quot;
                               }
                             }
                           },
-                          &quot;trainedRegion_o_3&quot;: {
-                            &quot;address_offset&quot;: &quot;160&quot;,
+                          &quot;startCopy_ctrl&quot;: {
+                            &quot;address_offset&quot;: &quot;48&quot;,
                             &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_3&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;display_name&quot;: &quot;startCopy_ctrl&quot;,
+                            &quot;description&quot;: &quot;Control signal of startCopy&quot;,
+                            &quot;access&quot;: &quot;read-write&quot;,
                             &quot;reset_value&quot;: &quot;0&quot;,
                             &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
+                              &quot;startCopy_ap_vld&quot;: {
                                 &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 95 to 64 of trainedRegion_o&quot;,
+                                &quot;bit_width&quot;: 1,
+                                &quot;description&quot;: &quot;Control signal startCopy_ap_vld&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              },
+                              &quot;startCopy_ap_ack&quot;: {
+                                &quot;bit_offset&quot;: 1,
+                                &quot;bit_width&quot;: 1,
+                                &quot;description&quot;: &quot;Control signal startCopy_ap_ack&quot;,
                                 &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_o_4&quot;: {
-                            &quot;address_offset&quot;: &quot;164&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_4&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 127 to 96 of trainedRegion_o&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_o_5&quot;: {
-                            &quot;address_offset&quot;: &quot;168&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_5&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 159 to 128 of trainedRegion_o&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_o_6&quot;: {
-                            &quot;address_offset&quot;: &quot;172&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_6&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 191 to 160 of trainedRegion_o&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_o_7&quot;: {
-                            &quot;address_offset&quot;: &quot;176&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_7&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 223 to 192 of trainedRegion_o&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_o_8&quot;: {
-                            &quot;address_offset&quot;: &quot;180&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_8&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 255 to 224 of trainedRegion_o&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_o_9&quot;: {
-                            &quot;address_offset&quot;: &quot;184&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_9&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 287 to 256 of trainedRegion_o&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_o_10&quot;: {
-                            &quot;address_offset&quot;: &quot;188&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_10&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 319 to 288 of trainedRegion_o&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_o_11&quot;: {
-                            &quot;address_offset&quot;: &quot;192&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_11&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 351 to 320 of trainedRegion_o&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_o_12&quot;: {
-                            &quot;address_offset&quot;: &quot;196&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_12&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 383 to 352 of trainedRegion_o&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_o_13&quot;: {
-                            &quot;address_offset&quot;: &quot;200&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_13&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 415 to 384 of trainedRegion_o&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_o_14&quot;: {
-                            &quot;address_offset&quot;: &quot;204&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_14&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 447 to 416 of trainedRegion_o&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_o_15&quot;: {
-                            &quot;address_offset&quot;: &quot;208&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_15&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 479 to 448 of trainedRegion_o&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_o_16&quot;: {
-                            &quot;address_offset&quot;: &quot;212&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_16&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 511 to 480 of trainedRegion_o&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_o_17&quot;: {
-                            &quot;address_offset&quot;: &quot;216&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_17&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 543 to 512 of trainedRegion_o&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_o_18&quot;: {
-                            &quot;address_offset&quot;: &quot;220&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_18&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 575 to 544 of trainedRegion_o&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_o_19&quot;: {
-                            &quot;address_offset&quot;: &quot;224&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_19&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 607 to 576 of trainedRegion_o&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_o_20&quot;: {
-                            &quot;address_offset&quot;: &quot;228&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_20&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 639 to 608 of trainedRegion_o&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_o_21&quot;: {
-                            &quot;address_offset&quot;: &quot;232&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_21&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 671 to 640 of trainedRegion_o&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_o_22&quot;: {
-                            &quot;address_offset&quot;: &quot;236&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_22&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 703 to 672 of trainedRegion_o&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_o_23&quot;: {
-                            &quot;address_offset&quot;: &quot;240&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_23&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 735 to 704 of trainedRegion_o&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
-                          &quot;trainedRegion_o_24&quot;: {
-                            &quot;address_offset&quot;: &quot;244&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;trainedRegion_o_24&quot;,
-                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
-                            &quot;access&quot;: &quot;read-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;trainedRegion_o&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 32,
-                                &quot;description&quot;: &quot;Bit 767 to 736 of trainedRegion_o&quot;,
+                              },
+                              &quot;RESERVED&quot;: {
+                                &quot;bit_offset&quot;: 2,
+                                &quot;bit_width&quot;: 30,
+                                &quot;description&quot;: &quot;Reserved.  0s on read.&quot;,
                                 &quot;access&quot;: &quot;read-only&quot;
                               }
                             }
                           },
                           &quot;IOCheckIdx&quot;: {
-                            &quot;address_offset&quot;: &quot;352&quot;,
+                            &quot;address_offset&quot;: &quot;52&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;IOCheckIdx&quot;,
                             &quot;description&quot;: &quot;Data signal of IOCheckIdx&quot;,
@@ -1436,8 +740,776 @@
                               }
                             }
                           },
+                          &quot;trainedRegion_i_1&quot;: {
+                            &quot;address_offset&quot;: &quot;80&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_1&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 31 to 0 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_i_2&quot;: {
+                            &quot;address_offset&quot;: &quot;84&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_2&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 63 to 32 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_i_3&quot;: {
+                            &quot;address_offset&quot;: &quot;88&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_3&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 95 to 64 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_i_4&quot;: {
+                            &quot;address_offset&quot;: &quot;92&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_4&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 127 to 96 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_i_5&quot;: {
+                            &quot;address_offset&quot;: &quot;96&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_5&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 159 to 128 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_i_6&quot;: {
+                            &quot;address_offset&quot;: &quot;100&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_6&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 191 to 160 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_i_7&quot;: {
+                            &quot;address_offset&quot;: &quot;104&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_7&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 223 to 192 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_i_8&quot;: {
+                            &quot;address_offset&quot;: &quot;108&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_8&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 255 to 224 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_i_9&quot;: {
+                            &quot;address_offset&quot;: &quot;112&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_9&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 287 to 256 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_i_10&quot;: {
+                            &quot;address_offset&quot;: &quot;116&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_10&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 319 to 288 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_i_11&quot;: {
+                            &quot;address_offset&quot;: &quot;120&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_11&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 351 to 320 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_i_12&quot;: {
+                            &quot;address_offset&quot;: &quot;124&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_12&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 383 to 352 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_i_13&quot;: {
+                            &quot;address_offset&quot;: &quot;128&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_13&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 415 to 384 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_i_14&quot;: {
+                            &quot;address_offset&quot;: &quot;132&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_14&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 447 to 416 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_i_15&quot;: {
+                            &quot;address_offset&quot;: &quot;136&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_15&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 479 to 448 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_i_16&quot;: {
+                            &quot;address_offset&quot;: &quot;140&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_16&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 511 to 480 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_i_17&quot;: {
+                            &quot;address_offset&quot;: &quot;144&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_17&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 543 to 512 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_i_18&quot;: {
+                            &quot;address_offset&quot;: &quot;148&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_18&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 575 to 544 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_i_19&quot;: {
+                            &quot;address_offset&quot;: &quot;152&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_19&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 607 to 576 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_i_20&quot;: {
+                            &quot;address_offset&quot;: &quot;156&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_20&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 639 to 608 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_i_21&quot;: {
+                            &quot;address_offset&quot;: &quot;160&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_21&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 671 to 640 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_i_22&quot;: {
+                            &quot;address_offset&quot;: &quot;164&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_22&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 703 to 672 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_i_23&quot;: {
+                            &quot;address_offset&quot;: &quot;168&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_23&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 735 to 704 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_i_24&quot;: {
+                            &quot;address_offset&quot;: &quot;172&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_i_24&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_i&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_i&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 767 to 736 of trainedRegion_i&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_1&quot;: {
+                            &quot;address_offset&quot;: &quot;180&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_1&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 31 to 0 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_2&quot;: {
+                            &quot;address_offset&quot;: &quot;184&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_2&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 63 to 32 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_3&quot;: {
+                            &quot;address_offset&quot;: &quot;188&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_3&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 95 to 64 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_4&quot;: {
+                            &quot;address_offset&quot;: &quot;192&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_4&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 127 to 96 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_5&quot;: {
+                            &quot;address_offset&quot;: &quot;196&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_5&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 159 to 128 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_6&quot;: {
+                            &quot;address_offset&quot;: &quot;200&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_6&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 191 to 160 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_7&quot;: {
+                            &quot;address_offset&quot;: &quot;204&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_7&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 223 to 192 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_8&quot;: {
+                            &quot;address_offset&quot;: &quot;208&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_8&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 255 to 224 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_9&quot;: {
+                            &quot;address_offset&quot;: &quot;212&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_9&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 287 to 256 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_10&quot;: {
+                            &quot;address_offset&quot;: &quot;216&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_10&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 319 to 288 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_11&quot;: {
+                            &quot;address_offset&quot;: &quot;220&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_11&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 351 to 320 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_12&quot;: {
+                            &quot;address_offset&quot;: &quot;224&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_12&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 383 to 352 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_13&quot;: {
+                            &quot;address_offset&quot;: &quot;228&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_13&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 415 to 384 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_14&quot;: {
+                            &quot;address_offset&quot;: &quot;232&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_14&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 447 to 416 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_15&quot;: {
+                            &quot;address_offset&quot;: &quot;236&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_15&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 479 to 448 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_16&quot;: {
+                            &quot;address_offset&quot;: &quot;240&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_16&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 511 to 480 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_17&quot;: {
+                            &quot;address_offset&quot;: &quot;244&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_17&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 543 to 512 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_18&quot;: {
+                            &quot;address_offset&quot;: &quot;248&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_18&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 575 to 544 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_19&quot;: {
+                            &quot;address_offset&quot;: &quot;252&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_19&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 607 to 576 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_20&quot;: {
+                            &quot;address_offset&quot;: &quot;256&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_20&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 639 to 608 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_21&quot;: {
+                            &quot;address_offset&quot;: &quot;260&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_21&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 671 to 640 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_22&quot;: {
+                            &quot;address_offset&quot;: &quot;264&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_22&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 703 to 672 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_23&quot;: {
+                            &quot;address_offset&quot;: &quot;268&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_23&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 735 to 704 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;trainedRegion_o_24&quot;: {
+                            &quot;address_offset&quot;: &quot;272&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;trainedRegion_o_24&quot;,
+                            &quot;description&quot;: &quot;Data signal of trainedRegion_o&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;trainedRegion_o&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 32,
+                                &quot;description&quot;: &quot;Bit 767 to 736 of trainedRegion_o&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
                           &quot;IORegionIdx&quot;: {
-                            &quot;address_offset&quot;: &quot;360&quot;,
+                            &quot;address_offset&quot;: &quot;380&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;IORegionIdx&quot;,
                             &quot;description&quot;: &quot;Data signal of IORegionIdx&quot;,
@@ -1459,7 +1531,7 @@
                             }
                           },
                           &quot;n_regions_in_i&quot;: {
-                            &quot;address_offset&quot;: &quot;368&quot;,
+                            &quot;address_offset&quot;: &quot;388&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;n_regions_in_i&quot;,
                             &quot;description&quot;: &quot;Data signal of n_regions_in_i&quot;,
@@ -1481,7 +1553,7 @@
                             }
                           },
                           &quot;n_regions_in_o&quot;: {
-                            &quot;address_offset&quot;: &quot;376&quot;,
+                            &quot;address_offset&quot;: &quot;396&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;n_regions_in_o&quot;,
                             &quot;description&quot;: &quot;Data signal of n_regions_in_o&quot;,
@@ -1503,7 +1575,7 @@
                             }
                           },
                           &quot;Memory_errorInTask&quot;: {
-                            &quot;address_offset&quot;: &quot;16&quot;,
+                            &quot;address_offset&quot;: &quot;64&quot;,
                             &quot;size&quot;: 16,
                             &quot;display_name&quot;: &quot;Memory_errorInTask&quot;,
                             &quot;description&quot;: &quot;Memory errorInTask&quot;,
