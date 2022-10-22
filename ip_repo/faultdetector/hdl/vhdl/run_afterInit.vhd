@@ -70,6 +70,7 @@ port (
     errorInTask_q0 : IN STD_LOGIC_VECTOR (7 downto 0);
     errorInTask_we0 : OUT STD_LOGIC;
     failedTask : OUT STD_LOGIC_VECTOR (15 downto 0);
+    copying : OUT STD_LOGIC_VECTOR (7 downto 0);
     n_regions_V_address0 : OUT STD_LOGIC_VECTOR (5 downto 0);
     n_regions_V_ce0 : OUT STD_LOGIC;
     n_regions_V_d0 : OUT STD_LOGIC_VECTOR (7 downto 0);
@@ -145,6 +146,7 @@ port (
     inputAOV_ap_vld : IN STD_LOGIC;
     startCopy_ap_vld : IN STD_LOGIC;
     startCopy_ap_ack : OUT STD_LOGIC;
+    copying_ap_vld : OUT STD_LOGIC;
     ap_start : IN STD_LOGIC;
     ap_done : OUT STD_LOGIC;
     failedTask_ap_vld : OUT STD_LOGIC;
@@ -210,6 +212,9 @@ attribute shreg_extract : string;
     signal read_data_U0_m_axi_gmem_RREADY : STD_LOGIC;
     signal read_data_U0_m_axi_gmem_BREADY : STD_LOGIC;
     signal read_data_U0_startCopy_ap_ack : STD_LOGIC;
+    signal read_data_U0_copying : STD_LOGIC_VECTOR (7 downto 0);
+    signal read_data_U0_copying_ap_vld : STD_LOGIC;
+    signal ap_sync_continue : STD_LOGIC;
     signal compute_U0_ap_start : STD_LOGIC;
     signal compute_U0_ap_done : STD_LOGIC;
     signal compute_U0_ap_continue : STD_LOGIC;
@@ -270,7 +275,6 @@ attribute shreg_extract : string;
     signal compute_U0_regions_5_ce1 : STD_LOGIC;
     signal compute_U0_regions_5_we1 : STD_LOGIC;
     signal compute_U0_regions_5_d1 : STD_LOGIC_VECTOR (31 downto 0);
-    signal ap_sync_continue : STD_LOGIC;
     signal handle_outcome_U0_ap_start : STD_LOGIC;
     signal handle_outcome_U0_ap_done : STD_LOGIC;
     signal handle_outcome_U0_ap_continue : STD_LOGIC;
@@ -370,7 +374,9 @@ attribute shreg_extract : string;
         inputAOV : IN STD_LOGIC_VECTOR (63 downto 0);
         startCopy : IN STD_LOGIC_VECTOR (7 downto 0);
         startCopy_ap_vld : IN STD_LOGIC;
-        startCopy_ap_ack : OUT STD_LOGIC );
+        startCopy_ap_ack : OUT STD_LOGIC;
+        copying : OUT STD_LOGIC_VECTOR (7 downto 0);
+        copying_ap_vld : OUT STD_LOGIC );
     end component;
 
 
@@ -589,7 +595,9 @@ begin
         inputAOV => inputAOV,
         startCopy => startCopy,
         startCopy_ap_vld => startCopy_ap_vld,
-        startCopy_ap_ack => read_data_U0_startCopy_ap_ack);
+        startCopy_ap_ack => read_data_U0_startCopy_ap_ack,
+        copying => read_data_U0_copying,
+        copying_ap_vld => read_data_U0_copying_ap_vld);
 
     compute_U0 : component run_compute
     port map (
@@ -789,12 +797,14 @@ begin
     ap_ready <= ap_sync_ready;
     ap_sync_compute_U0_ap_ready <= (compute_U0_ap_ready or ap_sync_reg_compute_U0_ap_ready);
     ap_sync_continue <= (ap_sync_done and ap_continue);
-    ap_sync_done <= (handle_outcome_U0_ap_done and compute_U0_ap_done);
+    ap_sync_done <= (read_data_U0_ap_done and handle_outcome_U0_ap_done and compute_U0_ap_done);
     ap_sync_handle_outcome_U0_ap_ready <= (handle_outcome_U0_ap_ready or ap_sync_reg_handle_outcome_U0_ap_ready);
     ap_sync_read_data_U0_ap_ready <= (read_data_U0_ap_ready or ap_sync_reg_read_data_U0_ap_ready);
     ap_sync_ready <= (ap_sync_read_data_U0_ap_ready and ap_sync_handle_outcome_U0_ap_ready and ap_sync_compute_U0_ap_ready);
     compute_U0_ap_continue <= ap_sync_continue;
     compute_U0_ap_start <= ((ap_sync_reg_compute_U0_ap_ready xor ap_const_logic_1) and ap_start);
+    copying <= read_data_U0_copying;
+    copying_ap_vld <= read_data_U0_copying_ap_vld;
     errorInTask_address0 <= handle_outcome_U0_errorInTask_address0;
     errorInTask_ce0 <= handle_outcome_U0_errorInTask_ce0;
     errorInTask_d0 <= handle_outcome_U0_errorInTask_d0;
@@ -847,7 +857,7 @@ begin
     outcomeInRam_ce0 <= handle_outcome_U0_outcomeInRam_ce0;
     outcomeInRam_d0 <= handle_outcome_U0_outcomeInRam_d0;
     outcomeInRam_we0 <= handle_outcome_U0_outcomeInRam_we0;
-    read_data_U0_ap_continue <= ap_const_logic_1;
+    read_data_U0_ap_continue <= ap_sync_continue;
     read_data_U0_ap_start <= ((ap_sync_reg_read_data_U0_ap_ready xor ap_const_logic_1) and ap_start);
     regions_1_address0 <= compute_U0_regions_1_address0;
     regions_1_address1 <= compute_U0_regions_1_address1;

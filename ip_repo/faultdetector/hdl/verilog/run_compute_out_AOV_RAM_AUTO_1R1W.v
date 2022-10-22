@@ -4,7 +4,7 @@
 // Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 // ==============================================================
 `timescale 1 ns / 1 ps
-module run_read_data_destStr_AOV_RAM_AUTO_1R1W (address0, ce0, d0, we0, q0, address1, ce1, q1,  reset,clk);
+module run_compute_out_AOV_RAM_AUTO_1R1W (address0, ce0, d0, we0, q0, address1, ce1, q1,  reset,clk);
 
 parameter DataWidth = 32;
 parameter AddressWidth = 3;

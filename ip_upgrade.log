@@ -1,6 +1,90 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 ------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Sat Oct 22 04:36:23 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_run_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_run_0_1 (xilinx.com:hls:run:1.0) from (Rev. 2112735890) to (Rev. 2112735935)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Sat Oct 22 03:52:13 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_run_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_run_0_1 (xilinx.com:hls:run:1.0) from (Rev. 2112735865) to (Rev. 2112735890)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Sat Oct 22 03:38:17 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_run_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the conversion of design_1_run_0_1 (xilinx.com:hls:run:1.0 (Rev. 2112735865)) to Vivado generation flows.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+| Date         : Sat Oct 22 03:27:22 2022
+| Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'design_1_run_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of design_1_run_0_1 (xilinx.com:hls:run:1.0) from (Rev. 2112735833) to (Rev. 2112735865)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
 | Date         : Sat Oct 22 02:55:43 2022
 | Host         : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
 | Command      : upgrade_ip

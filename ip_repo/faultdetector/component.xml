@@ -1008,7 +1008,7 @@
           <spirit:description>Data signal of copying</spirit:description>
           <spirit:addressOffset>24</spirit:addressOffset>
           <spirit:size spirit:format="long">32</spirit:size>
-          <spirit:access>write-only</spirit:access>
+          <spirit:access>read-only</spirit:access>
           <spirit:reset>
             <spirit:value spirit:format="long">0</spirit:value>
           </spirit:reset>
@@ -1017,11 +1017,12 @@
             <spirit:description>Bit 7 to 0 of copying</spirit:description>
             <spirit:bitOffset>0</spirit:bitOffset>
             <spirit:bitWidth spirit:format="long">8</spirit:bitWidth>
-            <spirit:access>write-only</spirit:access>
+            <spirit:access>read-only</spirit:access>
             <spirit:writeValueConstraint>
               <spirit:minimum>0</spirit:minimum>
               <spirit:maximum>0</spirit:maximum>
             </spirit:writeValueConstraint>
+            <spirit:readAction>modify</spirit:readAction>
             <spirit:testable spirit:testConstraint="unconstrained">false</spirit:testable>
           </spirit:field>
           <spirit:field>
@@ -1042,7 +1043,7 @@
           <spirit:name>inputData_1</spirit:name>
           <spirit:displayName>inputData_1</spirit:displayName>
           <spirit:description>Data signal of inputData</spirit:description>
-          <spirit:addressOffset>32</spirit:addressOffset>
+          <spirit:addressOffset>40</spirit:addressOffset>
           <spirit:size spirit:format="long">32</spirit:size>
           <spirit:access>write-only</spirit:access>
           <spirit:reset>
@@ -1065,7 +1066,7 @@
           <spirit:name>inputData_2</spirit:name>
           <spirit:displayName>inputData_2</spirit:displayName>
           <spirit:description>Data signal of inputData</spirit:description>
-          <spirit:addressOffset>36</spirit:addressOffset>
+          <spirit:addressOffset>44</spirit:addressOffset>
           <spirit:size spirit:format="long">32</spirit:size>
           <spirit:access>write-only</spirit:access>
           <spirit:reset>
@@ -1088,7 +1089,7 @@
           <spirit:name>startCopy</spirit:name>
           <spirit:displayName>startCopy</spirit:displayName>
           <spirit:description>Data signal of startCopy</spirit:description>
-          <spirit:addressOffset>44</spirit:addressOffset>
+          <spirit:addressOffset>52</spirit:addressOffset>
           <spirit:size spirit:format="long">32</spirit:size>
           <spirit:access>write-only</spirit:access>
           <spirit:reset>
@@ -1124,7 +1125,7 @@
           <spirit:name>startCopy_ctrl</spirit:name>
           <spirit:displayName>startCopy_ctrl</spirit:displayName>
           <spirit:description>Control signal of startCopy</spirit:description>
-          <spirit:addressOffset>48</spirit:addressOffset>
+          <spirit:addressOffset>56</spirit:addressOffset>
           <spirit:size spirit:format="long">32</spirit:size>
           <spirit:access>read-write</spirit:access>
           <spirit:reset>
@@ -1160,42 +1161,6 @@
             <spirit:description>Reserved.  0s on read.</spirit:description>
             <spirit:bitOffset>2</spirit:bitOffset>
             <spirit:bitWidth spirit:format="long">30</spirit:bitWidth>
-            <spirit:access>read-only</spirit:access>
-            <spirit:writeValueConstraint>
-              <spirit:minimum>0</spirit:minimum>
-              <spirit:maximum>0</spirit:maximum>
-            </spirit:writeValueConstraint>
-            <spirit:readAction>modify</spirit:readAction>
-            <spirit:testable spirit:testConstraint="unconstrained">false</spirit:testable>
-          </spirit:field>
-        </spirit:register>
-        <spirit:register>
-          <spirit:name>IOCheckIdx</spirit:name>
-          <spirit:displayName>IOCheckIdx</spirit:displayName>
-          <spirit:description>Data signal of IOCheckIdx</spirit:description>
-          <spirit:addressOffset>52</spirit:addressOffset>
-          <spirit:size spirit:format="long">32</spirit:size>
-          <spirit:access>write-only</spirit:access>
-          <spirit:reset>
-            <spirit:value spirit:format="long">0</spirit:value>
-          </spirit:reset>
-          <spirit:field>
-            <spirit:name>IOCheckIdx</spirit:name>
-            <spirit:description>Bit 7 to 0 of IOCheckIdx</spirit:description>
-            <spirit:bitOffset>0</spirit:bitOffset>
-            <spirit:bitWidth spirit:format="long">8</spirit:bitWidth>
-            <spirit:access>write-only</spirit:access>
-            <spirit:writeValueConstraint>
-              <spirit:minimum>0</spirit:minimum>
-              <spirit:maximum>0</spirit:maximum>
-            </spirit:writeValueConstraint>
-            <spirit:testable spirit:testConstraint="unconstrained">false</spirit:testable>
-          </spirit:field>
-          <spirit:field>
-            <spirit:name>RESERVED</spirit:name>
-            <spirit:description>Reserved.  0s on read.</spirit:description>
-            <spirit:bitOffset>8</spirit:bitOffset>
-            <spirit:bitWidth spirit:format="long">24</spirit:bitWidth>
             <spirit:access>read-only</spirit:access>
             <spirit:writeValueConstraint>
               <spirit:minimum>0</spirit:minimum>
@@ -2334,10 +2299,46 @@
           </spirit:field>
         </spirit:register>
         <spirit:register>
+          <spirit:name>IOCheckIdx</spirit:name>
+          <spirit:displayName>IOCheckIdx</spirit:displayName>
+          <spirit:description>Data signal of IOCheckIdx</spirit:description>
+          <spirit:addressOffset>380</spirit:addressOffset>
+          <spirit:size spirit:format="long">32</spirit:size>
+          <spirit:access>write-only</spirit:access>
+          <spirit:reset>
+            <spirit:value spirit:format="long">0</spirit:value>
+          </spirit:reset>
+          <spirit:field>
+            <spirit:name>IOCheckIdx</spirit:name>
+            <spirit:description>Bit 7 to 0 of IOCheckIdx</spirit:description>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth spirit:format="long">8</spirit:bitWidth>
+            <spirit:access>write-only</spirit:access>
+            <spirit:writeValueConstraint>
+              <spirit:minimum>0</spirit:minimum>
+              <spirit:maximum>0</spirit:maximum>
+            </spirit:writeValueConstraint>
+            <spirit:testable spirit:testConstraint="unconstrained">false</spirit:testable>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>RESERVED</spirit:name>
+            <spirit:description>Reserved.  0s on read.</spirit:description>
+            <spirit:bitOffset>8</spirit:bitOffset>
+            <spirit:bitWidth spirit:format="long">24</spirit:bitWidth>
+            <spirit:access>read-only</spirit:access>
+            <spirit:writeValueConstraint>
+              <spirit:minimum>0</spirit:minimum>
+              <spirit:maximum>0</spirit:maximum>
+            </spirit:writeValueConstraint>
+            <spirit:readAction>modify</spirit:readAction>
+            <spirit:testable spirit:testConstraint="unconstrained">false</spirit:testable>
+          </spirit:field>
+        </spirit:register>
+        <spirit:register>
           <spirit:name>IORegionIdx</spirit:name>
           <spirit:displayName>IORegionIdx</spirit:displayName>
           <spirit:description>Data signal of IORegionIdx</spirit:description>
-          <spirit:addressOffset>380</spirit:addressOffset>
+          <spirit:addressOffset>388</spirit:addressOffset>
           <spirit:size spirit:format="long">32</spirit:size>
           <spirit:access>write-only</spirit:access>
           <spirit:reset>
@@ -2373,7 +2374,7 @@
           <spirit:name>n_regions_in_i</spirit:name>
           <spirit:displayName>n_regions_in_i</spirit:displayName>
           <spirit:description>Data signal of n_regions_in_i</spirit:description>
-          <spirit:addressOffset>388</spirit:addressOffset>
+          <spirit:addressOffset>396</spirit:addressOffset>
           <spirit:size spirit:format="long">32</spirit:size>
           <spirit:access>write-only</spirit:access>
           <spirit:reset>
@@ -2409,7 +2410,7 @@
           <spirit:name>n_regions_in_o</spirit:name>
           <spirit:displayName>n_regions_in_o</spirit:displayName>
           <spirit:description>Data signal of n_regions_in_o</spirit:description>
-          <spirit:addressOffset>396</spirit:addressOffset>
+          <spirit:addressOffset>404</spirit:addressOffset>
           <spirit:size spirit:format="long">32</spirit:size>
           <spirit:access>read-only</spirit:access>
           <spirit:reset>
@@ -2484,7 +2485,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>44880dbd</spirit:value>
+            <spirit:value>59960be2</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -2503,7 +2504,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>6a9fd60d</spirit:value>
+            <spirit:value>1511859f</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -2522,7 +2523,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>4a481278</spirit:value>
+            <spirit:value>0bf7e2b3</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -2541,7 +2542,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>ec88bc0e</spirit:value>
+            <spirit:value>68779347</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -2555,7 +2556,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>fa1ee7ef</spirit:value>
+            <spirit:value>dd5a9b54</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -3888,6 +3889,10 @@
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
+        <spirit:name>hdl/verilog/run_compute_out_AOV_RAM_AUTO_1R1W.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
         <spirit:name>hdl/verilog/run_control_s_axi.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
@@ -3996,7 +4001,7 @@
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/verilog/run_read_data_destStr_AOV_RAM_AUTO_1R1W.v</spirit:name>
+        <spirit:name>hdl/verilog/run_read_data_Pipeline_VITIS_LOOP_558_2.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -4039,6 +4044,11 @@
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
+        <spirit:name>hdl/verilog/run_compute_out_AOV_RAM_AUTO_1R1W.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
         <spirit:name>hdl/verilog/run_control_s_axi.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
@@ -4173,7 +4183,7 @@
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/verilog/run_read_data_destStr_AOV_RAM_AUTO_1R1W.v</spirit:name>
+        <spirit:name>hdl/verilog/run_read_data_Pipeline_VITIS_LOOP_558_2.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
@@ -4268,6 +4278,10 @@
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
+        <spirit:name>hdl/vhdl/run_compute_out_AOV_RAM_AUTO_1R1W.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
         <spirit:name>hdl/vhdl/run_control_s_axi.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
@@ -4360,7 +4374,7 @@
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/vhdl/run_read_data_destStr_AOV_RAM_AUTO_1R1W.vhd</spirit:name>
+        <spirit:name>hdl/vhdl/run_read_data_Pipeline_VITIS_LOOP_558_2.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -4374,7 +4388,7 @@
       <spirit:file>
         <spirit:name>hdl/vhdl/run.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_fc72d252</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_778e70fb</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -4400,6 +4414,11 @@
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
+        <spirit:name>hdl/vhdl/run_compute_out_AOV_RAM_AUTO_1R1W.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
         <spirit:name>hdl/vhdl/run_control_s_axi.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
@@ -4515,7 +4534,7 @@
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/vhdl/run_read_data_destStr_AOV_RAM_AUTO_1R1W.vhd</spirit:name>
+        <spirit:name>hdl/vhdl/run_read_data_Pipeline_VITIS_LOOP_558_2.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
@@ -4783,8 +4802,8 @@
       </xilinx:taxonomies>
       <xilinx:displayName>Run</xilinx:displayName>
       <xilinx:definitionSource>HLS</xilinx:definitionSource>
-      <xilinx:coreRevision>2112735833</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2022-10-22T00:53:41Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>2112735935</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2022-10-22T02:35:34Z</xilinx:coreCreationDateTime>
       <xilinx:sdxKernelAttributes>
         <xilinx:sdx_kernel>true</xilinx:sdx_kernel>
         <xilinx:sdx_kernel_type>hls</xilinx:sdx_kernel_type>
@@ -4794,8 +4813,8 @@
       <xilinx:xilinxVersion>2022.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="533d04fb"/>
       <xilinx:checksum xilinx:scope="addressSpaces" xilinx:value="2c1df7e3"/>
-      <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="0c2e0489"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="03912510"/>
+      <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="8969caa2"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="61585c51"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="024521bc"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="6bfe0e68"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="e645bc5f"/>

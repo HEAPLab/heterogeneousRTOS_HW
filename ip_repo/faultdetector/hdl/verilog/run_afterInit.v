@@ -67,6 +67,7 @@ module run_afterInit (
         errorInTask_q0,
         errorInTask_we0,
         failedTask,
+        copying,
         n_regions_V_address0,
         n_regions_V_ce0,
         n_regions_V_d0,
@@ -142,6 +143,7 @@ module run_afterInit (
         inputAOV_ap_vld,
         startCopy_ap_vld,
         startCopy_ap_ack,
+        copying_ap_vld,
         ap_start,
         ap_done,
         failedTask_ap_vld,
@@ -211,6 +213,7 @@ output  [7:0] errorInTask_d0;
 input  [7:0] errorInTask_q0;
 output   errorInTask_we0;
 output  [15:0] failedTask;
+output  [7:0] copying;
 output  [5:0] n_regions_V_address0;
 output   n_regions_V_ce0;
 output  [7:0] n_regions_V_d0;
@@ -286,6 +289,7 @@ input   ap_rst;
 input   inputAOV_ap_vld;
 input   startCopy_ap_vld;
 output   startCopy_ap_ack;
+output   copying_ap_vld;
 input   ap_start;
 output   ap_done;
 output   failedTask_ap_vld;
@@ -334,6 +338,9 @@ wire   [0:0] read_data_U0_m_axi_gmem_ARUSER;
 wire    read_data_U0_m_axi_gmem_RREADY;
 wire    read_data_U0_m_axi_gmem_BREADY;
 wire    read_data_U0_startCopy_ap_ack;
+wire   [7:0] read_data_U0_copying;
+wire    read_data_U0_copying_ap_vld;
+wire    ap_sync_continue;
 wire    compute_U0_ap_start;
 wire    compute_U0_ap_done;
 wire    compute_U0_ap_continue;
@@ -394,7 +401,6 @@ wire   [11:0] compute_U0_regions_5_address1;
 wire    compute_U0_regions_5_ce1;
 wire    compute_U0_regions_5_we1;
 wire   [31:0] compute_U0_regions_5_d1;
-wire    ap_sync_continue;
 wire    handle_outcome_U0_ap_start;
 wire    handle_outcome_U0_ap_done;
 wire    handle_outcome_U0_ap_continue;
@@ -500,7 +506,9 @@ run_read_data read_data_U0(
     .inputAOV(inputAOV),
     .startCopy(startCopy),
     .startCopy_ap_vld(startCopy_ap_vld),
-    .startCopy_ap_ack(read_data_U0_startCopy_ap_ack)
+    .startCopy_ap_ack(read_data_U0_startCopy_ap_ack),
+    .copying(read_data_U0_copying),
+    .copying_ap_vld(read_data_U0_copying_ap_vld)
 );
 
 run_compute compute_U0(
@@ -691,7 +699,7 @@ assign ap_sync_compute_U0_ap_ready = (compute_U0_ap_ready | ap_sync_reg_compute_
 
 assign ap_sync_continue = (ap_sync_done & ap_continue);
 
-assign ap_sync_done = (handle_outcome_U0_ap_done & compute_U0_ap_done);
+assign ap_sync_done = (read_data_U0_ap_done & handle_outcome_U0_ap_done & compute_U0_ap_done);
 
 assign ap_sync_handle_outcome_U0_ap_ready = (handle_outcome_U0_ap_ready | ap_sync_reg_handle_outcome_U0_ap_ready);
 
@@ -702,6 +710,10 @@ assign ap_sync_ready = (ap_sync_read_data_U0_ap_ready & ap_sync_handle_outcome_U
 assign compute_U0_ap_continue = ap_sync_continue;
 
 assign compute_U0_ap_start = ((ap_sync_reg_compute_U0_ap_ready ^ 1'b1) & ap_start);
+
+assign copying = read_data_U0_copying;
+
+assign copying_ap_vld = read_data_U0_copying_ap_vld;
 
 assign errorInTask_address0 = handle_outcome_U0_errorInTask_address0;
 
@@ -807,7 +819,7 @@ assign outcomeInRam_d0 = handle_outcome_U0_outcomeInRam_d0;
 
 assign outcomeInRam_we0 = handle_outcome_U0_outcomeInRam_we0;
 
-assign read_data_U0_ap_continue = 1'b1;
+assign read_data_U0_ap_continue = ap_sync_continue;
 
 assign read_data_U0_ap_start = ((ap_sync_reg_read_data_U0_ap_ready ^ 1'b1) & ap_start);
 

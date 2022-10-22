@@ -8,7 +8,7 @@ library ieee;
 use ieee.std_logic_1164.all; 
 use ieee.std_logic_unsigned.all;
 
-entity run_read_data_destStr_AOV_RAM_AUTO_1R1W is 
+entity run_compute_out_AOV_RAM_AUTO_1R1W is 
     generic(
             MEM_TYPE    : string := "auto"; 
             DataWidth     : integer := 32; 
@@ -30,7 +30,7 @@ entity run_read_data_destStr_AOV_RAM_AUTO_1R1W is
 end entity; 
 
 
-architecture rtl of run_read_data_destStr_AOV_RAM_AUTO_1R1W is 
+architecture rtl of run_compute_out_AOV_RAM_AUTO_1R1W is 
 
 signal address0_tmp : std_logic_vector(AddressWidth-1 downto 0); 
 signal address1_tmp : std_logic_vector(AddressWidth-1 downto 0); 

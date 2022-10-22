@@ -33,12 +33,11 @@ module run_control_s_axi
     output wire                          flush,
     input  wire                          flush_done,
     output wire [7:0]                    accel_mode,
-    output wire [7:0]                    copying,
+    input  wire [7:0]                    copying,
     output wire [63:0]                   inputData,
     output wire [7:0]                    startCopy,
     output wire                          startCopy_ap_vld,
     input  wire                          startCopy_ap_ack,
-    output wire [7:0]                    IOCheckIdx,
     input  wire [3:0]                    errorInTask_address0,
     input  wire                          errorInTask_ce0,
     input  wire                          errorInTask_we0,
@@ -46,6 +45,7 @@ module run_control_s_axi
     output wire [7:0]                    errorInTask_q0,
     output wire [767:0]                  trainedRegion_i,
     input  wire [767:0]                  trainedRegion_o,
+    output wire [7:0]                    IOCheckIdx,
     output wire [7:0]                    IORegionIdx,
     output wire [7:0]                    n_regions_in_i,
     input  wire [7:0]                    n_regions_in_o,
@@ -87,25 +87,21 @@ module run_control_s_axi
 //         others  - reserved
 // 0x014 : reserved
 // 0x018 : Data signal of copying
-//         bit 7~0 - copying[7:0] (Read/Write)
+//         bit 7~0 - copying[7:0] (Read)
 //         others  - reserved
 // 0x01c : reserved
-// 0x020 : Data signal of inputData
+// 0x028 : Data signal of inputData
 //         bit 31~0 - inputData[31:0] (Read/Write)
-// 0x024 : Data signal of inputData
+// 0x02c : Data signal of inputData
 //         bit 31~0 - inputData[63:32] (Read/Write)
-// 0x028 : reserved
-// 0x02c : Data signal of startCopy
+// 0x030 : reserved
+// 0x034 : Data signal of startCopy
 //         bit 7~0 - startCopy[7:0] (Read/Write)
 //         others  - reserved
-// 0x030 : Control signal of startCopy
+// 0x038 : Control signal of startCopy
 //         bit 0  - startCopy_ap_vld (Read/Write/COH)
 //         bit 1  - startCopy_ap_ack (Read)
 //         others - reserved
-// 0x034 : Data signal of IOCheckIdx
-//         bit 7~0 - IOCheckIdx[7:0] (Read/Write)
-//         others  - reserved
-// 0x038 : reserved
 // 0x050 : Data signal of trainedRegion_i
 //         bit 31~0 - trainedRegion_i[31:0] (Read/Write)
 // 0x054 : Data signal of trainedRegion_i
@@ -204,18 +200,22 @@ module run_control_s_axi
 // 0x110 : Data signal of trainedRegion_o
 //         bit 31~0 - trainedRegion_o[767:736] (Read)
 // 0x114 : reserved
-// 0x17c : Data signal of IORegionIdx
-//         bit 7~0 - IORegionIdx[7:0] (Read/Write)
+// 0x17c : Data signal of IOCheckIdx
+//         bit 7~0 - IOCheckIdx[7:0] (Read/Write)
 //         others  - reserved
 // 0x180 : reserved
-// 0x184 : Data signal of n_regions_in_i
-//         bit 7~0 - n_regions_in_i[7:0] (Read/Write)
+// 0x184 : Data signal of IORegionIdx
+//         bit 7~0 - IORegionIdx[7:0] (Read/Write)
 //         others  - reserved
 // 0x188 : reserved
-// 0x18c : Data signal of n_regions_in_o
-//         bit 7~0 - n_regions_in_o[7:0] (Read)
+// 0x18c : Data signal of n_regions_in_i
+//         bit 7~0 - n_regions_in_i[7:0] (Read/Write)
 //         others  - reserved
 // 0x190 : reserved
+// 0x194 : Data signal of n_regions_in_o
+//         bit 7~0 - n_regions_in_o[7:0] (Read)
+//         others  - reserved
+// 0x198 : reserved
 // 0x040 ~
 // 0x04f : Memory 'errorInTask' (16 * 8b)
 //         Word n : bit [ 7: 0] - errorInTask[4n]
@@ -252,13 +252,11 @@ localparam
     ADDR_ACCEL_MODE_CTRL         = 11'h014,
     ADDR_COPYING_DATA_0          = 11'h018,
     ADDR_COPYING_CTRL            = 11'h01c,
-    ADDR_INPUTDATA_DATA_0        = 11'h020,
-    ADDR_INPUTDATA_DATA_1        = 11'h024,
-    ADDR_INPUTDATA_CTRL          = 11'h028,
-    ADDR_STARTCOPY_DATA_0        = 11'h02c,
-    ADDR_STARTCOPY_CTRL          = 11'h030,
-    ADDR_IOCHECKIDX_DATA_0       = 11'h034,
-    ADDR_IOCHECKIDX_CTRL         = 11'h038,
+    ADDR_INPUTDATA_DATA_0        = 11'h028,
+    ADDR_INPUTDATA_DATA_1        = 11'h02c,
+    ADDR_INPUTDATA_CTRL          = 11'h030,
+    ADDR_STARTCOPY_DATA_0        = 11'h034,
+    ADDR_STARTCOPY_CTRL          = 11'h038,
     ADDR_TRAINEDREGION_I_DATA_0  = 11'h050,
     ADDR_TRAINEDREGION_I_DATA_1  = 11'h054,
     ADDR_TRAINEDREGION_I_DATA_2  = 11'h058,
@@ -309,12 +307,14 @@ localparam
     ADDR_TRAINEDREGION_O_DATA_22 = 11'h10c,
     ADDR_TRAINEDREGION_O_DATA_23 = 11'h110,
     ADDR_TRAINEDREGION_O_CTRL    = 11'h114,
-    ADDR_IOREGIONIDX_DATA_0      = 11'h17c,
-    ADDR_IOREGIONIDX_CTRL        = 11'h180,
-    ADDR_N_REGIONS_IN_I_DATA_0   = 11'h184,
-    ADDR_N_REGIONS_IN_I_CTRL     = 11'h188,
-    ADDR_N_REGIONS_IN_O_DATA_0   = 11'h18c,
-    ADDR_N_REGIONS_IN_O_CTRL     = 11'h190,
+    ADDR_IOCHECKIDX_DATA_0       = 11'h17c,
+    ADDR_IOCHECKIDX_CTRL         = 11'h180,
+    ADDR_IOREGIONIDX_DATA_0      = 11'h184,
+    ADDR_IOREGIONIDX_CTRL        = 11'h188,
+    ADDR_N_REGIONS_IN_I_DATA_0   = 11'h18c,
+    ADDR_N_REGIONS_IN_I_CTRL     = 11'h190,
+    ADDR_N_REGIONS_IN_O_DATA_0   = 11'h194,
+    ADDR_N_REGIONS_IN_O_CTRL     = 11'h198,
     ADDR_ERRORINTASK_BASE        = 11'h040,
     ADDR_ERRORINTASK_HIGH        = 11'h04f,
     ADDR_OUTCOMEINRAM_BASE       = 11'h400,
@@ -364,9 +364,9 @@ localparam
     reg  [7:0]                    int_startCopy = 'b0;
     reg                           int_startCopy_ap_vld;
     wire                          int_startCopy_ap_ack;
-    reg  [7:0]                    int_IOCheckIdx = 'b0;
     reg  [767:0]                  int_trainedRegion_i = 'b0;
     reg  [767:0]                  int_trainedRegion_o = 'b0;
+    reg  [7:0]                    int_IOCheckIdx = 'b0;
     reg  [7:0]                    int_IORegionIdx = 'b0;
     reg  [7:0]                    int_n_regions_in_i = 'b0;
     reg  [7:0]                    int_n_regions_in_o = 'b0;
@@ -566,9 +566,6 @@ always @(posedge ACLK) begin
                     rdata[0] <= int_startCopy_ap_vld;
                     rdata[1] <= ~int_startCopy_ap_vld;
                 end
-                ADDR_IOCHECKIDX_DATA_0: begin
-                    rdata <= int_IOCheckIdx[7:0];
-                end
                 ADDR_TRAINEDREGION_I_DATA_0: begin
                     rdata <= int_trainedRegion_i[31:0];
                 end
@@ -713,6 +710,9 @@ always @(posedge ACLK) begin
                 ADDR_TRAINEDREGION_O_DATA_23: begin
                     rdata <= int_trainedRegion_o[767:736];
                 end
+                ADDR_IOCHECKIDX_DATA_0: begin
+                    rdata <= int_IOCheckIdx[7:0];
+                end
                 ADDR_IOREGIONIDX_DATA_0: begin
                     rdata <= int_IORegionIdx[7:0];
                 end
@@ -743,13 +743,12 @@ assign flush                = int_flush;
 assign auto_restart_done    = auto_restart_status && (ap_idle && !int_ap_idle);
 assign sw_reset             = int_sw_reset && int_flush_done;
 assign accel_mode           = int_accel_mode;
-assign copying              = int_copying;
 assign inputData            = int_inputData;
 assign startCopy            = int_startCopy;
 assign startCopy_ap_vld     = int_startCopy_ap_vld;
 assign int_startCopy_ap_ack = startCopy_ap_ack;
-assign IOCheckIdx           = int_IOCheckIdx;
 assign trainedRegion_i      = int_trainedRegion_i;
+assign IOCheckIdx           = int_IOCheckIdx;
 assign IORegionIdx          = int_IORegionIdx;
 assign n_regions_in_i       = int_n_regions_in_i;
 // int_interrupt
@@ -928,13 +927,13 @@ always @(posedge ACLK) begin
     end
 end
 
-// int_copying[7:0]
+// int_copying
 always @(posedge ACLK) begin
     if (ARESET)
-        int_copying[7:0] <= 0;
+        int_copying <= 0;
     else if (ACLK_EN) begin
-        if (w_hs && waddr == ADDR_COPYING_DATA_0)
-            int_copying[7:0] <= (WDATA[31:0] & wmask) | (int_copying[7:0] & ~wmask);
+        if (ap_done)
+            int_copying <= copying;
     end
 end
 
@@ -977,16 +976,6 @@ always @(posedge ACLK) begin
             int_startCopy_ap_vld <= 1'b1;
         else if (int_startCopy_ap_ack)
             int_startCopy_ap_vld <= 1'b0; // clear on handshake
-    end
-end
-
-// int_IOCheckIdx[7:0]
-always @(posedge ACLK) begin
-    if (ARESET)
-        int_IOCheckIdx[7:0] <= 0;
-    else if (ACLK_EN) begin
-        if (w_hs && waddr == ADDR_IOCHECKIDX_DATA_0)
-            int_IOCheckIdx[7:0] <= (WDATA[31:0] & wmask) | (int_IOCheckIdx[7:0] & ~wmask);
     end
 end
 
@@ -1237,6 +1226,16 @@ always @(posedge ACLK) begin
     else if (ACLK_EN) begin
         if (ap_done)
             int_trainedRegion_o <= trainedRegion_o;
+    end
+end
+
+// int_IOCheckIdx[7:0]
+always @(posedge ACLK) begin
+    if (ARESET)
+        int_IOCheckIdx[7:0] <= 0;
+    else if (ACLK_EN) begin
+        if (w_hs && waddr == ADDR_IOCHECKIDX_DATA_0)
+            int_IOCheckIdx[7:0] <= (WDATA[31:0] & wmask) | (int_IOCheckIdx[7:0] & ~wmask);
     end
 end
 

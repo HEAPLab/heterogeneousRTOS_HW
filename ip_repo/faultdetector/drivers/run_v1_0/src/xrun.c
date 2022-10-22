@@ -626,6 +626,6 @@ void FAULTDETECTOR_startCopy(XRun *InstancePtr) {
 }
 
 char FAULTDETECTOR_isReadyForNextControl(XRun *InstancePtr) {
-	char ack=(*((char*) ((u32)(InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_STARTCOPY_CTRL))) >> 1) & 0x1;
-	return  /*!(*((char*) ((u32)(InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_COPYING_DATA)))) &&*/ !ack;
+	return  !(*((char*) ((u32)(InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_COPYING_DATA)))) && ((*((char*) ((u32)(InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_STARTCOPY_CTRL))) /*>> 1*/) & /*0x1*/0x3)==0x2;
 }
+

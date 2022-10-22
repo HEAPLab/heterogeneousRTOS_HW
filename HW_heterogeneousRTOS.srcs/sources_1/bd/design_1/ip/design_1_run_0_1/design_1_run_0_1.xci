@@ -108,7 +108,7 @@
         <spirit:configurableElementValue spirit:referenceId="PROJECT_PARAM.USE_RDI_CUSTOMIZATION">TRUE</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="PROJECT_PARAM.USE_RDI_GENERATION">TRUE</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.IPCONTEXT">IP_Integrator</spirit:configurableElementValue>
-        <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.IPREVISION">2112735833</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.IPREVISION">2112735935</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.MANAGED">TRUE</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.OUTPUTDIR">../../../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ip/design_1_run_0_1</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.SELECTEDSIMMODEL"/>
@@ -619,14 +619,14 @@
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;copying&quot;,
                             &quot;description&quot;: &quot;Data signal of copying&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;access&quot;: &quot;read-only&quot;,
                             &quot;reset_value&quot;: &quot;0&quot;,
                             &quot;fields&quot;: {
                               &quot;copying&quot;: {
                                 &quot;bit_offset&quot;: 0,
                                 &quot;bit_width&quot;: 8,
                                 &quot;description&quot;: &quot;Bit 7 to 0 of copying&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
+                                &quot;access&quot;: &quot;read-only&quot;
                               },
                               &quot;RESERVED&quot;: {
                                 &quot;bit_offset&quot;: 8,
@@ -637,7 +637,7 @@
                             }
                           },
                           &quot;inputData_1&quot;: {
-                            &quot;address_offset&quot;: &quot;32&quot;,
+                            &quot;address_offset&quot;: &quot;40&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;inputData_1&quot;,
                             &quot;description&quot;: &quot;Data signal of inputData&quot;,
@@ -653,7 +653,7 @@
                             }
                           },
                           &quot;inputData_2&quot;: {
-                            &quot;address_offset&quot;: &quot;36&quot;,
+                            &quot;address_offset&quot;: &quot;44&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;inputData_2&quot;,
                             &quot;description&quot;: &quot;Data signal of inputData&quot;,
@@ -669,7 +669,7 @@
                             }
                           },
                           &quot;startCopy&quot;: {
-                            &quot;address_offset&quot;: &quot;44&quot;,
+                            &quot;address_offset&quot;: &quot;52&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;startCopy&quot;,
                             &quot;description&quot;: &quot;Data signal of startCopy&quot;,
@@ -691,7 +691,7 @@
                             }
                           },
                           &quot;startCopy_ctrl&quot;: {
-                            &quot;address_offset&quot;: &quot;48&quot;,
+                            &quot;address_offset&quot;: &quot;56&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;startCopy_ctrl&quot;,
                             &quot;description&quot;: &quot;Control signal of startCopy&quot;,
@@ -713,28 +713,6 @@
                               &quot;RESERVED&quot;: {
                                 &quot;bit_offset&quot;: 2,
                                 &quot;bit_width&quot;: 30,
-                                &quot;description&quot;: &quot;Reserved.  0s on read.&quot;,
-                                &quot;access&quot;: &quot;read-only&quot;
-                              }
-                            }
-                          },
-                          &quot;IOCheckIdx&quot;: {
-                            &quot;address_offset&quot;: &quot;52&quot;,
-                            &quot;size&quot;: 32,
-                            &quot;display_name&quot;: &quot;IOCheckIdx&quot;,
-                            &quot;description&quot;: &quot;Data signal of IOCheckIdx&quot;,
-                            &quot;access&quot;: &quot;write-only&quot;,
-                            &quot;reset_value&quot;: &quot;0&quot;,
-                            &quot;fields&quot;: {
-                              &quot;IOCheckIdx&quot;: {
-                                &quot;bit_offset&quot;: 0,
-                                &quot;bit_width&quot;: 8,
-                                &quot;description&quot;: &quot;Bit 7 to 0 of IOCheckIdx&quot;,
-                                &quot;access&quot;: &quot;write-only&quot;
-                              },
-                              &quot;RESERVED&quot;: {
-                                &quot;bit_offset&quot;: 8,
-                                &quot;bit_width&quot;: 24,
                                 &quot;description&quot;: &quot;Reserved.  0s on read.&quot;,
                                 &quot;access&quot;: &quot;read-only&quot;
                               }
@@ -1508,8 +1486,30 @@
                               }
                             }
                           },
-                          &quot;IORegionIdx&quot;: {
+                          &quot;IOCheckIdx&quot;: {
                             &quot;address_offset&quot;: &quot;380&quot;,
+                            &quot;size&quot;: 32,
+                            &quot;display_name&quot;: &quot;IOCheckIdx&quot;,
+                            &quot;description&quot;: &quot;Data signal of IOCheckIdx&quot;,
+                            &quot;access&quot;: &quot;write-only&quot;,
+                            &quot;reset_value&quot;: &quot;0&quot;,
+                            &quot;fields&quot;: {
+                              &quot;IOCheckIdx&quot;: {
+                                &quot;bit_offset&quot;: 0,
+                                &quot;bit_width&quot;: 8,
+                                &quot;description&quot;: &quot;Bit 7 to 0 of IOCheckIdx&quot;,
+                                &quot;access&quot;: &quot;write-only&quot;
+                              },
+                              &quot;RESERVED&quot;: {
+                                &quot;bit_offset&quot;: 8,
+                                &quot;bit_width&quot;: 24,
+                                &quot;description&quot;: &quot;Reserved.  0s on read.&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
+                              }
+                            }
+                          },
+                          &quot;IORegionIdx&quot;: {
+                            &quot;address_offset&quot;: &quot;388&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;IORegionIdx&quot;,
                             &quot;description&quot;: &quot;Data signal of IORegionIdx&quot;,
@@ -1531,7 +1531,7 @@
                             }
                           },
                           &quot;n_regions_in_i&quot;: {
-                            &quot;address_offset&quot;: &quot;388&quot;,
+                            &quot;address_offset&quot;: &quot;396&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;n_regions_in_i&quot;,
                             &quot;description&quot;: &quot;Data signal of n_regions_in_i&quot;,
@@ -1553,7 +1553,7 @@
                             }
                           },
                           &quot;n_regions_in_o&quot;: {
-                            &quot;address_offset&quot;: &quot;396&quot;,
+                            &quot;address_offset&quot;: &quot;404&quot;,
                             &quot;size&quot;: 32,
                             &quot;display_name&quot;: &quot;n_regions_in_o&quot;,
                             &quot;description&quot;: &quot;Data signal of n_regions_in_o&quot;,
