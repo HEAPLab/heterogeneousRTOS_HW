@@ -118,7 +118,9 @@
     wire taskReady;
     wire [2:0] taskExecutionMode;
     wire [7:0] taskExecutionId;
+	wire [3:0] taskReexecutions;
     wire [31:0] taskPtr;
+
     // Instantiation of Axi Bus Interface S_AXI
     scheduler_v1_0_S_AXI # (
     .maxTasks(maxTasks),
@@ -134,6 +136,7 @@
         .taskReady(taskReady),
         .taskExecutionMode(taskExecutionMode),
         .taskExecutionId(taskExecutionId),
+	.taskReexecutions(taskReexecutions),
         .taskPtr(taskPtr),
 
         .uninitializedLed(uninitializedLed),
@@ -187,6 +190,7 @@
         .INIT_AXI_TXN(taskReady),
         .taskExecutionMode(taskExecutionMode),
         .taskExecutionId(taskExecutionId),
+	.taskReexecutions(taskReexecutions),
         .taskPtr(taskPtr),
 
         //.INIT_AXI_TXN(m_axi_init_axi_txn),
