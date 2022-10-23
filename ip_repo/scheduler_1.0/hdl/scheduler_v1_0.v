@@ -117,8 +117,12 @@
     wire taskWriteStarted;
     wire taskReady;
     wire [2:0] taskExecutionMode;
+	wire [7:0] taskExecutionMode_extended;
+	assign taskExecutionMode_extended={5'h0, taskExecutionMode};
     wire [7:0] taskExecutionId;
 	wire [3:0] taskReexecutions;
+	wire [7:0] taskReexecutions_extended;
+	assign taskReexecutions_extended={4'h0, taskReexecutions};
     wire [31:0] taskPtr;
 
     // Instantiation of Axi Bus Interface S_AXI
@@ -188,9 +192,9 @@
 
         .TXN_DONE(taskWriteDone),
         .INIT_AXI_TXN(taskReady),
-        .taskExecutionMode(taskExecutionMode),
+        .taskExecutionMode(taskExecutionMode_extended),
         .taskExecutionId(taskExecutionId),
-	.taskReexecutions(taskReexecutions),
+	.taskReexecutions(taskReexecutions_extended),
         .taskPtr(taskPtr),
 
         //.INIT_AXI_TXN(m_axi_init_axi_txn),
