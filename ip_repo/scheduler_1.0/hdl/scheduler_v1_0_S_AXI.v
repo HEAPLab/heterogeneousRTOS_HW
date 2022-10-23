@@ -72,7 +72,8 @@ module scheduler_v1_0_S_AXI #
     output reg [2:0] taskExecutionMode,
     output reg [7:0] taskExecutionId,
     output reg [31:0] taskPtr,
-
+	output reg [3:0] taskReexecutions,
+		
     output reg uninitializedLed,
     output reg readyLed,
     output reg runningLed,
@@ -1466,6 +1467,7 @@ module scheduler_v1_0_S_AXI #
                         taskPtr<=TCBPtrsList[HighestPriorityTaskIndex];
                         taskExecutionMode <= ( executionMode[HighestPriorityTaskIndex] == EXECMODE_NORMAL && executionTimes[HighestPriorityTaskIndex] == 32'h0 ) ? EXECMODE_NORMAL_NEWJOB : { 1'h0, executionMode[HighestPriorityTaskIndex] };
                         taskExecutionId <= executionIds [ HighestPriorityTaskIndex ];
+			taskReexecutions <= reExecutions [ HighestPriorityTaskIndex ];
                         taskReady<=1'b1;
 
                         waitingAck<=1'b1;
