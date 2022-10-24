@@ -25,9 +25,9 @@
 )
 	(
     // Users to add ports here
-		input wire [7:0] taskExecutionMode,
-	input wire [7:0] taskExecutionId,
-		input wire [7:0] taskReexecutions,
+    input wire [7:0] taskExecutionMode,
+    input wire [7:0] taskExecutionId,
+    input wire [7:0] taskReexecutions,
     input wire [31:0] taskPtr,
 
     // User ports ends
@@ -106,7 +106,7 @@
     endfunction
 
     localparam integer C_M_TRANSACTIONS_NUM = 2;
-//    localparam integer C_READS_TRANSACTIONS = 1;
+    //    localparam integer C_READS_TRANSACTIONS = 1;
     // TRANS_NUM_BITS is the width of the index counter for 
     // number of write or read transaction.
     localparam integer TRANS_NUM_BITS = clogb2(C_M_TRANSACTIONS_NUM-1);
@@ -295,7 +295,7 @@
                 end
                 2: begin
                     axi_awaddr=32'h4;
-			axi_wdata={8'h0, taskExecutionId, taskReexecutions, taskExecutionMode};
+                    axi_wdata={8'h0, taskExecutionId, taskReexecutions, taskExecutionMode};
                 end
                 //default: axi_awaddr=0;
             endcase

@@ -564,10 +564,24 @@ u32 XRun_InterruptGetStatus(XRun *InstancePtr) {
 
 
 
-FAULTDETECTOR_OutcomeStr FAULTDETECTOR_getLastFault(XRun *InstancePtr, u8 taskId, FAULTDETECTOR_OutcomeStr* dest) {
+void FAULTDETECTOR_getLastTestedAOV(XRun *InstancePtr, u8 taskId, FAULTDETECTOR_OutcomeStr* dest) {
 	memcpy((void*) dest, (void*) (InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_OUTCOMEINRAM_BASE+sizeof(FAULTDETECTOR_OutcomeStr)*taskId), sizeof(FAULTDETECTOR_OutcomeStr));
 }
+void FAULTDETECTOR_getLastTestedAOVDescriptor(XRun *InstancePtr, u8 taskId, FAULTDETECTOR_OutcomeDescriptor* dest) {
+	memcpy((void*) dest, (void*) (InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_OUTCOMEINRAM_BASE+sizeof(FAULTDETECTOR_OutcomeStr)*taskId), sizeof(FAULTDETECTOR_OutcomeDescriptor));
+}
 
+u16 FAULTDETECTOR_getLastTestedAOVUniId(XRun *InstancePtr, u8 taskId) {
+	return ((FAULTDETECTOR_OutcomeStr*) (InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_OUTCOMEINRAM_BASE+sizeof(FAULTDETECTOR_OutcomeStr)*taskId))->uniId;
+}
+
+u8 FAULTDETECTOR_getLastTestedAOVExecutionId(XRun *InstancePtr, u8 taskId) {
+	return ((FAULTDETECTOR_OutcomeStr*) (InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_OUTCOMEINRAM_BASE+sizeof(FAULTDETECTOR_OutcomeStr)*taskId))->executionId;
+}
+
+u8 FAULTDETECTOR_getLastTestedAOVCheckId(XRun *InstancePtr, u8 taskId) {
+	return ((FAULTDETECTOR_OutcomeStr*) (InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_OUTCOMEINRAM_BASE+sizeof(FAULTDETECTOR_OutcomeStr)*taskId))->checkId;
+}
 
 void FAULTDETECTOR_initRegions(XRun *InstancePtr, region_t trainedRegions[FAULTDETECTOR_MAX_CHECKS][FAULTDETECTOR_MAX_REGIONS], u8 n_regions[FAULTDETECTOR_MAX_CHECKS]) {
 	while (!XRun_IsReady(InstancePtr)) {}
@@ -604,7 +618,7 @@ void FAULTDETECTOR_dumpRegions(XRun *InstancePtr, region_t trainedRegions[FAULTD
 	XRun_WriteReg(InstancePtr->Control_BaseAddress, XRUN_CONTROL_ADDR_ACCEL_MODE_DATA, FAULTDETECTOR_MODE_RUN);
 }
 
-char FAULTDETECTOR_isFault(XRun *InstancePtr, u8 taskId) {
+char FAULTDETECTOR_hasFault(XRun *InstancePtr, u8 taskId) {
 	return *((char*) ((u32)(InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_ERRORINTASK_BASE+taskId*sizeof(char))));
 }
 

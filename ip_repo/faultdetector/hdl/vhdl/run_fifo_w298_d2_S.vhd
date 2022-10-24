@@ -8,9 +8,9 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.std_logic_unsigned.all;
 
-entity run_fifo_w297_d2_S_shiftReg is
+entity run_fifo_w298_d2_S_shiftReg is
     generic (
-        DATA_WIDTH : integer := 297;
+        DATA_WIDTH : integer := 298;
         ADDR_WIDTH : integer := 1;
         DEPTH : integer := 2);
     port (
@@ -19,9 +19,9 @@ entity run_fifo_w297_d2_S_shiftReg is
         ce : in std_logic;
         a : in std_logic_vector(ADDR_WIDTH-1 downto 0);
         q : out std_logic_vector(DATA_WIDTH-1 downto 0));
-end run_fifo_w297_d2_S_shiftReg;
+end run_fifo_w298_d2_S_shiftReg;
 
-architecture rtl of run_fifo_w297_d2_S_shiftReg is
+architecture rtl of run_fifo_w298_d2_S_shiftReg is
 type SRL_ARRAY is array (0 to DEPTH-1) of std_logic_vector(DATA_WIDTH-1 downto 0);
 signal SRL_SIG : SRL_ARRAY;
 
@@ -44,10 +44,10 @@ use ieee.std_logic_1164.all;
 use ieee.std_logic_unsigned.all;
 use ieee.std_logic_arith.all;
 
-entity run_fifo_w297_d2_S is 
+entity run_fifo_w298_d2_S is 
     generic (
         MEM_STYLE  : string := "shiftreg"; 
-        DATA_WIDTH : integer := 297;
+        DATA_WIDTH : integer := 298;
         ADDR_WIDTH : integer := 1;
         DEPTH : integer := 2);
     port (
@@ -65,11 +65,11 @@ entity run_fifo_w297_d2_S is
         if_din : IN STD_LOGIC_VECTOR(DATA_WIDTH - 1 downto 0));
 end entity;
 
-architecture rtl of run_fifo_w297_d2_S is
+architecture rtl of run_fifo_w298_d2_S is
 
-    component run_fifo_w297_d2_S_shiftReg is
+    component run_fifo_w298_d2_S_shiftReg is
     generic (
-        DATA_WIDTH : integer := 297;
+        DATA_WIDTH : integer := 298;
         ADDR_WIDTH : integer := 1;
         DEPTH : integer := 2);
     port (
@@ -129,7 +129,7 @@ begin
         if_num_data_valid <= mOutPtr + 1;
     end process;
 
-    U_run_fifo_w297_d2_S_shiftReg : run_fifo_w297_d2_S_shiftReg
+    U_run_fifo_w298_d2_S_shiftReg : run_fifo_w298_d2_S_shiftReg
     generic map (
         DATA_WIDTH => DATA_WIDTH,
         ADDR_WIDTH => ADDR_WIDTH,

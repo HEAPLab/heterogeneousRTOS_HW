@@ -154,6 +154,12 @@ typedef struct {
 
 typedef struct {
 	u8 checkId;
+	u8 executionId;
+	u16 uniId;
+} FAULTDETECTOR_OutcomeDescriptor;
+
+typedef struct {
+	u8 checkId;
 	u8 taskId;
 	u8 executionId;
 	u16 uniId;
@@ -251,8 +257,12 @@ u32 XRun_InterruptGetStatus(XRun *InstancePtr);
 
 void FAULTDETECTOR_setTrainedRegion(XRun *InstancePtr, region_t* region);
 region_t FAULTDETECTOR_getTrainedRegion(XRun *InstancePtr);
-FAULTDETECTOR_OutcomeStr FAULTDETECTOR_getLastFault(XRun *InstancePtr, u8 taskId, FAULTDETECTOR_OutcomeStr* dest);
-char FAULTDETECTOR_isFault(XRun *InstancePtr, u8 taskId);
+void FAULTDETECTOR_getLastTestedAOV(XRun *InstancePtr, u8 taskId, FAULTDETECTOR_OutcomeStr* dest);
+void FAULTDETECTOR_getLastTestedAOVDescriptor(XRun *InstancePtr, u8 taskId, FAULTDETECTOR_OutcomeDescriptor* dest);
+u16 FAULTDETECTOR_getLastProcessedUniId(XRun *InstancePtr, u8 taskId);
+u8 FAULTDETECTOR_getLastProcessedExecutionId(XRun *InstancePtr, u8 taskId);
+u8 FAULTDETECTOR_getLastProcessedCheckId(XRun *InstancePtr, u8 taskId);
+char FAULTDETECTOR_hasFault(XRun *InstancePtr, u8 taskId);
 void FAULTDETECTOR_resetFault(XRun *InstancePtr, u8 taskId);
 void FAULTDETECTOR_initRegions(XRun *InstancePtr, region_t trainedRegions[FAULTDETECTOR_MAX_CHECKS][FAULTDETECTOR_MAX_REGIONS], u8 n_regions[FAULTDETECTOR_MAX_CHECKS]);
 void FAULTDETECTOR_dumpRegions(XRun *InstancePtr, region_t trainedRegions[FAULTDETECTOR_MAX_CHECKS][FAULTDETECTOR_MAX_REGIONS], u8 n_regions[FAULTDETECTOR_MAX_CHECKS]);
