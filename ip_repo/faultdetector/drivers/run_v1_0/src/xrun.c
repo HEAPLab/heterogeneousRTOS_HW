@@ -29,6 +29,10 @@ void XRun_Start(XRun *InstancePtr) {
     XRun_WriteReg(InstancePtr->Control_BaseAddress, XRUN_CONTROL_ADDR_AP_CTRL, Data | 0x01);
 }
 
+void XRun_Reset(XRun *InstancePtr) {
+    XRun_WriteReg(InstancePtr->Control_BaseAddress, XRUN_CONTROL_ADDR_AP_CTRL, 0x80);
+}
+
 u32 XRun_IsDone(XRun *InstancePtr) {
     u32 Data;
 
