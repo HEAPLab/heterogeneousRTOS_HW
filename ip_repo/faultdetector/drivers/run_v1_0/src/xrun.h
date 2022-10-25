@@ -201,6 +201,7 @@ int XRun_Release(XRun *InstancePtr);
 #endif
 
 void XRun_Start(XRun *InstancePtr);
+void XRun_Reset(XRun *InstancePtr);
 u32 XRun_IsDone(XRun *InstancePtr);
 u32 XRun_IsIdle(XRun *InstancePtr);
 u32 XRun_IsReady(XRun *InstancePtr);
