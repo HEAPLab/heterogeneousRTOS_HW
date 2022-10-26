@@ -9,10 +9,7 @@
 //         bit 1  - ap_done (Read/COR)
 //         bit 2  - ap_idle (Read)
 //         bit 3  - ap_ready (Read/COR)
-//         bit 5  - flush (Read/Write)
-//         bit 6  - flush_done (Read)
 //         bit 7  - auto_restart (Read/Write)
-//         bit 8  - sw_reset (Read/Write)
 //         bit 9  - interrupt (Read)
 //         others - reserved
 // 0x004 : Global Interrupt Enable Register

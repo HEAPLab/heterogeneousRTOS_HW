@@ -35,9 +35,6 @@ entity run_gmem_m_axi is
         MAXI_BUFFER_IMPL          : STRING  := "block");
     port (
         
-        -- flush related
-        flush           : in STD_LOGIC;
-        flush_done      : out STD_LOGIC; 
         -- system signal
         ACLK            : in STD_LOGIC;
         ARESET          : in STD_LOGIC;
@@ -296,33 +293,6 @@ architecture behave of run_gmem_m_axi is
     end component run_gmem_m_axi_write;
 
     
-    component run_gmem_m_axi_flushManager is
-        generic (
-            NUM_READ_OUTSTANDING   : INTEGER := 2;
-            NUM_WRITE_OUTSTANDING  : INTEGER := 2);
-        port (
-            clk : in STD_LOGIC;
-            reset : in STD_LOGIC;
-            clk_en : in STD_LOGIC;
-            flush : in STD_LOGIC;
-            flush_done : out STD_LOGIC;
-            in_AWVALID : in STD_LOGIC;
-            out_AWVALID : out STD_LOGIC;
-            in_AWREADY : in STD_LOGIC;
-            out_AWREADY : out STD_LOGIC;
-            in_WVALID : in STD_LOGIC;
-            out_WVALID : out STD_LOGIC;
-            in_BREADY : in STD_LOGIC;
-            out_BREADY : out STD_LOGIC;
-            in_BVALID : in STD_LOGIC;
-            in_ARVALID : in STD_LOGIC;
-            out_ARVALID : out STD_LOGIC;
-            in_ARREADY : in STD_LOGIC;
-            in_RREADY : in STD_LOGIC;
-            out_RREADY : out STD_LOGIC;
-            in_RVALID : in STD_LOGIC;
-            in_RLAST : in STD_LOGIC);
-    end component run_gmem_m_axi_flushManager;
 
     signal AWADDR_Dummy   : UNSIGNED(C_M_AXI_ADDR_WIDTH-1 downto 0);
     signal AWLEN_Dummy    : UNSIGNED(31 downto 0);
@@ -344,12 +314,6 @@ architecture behave of run_gmem_m_axi is
     signal RREADY_Dummy   : STD_LOGIC;
     signal RBURST_READY_Dummy   : STD_LOGIC;
     
-    signal AWVALIDFromWriteUnit : STD_LOGIC;
-    signal AWREADYToWriteUnit   : STD_LOGIC;
-    signal WVALIDFromWriteUnit  : STD_LOGIC;
-    signal BREADYFromWriteUnit  : STD_LOGIC;
-    signal ARVALIDFromReadUnit  : STD_LOGIC;
-    signal RREADYFromReadUnit   : STD_LOGIC; 
 
 begin
     -- Instantiation
@@ -455,8 +419,8 @@ begin
             STD_LOGIC_VECTOR(out_BUS_ARREGION) => ARREGION,
             STD_LOGIC_VECTOR(out_BUS_ARUSER)   => ARUSER,
             
-            out_BUS_ARVALID                    => ARVALIDFromReadUnit,
             
+            out_BUS_ARVALID                    => ARVALID,
             in_BUS_ARREADY                     => ARREADY,
             in_BUS_RID                         => UNSIGNED(RID),
             in_BUS_RDATA                       => UNSIGNED(RDATA),
@@ -465,8 +429,8 @@ begin
             in_BUS_RUSER                       => UNSIGNED(RUSER),
             in_BUS_RVALID                      => RVALID,
             
-            out_BUS_RREADY                     => RREADYFromReadUnit,
             
+            out_BUS_RREADY                     => RREADY,
             in_HLS_ARVALID                     => ARVALID_Dummy,
             out_HLS_ARREADY                    => ARREADY_Dummy,
             in_HLS_ARADDR                      => ARADDR_Dummy,
@@ -507,25 +471,25 @@ begin
             STD_LOGIC_VECTOR(out_BUS_AWREGION) => AWREGION,
             STD_LOGIC_VECTOR(out_BUS_AWUSER)   => AWUSER,
             
-            out_BUS_AWVALID                    => AWVALIDFromWriteUnit,
-            in_BUS_AWREADY                     => AWREADYToWriteUnit,
             
+            out_BUS_AWVALID                    => AWVALID,
+            in_BUS_AWREADY                     => AWREADY,
             STD_LOGIC_VECTOR(out_BUS_WID)      => WID,
             STD_LOGIC_VECTOR(out_BUS_WDATA)    => WDATA,
             STD_LOGIC_VECTOR(out_BUS_WSTRB)    => WSTRB,
             out_BUS_WLAST                      => WLAST,
             STD_LOGIC_VECTOR(out_BUS_WUSER)    => WUSER,
             
-            out_BUS_WVALID                     => WVALIDFromWriteUnit,
             
+            out_BUS_WVALID                     => WVALID,
             in_BUS_WREADY                      => WREADY,
             in_BUS_BID                         => UNSIGNED(BID),
             in_BUS_BRESP                       => UNSIGNED(BRESP),
             in_BUS_BUSER                       => UNSIGNED(BUSER),
             in_BUS_BVALID                      => BVALID,
             
-            out_BUS_BREADY                     => BREADYFromWriteUnit,
             
+            out_BUS_BREADY                     => BREADY,
             in_HLS_AWVALID                     => AWVALID_Dummy,
             out_HLS_AWREADY                    => AWREADY_Dummy,
             in_HLS_AWADDR                      => AWADDR_Dummy,
@@ -539,32 +503,6 @@ begin
             in_HLS_BREADY                      => BREADY_Dummy);
 
     
-    flushManager : run_gmem_m_axi_flushManager
-        generic map (
-            NUM_WRITE_OUTSTANDING  => NUM_WRITE_OUTSTANDING,
-            NUM_READ_OUTSTANDING   => NUM_READ_OUTSTANDING)
-        port map (
-            clk => ACLK,
-            reset => ARESET,
-            clk_en => ACLK_EN,
-            flush => flush,
-            flush_done => flush_done,
-            in_AWVALID => AWVALIDFromWriteUnit,
-            out_AWVALID => AWVALID,
-            in_AWREADY => AWREADY,
-            out_AWREADY => AWREADYToWriteUnit,
-            in_WVALID => WVALIDFromWriteUnit,
-            out_WVALID => WVALID,
-            in_BREADY => BREADYFromWriteUnit,
-            out_BREADY => BREADY,
-            in_BVALID => BVALID,
-            in_ARVALID => ARVALIDFromReadUnit,
-            out_ARVALID => ARVALID,
-            in_ARREADY => ARREADY,
-            in_RREADY => RREADYFromReadUnit,
-            out_RREADY => RREADY,
-            in_RVALID => RVALID,
-            in_RLAST => RLAST);
 end architecture behave;
 
 

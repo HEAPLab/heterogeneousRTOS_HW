@@ -274,6 +274,14 @@
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
                         end
+                        if (grp_afterInit_fu_1117.ap_sync_read_data_U0_ap_ready & grp_afterInit_fu_1117.read_data_U0.ap_idle & ~grp_afterInit_fu_1117.ap_sync_compute_U0_ap_ready) begin
+                            $display("//      Blocked by input sync logic with process : 'run_run.grp_afterInit_fu_1117.compute_U0'");
+                        end
+                    end
+                    2: begin
+                        if (grp_afterInit_fu_1117.ap_sync_read_data_U0_ap_ready & grp_afterInit_fu_1117.read_data_U0.ap_idle & ~grp_afterInit_fu_1117.ap_sync_handle_outcome_U0_ap_ready) begin
+                            $display("//      Blocked by input sync logic with process : 'run_run.grp_afterInit_fu_1117.handle_outcome_U0'");
+                        end
                     end
                     endcase
                 end
@@ -292,6 +300,9 @@
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
                         end
+                        if (grp_afterInit_fu_1117.ap_sync_compute_U0_ap_ready & grp_afterInit_fu_1117.compute_U0.ap_idle & ~grp_afterInit_fu_1117.ap_sync_read_data_U0_ap_ready) begin
+                            $display("//      Blocked by input sync logic with process : 'run_run.grp_afterInit_fu_1117.read_data_U0'");
+                        end
                     end
                     2: begin
                         if (~grp_afterInit_fu_1117.compute_U0.destStream_blk_n) begin
@@ -305,6 +316,9 @@
                                 $fdisplay(fp, "Dependence_Channel_path run_run.grp_afterInit_fu_1117.destStream_U");
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
+                        end
+                        if (grp_afterInit_fu_1117.ap_sync_compute_U0_ap_ready & grp_afterInit_fu_1117.compute_U0.ap_idle & ~grp_afterInit_fu_1117.ap_sync_handle_outcome_U0_ap_ready) begin
+                            $display("//      Blocked by input sync logic with process : 'run_run.grp_afterInit_fu_1117.handle_outcome_U0'");
                         end
                     end
                     endcase
@@ -323,6 +337,14 @@
                                 $fdisplay(fp, "Dependence_Channel_path run_run.grp_afterInit_fu_1117.destStream_U");
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
+                        end
+                        if (grp_afterInit_fu_1117.ap_sync_handle_outcome_U0_ap_ready & grp_afterInit_fu_1117.handle_outcome_U0.ap_idle & ~grp_afterInit_fu_1117.ap_sync_compute_U0_ap_ready) begin
+                            $display("//      Blocked by input sync logic with process : 'run_run.grp_afterInit_fu_1117.compute_U0'");
+                        end
+                    end
+                    0: begin
+                        if (grp_afterInit_fu_1117.ap_sync_handle_outcome_U0_ap_ready & grp_afterInit_fu_1117.handle_outcome_U0.ap_idle & ~grp_afterInit_fu_1117.ap_sync_read_data_U0_ap_ready) begin
+                            $display("//      Blocked by input sync logic with process : 'run_run.grp_afterInit_fu_1117.read_data_U0'");
                         end
                     end
                     endcase

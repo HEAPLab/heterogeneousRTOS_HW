@@ -30,8 +30,6 @@ module run_control_s_axi
     output wire                          RVALID,
     input  wire                          RREADY,
     output wire                          interrupt,
-    output wire                          flush,
-    input  wire                          flush_done,
     output wire [7:0]                    accel_mode,
     input  wire [7:0]                    copying,
     output wire [63:0]                   inputData,
@@ -56,8 +54,7 @@ module run_control_s_axi
     output wire                          ap_start,
     input  wire                          ap_done,
     input  wire                          ap_ready,
-    input  wire                          ap_idle,
-    output wire                          sw_reset
+    input  wire                          ap_idle
 );
 //------------------------Address Info-------------------
 // 0x000 : Control signals
@@ -65,10 +62,7 @@ module run_control_s_axi
 //         bit 1  - ap_done (Read/COR)
 //         bit 2  - ap_idle (Read)
 //         bit 3  - ap_ready (Read/COR)
-//         bit 5  - flush (Read/Write)
-//         bit 6  - flush_done (Read)
 //         bit 7  - auto_restart (Read/Write)
-//         bit 8  - sw_reset (Read/Write)
 //         bit 9  - interrupt (Read)
 //         others - reserved
 // 0x004 : Global Interrupt Enable Register
@@ -341,7 +335,6 @@ localparam
     wire                          ar_hs;
     wire [ADDR_BITS-1:0]          raddr;
     // internal registers
-    reg                           int_sw_reset = 1'b0;
     reg                           int_ap_idle;
     reg                           int_ap_ready = 1'b0;
     wire                          task_ap_ready;
@@ -350,8 +343,6 @@ localparam
     reg                           int_task_ap_done = 1'b0;
     reg                           int_ap_start = 1'b0;
     reg                           int_interrupt = 1'b0;
-    reg                           int_flush = 1'b0;
-    reg                           int_flush_done = 1'b0;
     reg                           int_auto_restart = 1'b0;
     reg                           auto_restart_status = 1'b0;
     wire                          auto_restart_done;
@@ -532,10 +523,7 @@ always @(posedge ACLK) begin
                     rdata[1] <= int_task_ap_done;
                     rdata[2] <= int_ap_idle;
                     rdata[3] <= int_ap_ready;
-                    rdata[5] <= int_flush;
-                    rdata[6] <= int_flush_done;
                     rdata[7] <= int_auto_restart;
-                    rdata[8] <= int_sw_reset;
                     rdata[9] <= int_interrupt;
                 end
                 ADDR_GIE: begin
@@ -739,9 +727,7 @@ assign interrupt            = int_interrupt;
 assign ap_start             = int_ap_start;
 assign task_ap_done         = (ap_done && !auto_restart_status) || auto_restart_done;
 assign task_ap_ready        = ap_ready && !int_auto_restart;
-assign flush                = int_flush;
 assign auto_restart_done    = auto_restart_status && (ap_idle && !int_ap_idle);
-assign sw_reset             = int_sw_reset && int_flush_done;
 assign accel_mode           = int_accel_mode;
 assign inputData            = int_inputData;
 assign startCopy            = int_startCopy;
@@ -817,30 +803,6 @@ always @(posedge ACLK) begin
     end
 end
 
-// int_flush
-always @(posedge ACLK) begin
-    if (ARESET)
-        int_flush <= 1'b0;
-    else if (ACLK_EN) begin
-        if (w_hs && waddr == ADDR_AP_CTRL && WSTRB[0] && WDATA[5])
-            int_flush <= 1'b1;
-        else if (int_sw_reset)
-            int_flush <= 1'b1;
-    end
-end
-
-// int_flush_done
-always @(posedge ACLK) begin
-    if (ARESET)
-        int_flush_done <= 1'b0;
-    else if (ACLK_EN) begin
-        if (flush_done)
-            int_flush_done <= 1'b1;
-        else if (ar_hs && raddr == ADDR_AP_CTRL)
-            int_flush_done <= 1'b0;
-    end
-end
-
 // int_auto_restart
 always @(posedge ACLK) begin
     if (ARESET)
@@ -860,16 +822,6 @@ always @(posedge ACLK) begin
             auto_restart_status <= 1'b1;
         else if (ap_idle)
             auto_restart_status <= 1'b0;
-    end
-end
-
-// int_sw_reset
-always @(posedge ACLK) begin
-    if (ARESET)
-        int_sw_reset <= 1'b0;
-    else if (ACLK_EN) begin
-        if (w_hs && waddr == ADDR_AP_CTRL && WSTRB[1] && WDATA[8])
-            int_sw_reset <= 1'b1;
     end
 end
 

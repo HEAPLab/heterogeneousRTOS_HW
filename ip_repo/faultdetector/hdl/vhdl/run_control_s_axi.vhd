@@ -33,8 +33,6 @@ port (
     RVALID                :out  STD_LOGIC;
     RREADY                :in   STD_LOGIC;
     interrupt             :out  STD_LOGIC;
-    flush                 :out  STD_LOGIC;
-    flush_done            :in   STD_LOGIC;
     accel_mode            :out  STD_LOGIC_VECTOR(7 downto 0);
     copying               :in   STD_LOGIC_VECTOR(7 downto 0);
     inputData             :out  STD_LOGIC_VECTOR(63 downto 0);
@@ -59,8 +57,7 @@ port (
     ap_start              :out  STD_LOGIC;
     ap_done               :in   STD_LOGIC;
     ap_ready              :in   STD_LOGIC;
-    ap_idle               :in   STD_LOGIC;
-    sw_reset              :out  STD_LOGIC
+    ap_idle               :in   STD_LOGIC
 );
 end entity run_control_s_axi;
 
@@ -70,10 +67,7 @@ end entity run_control_s_axi;
 --         bit 1  - ap_done (Read/COR)
 --         bit 2  - ap_idle (Read)
 --         bit 3  - ap_ready (Read/COR)
---         bit 5  - flush (Read/Write)
---         bit 6  - flush_done (Read)
 --         bit 7  - auto_restart (Read/Write)
---         bit 8  - sw_reset (Read/Write)
 --         bit 9  - interrupt (Read)
 --         others - reserved
 -- 0x004 : Global Interrupt Enable Register
@@ -341,7 +335,6 @@ architecture behave of run_control_s_axi is
     signal ARREADY_t           : STD_LOGIC;
     signal RVALID_t            : STD_LOGIC;
     -- internal registers
-    signal int_sw_reset        : STD_LOGIC := '0';
     signal int_ap_idle         : STD_LOGIC := '0';
     signal int_ap_ready        : STD_LOGIC := '0';
     signal task_ap_ready       : STD_LOGIC;
@@ -350,8 +343,6 @@ architecture behave of run_control_s_axi is
     signal int_task_ap_done    : STD_LOGIC := '0';
     signal int_ap_start        : STD_LOGIC := '0';
     signal int_interrupt       : STD_LOGIC := '0';
-    signal int_flush           : STD_LOGIC := '0';
-    signal int_flush_done      : STD_LOGIC := '0';
     signal int_auto_restart    : STD_LOGIC := '0';
     signal auto_restart_status : STD_LOGIC := '0';
     signal auto_restart_done   : STD_LOGIC;
@@ -587,7 +578,6 @@ port map (
                     case (TO_INTEGER(raddr)) is
                     when ADDR_AP_CTRL =>
                         rdata_data(9) <= int_interrupt;
-                        rdata_data(8) <= int_sw_reset;
                         rdata_data(7) <= int_auto_restart;
                         rdata_data(3) <= int_ap_ready;
                         rdata_data(2) <= int_ap_idle;
@@ -733,9 +723,7 @@ port map (
     ap_start             <= int_ap_start;
     task_ap_done         <= (ap_done and not auto_restart_status) or auto_restart_done;
     task_ap_ready        <= ap_ready and not int_auto_restart;
-    flush                <= int_flush;
     auto_restart_done    <= auto_restart_status and (ap_idle and not int_ap_idle);
-    sw_reset             <= int_sw_reset and int_flush_done;
     accel_mode           <= STD_LOGIC_VECTOR(int_accel_mode);
     inputData            <= STD_LOGIC_VECTOR(int_inputData);
     startCopy            <= STD_LOGIC_VECTOR(int_startCopy);
@@ -836,36 +824,6 @@ port map (
     begin
         if (ACLK'event and ACLK = '1') then
             if (ARESET = '1') then
-                int_flush <= '0';
-            elsif (ACLK_EN = '1') then
-                if (w_hs = '1' and waddr = ADDR_AP_CTRL and WSTRB(0) = '1' and WDATA(5) = '1') then
-                    int_flush <= '1';
-                elsif (int_sw_reset = '1') then
-                    int_flush <= '1';
-                end if;
-            end if;
-        end if;
-    end process;
-
-    process (ACLK)
-    begin
-        if (ACLK'event and ACLK = '1') then
-            if (ARESET = '1') then
-                int_flush_done <= '0';
-            elsif (ACLK_EN = '1') then
-                if (flush_done = '1') then
-                    int_flush_done <= '1';
-                elsif (ar_hs = '1' and raddr = ADDR_AP_CTRL) then
-                    int_flush_done <= '0';
-                end if;
-            end if;
-        end if;
-    end process;
-
-    process (ACLK)
-    begin
-        if (ACLK'event and ACLK = '1') then
-            if (ARESET = '1') then
                 int_auto_restart <= '0';
             elsif (ACLK_EN = '1') then
                 if (w_hs = '1' and waddr = ADDR_AP_CTRL and WSTRB(0) = '1') then
@@ -885,19 +843,6 @@ port map (
                     auto_restart_status <= '1';
                 elsif (ap_idle = '1') then
                     auto_restart_status <= '0';
-                end if;
-            end if;
-        end if;
-    end process;
-
-    process (ACLK)
-    begin
-        if (ACLK'event and ACLK = '1') then
-            if (ARESET = '1') then
-                int_sw_reset <= '0';
-            elsif (ACLK_EN = '1') then
-                if (w_hs = '1' and waddr = ADDR_AP_CTRL and WSTRB(1) = '1' and WDATA(8) = '1') then
-                    int_sw_reset <= '1';
                 end if;
             end if;
         end if;

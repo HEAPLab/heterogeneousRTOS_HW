@@ -790,16 +790,16 @@
             <spirit:testable spirit:testConstraint="unconstrained">false</spirit:testable>
           </spirit:field>
           <spirit:field>
-            <spirit:name>SW_RESET</spirit:name>
-            <spirit:description>Control signal Register for &apos;sw_reset&apos;.</spirit:description>
+            <spirit:name>RESERVED_2</spirit:name>
+            <spirit:description>Reserved.  0s on read.</spirit:description>
             <spirit:bitOffset>8</spirit:bitOffset>
             <spirit:bitWidth spirit:format="long">1</spirit:bitWidth>
-            <spirit:access>read-write</spirit:access>
-            <spirit:modifiedWriteValue>modify</spirit:modifiedWriteValue>
+            <spirit:access>read-only</spirit:access>
             <spirit:writeValueConstraint>
               <spirit:minimum>0</spirit:minimum>
               <spirit:maximum>0</spirit:maximum>
             </spirit:writeValueConstraint>
+            <spirit:readAction>modify</spirit:readAction>
             <spirit:testable spirit:testConstraint="unconstrained">false</spirit:testable>
           </spirit:field>
           <spirit:field>
@@ -2485,7 +2485,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>b129a8f5</spirit:value>
+            <spirit:value>ea95e77d</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -2504,7 +2504,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>9d86f3c3</spirit:value>
+            <spirit:value>a63cd5be</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -2523,7 +2523,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>d4e77437</spirit:value>
+            <spirit:value>2df4ee2e</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -2542,7 +2542,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>d717b282</spirit:value>
+            <spirit:value>73eb8187</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -2556,7 +2556,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>dd5a9b54</spirit:value>
+            <spirit:value>a0b798f9</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -3909,7 +3909,7 @@
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/verilog/run_fifo_w298_d2_S.v</spirit:name>
+        <spirit:name>hdl/verilog/run_fifo_w299_d2_S.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -4001,7 +4001,7 @@
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/verilog/run_read_data_Pipeline_VITIS_LOOP_573_2.v</spirit:name>
+        <spirit:name>hdl/verilog/run_read_data_Pipeline_VITIS_LOOP_580_2.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -4069,7 +4069,7 @@
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/verilog/run_fifo_w298_d2_S.v</spirit:name>
+        <spirit:name>hdl/verilog/run_fifo_w299_d2_S.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
@@ -4183,7 +4183,7 @@
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/verilog/run_read_data_Pipeline_VITIS_LOOP_573_2.v</spirit:name>
+        <spirit:name>hdl/verilog/run_read_data_Pipeline_VITIS_LOOP_580_2.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
@@ -4298,7 +4298,7 @@
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/vhdl/run_fifo_w298_d2_S.vhd</spirit:name>
+        <spirit:name>hdl/vhdl/run_fifo_w299_d2_S.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -4374,7 +4374,7 @@
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/vhdl/run_read_data_Pipeline_VITIS_LOOP_573_2.vhd</spirit:name>
+        <spirit:name>hdl/vhdl/run_read_data_Pipeline_VITIS_LOOP_580_2.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -4388,7 +4388,7 @@
       <spirit:file>
         <spirit:name>hdl/vhdl/run.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_ed2de3cb</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_e990243a</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -4439,7 +4439,7 @@
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/vhdl/run_fifo_w298_d2_S.vhd</spirit:name>
+        <spirit:name>hdl/vhdl/run_fifo_w299_d2_S.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
@@ -4534,7 +4534,7 @@
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/vhdl/run_read_data_Pipeline_VITIS_LOOP_573_2.vhd</spirit:name>
+        <spirit:name>hdl/vhdl/run_read_data_Pipeline_VITIS_LOOP_580_2.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
@@ -4773,7 +4773,7 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>clk_period</spirit:name>
-      <spirit:value spirit:id="PARAM_VALUE.clk_period" spirit:order="14">18</spirit:value>
+      <spirit:value spirit:id="PARAM_VALUE.clk_period" spirit:order="14">20</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>machine</spirit:name>
@@ -4800,10 +4800,10 @@
       <xilinx:taxonomies>
         <xilinx:taxonomy>/VITIS_HLS_IP</xilinx:taxonomy>
       </xilinx:taxonomies>
-      <xilinx:displayName>Run</xilinx:displayName>
+      <xilinx:displayName>faultDetectorMicro</xilinx:displayName>
       <xilinx:definitionSource>HLS</xilinx:definitionSource>
-      <xilinx:coreRevision>2112740013</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2022-10-24T22:34:09Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>2112742874</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2022-10-26T22:14:53Z</xilinx:coreCreationDateTime>
       <xilinx:sdxKernelAttributes>
         <xilinx:sdx_kernel>true</xilinx:sdx_kernel>
         <xilinx:sdx_kernel_type>hls</xilinx:sdx_kernel_type>
@@ -4813,11 +4813,11 @@
       <xilinx:xilinxVersion>2022.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="533d04fb"/>
       <xilinx:checksum xilinx:scope="addressSpaces" xilinx:value="2c1df7e3"/>
-      <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="8969caa2"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="5be02aa8"/>
+      <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="1b6cfcee"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="83608f85"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="024521bc"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="6bfe0e68"/>
-      <xilinx:checksum xilinx:scope="parameters" xilinx:value="e645bc5f"/>
+      <xilinx:checksum xilinx:scope="parameters" xilinx:value="0e799fcd"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
 </spirit:component>

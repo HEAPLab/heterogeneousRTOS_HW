@@ -108,7 +108,7 @@
         <spirit:configurableElementValue spirit:referenceId="PROJECT_PARAM.USE_RDI_CUSTOMIZATION">TRUE</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="PROJECT_PARAM.USE_RDI_GENERATION">TRUE</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.IPCONTEXT">IP_Integrator</spirit:configurableElementValue>
-        <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.IPREVISION">2112740013</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.IPREVISION">2112742874</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.MANAGED">TRUE</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.OUTPUTDIR">../../../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ip/design_1_run_0_1</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="RUNTIME_PARAM.SELECTEDSIMMODEL"/>
@@ -494,11 +494,11 @@
                                 &quot;description&quot;: &quot;Control signal Register for &apos;auto_restart&apos;.&quot;,
                                 &quot;access&quot;: &quot;read-write&quot;
                               },
-                              &quot;SW_RESET&quot;: {
+                              &quot;RESERVED_2&quot;: {
                                 &quot;bit_offset&quot;: 8,
                                 &quot;bit_width&quot;: 1,
-                                &quot;description&quot;: &quot;Control signal Register for &apos;sw_reset&apos;.&quot;,
-                                &quot;access&quot;: &quot;read-write&quot;
+                                &quot;description&quot;: &quot;Reserved.  0s on read.&quot;,
+                                &quot;access&quot;: &quot;read-only&quot;
                               },
                               &quot;INTERRUPT&quot;: {
                                 &quot;bit_offset&quot;: 9,

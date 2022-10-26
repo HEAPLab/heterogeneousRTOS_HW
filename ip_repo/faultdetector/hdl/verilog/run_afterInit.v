@@ -347,7 +347,7 @@ wire    compute_U0_ap_continue;
 wire    compute_U0_ap_idle;
 wire    compute_U0_ap_ready;
 wire    compute_U0_sourceStream_read;
-wire   [297:0] compute_U0_destStream_din;
+wire   [298:0] compute_U0_destStream_din;
 wire    compute_U0_destStream_write;
 wire   [5:0] compute_U0_n_regions_V_address0;
 wire    compute_U0_n_regions_V_ce0;
@@ -423,7 +423,7 @@ wire   [1:0] sourceStream_num_data_valid;
 wire   [1:0] sourceStream_fifo_cap;
 wire    sourceStream_empty_n;
 wire    destStream_full_n;
-wire   [297:0] destStream_dout;
+wire   [298:0] destStream_dout;
 wire   [1:0] destStream_num_data_valid;
 wire   [1:0] destStream_fifo_cap;
 wire    destStream_empty_n;
@@ -638,7 +638,7 @@ run_fifo_w320_d2_S sourceStream_U(
     .if_read(compute_U0_sourceStream_read)
 );
 
-run_fifo_w298_d2_S destStream_U(
+run_fifo_w299_d2_S destStream_U(
     .clk(ap_clk),
     .reset(ap_rst),
     .if_read_ce(1'b1),

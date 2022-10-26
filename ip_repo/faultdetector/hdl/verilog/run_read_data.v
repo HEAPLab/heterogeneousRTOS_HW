@@ -215,7 +215,9 @@ output   startCopy_ap_ack;
 output  [7:0] copying;
 output   copying_ap_vld;
 
+reg ap_done;
 reg ap_idle;
+reg ap_ready;
 reg sourceStream_write;
 reg m_axi_gmem_ARVALID;
 reg[63:0] m_axi_gmem_ARADDR;
@@ -239,68 +241,68 @@ reg    ap_done_reg;
 wire    ap_CS_fsm_state1;
 reg    sourceStream_blk_n;
 wire    ap_CS_fsm_state75;
-reg   [0:0] icmp_ln557_reg_241;
+reg   [0:0] icmp_ln564_reg_234;
 reg    gmem_blk_n_AR;
 wire    ap_CS_fsm_state4;
 reg    gmem_blk_n_R;
 wire    ap_CS_fsm_state74;
 reg    startCopy_blk_n;
 wire    ap_CS_fsm_state2;
-wire  signed [57:0] trunc_ln_fu_137_p4;
-reg   [57:0] trunc_ln_reg_230;
-reg   [63:0] gmem_addr_reg_235;
-wire   [0:0] icmp_ln557_fu_157_p2;
-reg   [511:0] gmem_addr_read_reg_245;
-reg   [7:0] tmp2_reg_252;
-wire    grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_ap_start;
-wire    grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_ap_done;
-wire    grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_ap_idle;
-wire    grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_ap_ready;
-wire    grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWVALID;
-wire   [63:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWADDR;
-wire   [0:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWID;
-wire   [31:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWLEN;
-wire   [2:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWSIZE;
-wire   [1:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWBURST;
-wire   [1:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWLOCK;
-wire   [3:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWCACHE;
-wire   [2:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWPROT;
-wire   [3:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWQOS;
-wire   [3:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWREGION;
-wire   [0:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWUSER;
-wire    grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_WVALID;
-wire   [511:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_WDATA;
-wire   [63:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_WSTRB;
-wire    grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_WLAST;
-wire   [0:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_WID;
-wire   [0:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_WUSER;
-wire    grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARVALID;
-wire   [63:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARADDR;
-wire   [0:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARID;
-wire   [31:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARLEN;
-wire   [2:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARSIZE;
-wire   [1:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARBURST;
-wire   [1:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARLOCK;
-wire   [3:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARCACHE;
-wire   [2:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARPROT;
-wire   [3:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARQOS;
-wire   [3:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARREGION;
-wire   [0:0] grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARUSER;
-wire    grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_RREADY;
-wire    grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_BREADY;
-reg    grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_ap_start_reg;
+wire  signed [57:0] trunc_ln_fu_135_p4;
+reg   [57:0] trunc_ln_reg_223;
+reg   [63:0] gmem_addr_reg_228;
+wire   [0:0] icmp_ln564_fu_155_p2;
+reg   [511:0] gmem_addr_read_reg_238;
+reg  signed [7:0] tmp2_reg_245;
+wire    grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_ap_start;
+wire    grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_ap_done;
+wire    grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_ap_idle;
+wire    grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_ap_ready;
+wire    grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWVALID;
+wire   [63:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWADDR;
+wire   [0:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWID;
+wire   [31:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWLEN;
+wire   [2:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWSIZE;
+wire   [1:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWBURST;
+wire   [1:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWLOCK;
+wire   [3:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWCACHE;
+wire   [2:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWPROT;
+wire   [3:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWQOS;
+wire   [3:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWREGION;
+wire   [0:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWUSER;
+wire    grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_WVALID;
+wire   [511:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_WDATA;
+wire   [63:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_WSTRB;
+wire    grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_WLAST;
+wire   [0:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_WID;
+wire   [0:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_WUSER;
+wire    grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARVALID;
+wire   [63:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARADDR;
+wire   [0:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARID;
+wire   [31:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARLEN;
+wire   [2:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARSIZE;
+wire   [1:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARBURST;
+wire   [1:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARLOCK;
+wire   [3:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARCACHE;
+wire   [2:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARPROT;
+wire   [3:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARQOS;
+wire   [3:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARREGION;
+wire   [0:0] grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARUSER;
+wire    grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_RREADY;
+wire    grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_BREADY;
+reg    grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_ap_start_reg;
 wire    ap_CS_fsm_state3;
-wire  signed [63:0] sext_ln575_fu_147_p1;
+wire  signed [63:0] sext_ln582_fu_145_p1;
 reg    ap_block_state1;
 reg   [7:0] copying_preg;
 reg    ap_block_state75;
-wire   [0:0] icmp_ln591_fu_192_p2;
-wire  signed [8:0] sext_ln591_fu_173_p1;
-wire   [8:0] add_ln591_fu_176_p2;
-wire   [7:0] tmp_fu_182_p4;
-wire   [255:0] tmp_8_fu_198_p4;
-wire   [39:0] tmp_s_fu_207_p4;
-wire   [23:0] trunc_ln174_fu_216_p1;
+wire   [0:0] icmp_ln597_fu_180_p2;
+wire  signed [8:0] sext_ln597_fu_171_p1;
+wire   [8:0] add_ln597_fu_174_p2;
+wire   [255:0] tmp_8_fu_186_p4;
+wire   [39:0] tmp_s_fu_195_p4;
+wire   [23:0] trunc_ln174_fu_204_p1;
+wire   [0:0] icmp_ln609_fu_218_p2;
 reg   [74:0] ap_NS_fsm;
 reg    ap_ST_fsm_state1_blk;
 reg    ap_ST_fsm_state2_blk;
@@ -383,52 +385,52 @@ wire    ap_ce_reg;
 initial begin
 #0 ap_done_reg = 1'b0;
 #0 ap_CS_fsm = 75'd1;
-#0 grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_ap_start_reg = 1'b0;
+#0 grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_ap_start_reg = 1'b0;
 #0 copying_preg = 8'd0;
 end
 
-run_read_data_Pipeline_VITIS_LOOP_573_2 grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130(
+run_read_data_Pipeline_VITIS_LOOP_580_2 grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128(
     .ap_clk(ap_clk),
     .ap_rst(ap_rst),
-    .ap_start(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_ap_start),
-    .ap_done(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_ap_done),
-    .ap_idle(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_ap_idle),
-    .ap_ready(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_ap_ready),
-    .m_axi_gmem_AWVALID(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWVALID),
+    .ap_start(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_ap_start),
+    .ap_done(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_ap_done),
+    .ap_idle(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_ap_idle),
+    .ap_ready(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_ap_ready),
+    .m_axi_gmem_AWVALID(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWVALID),
     .m_axi_gmem_AWREADY(1'b0),
-    .m_axi_gmem_AWADDR(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWADDR),
-    .m_axi_gmem_AWID(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWID),
-    .m_axi_gmem_AWLEN(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWLEN),
-    .m_axi_gmem_AWSIZE(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWSIZE),
-    .m_axi_gmem_AWBURST(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWBURST),
-    .m_axi_gmem_AWLOCK(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWLOCK),
-    .m_axi_gmem_AWCACHE(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWCACHE),
-    .m_axi_gmem_AWPROT(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWPROT),
-    .m_axi_gmem_AWQOS(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWQOS),
-    .m_axi_gmem_AWREGION(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWREGION),
-    .m_axi_gmem_AWUSER(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_AWUSER),
-    .m_axi_gmem_WVALID(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_WVALID),
+    .m_axi_gmem_AWADDR(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWADDR),
+    .m_axi_gmem_AWID(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWID),
+    .m_axi_gmem_AWLEN(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWLEN),
+    .m_axi_gmem_AWSIZE(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWSIZE),
+    .m_axi_gmem_AWBURST(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWBURST),
+    .m_axi_gmem_AWLOCK(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWLOCK),
+    .m_axi_gmem_AWCACHE(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWCACHE),
+    .m_axi_gmem_AWPROT(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWPROT),
+    .m_axi_gmem_AWQOS(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWQOS),
+    .m_axi_gmem_AWREGION(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWREGION),
+    .m_axi_gmem_AWUSER(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_AWUSER),
+    .m_axi_gmem_WVALID(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_WVALID),
     .m_axi_gmem_WREADY(1'b0),
-    .m_axi_gmem_WDATA(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_WDATA),
-    .m_axi_gmem_WSTRB(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_WSTRB),
-    .m_axi_gmem_WLAST(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_WLAST),
-    .m_axi_gmem_WID(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_WID),
-    .m_axi_gmem_WUSER(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_WUSER),
-    .m_axi_gmem_ARVALID(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARVALID),
+    .m_axi_gmem_WDATA(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_WDATA),
+    .m_axi_gmem_WSTRB(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_WSTRB),
+    .m_axi_gmem_WLAST(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_WLAST),
+    .m_axi_gmem_WID(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_WID),
+    .m_axi_gmem_WUSER(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_WUSER),
+    .m_axi_gmem_ARVALID(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARVALID),
     .m_axi_gmem_ARREADY(m_axi_gmem_ARREADY),
-    .m_axi_gmem_ARADDR(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARADDR),
-    .m_axi_gmem_ARID(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARID),
-    .m_axi_gmem_ARLEN(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARLEN),
-    .m_axi_gmem_ARSIZE(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARSIZE),
-    .m_axi_gmem_ARBURST(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARBURST),
-    .m_axi_gmem_ARLOCK(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARLOCK),
-    .m_axi_gmem_ARCACHE(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARCACHE),
-    .m_axi_gmem_ARPROT(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARPROT),
-    .m_axi_gmem_ARQOS(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARQOS),
-    .m_axi_gmem_ARREGION(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARREGION),
-    .m_axi_gmem_ARUSER(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARUSER),
+    .m_axi_gmem_ARADDR(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARADDR),
+    .m_axi_gmem_ARID(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARID),
+    .m_axi_gmem_ARLEN(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARLEN),
+    .m_axi_gmem_ARSIZE(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARSIZE),
+    .m_axi_gmem_ARBURST(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARBURST),
+    .m_axi_gmem_ARLOCK(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARLOCK),
+    .m_axi_gmem_ARCACHE(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARCACHE),
+    .m_axi_gmem_ARPROT(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARPROT),
+    .m_axi_gmem_ARQOS(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARQOS),
+    .m_axi_gmem_ARREGION(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARREGION),
+    .m_axi_gmem_ARUSER(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARUSER),
     .m_axi_gmem_RVALID(m_axi_gmem_RVALID),
-    .m_axi_gmem_RREADY(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_RREADY),
+    .m_axi_gmem_RREADY(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_RREADY),
     .m_axi_gmem_RDATA(m_axi_gmem_RDATA),
     .m_axi_gmem_RLAST(m_axi_gmem_RLAST),
     .m_axi_gmem_RID(m_axi_gmem_RID),
@@ -436,11 +438,11 @@ run_read_data_Pipeline_VITIS_LOOP_573_2 grp_read_data_Pipeline_VITIS_LOOP_573_2_
     .m_axi_gmem_RUSER(m_axi_gmem_RUSER),
     .m_axi_gmem_RRESP(m_axi_gmem_RRESP),
     .m_axi_gmem_BVALID(1'b0),
-    .m_axi_gmem_BREADY(grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_BREADY),
+    .m_axi_gmem_BREADY(grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_BREADY),
     .m_axi_gmem_BRESP(2'd0),
     .m_axi_gmem_BID(1'd0),
     .m_axi_gmem_BUSER(1'd0),
-    .sext_ln575(trunc_ln_reg_230)
+    .sext_ln582(trunc_ln_reg_223)
 );
 
 always @ (posedge ap_clk) begin
@@ -453,11 +455,23 @@ end
 
 always @ (posedge ap_clk) begin
     if (ap_rst == 1'b1) begin
+        ap_done_reg <= 1'b0;
+    end else begin
+        if ((ap_continue == 1'b1)) begin
+            ap_done_reg <= 1'b0;
+        end else if ((~((icmp_ln564_reg_234 == 1'd0) & (sourceStream_full_n == 1'b0)) & (icmp_ln609_fu_218_p2 == 1'd1) & (1'b1 == ap_CS_fsm_state75) & (icmp_ln564_reg_234 == 1'd0))) begin
+            ap_done_reg <= 1'b1;
+        end
+    end
+end
+
+always @ (posedge ap_clk) begin
+    if (ap_rst == 1'b1) begin
         copying_preg <= 8'd0;
     end else begin
-        if ((~((icmp_ln557_reg_241 == 1'd0) & (sourceStream_full_n == 1'b0)) & (icmp_ln591_fu_192_p2 == 1'd1) & (1'b1 == ap_CS_fsm_state75) & (icmp_ln557_reg_241 == 1'd0))) begin
+        if ((~((icmp_ln564_reg_234 == 1'd0) & (sourceStream_full_n == 1'b0)) & (icmp_ln597_fu_180_p2 == 1'd1) & (1'b1 == ap_CS_fsm_state75) & (icmp_ln564_reg_234 == 1'd0))) begin
             copying_preg <= 8'd0;
-        end else if (((1'b1 == ap_CS_fsm_state2) & (icmp_ln557_fu_157_p2 == 1'd0) & (startCopy_ap_vld == 1'b1))) begin
+        end else if (((1'b1 == ap_CS_fsm_state2) & (icmp_ln564_fu_155_p2 == 1'd0) & (startCopy_ap_vld == 1'b1))) begin
             copying_preg <= 8'd255;
         end
     end
@@ -465,33 +479,33 @@ end
 
 always @ (posedge ap_clk) begin
     if (ap_rst == 1'b1) begin
-        grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_ap_start_reg <= 1'b0;
+        grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_ap_start_reg <= 1'b0;
     end else begin
-        if (((1'b1 == ap_CS_fsm_state2) & (icmp_ln557_fu_157_p2 == 1'd0) & (startCopy_ap_vld == 1'b1))) begin
-            grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_ap_start_reg <= 1'b1;
-        end else if ((grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_ap_ready == 1'b1)) begin
-            grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_ap_start_reg <= 1'b0;
+        if (((1'b1 == ap_CS_fsm_state2) & (icmp_ln564_fu_155_p2 == 1'd0) & (startCopy_ap_vld == 1'b1))) begin
+            grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_ap_start_reg <= 1'b1;
+        end else if ((grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_ap_ready == 1'b1)) begin
+            grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_ap_start_reg <= 1'b0;
         end
     end
 end
 
 always @ (posedge ap_clk) begin
     if ((1'b1 == ap_CS_fsm_state74)) begin
-        gmem_addr_read_reg_245 <= m_axi_gmem_RDATA;
-        tmp2_reg_252 <= {{m_axi_gmem_RDATA[55:48]}};
+        gmem_addr_read_reg_238 <= m_axi_gmem_RDATA;
+        tmp2_reg_245 <= {{m_axi_gmem_RDATA[55:48]}};
     end
 end
 
 always @ (posedge ap_clk) begin
     if ((1'b1 == ap_CS_fsm_state1)) begin
-        gmem_addr_reg_235 <= sext_ln575_fu_147_p1;
-        trunc_ln_reg_230 <= {{inputAOV[63:6]}};
+        gmem_addr_reg_228 <= sext_ln582_fu_145_p1;
+        trunc_ln_reg_223 <= {{inputAOV[63:6]}};
     end
 end
 
 always @ (posedge ap_clk) begin
     if ((1'b1 == ap_CS_fsm_state2)) begin
-        icmp_ln557_reg_241 <= icmp_ln557_fu_157_p2;
+        icmp_ln564_reg_234 <= icmp_ln564_fu_155_p2;
     end
 end
 
@@ -572,7 +586,7 @@ assign ap_ST_fsm_state38_blk = 1'b0;
 assign ap_ST_fsm_state39_blk = 1'b0;
 
 always @ (*) begin
-    if ((grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_ap_done == 1'b0)) begin
+    if ((grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_ap_done == 1'b0)) begin
         ap_ST_fsm_state3_blk = 1'b1;
     end else begin
         ap_ST_fsm_state3_blk = 1'b0;
@@ -668,7 +682,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if (((icmp_ln557_reg_241 == 1'd0) & (sourceStream_full_n == 1'b0))) begin
+    if (((icmp_ln564_reg_234 == 1'd0) & (sourceStream_full_n == 1'b0))) begin
         ap_ST_fsm_state75_blk = 1'b1;
     end else begin
         ap_ST_fsm_state75_blk = 1'b0;
@@ -682,6 +696,14 @@ assign ap_ST_fsm_state8_blk = 1'b0;
 assign ap_ST_fsm_state9_blk = 1'b0;
 
 always @ (*) begin
+    if ((~((icmp_ln564_reg_234 == 1'd0) & (sourceStream_full_n == 1'b0)) & (icmp_ln609_fu_218_p2 == 1'd1) & (1'b1 == ap_CS_fsm_state75) & (icmp_ln564_reg_234 == 1'd0))) begin
+        ap_done = 1'b1;
+    end else begin
+        ap_done = ap_done_reg;
+    end
+end
+
+always @ (*) begin
     if (((ap_start == 1'b0) & (1'b1 == ap_CS_fsm_state1))) begin
         ap_idle = 1'b1;
     end else begin
@@ -690,9 +712,17 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if ((~((icmp_ln557_reg_241 == 1'd0) & (sourceStream_full_n == 1'b0)) & (icmp_ln591_fu_192_p2 == 1'd1) & (1'b1 == ap_CS_fsm_state75) & (icmp_ln557_reg_241 == 1'd0))) begin
+    if ((~((icmp_ln564_reg_234 == 1'd0) & (sourceStream_full_n == 1'b0)) & (icmp_ln609_fu_218_p2 == 1'd1) & (1'b1 == ap_CS_fsm_state75) & (icmp_ln564_reg_234 == 1'd0))) begin
+        ap_ready = 1'b1;
+    end else begin
+        ap_ready = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((~((icmp_ln564_reg_234 == 1'd0) & (sourceStream_full_n == 1'b0)) & (icmp_ln597_fu_180_p2 == 1'd1) & (1'b1 == ap_CS_fsm_state75) & (icmp_ln564_reg_234 == 1'd0))) begin
         copying = 8'd0;
-    end else if (((1'b1 == ap_CS_fsm_state2) & (icmp_ln557_fu_157_p2 == 1'd0) & (startCopy_ap_vld == 1'b1))) begin
+    end else if (((1'b1 == ap_CS_fsm_state2) & (icmp_ln564_fu_155_p2 == 1'd0) & (startCopy_ap_vld == 1'b1))) begin
         copying = 8'd255;
     end else begin
         copying = copying_preg;
@@ -700,7 +730,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if (((~((icmp_ln557_reg_241 == 1'd0) & (sourceStream_full_n == 1'b0)) & (icmp_ln591_fu_192_p2 == 1'd1) & (1'b1 == ap_CS_fsm_state75) & (icmp_ln557_reg_241 == 1'd0)) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln557_fu_157_p2 == 1'd0) & (startCopy_ap_vld == 1'b1)))) begin
+    if (((~((icmp_ln564_reg_234 == 1'd0) & (sourceStream_full_n == 1'b0)) & (icmp_ln597_fu_180_p2 == 1'd1) & (1'b1 == ap_CS_fsm_state75) & (icmp_ln564_reg_234 == 1'd0)) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln564_fu_155_p2 == 1'd0) & (startCopy_ap_vld == 1'b1)))) begin
         copying_ap_vld = 1'b1;
     end else begin
         copying_ap_vld = 1'b0;
@@ -725,33 +755,33 @@ end
 
 always @ (*) begin
     if (((1'b1 == ap_CS_fsm_state4) & (m_axi_gmem_ARREADY == 1'b1))) begin
-        m_axi_gmem_ARADDR = gmem_addr_reg_235;
-    end else if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln557_fu_157_p2 == 1'd0)))) begin
-        m_axi_gmem_ARADDR = grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARADDR;
+        m_axi_gmem_ARADDR = gmem_addr_reg_228;
+    end else if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln564_fu_155_p2 == 1'd0)))) begin
+        m_axi_gmem_ARADDR = grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARADDR;
     end else begin
         m_axi_gmem_ARADDR = 'bx;
     end
 end
 
 always @ (*) begin
-    if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln557_fu_157_p2 == 1'd0)))) begin
-        m_axi_gmem_ARBURST = grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARBURST;
+    if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln564_fu_155_p2 == 1'd0)))) begin
+        m_axi_gmem_ARBURST = grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARBURST;
     end else begin
         m_axi_gmem_ARBURST = 2'd0;
     end
 end
 
 always @ (*) begin
-    if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln557_fu_157_p2 == 1'd0)))) begin
-        m_axi_gmem_ARCACHE = grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARCACHE;
+    if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln564_fu_155_p2 == 1'd0)))) begin
+        m_axi_gmem_ARCACHE = grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARCACHE;
     end else begin
         m_axi_gmem_ARCACHE = 4'd0;
     end
 end
 
 always @ (*) begin
-    if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln557_fu_157_p2 == 1'd0)))) begin
-        m_axi_gmem_ARID = grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARID;
+    if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln564_fu_155_p2 == 1'd0)))) begin
+        m_axi_gmem_ARID = grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARID;
     end else begin
         m_axi_gmem_ARID = 1'd0;
     end
@@ -760,56 +790,56 @@ end
 always @ (*) begin
     if (((1'b1 == ap_CS_fsm_state4) & (m_axi_gmem_ARREADY == 1'b1))) begin
         m_axi_gmem_ARLEN = 32'd1;
-    end else if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln557_fu_157_p2 == 1'd0)))) begin
-        m_axi_gmem_ARLEN = grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARLEN;
+    end else if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln564_fu_155_p2 == 1'd0)))) begin
+        m_axi_gmem_ARLEN = grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARLEN;
     end else begin
         m_axi_gmem_ARLEN = 'bx;
     end
 end
 
 always @ (*) begin
-    if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln557_fu_157_p2 == 1'd0)))) begin
-        m_axi_gmem_ARLOCK = grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARLOCK;
+    if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln564_fu_155_p2 == 1'd0)))) begin
+        m_axi_gmem_ARLOCK = grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARLOCK;
     end else begin
         m_axi_gmem_ARLOCK = 2'd0;
     end
 end
 
 always @ (*) begin
-    if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln557_fu_157_p2 == 1'd0)))) begin
-        m_axi_gmem_ARPROT = grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARPROT;
+    if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln564_fu_155_p2 == 1'd0)))) begin
+        m_axi_gmem_ARPROT = grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARPROT;
     end else begin
         m_axi_gmem_ARPROT = 3'd0;
     end
 end
 
 always @ (*) begin
-    if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln557_fu_157_p2 == 1'd0)))) begin
-        m_axi_gmem_ARQOS = grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARQOS;
+    if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln564_fu_155_p2 == 1'd0)))) begin
+        m_axi_gmem_ARQOS = grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARQOS;
     end else begin
         m_axi_gmem_ARQOS = 4'd0;
     end
 end
 
 always @ (*) begin
-    if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln557_fu_157_p2 == 1'd0)))) begin
-        m_axi_gmem_ARREGION = grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARREGION;
+    if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln564_fu_155_p2 == 1'd0)))) begin
+        m_axi_gmem_ARREGION = grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARREGION;
     end else begin
         m_axi_gmem_ARREGION = 4'd0;
     end
 end
 
 always @ (*) begin
-    if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln557_fu_157_p2 == 1'd0)))) begin
-        m_axi_gmem_ARSIZE = grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARSIZE;
+    if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln564_fu_155_p2 == 1'd0)))) begin
+        m_axi_gmem_ARSIZE = grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARSIZE;
     end else begin
         m_axi_gmem_ARSIZE = 3'd0;
     end
 end
 
 always @ (*) begin
-    if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln557_fu_157_p2 == 1'd0)))) begin
-        m_axi_gmem_ARUSER = grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARUSER;
+    if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln564_fu_155_p2 == 1'd0)))) begin
+        m_axi_gmem_ARUSER = grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARUSER;
     end else begin
         m_axi_gmem_ARUSER = 1'd0;
     end
@@ -818,8 +848,8 @@ end
 always @ (*) begin
     if (((1'b1 == ap_CS_fsm_state4) & (m_axi_gmem_ARREADY == 1'b1))) begin
         m_axi_gmem_ARVALID = 1'b1;
-    end else if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln557_fu_157_p2 == 1'd0)))) begin
-        m_axi_gmem_ARVALID = grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_ARVALID;
+    end else if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln564_fu_155_p2 == 1'd0)))) begin
+        m_axi_gmem_ARVALID = grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_ARVALID;
     end else begin
         m_axi_gmem_ARVALID = 1'b0;
     end
@@ -828,15 +858,15 @@ end
 always @ (*) begin
     if (((1'b1 == ap_CS_fsm_state74) & (m_axi_gmem_RVALID == 1'b1))) begin
         m_axi_gmem_RREADY = 1'b1;
-    end else if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln557_fu_157_p2 == 1'd0)))) begin
-        m_axi_gmem_RREADY = grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_m_axi_gmem_RREADY;
+    end else if (((1'b1 == ap_CS_fsm_state3) | ((1'b1 == ap_CS_fsm_state2) & (icmp_ln564_fu_155_p2 == 1'd0)))) begin
+        m_axi_gmem_RREADY = grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_m_axi_gmem_RREADY;
     end else begin
         m_axi_gmem_RREADY = 1'b0;
     end
 end
 
 always @ (*) begin
-    if (((1'b1 == ap_CS_fsm_state75) & (icmp_ln557_reg_241 == 1'd0))) begin
+    if (((1'b1 == ap_CS_fsm_state75) & (icmp_ln564_reg_234 == 1'd0))) begin
         sourceStream_blk_n = sourceStream_full_n;
     end else begin
         sourceStream_blk_n = 1'b1;
@@ -844,7 +874,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if ((~((icmp_ln557_reg_241 == 1'd0) & (sourceStream_full_n == 1'b0)) & (1'b1 == ap_CS_fsm_state75) & (icmp_ln557_reg_241 == 1'd0))) begin
+    if ((~((icmp_ln564_reg_234 == 1'd0) & (sourceStream_full_n == 1'b0)) & (1'b1 == ap_CS_fsm_state75) & (icmp_ln564_reg_234 == 1'd0))) begin
         sourceStream_write = 1'b1;
     end else begin
         sourceStream_write = 1'b0;
@@ -877,16 +907,16 @@ always @ (*) begin
             end
         end
         ap_ST_fsm_state2 : begin
-            if (((1'b1 == ap_CS_fsm_state2) & (icmp_ln557_fu_157_p2 == 1'd1) & (startCopy_ap_vld == 1'b1))) begin
+            if (((1'b1 == ap_CS_fsm_state2) & (icmp_ln564_fu_155_p2 == 1'd1) & (startCopy_ap_vld == 1'b1))) begin
                 ap_NS_fsm = ap_ST_fsm_state75;
-            end else if (((1'b1 == ap_CS_fsm_state2) & (icmp_ln557_fu_157_p2 == 1'd0) & (startCopy_ap_vld == 1'b1))) begin
+            end else if (((1'b1 == ap_CS_fsm_state2) & (icmp_ln564_fu_155_p2 == 1'd0) & (startCopy_ap_vld == 1'b1))) begin
                 ap_NS_fsm = ap_ST_fsm_state3;
             end else begin
                 ap_NS_fsm = ap_ST_fsm_state2;
             end
         end
         ap_ST_fsm_state3 : begin
-            if (((grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state3))) begin
+            if (((grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state3))) begin
                 ap_NS_fsm = ap_ST_fsm_state4;
             end else begin
                 ap_NS_fsm = ap_ST_fsm_state3;
@@ -1114,7 +1144,9 @@ always @ (*) begin
             end
         end
         ap_ST_fsm_state75 : begin
-            if ((~((icmp_ln557_reg_241 == 1'd0) & (sourceStream_full_n == 1'b0)) & (1'b1 == ap_CS_fsm_state75))) begin
+            if ((~((icmp_ln564_reg_234 == 1'd0) & (sourceStream_full_n == 1'b0)) & (icmp_ln609_fu_218_p2 == 1'd1) & (1'b1 == ap_CS_fsm_state75) & (icmp_ln564_reg_234 == 1'd0))) begin
+                ap_NS_fsm = ap_ST_fsm_state1;
+            end else if ((~((icmp_ln564_reg_234 == 1'd0) & (sourceStream_full_n == 1'b0)) & (1'b1 == ap_CS_fsm_state75) & ((icmp_ln609_fu_218_p2 == 1'd0) | (icmp_ln564_reg_234 == 1'd1)))) begin
                 ap_NS_fsm = ap_ST_fsm_state2;
             end else begin
                 ap_NS_fsm = ap_ST_fsm_state75;
@@ -1126,7 +1158,7 @@ always @ (*) begin
     endcase
 end
 
-assign add_ln591_fu_176_p2 = ($signed(sext_ln591_fu_173_p1) + $signed(9'd510));
+assign add_ln597_fu_174_p2 = ($signed(sext_ln597_fu_171_p1) + $signed(9'd511));
 
 assign ap_CS_fsm_state1 = ap_CS_fsm[32'd0];
 
@@ -1145,18 +1177,16 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    ap_block_state75 = ((icmp_ln557_reg_241 == 1'd0) & (sourceStream_full_n == 1'b0));
+    ap_block_state75 = ((icmp_ln564_reg_234 == 1'd0) & (sourceStream_full_n == 1'b0));
 end
 
-assign ap_done = ap_done_reg;
+assign grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_ap_start = grp_read_data_Pipeline_VITIS_LOOP_580_2_fu_128_ap_start_reg;
 
-assign ap_ready = 1'b0;
+assign icmp_ln564_fu_155_p2 = ((startCopy == 8'd0) ? 1'b1 : 1'b0);
 
-assign grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_ap_start = grp_read_data_Pipeline_VITIS_LOOP_573_2_fu_130_ap_start_reg;
+assign icmp_ln597_fu_180_p2 = ((add_ln597_fu_174_p2 < 9'd3) ? 1'b1 : 1'b0);
 
-assign icmp_ln557_fu_157_p2 = ((startCopy == 8'd0) ? 1'b1 : 1'b0);
-
-assign icmp_ln591_fu_192_p2 = ((tmp_fu_182_p4 == 8'd0) ? 1'b1 : 1'b0);
+assign icmp_ln609_fu_218_p2 = ((tmp2_reg_245 == 8'd1) ? 1'b1 : 1'b0);
 
 assign m_axi_gmem_AWADDR = 64'd0;
 
@@ -1196,24 +1226,18 @@ assign m_axi_gmem_WUSER = 1'd0;
 
 assign m_axi_gmem_WVALID = 1'b0;
 
-assign sext_ln575_fu_147_p1 = trunc_ln_fu_137_p4;
+assign sext_ln582_fu_145_p1 = trunc_ln_fu_135_p4;
 
-assign sext_ln591_fu_173_p1 = $signed(tmp2_reg_252);
+assign sext_ln597_fu_171_p1 = tmp2_reg_245;
 
-assign sourceStream_din = {{{tmp_8_fu_198_p4}, {tmp_s_fu_207_p4}}, {trunc_ln174_fu_216_p1}};
+assign sourceStream_din = {{{tmp_8_fu_186_p4}, {tmp_s_fu_195_p4}}, {trunc_ln174_fu_204_p1}};
 
-assign tmp_8_fu_198_p4 = {{gmem_addr_read_reg_245[351:96]}};
+assign tmp_8_fu_186_p4 = {{gmem_addr_read_reg_238[351:96]}};
 
-assign tmp_fu_182_p4 = {{add_ln591_fu_176_p2[8:1]}};
+assign tmp_s_fu_195_p4 = {{gmem_addr_read_reg_238[71:32]}};
 
-assign tmp_s_fu_207_p4 = {{gmem_addr_read_reg_245[71:32]}};
+assign trunc_ln174_fu_204_p1 = gmem_addr_read_reg_238[23:0];
 
-assign trunc_ln174_fu_216_p1 = gmem_addr_read_reg_245[23:0];
-
-assign trunc_ln_fu_137_p4 = {{inputAOV[63:6]}};
-
-always @ (posedge ap_clk) begin
-    ap_done_reg <= 1'b0;
-end
+assign trunc_ln_fu_135_p4 = {{inputAOV[63:6]}};
 
 endmodule //run_read_data

@@ -34,9 +34,6 @@ module run_gmem_m_axi
     MAXI_BUFFER_IMPL        = "block"
 )(
     
-    // flush related
-    input wire flush,
-    output wire flush_done,
     // system signal
     input  wire                               ACLK,
     input  wire                               ARESET,
@@ -138,12 +135,6 @@ module run_gmem_m_axi
     wire                            RREADY_Dummy;
     wire                            RBURST_READY_Dummy;
     
-    wire AWVALIDFromWriteUnit;
-    wire AWREADYToWriteUnit;
-    wire WVALIDFromWriteUnit;
-    wire BREADYFromWriteUnit;
-    wire ARVALIDFromReadUnit;
-    wire RREADYFromReadUnit;
 //------------------------Instantiation------------------
     // run_gmem_m_axi_store
     run_gmem_m_axi_store #(
@@ -245,25 +236,25 @@ module run_gmem_m_axi
         .out_BUS_AWADDR          ( AWADDR ),
         .out_BUS_AWLEN           ( AWLEN ),
         
-        .out_BUS_AWVALID         ( AWVALIDFromWriteUnit ),
-        .in_BUS_AWREADY          ( AWREADYToWriteUnit ),
         
+        .out_BUS_AWVALID         ( AWVALID ),
+        .in_BUS_AWREADY          ( AWREADY ),
         .out_BUS_WID             ( WID),
         .out_BUS_WUSER           ( WUSER),
         .out_BUS_WDATA           ( WDATA ),
         .out_BUS_WSTRB           ( WSTRB ),
         .out_BUS_WLAST           ( WLAST ),
         
-        .out_BUS_WVALID          ( WVALIDFromWriteUnit ),
         
+        .out_BUS_WVALID          ( WVALID ),
         .in_BUS_WREADY           ( WREADY ),
         .in_BUS_BID              ( BID ),
         .in_BUS_BRESP            ( BRESP ),
         .in_BUS_BUSER            ( BUSER ),
         .in_BUS_BVALID           ( BVALID ),
         
-        .out_BUS_BREADY          ( BREADYFromWriteUnit ),
         
+        .out_BUS_BREADY          ( BREADY ),
         .in_HLS_AWVALID          ( AWVALID_Dummy ),
         .out_HLS_AWREADY         ( AWREADY_Dummy ),
         .in_HLS_AWADDR           ( AWADDR_Dummy ),
@@ -303,8 +294,8 @@ module run_gmem_m_axi
         .out_BUS_ARREGION         ( ARREGION ),
         .out_BUS_ARUSER           ( ARUSER ),
         
-        .out_BUS_ARVALID          ( ARVALIDFromReadUnit ),
         
+        .out_BUS_ARVALID          ( ARVALID ),
         .in_BUS_ARREADY           ( ARREADY ),
         .in_BUS_RID               ( RID ),
         .in_BUS_RDATA             ( RDATA ),
@@ -313,8 +304,8 @@ module run_gmem_m_axi
         .in_BUS_RUSER             ( RUSER ),
         .in_BUS_RVALID            ( RVALID ),
         
-        .out_BUS_RREADY           ( RREADYFromReadUnit ),
         
+        .out_BUS_RREADY           ( RREADY ),
         .in_HLS_ARVALID           ( ARVALID_Dummy ),
         .out_HLS_ARREADY          ( ARREADY_Dummy ),
         .in_HLS_ARADDR            ( ARADDR_Dummy ),
@@ -326,31 +317,6 @@ module run_gmem_m_axi
         .out_HLS_RLAST            ( RLAST_Dummy ));
 
     
-    run_gmem_m_axi_flushManager #(
-        .NUM_READ_OUTSTANDING     ( NUM_READ_OUTSTANDING ),
-        .NUM_WRITE_OUTSTANDING    ( NUM_WRITE_OUTSTANDING )
-    ) flushManager (
-        .clk(ACLK),
-        .reset(ARESET),
-        .clk_en(ACLK_EN),
-        .flush(flush),
-        .flush_done(flush_done),
-        .in_AWVALID(AWVALIDFromWriteUnit),
-        .out_AWVALID(AWVALID),
-        .in_AWREADY(AWREADY),
-        .out_AWREADY(AWREADYToWriteUnit),
-        .in_WVALID(WVALIDFromWriteUnit),
-        .out_WVALID(WVALID),
-        .in_BREADY(BREADYFromWriteUnit),
-        .out_BREADY(BREADY),
-        .in_BVALID(BVALID),
-        .in_ARVALID(ARVALIDFromReadUnit),
-        .out_ARVALID(ARVALID),
-        .in_ARREADY(ARREADY),
-        .in_RREADY(RREADYFromReadUnit),
-        .out_RREADY(RREADY),
-        .in_RVALID(RVALID),
-        .in_RLAST(RLAST));
 endmodule
 `default_nettype wire
 `timescale 1ns/1ps

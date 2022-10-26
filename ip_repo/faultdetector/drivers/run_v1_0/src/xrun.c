@@ -29,10 +29,6 @@ void XRun_Start(XRun *InstancePtr) {
     XRun_WriteReg(InstancePtr->Control_BaseAddress, XRUN_CONTROL_ADDR_AP_CTRL, Data | 0x01);
 }
 
-void XRun_Reset(XRun *InstancePtr) {
-    XRun_WriteReg(InstancePtr->Control_BaseAddress, XRUN_CONTROL_ADDR_AP_CTRL, 0x80);
-}
-
 u32 XRun_IsDone(XRun *InstancePtr) {
     u32 Data;
 
@@ -568,6 +564,7 @@ u32 XRun_InterruptGetStatus(XRun *InstancePtr) {
 
 
 
+
 void FAULTDETECTOR_getLastTestedAOV(XRun *InstancePtr, u8 taskId, FAULTDETECTOR_OutcomeStr* dest) {
 	memcpy((void*) dest, (void*) (InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_OUTCOMEINRAM_BASE+sizeof(FAULTDETECTOR_OutcomeStr)*taskId), sizeof(FAULTDETECTOR_OutcomeStr));
 }
@@ -587,39 +584,43 @@ u8 FAULTDETECTOR_getLastTestedAOVCheckId(XRun *InstancePtr, u8 taskId) {
 	return ((FAULTDETECTOR_OutcomeStr*) (InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_OUTCOMEINRAM_BASE+sizeof(FAULTDETECTOR_OutcomeStr)*taskId))->checkId;
 }
 
-void FAULTDETECTOR_initRegions(XRun *InstancePtr, region_t trainedRegions[FAULTDETECTOR_MAX_CHECKS][FAULTDETECTOR_MAX_REGIONS], u8 n_regions[FAULTDETECTOR_MAX_CHECKS]) {
+void FAULTDETECTOR_setModeRun(XRun *InstancePtr) {
 	while (!XRun_IsReady(InstancePtr)) {}
-	XRun_WriteReg(InstancePtr->Control_BaseAddress, XRUN_CONTROL_ADDR_ACCEL_MODE_DATA, FAULTDETECTOR_MODE_INIT);
-	for (int i=0; i<FAULTDETECTOR_MAX_CHECKS; i++) {
-		XRun_WriteReg(InstancePtr->Control_BaseAddress, XRUN_CONTROL_ADDR_IOCHECKIDX_DATA, i);
-		XRun_WriteReg(InstancePtr->Control_BaseAddress, XRUN_CONTROL_ADDR_N_REGIONS_IN_I_DATA, n_regions[i]);
-		for (int j=0; j<FAULTDETECTOR_MAX_REGIONS; j++) {
-			XRun_WriteReg(InstancePtr->Control_BaseAddress, XRUN_CONTROL_ADDR_IOREGIONIDX_DATA, j);
-			*((region_t*) ((u32)(InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_TRAINEDREGION_I_DATA)))=trainedRegions[i][j];
-			XRun_Start(InstancePtr);
-			while (!XRun_IsReady(InstancePtr)) {}
-		}
-	}
-	XRun_WriteReg(InstancePtr->Control_BaseAddress, XRUN_CONTROL_ADDR_ACCEL_MODE_DATA, FAULTDETECTOR_MODE_RUN);
+	*((u8*) ((u32) (InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_ACCEL_MODE_DATA)))=FAULTDETECTOR_MODE_RUN;
 }
 
+void FAULTDETECTOR_initRegions(XRun *InstancePtr, region_t trainedRegions[FAULTDETECTOR_MAX_CHECKS][FAULTDETECTOR_MAX_REGIONS], u8 n_regions[FAULTDETECTOR_MAX_CHECKS]) {
+	while (!(XRun_IsIdle(InstancePtr) && XRun_IsReady(InstancePtr))) {}
+	*((u8*) ((u32) (InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_ACCEL_MODE_DATA)))=FAULTDETECTOR_MODE_INIT;
+	for (u8 i=0; i<FAULTDETECTOR_MAX_CHECKS; i++) {
+		*((u8*) ((u32)(InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_IOCHECKIDX_DATA)))=i;
+		*((u8*) ((u32)(InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_N_REGIONS_IN_I_DATA)))=n_regions[i];
+		for (u8 j=0; j<FAULTDETECTOR_MAX_REGIONS; j++) {
+			*((u8*) ((u32)(InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_IOREGIONIDX_DATA)))=j;
+			*((region_t*) ((u32)(InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_TRAINEDREGION_I_DATA)))=trainedRegions[i][j];
+			XRun_Start(InstancePtr);
+			while (!(XRun_IsIdle(InstancePtr) && XRun_IsReady(InstancePtr))) {}
+		}
+	}
+	while(!XRun_IsIdle(InstancePtr)) {}
+}
 
 void FAULTDETECTOR_dumpRegions(XRun *InstancePtr, region_t trainedRegions[FAULTDETECTOR_MAX_CHECKS][FAULTDETECTOR_MAX_REGIONS], u8 n_regions[FAULTDETECTOR_MAX_CHECKS]) {
 	while (!XRun_IsReady(InstancePtr)) {}
-	*((char*) ((u32) (InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_ACCEL_MODE_DATA)))=FAULTDETECTOR_MODE_OUT;
-	for (int i=0; i<FAULTDETECTOR_MAX_CHECKS; i++) {
-		XRun_WriteReg(InstancePtr->Control_BaseAddress, XRUN_CONTROL_ADDR_IOCHECKIDX_DATA, i);
-		for (int j=0; j<FAULTDETECTOR_MAX_REGIONS; j++) {
-			XRun_WriteReg(InstancePtr->Control_BaseAddress, XRUN_CONTROL_ADDR_IOREGIONIDX_DATA, j);
+	*((u8*) ((u32) (InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_ACCEL_MODE_DATA)))=FAULTDETECTOR_MODE_OUT;
+	for (u8 i=0; i<FAULTDETECTOR_MAX_CHECKS; i++) {
+		*((u8*) ((u32)(InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_IOCHECKIDX_DATA)))=i;
+		for (u8 j=0; j<FAULTDETECTOR_MAX_REGIONS; j++) {
+			*((u8*) ((u32)(InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_IOREGIONIDX_DATA)))=j;
 			XRun_Start(InstancePtr);
-			while (!XRun_IsDone(InstancePtr)) {}
+			u8* stat=(u8*) (u32)(InstancePtr->Control_BaseAddress);
+			while (!XRun_IsIdle(InstancePtr)) {}
 			trainedRegions[i][j]=*((region_t*) ((u32)(InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_TRAINEDREGION_O_DATA)));
 			n_regions[i]=*((u8*) ((u32)(InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_N_REGIONS_IN_O_DATA)));
 			while (!XRun_IsReady(InstancePtr)) {}
-
 		}
 	}
-	XRun_WriteReg(InstancePtr->Control_BaseAddress, XRUN_CONTROL_ADDR_ACCEL_MODE_DATA, FAULTDETECTOR_MODE_RUN);
+	while(!XRun_IsIdle(InstancePtr)) {}
 }
 
 char FAULTDETECTOR_hasFault(XRun *InstancePtr, u8 taskId) {
@@ -646,4 +647,5 @@ void FAULTDETECTOR_startCopy(XRun *InstancePtr) {
 char FAULTDETECTOR_isReadyForNextControl(XRun *InstancePtr) {
 	return  !(*((char*) ((u32)(InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_COPYING_DATA)))) && ((*((char*) ((u32)(InstancePtr->Control_BaseAddress+XRUN_CONTROL_ADDR_STARTCOPY_CTRL))) /*>> 1*/) & /*0x1*/0x3)==0x2;
 }
+
 
