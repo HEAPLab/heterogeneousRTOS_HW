@@ -43,7 +43,7 @@
       "scheduler_0": "",
       "scheduler_1": "",
       "scheduler_2": "",
-      "run_0": ""
+      "FaultDetector_0": ""
     },
     "interface_ports": {
       "DDR": {
@@ -3227,11 +3227,11 @@
           }
         }
       },
-      "run_0": {
-        "vlnv": "xilinx.com:hls:run:1.0",
-        "xci_name": "design_1_run_0_1",
-        "xci_path": "ip/design_1_run_0_1/design_1_run_0_1.xci",
-        "inst_hier_path": "run_0",
+      "FaultDetector_0": {
+        "vlnv": "xilinx.com:hls:FaultDetector:1.0",
+        "xci_name": "design_1_FaultDetector_0_1",
+        "xci_path": "ip/design_1_FaultDetector_0_1/design_1_FaultDetector_0_1.xci",
+        "inst_hier_path": "FaultDetector_0",
         "interface_ports": {
           "m_axi_gmem": {
             "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
@@ -3255,10 +3255,10 @@
       }
     },
     "interface_nets": {
-      "S01_AXI_1": {
+      "FaultDetector_0_m_axi_gmem": {
         "interface_ports": [
-          "axi_mem_intercon/S01_AXI",
-          "run_0/m_axi_gmem"
+          "FaultDetector_0/m_axi_gmem",
+          "axi_mem_intercon/S01_AXI"
         ]
       },
       "axi_mem_intercon_M00_AXI": {
@@ -3318,7 +3318,7 @@
       "ps7_0_axi_periph_M01_AXI": {
         "interface_ports": [
           "ps7_0_axi_periph/M01_AXI",
-          "run_0/s_axi_control"
+          "FaultDetector_0/s_axi_control"
         ]
       },
       "ps7_0_axi_periph_M02_AXI": {
@@ -3349,7 +3349,7 @@
     "nets": {
       "Net": {
         "ports": [
-          "run_0/failedTask",
+          "FaultDetector_0/failedTask",
           "scheduler_0/failedTask",
           "scheduler_1/failedTask",
           "scheduler_2/failedTask"
@@ -3357,7 +3357,7 @@
       },
       "Net1": {
         "ports": [
-          "run_0/failedTask_ap_vld",
+          "FaultDetector_0/failedTask_ap_vld",
           "scheduler_0/failedTask_valid",
           "scheduler_1/failedTask_valid",
           "scheduler_2/failedTask_valid"
@@ -3415,7 +3415,7 @@
           "scheduler_2/SCHEDULER_CLK",
           "scheduler_2/s_axi_aclk",
           "scheduler_2/m_axi_aclk",
-          "run_0/ap_clk"
+          "FaultDetector_0/ap_clk"
         ]
       },
       "processing_system7_0_FCLK_RESET0_N": {
@@ -3454,7 +3454,7 @@
           "scheduler_2/SCHEDULER_ARESETN",
           "scheduler_2/s_axi_aresetn",
           "scheduler_2/m_axi_aresetn",
-          "run_0/ap_rst_n"
+          "FaultDetector_0/ap_rst_n"
         ]
       },
       "scheduler_0_failedTask_ack": {
@@ -3538,7 +3538,7 @@
       "tmrVoter_0_votedOut": {
         "ports": [
           "tmrVoter_0/votedOut",
-          "run_0/failedTask_ap_ack"
+          "FaultDetector_0/failedTask_ap_ack"
         ]
       },
       "xlconcat_0_dout": {
@@ -3553,17 +3553,17 @@
         "address_spaces": {
           "Data": {
             "segments": {
+              "SEG_FaultDetector_0_Reg": {
+                "address_block": "/FaultDetector_0/s_axi_control/Reg",
+                "offset": "0x40000000",
+                "range": "64K",
+                "offset_base_param": "C_S_AXI_CONTROL_BASEADDR",
+                "offset_high_param": "C_S_AXI_CONTROL_HIGHADDR"
+              },
               "SEG_axi_gpio_0_Reg": {
                 "address_block": "/axi_gpio_0/S_AXI/Reg",
                 "offset": "0x40080000",
                 "range": "64K"
-              },
-              "SEG_run_0_Reg": {
-                "address_block": "/run_0/s_axi_control/Reg",
-                "offset": "0x40000000",
-                "range": "512K",
-                "offset_base_param": "C_S_AXI_CONTROL_BASEADDR",
-                "offset_high_param": "C_S_AXI_CONTROL_HIGHADDR"
               },
               "SEG_scheduler_0_S_AXI_reg": {
                 "address_block": "/scheduler_0/S_AXI/S_AXI_reg",
@@ -3589,7 +3589,7 @@
           }
         }
       },
-      "/run_0": {
+      "/FaultDetector_0": {
         "address_spaces": {
           "Data_m_axi_gmem": {
             "segments": {
