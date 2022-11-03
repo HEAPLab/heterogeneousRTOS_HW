@@ -1,18 +1,18 @@
 // Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
-// Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-// Date        : Mon Oct 24 23:41:27 2022
-// Host        : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+// Tool Version: Vivado v.2022.2 (lin64) Build 3671981 Fri Oct 14 04:59:54 MDT 2022
+// Date        : Wed Nov  2 20:34:29 2022
+// Host        : HeapAsus running 64-bit Ubuntu 22.10
 // Command     : write_verilog -force -mode funcsim
-//               /home/francesco/workspace/HW_heterogeneousRTOS/HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ip/design_1_scheduler_0_0/design_1_scheduler_0_0_sim_netlist.v
+//               /home/bosp/workspace/heterogeneousRTOS_HW/HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ip/design_1_scheduler_0_0/design_1_scheduler_0_0_sim_netlist.v
 // Design      : design_1_scheduler_0_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
-// Device      : xc7z020clg484-1
+// Device      : xc7z100ffg900-1
 // --------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CHECK_LICENSE_TYPE = "design_1_scheduler_0_0,scheduler_v1_0,{}" *) (* DowngradeIPIdentifiedWarnings = "yes" *) (* X_CORE_INFO = "scheduler_v1_0,Vivado 2022.1" *) 
+(* CHECK_LICENSE_TYPE = "design_1_scheduler_0_0,scheduler_v1_0,{}" *) (* DowngradeIPIdentifiedWarnings = "yes" *) (* X_CORE_INFO = "scheduler_v1_0,Vivado 2022.2" *) 
 (* NotValidForBitStream *)
 module design_1_scheduler_0_0
    (SCHEDULER_CLK,
@@ -5144,7 +5144,7 @@ module design_1_scheduler_0_0_scheduler_v1_0_S_AXI
   wire failedTask_valid_old;
   (* MARK_DEBUG *) wire failedTask_valid_pulse;
   wire \gen_intr_detection[0].gen_intr_level_detect.gen_intr_active_high_detect.det_intr[0]_i_2_n_0 ;
-  wire \gen_intr_detection[0].s_irq_lvl_i_1_n_0 ;
+  wire \gen_intr_detection[0].gen_irq_level.irq_level_high.s_irq_lvl_i_1_n_0 ;
   wire \gen_intr_reg[0].reg_global_intr_en_reg[0]_0 ;
   wire \gen_intr_reg[0].reg_intr_ack_reg[0]_0 ;
   wire \gen_intr_reg[0].reg_intr_en_reg[0]_0 ;
@@ -29273,17 +29273,17 @@ module design_1_scheduler_0_0_scheduler_v1_0_S_AXI
         .R(reg_intr_sts0));
   LUT5 #(
     .INIT(32'h0000EA00)) 
-    \gen_intr_detection[0].s_irq_lvl_i_1 
+    \gen_intr_detection[0].gen_irq_level.irq_level_high.s_irq_lvl_i_1 
        (.I0(irq),
         .I1(intr_all),
         .I2(reg_global_intr_en),
         .I3(s_axi_aresetn),
         .I4(intr_ack_all),
-        .O(\gen_intr_detection[0].s_irq_lvl_i_1_n_0 ));
-  FDRE \gen_intr_detection[0].s_irq_lvl_reg 
+        .O(\gen_intr_detection[0].gen_irq_level.irq_level_high.s_irq_lvl_i_1_n_0 ));
+  FDRE \gen_intr_detection[0].gen_irq_level.irq_level_high.s_irq_lvl_reg 
        (.C(s_axi_aclk),
         .CE(1'b1),
-        .D(\gen_intr_detection[0].s_irq_lvl_i_1_n_0 ),
+        .D(\gen_intr_detection[0].gen_irq_level.irq_level_high.s_irq_lvl_i_1_n_0 ),
         .Q(irq),
         .R(1'b0));
   FDRE \gen_intr_reg[0].reg_global_intr_en_reg[0] 

@@ -59,6 +59,10 @@ module design_1_processing_system7_0_0 (
 TTC0_WAVE0_OUT, 
 TTC0_WAVE1_OUT, 
 TTC0_WAVE2_OUT, 
+TTC1_WAVE0_OUT, 
+TTC1_WAVE1_OUT, 
+TTC1_WAVE2_OUT, 
+WDT_RST_OUT, 
 USB0_PORT_INDCTL, 
 USB0_VBUS_PWRSELECT, 
 USB0_VBUS_PWRFAULT, 
@@ -175,6 +179,10 @@ PS_PORB
 output TTC0_WAVE0_OUT;
 output TTC0_WAVE1_OUT;
 output TTC0_WAVE2_OUT;
+output TTC1_WAVE0_OUT;
+output TTC1_WAVE1_OUT;
+output TTC1_WAVE2_OUT;
+output WDT_RST_OUT;
 output [1 : 0] USB0_PORT_INDCTL;
 output USB0_VBUS_PWRSELECT;
 input USB0_VBUS_PWRFAULT;
@@ -288,7 +296,7 @@ input PS_SRSTB;
 input PS_CLK;
 input PS_PORB;
 
-  processing_system7_vip_v1_0_14 #(
+  processing_system7_vip_v1_0_15 #(
     .C_USE_M_AXI_GP0(1),
     .C_USE_M_AXI_GP1(0),
     .C_USE_S_AXI_ACP(0),

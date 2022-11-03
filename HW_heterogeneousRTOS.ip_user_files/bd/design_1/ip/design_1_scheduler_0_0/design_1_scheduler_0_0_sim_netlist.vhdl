@@ -1,14 +1,14 @@
 -- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
--- Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
--- Date        : Mon Oct 24 23:41:27 2022
--- Host        : francesco-OptiPlex-5090 running 64-bit Ubuntu 22.04.1 LTS
+-- Tool Version: Vivado v.2022.2 (lin64) Build 3671981 Fri Oct 14 04:59:54 MDT 2022
+-- Date        : Wed Nov  2 20:34:30 2022
+-- Host        : HeapAsus running 64-bit Ubuntu 22.10
 -- Command     : write_vhdl -force -mode funcsim
---               /home/francesco/workspace/HW_heterogeneousRTOS/HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ip/design_1_scheduler_0_0/design_1_scheduler_0_0_sim_netlist.vhdl
+--               /home/bosp/workspace/heterogeneousRTOS_HW/HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ip/design_1_scheduler_0_0/design_1_scheduler_0_0_sim_netlist.vhdl
 -- Design      : design_1_scheduler_0_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
--- Device      : xc7z020clg484-1
+-- Device      : xc7z100ffg900-1
 -- --------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
@@ -4692,7 +4692,7 @@ architecture STRUCTURE of design_1_scheduler_0_0_scheduler_v1_0_S_AXI is
   signal failedTask_valid_pulse : STD_LOGIC;
   attribute MARK_DEBUG of failedTask_valid_pulse : signal is std.standard.true;
   signal \gen_intr_detection[0].gen_intr_level_detect.gen_intr_active_high_detect.det_intr[0]_i_2_n_0\ : STD_LOGIC;
-  signal \gen_intr_detection[0].s_irq_lvl_i_1_n_0\ : STD_LOGIC;
+  signal \gen_intr_detection[0].gen_irq_level.irq_level_high.s_irq_lvl_i_1_n_0\ : STD_LOGIC;
   signal intr_ack_all : STD_LOGIC;
   signal intr_all : STD_LOGIC;
   signal \^irq\ : STD_LOGIC;
@@ -37835,7 +37835,7 @@ failedTask_valid_old_reg: unisim.vcomponents.FDRE
       Q => \^det_intr\,
       R => reg_intr_sts0
     );
-\gen_intr_detection[0].s_irq_lvl_i_1\: unisim.vcomponents.LUT5
+\gen_intr_detection[0].gen_irq_level.irq_level_high.s_irq_lvl_i_1\: unisim.vcomponents.LUT5
     generic map(
       INIT => X"0000EA00"
     )
@@ -37845,13 +37845,13 @@ failedTask_valid_old_reg: unisim.vcomponents.FDRE
       I2 => \^reg_global_intr_en\,
       I3 => s_axi_aresetn,
       I4 => intr_ack_all,
-      O => \gen_intr_detection[0].s_irq_lvl_i_1_n_0\
+      O => \gen_intr_detection[0].gen_irq_level.irq_level_high.s_irq_lvl_i_1_n_0\
     );
-\gen_intr_detection[0].s_irq_lvl_reg\: unisim.vcomponents.FDRE
+\gen_intr_detection[0].gen_irq_level.irq_level_high.s_irq_lvl_reg\: unisim.vcomponents.FDRE
      port map (
       C => s_axi_aclk,
       CE => '1',
-      D => \gen_intr_detection[0].s_irq_lvl_i_1_n_0\,
+      D => \gen_intr_detection[0].gen_irq_level.irq_level_high.s_irq_lvl_i_1_n_0\,
       Q => \^irq\,
       R => '0'
     );
@@ -46948,7 +46948,7 @@ entity design_1_scheduler_0_0 is
   attribute DowngradeIPIdentifiedWarnings : string;
   attribute DowngradeIPIdentifiedWarnings of design_1_scheduler_0_0 : entity is "yes";
   attribute X_CORE_INFO : string;
-  attribute X_CORE_INFO of design_1_scheduler_0_0 : entity is "scheduler_v1_0,Vivado 2022.1";
+  attribute X_CORE_INFO of design_1_scheduler_0_0 : entity is "scheduler_v1_0,Vivado 2022.2";
 end design_1_scheduler_0_0;
 
 architecture STRUCTURE of design_1_scheduler_0_0 is
