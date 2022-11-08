@@ -78,6 +78,11 @@ void SCHEDULER_signalJobEnded(void * baseaddr_p, u8 uxTaskNumber, u8 executionId
   SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, (u32) ((0x06000000) | ((u32)(uxTaskNumber) & (0x000000FF)) | ((u32)(executionId << 8) & (0x0000FF00))));
 }
 
+void SCHEDULER_restartFaultyJob(void * baseaddr_p, u8 uxTaskNumber, u8 executionId)
+{
+  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, (u32) ((0x07000000) | ((u32)(uxTaskNumber) & (0x000000FF)) | ((u32)(executionId << 8) & (0x0000FF00))));
+}
+
 /* data structures */
 void SCHEDULER_setNumberOfTasks(void * baseaddr_p,  u8 numberOfTasks)
 {

@@ -4,7 +4,7 @@
     "xci_name": "design_1_scheduler_0_1",
     "cell_name": "scheduler_1",
     "component_reference": "user.org:user:scheduler:1.0",
-    "ip_revision": "163",
+    "ip_revision": "168",
     "gen_directory": "../../../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ip/design_1_scheduler_0_1",
     "parameters": {
       "component_parameters": {
@@ -45,7 +45,7 @@
       },
       "runtime_parameters": {
         "IPCONTEXT": [ { "value": "IP_Integrator" } ],
-        "IPREVISION": [ { "value": "163" } ],
+        "IPREVISION": [ { "value": "168" } ],
         "MANAGED": [ { "value": "TRUE" } ],
         "OUTPUTDIR": [ { "value": "../../../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ip/design_1_scheduler_0_1" } ],
         "SELECTEDSIMMODEL": [ { "value": "" } ],
