@@ -573,7 +573,7 @@ module scheduler_v1_0_S_AXI #
                             else if (axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] < tasksOffset+maxAddrPeriodsList)
                                 PeriodsList[axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-(tasksOffset+maxAddrDeadlinesList)]<= S_AXI_WDATA;
                             else if (axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] < tasksOffset+maxAddrCriticalityLevelsList)
-                                CriticalityLevelsList[axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-(tasksOffset+maxAddrCriticalityLevelsList)]<= S_AXI_WDATA;
+                                CriticalityLevelsList[axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-(tasksOffset+maxAddrDeadlinesList)]<= S_AXI_WDATA;
 
                             case (axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)
                                 (maxAddrTCBPtrsList-1):
@@ -759,7 +759,7 @@ module scheduler_v1_0_S_AXI #
                         else if (axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]<tasksOffset+maxAddrPeriodsList)
                             reg_data_out <= PeriodsList[axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-(tasksOffset+maxAddrDeadlinesList)];
                         else if (axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] < tasksOffset+maxAddrCriticalityLevelsList)
-                            reg_data_out <= CriticalityLevelsList[axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-(tasksOffset+maxAddrCriticalityLevelsList)];
+                            reg_data_out <= CriticalityLevelsList[axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-(tasksOffset+maxAddrPeriodsList)];
                         else
                             reg_data_out <= 32'd0;
                     end
