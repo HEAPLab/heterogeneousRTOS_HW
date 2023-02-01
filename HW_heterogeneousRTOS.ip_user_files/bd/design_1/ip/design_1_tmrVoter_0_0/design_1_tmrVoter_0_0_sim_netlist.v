@@ -1,16 +1,40 @@
 // Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2022.2 (lin64) Build 3671981 Fri Oct 14 04:59:54 MDT 2022
-// Date        : Wed Nov  2 20:32:03 2022
+// Date        : Wed Nov  2 20:32:02 2022
 // Host        : HeapAsus running 64-bit Ubuntu 22.10
-// Command     : write_verilog -force -mode funcsim
-//               /home/bosp/workspace/heterogeneousRTOS_HW/HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ip/design_1_tmrVoter_0_0/design_1_tmrVoter_0_0_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim -rename_top design_1_tmrVoter_0_0 -prefix
+//               design_1_tmrVoter_0_0_ design_1_tmrVoter_0_0_sim_netlist.v
 // Design      : design_1_tmrVoter_0_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
 // Device      : xc7z100ffg900-1
 // --------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
+
+module design_1_tmrVoter_0_0_MajorityVoter
+   (votedOut,
+    in3,
+    in1,
+    in2);
+  output [0:0]votedOut;
+  input [0:0]in3;
+  input [0:0]in1;
+  input [0:0]in2;
+
+  wire [0:0]in1;
+  wire [0:0]in2;
+  wire [0:0]in3;
+  wire [0:0]votedOut;
+
+  LUT3 #(
+    .INIT(8'hE8)) 
+    Y
+       (.I0(in3),
+        .I1(in1),
+        .I2(in2),
+        .O(votedOut));
+endmodule
 
 (* CHECK_LICENSE_TYPE = "design_1_tmrVoter_0_0,tmrVoter,{}" *) (* DowngradeIPIdentifiedWarnings = "yes" *) (* IP_DEFINITION_SOURCE = "module_ref" *) 
 (* X_CORE_INFO = "tmrVoter,Vivado 2022.2" *) 
@@ -37,32 +61,6 @@ module design_1_tmrVoter_0_0
         .votedOut(votedOut));
 endmodule
 
-(* ORIG_REF_NAME = "MajorityVoter" *) 
-module design_1_tmrVoter_0_0_MajorityVoter
-   (votedOut,
-    in3,
-    in1,
-    in2);
-  output [0:0]votedOut;
-  input [0:0]in3;
-  input [0:0]in1;
-  input [0:0]in2;
-
-  wire [0:0]in1;
-  wire [0:0]in2;
-  wire [0:0]in3;
-  wire [0:0]votedOut;
-
-  LUT3 #(
-    .INIT(8'hE8)) 
-    Y
-       (.I0(in3),
-        .I1(in1),
-        .I2(in2),
-        .O(votedOut));
-endmodule
-
-(* ORIG_REF_NAME = "tmrVoter" *) 
 module design_1_tmrVoter_0_0_tmrVoter
    (votedOut,
     in3,

@@ -111,6 +111,7 @@ void SCHEDULER_signalTaskEnded(void * baseaddr_p, u8 uxTaskNumber);
 void SCHEDULER_signalTaskSuspended(void * baseaddr_p, u8 uxTaskNumber);
 */
 void SCHEDULER_signalJobEnded(void * baseaddr_p, u8 uxTaskNumber, u8 executionId);
+void SCHEDULER_restartFaultyJob(void * baseaddr_p, u8 uxTaskNumber, u8 executionId);
 
 //data structures
 void SCHEDULER_setNumberOfTasks(void * baseaddr_p,  u8 numberOfTasks);

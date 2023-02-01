@@ -1,9 +1,9 @@
 
 //custom commands and data types
-#define FAULTDETECTOR_MAX_CHECKS 64
-#define FAULTDETECTOR_MAX_TASKS 16
-#define FAULTDETECTOR_MAX_AOV_DIM 8
-#define FAULTDETECTOR_MAX_REGIONS 16
+#define FAULTDETECTOR_MAX_CHECKS 8
+#define FAULTDETECTOR_MAX_TASKS 8
+#define FAULTDETECTOR_MAX_AOV_DIM 6
+#define FAULTDETECTOR_MAX_REGIONS 32
 
 #define FAULTDETECTOR_MODE_INIT 1
 #define FAULTDETECTOR_MODE_OUT 2
@@ -17,25 +17,25 @@ typedef struct {
 
 typedef struct {
 	u8 checkId;
-	u8 executionId;
 	u16 uniId;
+	u8 executionId;
 	float AOV[FAULTDETECTOR_MAX_AOV_DIM];
-} FAULTDETECTOR_testpointDescriptorStr;
+} __attribute__((packed)) FAULTDETECTOR_testpointDescriptorStr;
 
 typedef struct {
 	u8 checkId;
-	u8 executionId;
 	u16 uniId;
-} FAULTDETECTOR_testpointShortDescriptorStr;
+	u8 executionId;
+} __attribute__((packed)) FAULTDETECTOR_testpointShortDescriptorStr;
 
 typedef struct {
 	u8 checkId;
+	u16 uniId;
+	u8 executionId;
+	float AOV[FAULTDETECTOR_MAX_AOV_DIM];
 	u8 taskId;
-	u8 executionId;
-	u16 uniId;
 	char command;
 	char gap0[2];
-	float AOV[FAULTDETECTOR_MAX_AOV_DIM];
 } FAULTDETECTOR_controlStr;
 
 //custom drivers:

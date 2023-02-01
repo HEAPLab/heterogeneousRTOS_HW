@@ -48,7 +48,7 @@
 
 
 // IP VLNV: xilinx.com:hls:FaultDetector:1.0
-// IP Revision: 2112753694
+// IP Revision: 2112791517
 
 `timescale 1ns/1ps
 
@@ -118,7 +118,7 @@ module design_1_FaultDetector_0_1 (
 output wire failedTask_ap_vld;
 input wire failedTask_ap_ack;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 s_axi_control AWADDR" *)
-input wire [10 : 0] s_axi_control_AWADDR;
+input wire [8 : 0] s_axi_control_AWADDR;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 s_axi_control AWVALID" *)
 input wire s_axi_control_AWVALID;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 s_axi_control AWREADY" *)
@@ -138,7 +138,7 @@ output wire s_axi_control_BVALID;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 s_axi_control BREADY" *)
 input wire s_axi_control_BREADY;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 s_axi_control ARADDR" *)
-input wire [10 : 0] s_axi_control_ARADDR;
+input wire [8 : 0] s_axi_control_ARADDR;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 s_axi_control ARVALID" *)
 input wire s_axi_control_ARVALID;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 s_axi_control ARREADY" *)
@@ -149,8 +149,8 @@ output wire [31 : 0] s_axi_control_RDATA;
 output wire [1 : 0] s_axi_control_RRESP;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 s_axi_control RVALID" *)
 output wire s_axi_control_RVALID;
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME s_axi_control, ADDR_WIDTH 11, DATA_WIDTH 32, PROTOCOL AXI4LITE, READ_WRITE_MODE READ_WRITE, FREQ_HZ 50000000, ID_WIDTH 0, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 0, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, MAX_BURST_LENGTH 1, PHASE 0.0, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, NUM_READ_T\
-HREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *)
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME s_axi_control, ADDR_WIDTH 9, DATA_WIDTH 32, PROTOCOL AXI4LITE, READ_WRITE_MODE READ_WRITE, FREQ_HZ 50000000, ID_WIDTH 0, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 0, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, MAX_BURST_LENGTH 1, PHASE 0.0, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, NUM_READ_TH\
+READS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 s_axi_control RREADY" *)
 input wire s_axi_control_RREADY;
 (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME ap_clk, ASSOCIATED_BUSIF s_axi_control:m_axi_gmem, ASSOCIATED_RESET ap_rst_n, FREQ_HZ 50000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *)
@@ -242,7 +242,7 @@ output wire [15 : 0] failedTask;
 (* SDX_KERNEL_TYPE = "hls" *)
 (* SDX_KERNEL_SIM_INST = "" *)
   FaultDetector #(
-    .C_S_AXI_CONTROL_ADDR_WIDTH(11),
+    .C_S_AXI_CONTROL_ADDR_WIDTH(9),
     .C_S_AXI_CONTROL_DATA_WIDTH(32),
     .C_M_AXI_GMEM_ID_WIDTH(1),
     .C_M_AXI_GMEM_ADDR_WIDTH(64),

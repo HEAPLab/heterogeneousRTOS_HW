@@ -4,13 +4,13 @@
     "xci_name": "design_1_FaultDetector_0_1",
     "cell_name": "FaultDetector_0",
     "component_reference": "xilinx.com:hls:FaultDetector:1.0",
-    "ip_revision": "2112753694",
+    "ip_revision": "2112861966",
     "gen_directory": "../../../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ip/design_1_FaultDetector_0_1",
     "parameters": {
       "component_parameters": {
         "C_M_AXI_GMEM_ENABLE_ID_PORTS": [ { "value": "false", "value_src": "user", "resolve_type": "user", "format": "bool", "usage": "all" } ],
         "C_M_AXI_GMEM_ID_WIDTH": [ { "value": "1", "resolve_type": "user", "format": "long", "enabled": false, "usage": "all" } ],
-        "C_M_AXI_GMEM_DATA_WIDTH": [ { "value": "512", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "C_M_AXI_GMEM_DATA_WIDTH": [ { "value": "512", "value_src": "user", "resolve_type": "user", "format": "long", "usage": "all" } ],
         "C_M_AXI_GMEM_ENABLE_USER_PORTS": [ { "value": "false", "resolve_type": "user", "format": "bool", "usage": "all" } ],
         "C_M_AXI_GMEM_AWUSER_WIDTH": [ { "value": "1", "resolve_type": "user", "format": "long", "enabled": false, "usage": "all" } ],
         "C_M_AXI_GMEM_WUSER_WIDTH": [ { "value": "1", "resolve_type": "user", "format": "long", "enabled": false, "usage": "all" } ],
@@ -21,14 +21,14 @@
         "C_M_AXI_GMEM_PROT_VALUE": [ { "value": "\"000\"", "resolve_type": "user", "format": "bitString", "usage": "all" } ],
         "C_M_AXI_GMEM_CACHE_VALUE": [ { "value": "\"0011\"", "resolve_type": "user", "format": "bitString", "usage": "all" } ],
         "Component_Name": [ { "value": "design_1_FaultDetector_0_1", "resolve_type": "user", "usage": "all" } ],
-        "clk_period": [ { "value": "18", "enabled": false, "usage": "all" } ],
+        "clk_period": [ { "value": "8", "enabled": false, "usage": "all" } ],
         "machine": [ { "value": "64", "enabled": false, "usage": "all" } ],
         "combinational": [ { "value": "0", "enabled": false, "usage": "all" } ],
         "latency": [ { "value": "undef", "enabled": false, "usage": "all" } ],
         "II": [ { "value": "x", "enabled": false, "usage": "all" } ]
       },
       "model_parameters": {
-        "C_S_AXI_CONTROL_ADDR_WIDTH": [ { "value": "11", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "C_S_AXI_CONTROL_ADDR_WIDTH": [ { "value": "9", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_S_AXI_CONTROL_DATA_WIDTH": [ { "value": "32", "format": "long", "usage": "all" } ],
         "C_M_AXI_GMEM_ID_WIDTH": [ { "value": "1", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_M_AXI_GMEM_ADDR_WIDTH": [ { "value": "64", "format": "long", "usage": "all" } ],
@@ -59,7 +59,7 @@
       },
       "runtime_parameters": {
         "IPCONTEXT": [ { "value": "IP_Integrator" } ],
-        "IPREVISION": [ { "value": "2112753694" } ],
+        "IPREVISION": [ { "value": "2112861966" } ],
         "MANAGED": [ { "value": "TRUE" } ],
         "OUTPUTDIR": [ { "value": "../../../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ip/design_1_FaultDetector_0_1" } ],
         "SELECTEDSIMMODEL": [ { "value": "" } ],
@@ -72,7 +72,7 @@
       "ports": {
         "failedTask_ap_vld": [ { "direction": "out" } ],
         "failedTask_ap_ack": [ { "direction": "in" } ],
-        "s_axi_control_AWADDR": [ { "direction": "in", "size_left": "10", "size_right": "0" } ],
+        "s_axi_control_AWADDR": [ { "direction": "in", "size_left": "8", "size_right": "0" } ],
         "s_axi_control_AWVALID": [ { "direction": "in" } ],
         "s_axi_control_AWREADY": [ { "direction": "out" } ],
         "s_axi_control_WDATA": [ { "direction": "in", "size_left": "31", "size_right": "0" } ],
@@ -82,7 +82,7 @@
         "s_axi_control_BRESP": [ { "direction": "out", "size_left": "1", "size_right": "0" } ],
         "s_axi_control_BVALID": [ { "direction": "out" } ],
         "s_axi_control_BREADY": [ { "direction": "in" } ],
-        "s_axi_control_ARADDR": [ { "direction": "in", "size_left": "10", "size_right": "0" } ],
+        "s_axi_control_ARADDR": [ { "direction": "in", "size_left": "8", "size_right": "0" } ],
         "s_axi_control_ARVALID": [ { "direction": "in" } ],
         "s_axi_control_ARREADY": [ { "direction": "out" } ],
         "s_axi_control_RDATA": [ { "direction": "out", "size_left": "31", "size_right": "0" } ],
@@ -136,11 +136,11 @@
           "mode": "slave",
           "memory_map_ref": "s_axi_control",
           "parameters": {
-            "ADDR_WIDTH": [ { "value": "11", "value_src": "constant", "value_permission": "bd_and_user", "usage": "all" } ],
+            "ADDR_WIDTH": [ { "value": "9", "value_src": "constant", "value_permission": "bd_and_user", "usage": "all" } ],
             "DATA_WIDTH": [ { "value": "32", "value_src": "constant", "value_permission": "bd_and_user", "usage": "all" } ],
             "PROTOCOL": [ { "value": "AXI4LITE", "value_src": "constant", "value_permission": "bd_and_user", "usage": "all" } ],
             "READ_WRITE_MODE": [ { "value": "READ_WRITE", "value_src": "constant", "value_permission": "bd_and_user", "usage": "all" } ],
-            "FREQ_HZ": [ { "value": "50000000", "value_src": "user_prop", "value_permission": "bd_and_user", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "FREQ_HZ": [ { "value": "1e+08", "value_src": "user_prop", "value_permission": "bd_and_user", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
             "ID_WIDTH": [ { "value": "0", "value_src": "constant", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
             "AWUSER_WIDTH": [ { "value": "0", "value_src": "constant", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
             "ARUSER_WIDTH": [ { "value": "0", "value_src": "constant", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
@@ -195,7 +195,7 @@
           "parameters": {
             "ASSOCIATED_BUSIF": [ { "value": "s_axi_control:m_axi_gmem", "value_src": "constant", "value_permission": "bd_and_user", "usage": "all" } ],
             "ASSOCIATED_RESET": [ { "value": "ap_rst_n", "value_src": "constant", "value_permission": "bd_and_user", "usage": "all" } ],
-            "FREQ_HZ": [ { "value": "50000000", "value_src": "user_prop", "value_permission": "bd_and_user", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "FREQ_HZ": [ { "value": "1e+08", "value_src": "user_prop", "value_permission": "bd_and_user", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
             "FREQ_TOLERANCE_HZ": [ { "value": "0", "value_permission": "bd_and_user", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
             "PHASE": [ { "value": "0.0", "value_permission": "bd_and_user", "resolve_type": "generated", "format": "float", "is_ips_inferred": true, "is_static_object": false } ],
             "CLK_DOMAIN": [ { "value": "design_1_processing_system7_0_0_FCLK_CLK0", "value_src": "default_prop", "value_permission": "bd_and_user", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
@@ -246,7 +246,7 @@
             "HAS_BURST": [ { "value": "0", "value_src": "constant", "value_permission": "bd_and_user", "usage": "all" } ],
             "SUPPORTS_NARROW_BURST": [ { "value": "0", "value_src": "constant", "value_permission": "bd_and_user", "usage": "all" } ],
             "DATA_WIDTH": [ { "value": "512", "value_src": "auto", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
-            "FREQ_HZ": [ { "value": "50000000", "value_src": "user_prop", "value_permission": "bd_and_user", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "FREQ_HZ": [ { "value": "1e+08", "value_src": "user_prop", "value_permission": "bd_and_user", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
             "ID_WIDTH": [ { "value": "0", "value_src": "auto", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
             "ADDR_WIDTH": [ { "value": "64", "value_src": "auto", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
             "AWUSER_WIDTH": [ { "value": "0", "value_src": "auto", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
@@ -630,7 +630,7 @@
                   }
                 },
                 "trainedRegion_i_1": {
-                  "address_offset": "80",
+                  "address_offset": "72",
                   "size": 32,
                   "display_name": "trainedRegion_i_1",
                   "description": "Data signal of trainedRegion_i",
@@ -646,7 +646,7 @@
                   }
                 },
                 "trainedRegion_i_2": {
-                  "address_offset": "84",
+                  "address_offset": "76",
                   "size": 32,
                   "display_name": "trainedRegion_i_2",
                   "description": "Data signal of trainedRegion_i",
@@ -662,7 +662,7 @@
                   }
                 },
                 "trainedRegion_i_3": {
-                  "address_offset": "88",
+                  "address_offset": "80",
                   "size": 32,
                   "display_name": "trainedRegion_i_3",
                   "description": "Data signal of trainedRegion_i",
@@ -678,7 +678,7 @@
                   }
                 },
                 "trainedRegion_i_4": {
-                  "address_offset": "92",
+                  "address_offset": "84",
                   "size": 32,
                   "display_name": "trainedRegion_i_4",
                   "description": "Data signal of trainedRegion_i",
@@ -694,7 +694,7 @@
                   }
                 },
                 "trainedRegion_i_5": {
-                  "address_offset": "96",
+                  "address_offset": "88",
                   "size": 32,
                   "display_name": "trainedRegion_i_5",
                   "description": "Data signal of trainedRegion_i",
@@ -710,7 +710,7 @@
                   }
                 },
                 "trainedRegion_i_6": {
-                  "address_offset": "100",
+                  "address_offset": "92",
                   "size": 32,
                   "display_name": "trainedRegion_i_6",
                   "description": "Data signal of trainedRegion_i",
@@ -726,7 +726,7 @@
                   }
                 },
                 "trainedRegion_i_7": {
-                  "address_offset": "104",
+                  "address_offset": "96",
                   "size": 32,
                   "display_name": "trainedRegion_i_7",
                   "description": "Data signal of trainedRegion_i",
@@ -742,7 +742,7 @@
                   }
                 },
                 "trainedRegion_i_8": {
-                  "address_offset": "108",
+                  "address_offset": "100",
                   "size": 32,
                   "display_name": "trainedRegion_i_8",
                   "description": "Data signal of trainedRegion_i",
@@ -758,7 +758,7 @@
                   }
                 },
                 "trainedRegion_i_9": {
-                  "address_offset": "112",
+                  "address_offset": "104",
                   "size": 32,
                   "display_name": "trainedRegion_i_9",
                   "description": "Data signal of trainedRegion_i",
@@ -774,7 +774,7 @@
                   }
                 },
                 "trainedRegion_i_10": {
-                  "address_offset": "116",
+                  "address_offset": "108",
                   "size": 32,
                   "display_name": "trainedRegion_i_10",
                   "description": "Data signal of trainedRegion_i",
@@ -790,7 +790,7 @@
                   }
                 },
                 "trainedRegion_i_11": {
-                  "address_offset": "120",
+                  "address_offset": "112",
                   "size": 32,
                   "display_name": "trainedRegion_i_11",
                   "description": "Data signal of trainedRegion_i",
@@ -806,7 +806,7 @@
                   }
                 },
                 "trainedRegion_i_12": {
-                  "address_offset": "124",
+                  "address_offset": "116",
                   "size": 32,
                   "display_name": "trainedRegion_i_12",
                   "description": "Data signal of trainedRegion_i",
@@ -821,195 +821,217 @@
                     }
                   }
                 },
-                "trainedRegion_i_13": {
+                "trainedRegion_o_1": {
                   "address_offset": "128",
                   "size": 32,
-                  "display_name": "trainedRegion_i_13",
-                  "description": "Data signal of trainedRegion_i",
-                  "access": "write-only",
+                  "display_name": "trainedRegion_o_1",
+                  "description": "Data signal of trainedRegion_o",
+                  "access": "read-only",
                   "reset_value": "0",
                   "fields": {
-                    "trainedRegion_i": {
+                    "trainedRegion_o": {
                       "bit_offset": 0,
                       "bit_width": 32,
-                      "description": "Bit 415 to 384 of trainedRegion_i",
-                      "access": "write-only"
+                      "description": "Bit 31 to 0 of trainedRegion_o",
+                      "access": "read-only"
                     }
                   }
                 },
-                "trainedRegion_i_14": {
+                "trainedRegion_o_2": {
                   "address_offset": "132",
                   "size": 32,
-                  "display_name": "trainedRegion_i_14",
-                  "description": "Data signal of trainedRegion_i",
-                  "access": "write-only",
+                  "display_name": "trainedRegion_o_2",
+                  "description": "Data signal of trainedRegion_o",
+                  "access": "read-only",
                   "reset_value": "0",
                   "fields": {
-                    "trainedRegion_i": {
+                    "trainedRegion_o": {
                       "bit_offset": 0,
                       "bit_width": 32,
-                      "description": "Bit 447 to 416 of trainedRegion_i",
-                      "access": "write-only"
+                      "description": "Bit 63 to 32 of trainedRegion_o",
+                      "access": "read-only"
                     }
                   }
                 },
-                "trainedRegion_i_15": {
+                "trainedRegion_o_3": {
                   "address_offset": "136",
                   "size": 32,
-                  "display_name": "trainedRegion_i_15",
-                  "description": "Data signal of trainedRegion_i",
-                  "access": "write-only",
+                  "display_name": "trainedRegion_o_3",
+                  "description": "Data signal of trainedRegion_o",
+                  "access": "read-only",
                   "reset_value": "0",
                   "fields": {
-                    "trainedRegion_i": {
+                    "trainedRegion_o": {
                       "bit_offset": 0,
                       "bit_width": 32,
-                      "description": "Bit 479 to 448 of trainedRegion_i",
-                      "access": "write-only"
+                      "description": "Bit 95 to 64 of trainedRegion_o",
+                      "access": "read-only"
                     }
                   }
                 },
-                "trainedRegion_i_16": {
+                "trainedRegion_o_4": {
                   "address_offset": "140",
                   "size": 32,
-                  "display_name": "trainedRegion_i_16",
-                  "description": "Data signal of trainedRegion_i",
-                  "access": "write-only",
+                  "display_name": "trainedRegion_o_4",
+                  "description": "Data signal of trainedRegion_o",
+                  "access": "read-only",
                   "reset_value": "0",
                   "fields": {
-                    "trainedRegion_i": {
+                    "trainedRegion_o": {
                       "bit_offset": 0,
                       "bit_width": 32,
-                      "description": "Bit 511 to 480 of trainedRegion_i",
-                      "access": "write-only"
+                      "description": "Bit 127 to 96 of trainedRegion_o",
+                      "access": "read-only"
                     }
                   }
                 },
-                "trainedRegion_i_17": {
+                "trainedRegion_o_5": {
                   "address_offset": "144",
                   "size": 32,
-                  "display_name": "trainedRegion_i_17",
-                  "description": "Data signal of trainedRegion_i",
-                  "access": "write-only",
+                  "display_name": "trainedRegion_o_5",
+                  "description": "Data signal of trainedRegion_o",
+                  "access": "read-only",
                   "reset_value": "0",
                   "fields": {
-                    "trainedRegion_i": {
+                    "trainedRegion_o": {
                       "bit_offset": 0,
                       "bit_width": 32,
-                      "description": "Bit 543 to 512 of trainedRegion_i",
-                      "access": "write-only"
+                      "description": "Bit 159 to 128 of trainedRegion_o",
+                      "access": "read-only"
                     }
                   }
                 },
-                "trainedRegion_i_18": {
+                "trainedRegion_o_6": {
                   "address_offset": "148",
                   "size": 32,
-                  "display_name": "trainedRegion_i_18",
-                  "description": "Data signal of trainedRegion_i",
-                  "access": "write-only",
+                  "display_name": "trainedRegion_o_6",
+                  "description": "Data signal of trainedRegion_o",
+                  "access": "read-only",
                   "reset_value": "0",
                   "fields": {
-                    "trainedRegion_i": {
+                    "trainedRegion_o": {
                       "bit_offset": 0,
                       "bit_width": 32,
-                      "description": "Bit 575 to 544 of trainedRegion_i",
-                      "access": "write-only"
+                      "description": "Bit 191 to 160 of trainedRegion_o",
+                      "access": "read-only"
                     }
                   }
                 },
-                "trainedRegion_i_19": {
+                "trainedRegion_o_7": {
                   "address_offset": "152",
                   "size": 32,
-                  "display_name": "trainedRegion_i_19",
-                  "description": "Data signal of trainedRegion_i",
-                  "access": "write-only",
+                  "display_name": "trainedRegion_o_7",
+                  "description": "Data signal of trainedRegion_o",
+                  "access": "read-only",
                   "reset_value": "0",
                   "fields": {
-                    "trainedRegion_i": {
+                    "trainedRegion_o": {
                       "bit_offset": 0,
                       "bit_width": 32,
-                      "description": "Bit 607 to 576 of trainedRegion_i",
-                      "access": "write-only"
+                      "description": "Bit 223 to 192 of trainedRegion_o",
+                      "access": "read-only"
                     }
                   }
                 },
-                "trainedRegion_i_20": {
+                "trainedRegion_o_8": {
                   "address_offset": "156",
                   "size": 32,
-                  "display_name": "trainedRegion_i_20",
-                  "description": "Data signal of trainedRegion_i",
-                  "access": "write-only",
+                  "display_name": "trainedRegion_o_8",
+                  "description": "Data signal of trainedRegion_o",
+                  "access": "read-only",
                   "reset_value": "0",
                   "fields": {
-                    "trainedRegion_i": {
+                    "trainedRegion_o": {
                       "bit_offset": 0,
                       "bit_width": 32,
-                      "description": "Bit 639 to 608 of trainedRegion_i",
-                      "access": "write-only"
+                      "description": "Bit 255 to 224 of trainedRegion_o",
+                      "access": "read-only"
                     }
                   }
                 },
-                "trainedRegion_i_21": {
+                "trainedRegion_o_9": {
                   "address_offset": "160",
                   "size": 32,
-                  "display_name": "trainedRegion_i_21",
-                  "description": "Data signal of trainedRegion_i",
-                  "access": "write-only",
+                  "display_name": "trainedRegion_o_9",
+                  "description": "Data signal of trainedRegion_o",
+                  "access": "read-only",
                   "reset_value": "0",
                   "fields": {
-                    "trainedRegion_i": {
+                    "trainedRegion_o": {
                       "bit_offset": 0,
                       "bit_width": 32,
-                      "description": "Bit 671 to 640 of trainedRegion_i",
-                      "access": "write-only"
+                      "description": "Bit 287 to 256 of trainedRegion_o",
+                      "access": "read-only"
                     }
                   }
                 },
-                "trainedRegion_i_22": {
+                "trainedRegion_o_10": {
                   "address_offset": "164",
                   "size": 32,
-                  "display_name": "trainedRegion_i_22",
-                  "description": "Data signal of trainedRegion_i",
-                  "access": "write-only",
+                  "display_name": "trainedRegion_o_10",
+                  "description": "Data signal of trainedRegion_o",
+                  "access": "read-only",
                   "reset_value": "0",
                   "fields": {
-                    "trainedRegion_i": {
+                    "trainedRegion_o": {
                       "bit_offset": 0,
                       "bit_width": 32,
-                      "description": "Bit 703 to 672 of trainedRegion_i",
-                      "access": "write-only"
+                      "description": "Bit 319 to 288 of trainedRegion_o",
+                      "access": "read-only"
                     }
                   }
                 },
-                "trainedRegion_i_23": {
+                "trainedRegion_o_11": {
                   "address_offset": "168",
                   "size": 32,
-                  "display_name": "trainedRegion_i_23",
-                  "description": "Data signal of trainedRegion_i",
-                  "access": "write-only",
+                  "display_name": "trainedRegion_o_11",
+                  "description": "Data signal of trainedRegion_o",
+                  "access": "read-only",
                   "reset_value": "0",
                   "fields": {
-                    "trainedRegion_i": {
+                    "trainedRegion_o": {
                       "bit_offset": 0,
                       "bit_width": 32,
-                      "description": "Bit 735 to 704 of trainedRegion_i",
-                      "access": "write-only"
+                      "description": "Bit 351 to 320 of trainedRegion_o",
+                      "access": "read-only"
                     }
                   }
                 },
-                "trainedRegion_i_24": {
+                "trainedRegion_o_12": {
                   "address_offset": "172",
                   "size": 32,
-                  "display_name": "trainedRegion_i_24",
-                  "description": "Data signal of trainedRegion_i",
-                  "access": "write-only",
+                  "display_name": "trainedRegion_o_12",
+                  "description": "Data signal of trainedRegion_o",
+                  "access": "read-only",
                   "reset_value": "0",
                   "fields": {
-                    "trainedRegion_i": {
+                    "trainedRegion_o": {
                       "bit_offset": 0,
                       "bit_width": 32,
-                      "description": "Bit 767 to 736 of trainedRegion_i",
-                      "access": "write-only"
+                      "description": "Bit 383 to 352 of trainedRegion_o",
+                      "access": "read-only"
+                    }
+                  }
+                },
+                "trainedRegion_o_ctrl": {
+                  "address_offset": "176",
+                  "size": 32,
+                  "display_name": "trainedRegion_o_ctrl",
+                  "description": "Control signal of trainedRegion_o",
+                  "access": "read-only",
+                  "reset_value": "0",
+                  "fields": {
+                    "trainedRegion_o_ap_vld": {
+                      "bit_offset": 0,
+                      "bit_width": 1,
+                      "description": "Control signal trainedRegion_o_ap_vld",
+                      "access": "read-only"
+                    },
+                    "RESERVED": {
+                      "bit_offset": 1,
+                      "bit_width": 31,
+                      "description": "Reserved.  0s on read.",
+                      "access": "read-only"
                     }
                   }
                 },
@@ -1125,25 +1147,17 @@
                 },
                 "Memory_errorInTask": {
                   "address_offset": "64",
-                  "size": 16,
+                  "size": 8,
                   "display_name": "Memory_errorInTask",
                   "description": "Memory errorInTask",
                   "access": "read-write",
                   "reset_value": "0"
                 },
                 "Memory_lastTestDescriptor": {
-                  "address_offset": "1024",
-                  "size": 1024,
+                  "address_offset": "256",
+                  "size": 256,
                   "display_name": "Memory_lastTestDescriptor",
                   "description": "Memory lastTestDescriptor",
-                  "access": "read-write",
-                  "reset_value": "0"
-                },
-                "Memory_trainedRegion_o": {
-                  "address_offset": "256",
-                  "size": 128,
-                  "display_name": "Memory_trainedRegion_o",
-                  "description": "Memory trainedRegion_o",
                   "access": "read-write",
                   "reset_value": "0"
                 }

@@ -1,10 +1,10 @@
 -- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2022.2 (lin64) Build 3671981 Fri Oct 14 04:59:54 MDT 2022
--- Date        : Wed Nov  2 20:32:03 2022
+-- Date        : Wed Nov  2 20:32:02 2022
 -- Host        : HeapAsus running 64-bit Ubuntu 22.10
--- Command     : write_vhdl -force -mode funcsim
---               /home/bosp/workspace/heterogeneousRTOS_HW/HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ip/design_1_tmrVoter_0_0/design_1_tmrVoter_0_0_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top design_1_tmrVoter_0_0 -prefix
+--               design_1_tmrVoter_0_0_ design_1_tmrVoter_0_0_sim_netlist.vhdl
 -- Design      : design_1_tmrVoter_0_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -21,8 +21,6 @@ entity design_1_tmrVoter_0_0_MajorityVoter is
     in1 : in STD_LOGIC_VECTOR ( 0 to 0 );
     in2 : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of design_1_tmrVoter_0_0_MajorityVoter : entity is "MajorityVoter";
 end design_1_tmrVoter_0_0_MajorityVoter;
 
 architecture STRUCTURE of design_1_tmrVoter_0_0_MajorityVoter is
@@ -49,8 +47,6 @@ entity design_1_tmrVoter_0_0_tmrVoter is
     in1 : in STD_LOGIC_VECTOR ( 0 to 0 );
     in2 : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of design_1_tmrVoter_0_0_tmrVoter : entity is "tmrVoter";
 end design_1_tmrVoter_0_0_tmrVoter;
 
 architecture STRUCTURE of design_1_tmrVoter_0_0_tmrVoter is

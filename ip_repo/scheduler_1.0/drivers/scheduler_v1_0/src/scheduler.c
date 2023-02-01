@@ -78,6 +78,11 @@ void SCHEDULER_signalJobEnded(void * baseaddr_p, u8 uxTaskNumber, u8 executionId
   SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, (u32) ((0x06000000) | ((u32)(uxTaskNumber) & (0x000000FF)) | ((u32)(executionId << 8) & (0x0000FF00))));
 }
 
+void SCHEDULER_restartFaultyJob(void * baseaddr_p, u8 uxTaskNumber, u8 executionId)
+{
+  SCHEDULER_mWriteReg((u32) baseaddr_p, SCHEDULER_S_AXI_SLV_CONTROL_OFFSET, (u32) ((0x07000000) | ((u32)(uxTaskNumber) & (0x000000FF)) | ((u32)(executionId << 8) & (0x0000FF00))));
+}
+
 /* data structures */
 void SCHEDULER_setNumberOfTasks(void * baseaddr_p,  u8 numberOfTasks)
 {
@@ -91,13 +96,22 @@ void SCHEDULER_copyTCBPtrs(void * baseaddr_p, const void * source)
 
 void SCHEDULER_copyWCETs(void * baseaddr_p, const void * source)
 {
-  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TCBPTR_OFFSET+(configMAX_RT_TASKS*TCBPTRSIZEINBYTE)), source, configMAX_RT_TASKS*WCETSIZEINBYTE);
+  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TCBPTR_OFFSET+(configMAX_RT_TASKS*TCBPTRSIZEINBYTE)), source, configMAX_RT_TASKS*configCRITICALITY_LEVELS*WCETSIZEINBYTE);
+}
+void SCHEDULER_copyDeadlinesDerivative(void * baseaddr_p, const void * source)
+{
+  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TCBPTR_OFFSET+configMAX_RT_TASKS*(TCBPTRSIZEINBYTE+configCRITICALITY_LEVELS*WCETSIZEINBYTE)), source, configMAX_RT_TASKS*configCRITICALITY_LEVELS*DEADLINESIZEINBYTE);
 }
 void SCHEDULER_copyDeadlines(void * baseaddr_p, const void * source)
 {
-  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TCBPTR_OFFSET+configMAX_RT_TASKS*(TCBPTRSIZEINBYTE+WCETSIZEINBYTE)), source, configMAX_RT_TASKS*DEADLINESIZEINBYTE);
+  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TCBPTR_OFFSET+configMAX_RT_TASKS*(TCBPTRSIZEINBYTE+configCRITICALITY_LEVELS*WCETSIZEINBYTE+DEADLINESIZEINBYTE*configCRITICALITY_LEVELS)), source, configCRITICALITY_LEVELS*configMAX_RT_TASKS*DEADLINESIZEINBYTE);
 }
 void SCHEDULER_copyPeriods(void * baseaddr_p, const void * source)
 {
-  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TCBPTR_OFFSET+configMAX_RT_TASKS*(TCBPTRSIZEINBYTE+WCETSIZEINBYTE+DEADLINESIZEINBYTE)), source, configMAX_RT_TASKS*PERIODSIZEINBYTE);
+  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TCBPTR_OFFSET+configMAX_RT_TASKS*(TCBPTRSIZEINBYTE+configCRITICALITY_LEVELS*WCETSIZEINBYTE+DEADLINESIZEINBYTE*configCRITICALITY_LEVELS+DEADLINESIZEINBYTE*configCRITICALITY_LEVELS)), source, configCRITICALITY_LEVELS*configMAX_RT_TASKS*DEADLINESIZEINBYTE);
 }
+void SCHEDULER_copyCriticalityLevels(void * baseaddr_p, const void * source)
+{
+  Xil_MemCpy((void *) (baseaddr_p+SCHEDULER_S_AXI_SLV_TCBPTR_OFFSET+configMAX_RT_TASKS*(TCBPTRSIZEINBYTE+configCRITICALITY_LEVELS*WCETSIZEINBYTE+DEADLINESIZEINBYTE*configCRITICALITY_LEVELS+DEADLINESIZEINBYTE*configCRITICALITY_LEVELS+PERIODSIZEINBYTE)), source, configMAX_RT_TASKS*CRITICALITYLEVELSIZEINBYTE);
+}
+

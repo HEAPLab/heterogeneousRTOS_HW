@@ -24,10 +24,15 @@
 #define configMAX_RT_TASKS (4)
 #endif
 
+#ifndef configCRITICALITY_LEVELS
+#define configCRITICALITY_LEVELS (3)
+#endif
+
 #define TCBPTRSIZEINBYTE 4
 #define WCETSIZEINBYTE 4
 #define DEADLINESIZEINBYTE 4
 #define PERIODSIZEINBYTE 4
+#define CRITICALITYLEVELSIZEINBYTE 4
 
 
 /**************************** Type Definitions *****************************/
@@ -111,6 +116,7 @@ void SCHEDULER_signalTaskEnded(void * baseaddr_p, u8 uxTaskNumber);
 void SCHEDULER_signalTaskSuspended(void * baseaddr_p, u8 uxTaskNumber);
 */
 void SCHEDULER_signalJobEnded(void * baseaddr_p, u8 uxTaskNumber, u8 executionId);
+void SCHEDULER_restartFaultyJob(void * baseaddr_p, u8 uxTaskNumber, u8 executionId);
 
 //data structures
 void SCHEDULER_setNumberOfTasks(void * baseaddr_p,  u8 numberOfTasks);
@@ -118,5 +124,6 @@ void SCHEDULER_copyTCBPtrs(void * baseaddr_p, const void * source);
 void SCHEDULER_copyWCETs(void * baseaddr_p, const void * source);
 void SCHEDULER_copyDeadlines(void * baseaddr_p, const void * source);
 void SCHEDULER_copyPeriods(void * baseaddr_p, const void * source);
+void SCHEDULER_copyCriticalityLevels(void * baseaddr_p, const void * source);
 
 #endif // SCHEDULER_H

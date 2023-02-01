@@ -1,13 +1,13 @@
 #-----------------------------------------------------------
-# Vivado v2022.1 (64-bit)
-# SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
-# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
-# Start of session at: Fri Oct 14 16:02:08 2022
-# Process ID: 115443
-# Current directory: /home/francesco/workspace/ip_repo/edit_scheduler_v1_0.runs/synth_1
+# Vivado v2022.2 (64-bit)
+# SW Build 3671981 on Fri Oct 14 04:59:54 MDT 2022
+# IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
+# Start of session at: Wed Feb  1 15:55:36 2023
+# Process ID: 2470037
+# Current directory: /home/bosp/workspace/ip_repo/edit_scheduler_v1_0.runs/synth_1
 # Command line: vivado -log scheduler_v1_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source scheduler_v1_0.tcl
-# Log file: /home/francesco/workspace/ip_repo/edit_scheduler_v1_0.runs/synth_1/scheduler_v1_0.vds
-# Journal file: /home/francesco/workspace/ip_repo/edit_scheduler_v1_0.runs/synth_1/vivado.jou
-# Running On: francesco-OptiPlex-5090, OS: Linux, CPU Frequency: 3200.000 MHz, CPU Physical cores: 6, Host memory: 16497 MB
+# Log file: /home/bosp/workspace/ip_repo/edit_scheduler_v1_0.runs/synth_1/scheduler_v1_0.vds
+# Journal file: /home/bosp/workspace/ip_repo/edit_scheduler_v1_0.runs/synth_1/vivado.jou
+# Running On: HeapAsus, OS: Linux, CPU Frequency: 1199.366 MHz, CPU Physical cores: 6, Host memory: 25114 MB
 #-----------------------------------------------------------
 source scheduler_v1_0.tcl -notrace
