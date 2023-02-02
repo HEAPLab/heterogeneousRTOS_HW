@@ -44,7 +44,7 @@ module scheduler_v1_0_S_AXI #
     // Users to add parameters here
     parameter[7:0] maxTasks = 4,
     parameter [3:0] maxReExecutions=4'd2,
-    parameter [3:0] criticalityLevels=4'd2,
+    parameter [3:0] criticalityLevels=4'd3,
 
     // User parameters ends
     // Do not modify the parameters beyond this line
@@ -573,7 +573,7 @@ module scheduler_v1_0_S_AXI #
                             else if (axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] < tasksOffset+maxAddrPeriodsList)
                                 PeriodsList[axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-(tasksOffset+maxAddrDeadlinesList)]<= S_AXI_WDATA;
                             else if (axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] < tasksOffset+maxAddrCriticalityLevelsList)
-                                CriticalityLevelsList[axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-(tasksOffset+maxAddrDeadlinesList)]<= S_AXI_WDATA;
+                                CriticalityLevelsList[axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-(tasksOffset+maxAddrPeriodsList)]<= S_AXI_WDATA;
 
                             case (axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)
                                 (maxAddrTCBPtrsList-1):
@@ -732,7 +732,7 @@ module scheduler_v1_0_S_AXI #
                     begin
                         if (axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]<tasksOffset+maxAddrTCBPtrsList)
                             reg_data_out <= TCBPtrsList[axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset];
-                        else if (axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]<maxAddrWCETsList+tasksOffset)
+                        else if (axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]<tasksOffset+maxAddrWCETsList)
                         begin
                             for (c=0; c<criticalityLevels; c=c+1)
                             begin
