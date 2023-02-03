@@ -260,12 +260,12 @@ module scheduler_v1_0_S_AXI #
     localparam [1:0] EXECMODE_NORMAL = 2'h0, EXECMODE_WCETEXCEEDED = 2'h1, EXECMODE_FAULT = 2'h2, EXECMODE_DEADLINEMISS = 2'h3;
     localparam [2:0] EXECMODE_NORMAL_NEWJOB = 3'h4;
 
-    (* MARK_DEBUG = "TRUE" *) reg[C_S_AXI_DATA_WIDTH-1:0] TCBPtrsList [(maxTasks*TCBPTRSIZEINWORDS)-1:0];
-    (* MARK_DEBUG = "TRUE" *) reg[C_S_AXI_DATA_WIDTH-1:0] WCETsList [criticalityLevels-1:0][(maxTasks*WCETSIZEINWORDS)-1:0]; //ready queue index ordered by deadline ascending
-    (* MARK_DEBUG = "TRUE" *) reg[C_S_AXI_DATA_WIDTH-1:0] DeadlinesDerivativeList [criticalityLevels-1:0][(maxTasks*DEADLINESIZEINWORDS)-1:0]; //activation queue index ordered by next activation ascending
-    (* MARK_DEBUG = "TRUE" *) reg[C_S_AXI_DATA_WIDTH-1:0] DeadlinesList [criticalityLevels-1:0][(maxTasks*DEADLINESIZEINWORDS)-1:0]; //activation queue index ordered by next activation ascending
-    (* MARK_DEBUG = "TRUE" *) reg[C_S_AXI_DATA_WIDTH-1:0] PeriodsList [(maxTasks*PERIODSIZEINWORDS)-1:0]; //ready queue ordered by deadline ascending
-    (* MARK_DEBUG = "TRUE" *) reg[C_S_AXI_DATA_WIDTH-1:0] CriticalityLevelsList [(maxTasks*CRITICALITYLEVELSSIZEINWORDS)-1:0]; //ready queue ordered by deadline ascending
+    reg[C_S_AXI_DATA_WIDTH-1:0] TCBPtrsList [(maxTasks*TCBPTRSIZEINWORDS)-1:0];
+    reg[C_S_AXI_DATA_WIDTH-1:0] WCETsList [criticalityLevels-1:0][(maxTasks*WCETSIZEINWORDS)-1:0]; //ready queue index ordered by deadline ascending
+    reg[C_S_AXI_DATA_WIDTH-1:0] DeadlinesDerivativeList [criticalityLevels-1:0][(maxTasks*DEADLINESIZEINWORDS)-1:0]; //activation queue index ordered by next activation ascending
+    reg[C_S_AXI_DATA_WIDTH-1:0] DeadlinesList [criticalityLevels-1:0][(maxTasks*DEADLINESIZEINWORDS)-1:0]; //activation queue index ordered by next activation ascending
+    reg[C_S_AXI_DATA_WIDTH-1:0] PeriodsList [(maxTasks*PERIODSIZEINWORDS)-1:0]; //ready queue ordered by deadline ascending
+    reg[C_S_AXI_DATA_WIDTH-1:0] CriticalityLevelsList [(maxTasks*CRITICALITYLEVELSSIZEINWORDS)-1:0]; //ready queue ordered by deadline ascending
 
     reg control_valid;
 
@@ -463,8 +463,8 @@ module scheduler_v1_0_S_AXI #
     reg CriticalityLevelsListWritten;
     reg control_ack;
 
-    reg[C_S_AXI_DATA_WIDTH-1:0] AbsDeadlines [maxTasks-1:0];
-    reg[C_S_AXI_DATA_WIDTH-1:0] AbsActivations [maxTasks-1:0];
+    (* MARK_DEBUG = "TRUE" *) reg[C_S_AXI_DATA_WIDTH-1:0] AbsDeadlines [maxTasks-1:0];
+    (* MARK_DEBUG = "TRUE" *) reg[C_S_AXI_DATA_WIDTH-1:0] AbsActivations [maxTasks-1:0];
 
     //    assign led1=taskSetWritten;
     //    assign led2=DLqIndexWritten;
@@ -1157,9 +1157,9 @@ module scheduler_v1_0_S_AXI #
     reg startCommandPending;
 
     (* MARK_DEBUG = "TRUE" *) reg systemCriticalityLevel;
-    reg[31:0] executionTimes [maxTasks-1:0];
-    reg [1:0] executionMode [maxTasks-1:0];
-    reg[3:0] reExecutions[ maxTasks-1 : 0 ];
+    (* MARK_DEBUG = "TRUE" *) reg[31:0] executionTimes [maxTasks-1:0];
+    (* MARK_DEBUG = "TRUE" *) reg [1:0] executionMode [maxTasks-1:0];
+    (* MARK_DEBUG = "TRUE" *) reg[3:0] reExecutions[ maxTasks-1 : 0 ];
     reg [7:0] executionIds [ maxTasks-1 : 0 ];
 
     (* MARK_DEBUG = "TRUE" *) reg runningTaskStopped;
@@ -1241,8 +1241,7 @@ module scheduler_v1_0_S_AXI #
                     reg runningTaskReactivated_pulse; //used for tasks which are both killed or end in the current CC and are reactivated or reexecuted in the same CC
                     reg WCETexceeded_pulse;
                     reg deadlineMiss_runningTask_pulse;
-                    reg controlEndRunningJob_pulse;
-                    reg controlEndNotRunningJob_pulse; //could probably happen due to latencies, handle this case too
+                    reg controlEndJob_pulse;
                     reg controlRestartJobFault_pulse;
                     reg failedTask_valid_unified_pulse;
                     reg criticalityLevelIncrease_pulse;
@@ -1251,31 +1250,40 @@ module scheduler_v1_0_S_AXI #
                     reg failedTask_executionId_unified;
                     
                     reg newRunningTaskDeadline;
+//                    reg modeSwitch_pulse;
                     
                     if (HighestPriorityTaskDeadline==32'hFFFF_FFFF) //&& !(WCETexceeded_pulse && AbsDeadlines[runningTaskIndex]!=0 && systemCriticalityLevel!=criticalityLevels-1))
                     begin
                         systemCriticalityLevel=0;
                     end
 
-
+//                    modeSwitch_pulse=0;
                     runningTaskReactivated_pulse=0;
-                    runningTaskStopped =  (runningTaskStopped && !newRunningTask_pulse)  ||  ( newRunningTask_pulse && nextRunningTaskStopped ) ;
-                    //runningTaskRestarted = (runningTaskRestarted && !newRunningTask_pulse)  ||  ( newRunningTask_pulse && nextRunningTaskStopped ) ;
-                    //if AXI master has requested a context switch (nextRunningTask) -not completed yet- for a task which is already been stopped (due to a deadline miss), as soon as the context switches ends and scheduler gets ACK from software, runningTaskStopped gets true. nextRunningTaskStopped is used for this purpose
-                    nextRunningTaskStopped=nextRunningTaskStopped && !newRunningTask_pulse;
+//                    runningTaskStopped =  (runningTaskStopped && !newRunningTask_pulse)  ||  ( newRunningTask_pulse && nextRunningTaskStopped ) ;
+//                    //runningTaskRestarted = (runningTaskRestarted && !newRunningTask_pulse)  ||  ( newRunningTask_pulse && nextRunningTaskStopped ) ;
+//                    //if AXI master has requested a context switch (nextRunningTask) -not completed yet- for a task which is already been stopped (due to a deadline miss), as soon as the context switches ends and scheduler gets ACK from software, runningTaskStopped gets true. nextRunningTaskStopped is used for this purpose
+//                    nextRunningTaskStopped=nextRunningTaskStopped && !newRunningTask_pulse;
 
                     //what happens in this tick?
-                    WCETexceeded_pulse = (runningTaskStopped || runningTaskIndex==8'hFF) ? 0 : executionTimes[runningTaskIndex]>=WCETsList[systemCriticalityLevel][runningTaskIndex];
+                                        
+                    controlEndJob_pulse=control_valid_pulse && control_command==control_jobEnded 
+                    && AbsDeadlines[control_taskId]!=32'hFFFF_FFFF       
+                    && executionIds[control_taskId]==control_executionId; //check if command is related to same execution 
+                    
+                    WCETexceeded_pulse = (HighestPriorityTaskDeadline==32'hFFFF_FFFF || (controlEndJob_pulse && control_taskId==HighestPriorityTaskIndex)) ? 0 : executionTimes[HighestPriorityTaskIndex]>=WCETsList[systemCriticalityLevel][HighestPriorityTaskIndex];
+
+//                    WatchdogExceeded_pulse = (HighestPriorityTaskDeadline==32'hFFFF_FFFF || (controlEndJob_pulse && control_taskId==HighestPriorityTaskIndex)) ? 0 : executionTimes[HighestPriorityTaskIndex]>=watchdogbase;
 
                     //deadlineMiss_runningTask_pulse=(runningTaskStopped || runningTaskIndex==8'hFF) ? 0 : 
 
-                    controlEndRunningJob_pulse=!(runningTaskStopped || runningTaskIndex==8'hFF) && control_valid_pulse && control_command==control_jobEnded && control_taskId==runningTaskIndex
-                    && executionIds[control_taskId]==control_executionId; //check if command is related to same execution 
+//                    controlEndRunningJob_pulse=!(runningTaskStopped || runningTaskIndex==8'hFF) && control_valid_pulse && control_command==control_jobEnded && control_taskId==runningTaskIndex
+//                    && executionIds[control_taskId]==control_executionId; //check if command is related to same execution 
 
-                    controlEndNotRunningJob_pulse = !controlEndRunningJob_pulse && control_valid_pulse && control_command==control_jobEnded &&
-                    AbsDeadlines[control_taskId]!=32'hFFFF_FFFF //not already terminated for whathever reason 
-                    && executionIds[control_taskId]==control_executionId; //check if command is related to same execution
-                    
+//                    controlEndNotRunningJob_pulse = !controlEndRunningJob_pulse && control_valid_pulse && control_command==control_jobEnded &&
+//                    AbsDeadlines[control_taskId]!=32'hFFFF_FFFF //not already terminated for whathever reason 
+//                    && executionIds[control_taskId]==control_executionId; //check if command is related to same execution
+
+
                     controlRestartJobFault_pulse=control_valid_pulse && control_command==control_restartFault;
                     
                     failedTask_valid_unified_pulse=failedTask_valid_pulse || controlRestartJobFault_pulse;
@@ -1292,105 +1300,109 @@ module scheduler_v1_0_S_AXI #
                     end
                     //____________________________	
                    
-                   if (/*systemCriticalityLevel<criticalityLevels-1 && */CriticalityLevelsList[runningTaskIndex]>systemCriticalityLevel 
-                    && ((WCETexceeded_pulse && !controlEndRunningJob_pulse)
-                    || (failedTask_valid_unified_pulse
-                    && reExecutions [ failedTask_taskId_unified ] < maxReExecutions //if #reexecutions doesn't exceed the max 
-                    //&& !(WCETexceeded_pulse && failedTask_taskId_unified == runningTaskIndex) //not WCET exceeded if the faulty task is the running task
-                    //&& AbsDeadlines[ failedTask_taskId_unified ] != 0 //not a deadline miss in this CC
-                    && AbsDeadlines[ failedTask_taskId_unified ] != 32'hFFFF_FFFF //hasn't already been killed for any reason
-                    && executionIds[ failedTask_taskId_unified ] == failedTask_executionId_unified /*&& systemCriticalityLevel<criticalityLevels-1*/))) //make sure we aren't considering as "faulty" a new execution of the task, previously killed for whathever reason
-                    //note: no check for controlEndRunningJob_pulse because controlEndJob function MUST be (and is) called in software only after waiting for fault detector to complete processing.)
+ 
+                   if (WCETexceeded_pulse)
                     begin
-                        newRunningTaskDeadline=AbsDeadlines[runningTaskIndex]+DeadlinesDerivativeList[systemCriticalityLevel+1][runningTaskIndex];  //extend the deadline
-                        if (newRunningTaskDeadline>0)
+                        if (CriticalityLevelsList[HighestPriorityTaskIndex]>systemCriticalityLevel)
                         begin
-                            systemCriticalityLevel=systemCriticalityLevel+1;
-                            for (m=0; m<maxTasks; m=m+1)
-                            begin
+                        //    newRunningTaskDeadline=AbsDeadlines[runningTaskIndex]+DeadlinesDerivativeList[systemCriticalityLevel+1][runningTaskIndex];  //extend the deadline
+                        //    if (newRunningTaskDeadline>0)
+                        //    begin
+                                systemCriticalityLevel=systemCriticalityLevel+1;
+//                                modeSwitch_pulse=1;
+                                for (m=0; m<maxTasks; m=m+1)
                                 begin
-                                    AbsDeadlines[m]=AbsDeadlines[m]+DeadlinesDerivativeList[systemCriticalityLevel][m];  //extend the deadline
-                                end
-                            end                       
-                        end                        
-                    end
-
-                    if (controlEndRunningJob_pulse || controlEndNotRunningJob_pulse)
-                        begin
-                            executionMode[runningTaskIndex]<=EXECMODE_NORMAL;
-                            if (AbsActivations[runningTaskIndex]!=0 || CriticalityLevelsList[m]<systemCriticalityLevel)
-                                AbsDeadlines[runningTaskIndex]=32'hFFFF_FFFF;
-                            if (control_taskId==runningTaskIndex)
-                                runningTaskStopped=1;
-                            if (control_taskId==nextRunningTaskIndex)
-                                nextRunningTaskStopped=1;
+                                    begin
+                                        AbsDeadlines[m]=AbsDeadlines[m]+DeadlinesDerivativeList[systemCriticalityLevel][m];  //extend the deadline
+                                    end
+                                end                       
+                         //   end              
                         end
-                    if (!controlEndRunningJob_pulse && WCETexceeded_pulse && AbsDeadlines[runningTaskIndex]!=0)
-                    begin
+                        else //if (AbsDeadlines[runningTaskIndex]!=0) //should be always true
+                        begin
                             executionMode[runningTaskIndex]<=EXECMODE_WCETEXCEEDED;
-                            runningTaskStopped=1;
-                            if (CriticalityLevelsList[runningTaskIndex]<systemCriticalityLevel || reExecutions[runningTaskIndex]>=maxReExecutions)
-                            //kill
-                            begin
-                                AbsDeadlines [ runningTaskIndex ] = 32'hFFFF_FFFF;
-                            end
-                            else
-                            begin                            
-                                reExecutions [ runningTaskIndex ] <= reExecutions [ runningTaskIndex ] + 1;
-                                executionIds [ runningTaskIndex ] <= executionIds [ runningTaskIndex ] + 1;                          
-                            end
+//                            runningTaskStopped=1;
+                            AbsDeadlines [ runningTaskIndex ] = 32'hFFFF_FFFF;
+                        end
                     end
-                    
-//                    //consider it only if if the reexec counter is less than max allowed reexecutions
-//                    if ( failedTask_valid_unified_pulse
-//                    && reExecutions [ failedTask_taskId_unified ] < maxReExecutions //if #reexecutions doesn't exceed the max 
-//                    && !(WCETexceeded_pulse && failedTask_taskId_unified == runningTaskIndex) //not WCET exceeded if the faulty task is the running task
-//                    && AbsDeadlines[ failedTask_taskId_unified ] != 0 //not a deadline miss in this CC
-//                    && AbsDeadlines[ failedTask_taskId_unified ] != 32'hFFFF_FFFF //hasn't already been killed for any reason
-//                    && executionIds[ failedTask_taskId_unified ] == failedTask_executionId_unified ) //make sure we aren't considering as "faulty" a new execution of the task, previously killed for whathever reason
-//                    //note: no check for controlEndRunningJob_pulse because controlEndJob function MUST be (and is) called in software only after waiting for fault detector to complete processing.
-//                    begin
-//                        executionMode[failedTask_taskId_unified]<=EXECMODE_FAULT;
-//                        reExecutions [ failedTask_taskId_unified ] <= reExecutions [ failedTask_taskId_unified ] + 1;
-//                        executionIds [ failedTask_taskId_unified ] <= executionIds [ failedTask_taskId_unified ] + 1;
 
-//                        if ( failedTask_taskId_unified == runningTaskIndex ) //&& !runningTaskStopped )
+
+                    if (controlEndJob_pulse)
+                        begin
+                            executionMode[control_taskId]<=EXECMODE_NORMAL;
+                            if (AbsActivations[control_taskId]!=0 || CriticalityLevelsList[control_taskId]<systemCriticalityLevel)
+                                AbsDeadlines[control_taskId]=32'hFFFF_FFFF;
+//                            if (control_taskId==runningTaskIndex)
+//                                runningTaskStopped=1;
+//                            if (control_taskId==nextRunningTaskIndex)
+//                                nextRunningTaskStopped=1;
+                        end 
+                        
+                    if ((WatchdogExceeded_pulse 
+                        //!(!CriticalityLevelsList[runningTaskIndex]>systemCriticalityLevel && WCETexceeded_pulse)
+//                        && !controlEndRunningJob_pulse 
+                        //&& AbsDeadlines[runningTaskIndex]!=0 //should always be true
+                        && reExecutions[runningTaskIndex]<CriticalityLevelsList[runningTaskIndex])
+                    )
+                            begin
+                                    executionMode[runningTaskIndex]<=EXECMODE_WCETEXCEEDED;
+//                                    runningTaskStopped=1;
+//                                    if (reExecutions[runningTaskIndex]<CriticalityLevelsList[runningTaskIndex])//(CriticalityLevelsList[runningTaskIndex]<systemCriticalityLevel)// || reExecutions[runningTaskIndex]>=maxReExecutions) //second stmt is useless
+//                                    begin                            
+                                        reExecutions [ runningTaskIndex ] <= reExecutions [ runningTaskIndex ] + 1;
+                                        executionIds [ runningTaskIndex ] <= executionIds [ runningTaskIndex ] + 1;        
+//                                        runningTaskReactivated_pulse=1;
+//                                    end
+//                                    else
+//                                    begin
+//                                        AbsDeadlines [ runningTaskIndex ] = 32'hFFFF_FFFF;
+//                                    end
+
+                            end             
+                            
+                   if (failedTask_valid_unified_pulse
+                        && reExecutions [ failedTask_taskId_unified ] < CriticalityLevelsList[failedTask_taskId_unified] //if #reexecutions doesn't exceed the max 
+                        && !(WatchdogExceeded_pulse && failedTask_taskId_unified == HighestPriorityTaskIndex) //not WCET exceeded if the faulty task is the running task
+                        //&& AbsDeadlines[ failedTask_taskId_unified ] != 0 //should always be true
+                        && AbsDeadlines[ failedTask_taskId_unified ] != 32'hFFFF_FFFF //hasn't already been killed for any reason
+                       && executionIds[ failedTask_taskId_unified ] == failedTask_executionId_unified
+                    )
+                    begin
+                        executionMode[failedTask_taskId_unified]<=EXECMODE_FAULT;
+                        reExecutions [ failedTask_taskId_unified ] <= reExecutions [ failedTask_taskId_unified ] + 1;
+                        executionIds [ failedTask_taskId_unified ] <= executionIds [ failedTask_taskId_unified ] + 1;
+
+//                        if ( failedTask_taskId_unified == HighestPriorityTaskIndex ) //&& !runningTaskStopped )
 //                            begin
 //                                runningTaskStopped=1; //kill the task for reexecution
-////                                runningTaskReactivated_pulse=1;
+//                                runningTaskReactivated_pulse=1;
 //                            end
-////                        else
-////                            begin
-////                                executionTimes[ failedTask_taskId_unified ] <= 0;
-////                            end
-
-//                        if (failedTask_taskId_unified==nextRunningTaskIndex)
-//                            nextRunningTaskStopped=1;
-//                    end
-                    
+//                         else if(failedTask_taskId_unified==nextRunningTaskIndex)
+//                                nextRunningTaskStopped=1;
+                    end
                    
 
                     for (m=0; m<maxTasks; m=m+1)
                         begin
                             if (AbsDeadlines[m]!=32'hFFFF_FFFF)
                             begin
-                                if (AbsDeadlines[m]==0 || CriticalityLevelsList[m]<systemCriticalityLevel)
+                                if (/*AbsDeadlines[m]==0 ||*/ CriticalityLevelsList[m]<systemCriticalityLevel)
                                 //deadline miss or task has a criticality lower wrt current system criticality
                                     begin
-                                        if (!(m==control_taskId && (controlEndRunningJob_pulse || controlEndNotRunningJob_pulse)))
+//                                        if (!(m==control_taskId && controlEndJob_pulse))
                                         //no job completion signal received in same CC
-                                        begin
+//                                        begin
                                             //real deadline miss/kill due to mode switch
                                             executionMode[m]<=EXECMODE_DEADLINEMISS;
-                                            if (AbsActivations[m]!=0 || CriticalityLevelsList[m]<systemCriticalityLevel)
+                                            //if (AbsActivations[m]!=0 || CriticalityLevelsList[m]<systemCriticalityLevel)
                                                 //deadline miss, no legit activation
                                                 AbsDeadlines[m]=32'hFFFF_FFFF;
     
-                                            if (m==runningTaskIndex)
-                                                runningTaskStopped=1;
-                                            if (m==nextRunningTaskIndex)
-                                                nextRunningTaskStopped=1;
-                                        end
+//                                            if (m==runningTaskIndex)
+//                                                runningTaskStopped=1;
+//                                            if (m==nextRunningTaskIndex)
+//                                                nextRunningTaskStopped=1;
+//                                        end
                                     end
                                 else if (AbsActivations[m]!=0)
                                 //(no deadline miss or kill due to criticality of task lower wrt system) and no activation
@@ -1416,7 +1428,7 @@ module scheduler_v1_0_S_AXI #
                                         reExecutions [m] <= 0;
                                         executionIds [m] <= executionIds [m] + 1;
     
-                                        if (m == runningTaskIndex)
+                                        if (m == HighestPriorityTaskIndex)
                                             runningTaskReactivated_pulse=1;
                                         else
                                             executionTimes[m]<=0;
@@ -1428,10 +1440,16 @@ module scheduler_v1_0_S_AXI #
                         end
 
                         //manage execution times of runningTask
-                    if (runningTaskReactivated_pulse)
-                        executionTimes[runningTaskIndex]<=0;
-                    else if (runningTaskIndex!=8'hFF && !runningTaskStopped)
-                        executionTimes[runningTaskIndex] <= executionTimes[runningTaskIndex]+1;
+                      if (runningTaskReactivated_pulse)
+                            executionTimes[HighestPriorityTaskIndex]<=0;
+                      else if (HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
+                            executionTimes[HighestPriorityTaskIndex] <= executionTimes[HighestPriorityTaskIndex]+1;
+
+//                    if (runningTaskReactivated_pulse)
+//                        executionTimes[runningTaskIndex]<=0;
+//                    else if (runningTaskIndex!=8'hFF && !runningTaskStopped)
+//                        executionTimes[runningTaskIndex] <= executionTimes[runningTaskIndex]+1;
+
                 end
             endcase
         end
@@ -1549,20 +1567,20 @@ module scheduler_v1_0_S_AXI #
     wire intr_ack_pulse;
     assign intr_ack_pulse=oldIntrStatus && !det_intr[0];
 
-    reg oldRunningTaskStopped;
-    always @(posedge S_AXI_ACLK)
-    begin
-        if ( !S_AXI_ARESETN )
-            begin
-                oldRunningTaskStopped<=1'b0;
-            end
-        else
-            begin
-                oldRunningTaskStopped<=runningTaskStopped;
-            end
-    end
-    wire runningTaskStopped_pulse;
-    assign runningTaskStopped_pulse=runningTaskStopped && !oldRunningTaskStopped;
+//    reg oldRunningTaskStopped;
+//    always @(posedge S_AXI_ACLK)
+//    begin
+//        if ( !S_AXI_ARESETN )
+//            begin
+//                oldRunningTaskStopped<=1'b0;
+//            end
+//        else
+//            begin
+//                oldRunningTaskStopped<=runningTaskStopped;
+//            end
+//    end
+//    wire runningTaskStopped_pulse;
+//    assign runningTaskStopped_pulse=runningTaskStopped && !oldRunningTaskStopped;
 
     //_____________________________
 
@@ -1574,26 +1592,26 @@ module scheduler_v1_0_S_AXI #
         if ( !S_AXI_ARESETN )
             begin
                 waitingAck<=1'b0;
-                runningTaskIndex<=8'hFF;
+//                runningTaskIndex<=8'hFF;
                 nextRunningTaskIndex<=8'hFF;
 
-                runningTaskFlop<=1'b0;
+//                runningTaskFlop<=1'b0;
             end
         else
             begin
                 if(slv_status_reg==state_running)
                 begin
-                    if (runningTaskStopped_pulse)
-                        runningTaskIndex=8'hFF;
+//                    if (runningTaskStopped_pulse)
+//                        runningTaskIndex=8'hFF;
 
                     if (waitingAck)
                         begin
                             if (intr_ack_pulse)
                                 begin
                                     waitingAck<=1'b0;
-                                    runningTaskIndex = nextRunningTaskStopped ? 8'hFF : nextRunningTaskIndex;
+                                    runningTaskIndex = /*nextRunningTaskStopped ? 8'hFF :*/ nextRunningTaskIndex;
                                     nextRunningTaskIndex <= 8'hFF;
-                                    runningTaskFlop<=!runningTaskFlop;
+//                                    runningTaskFlop<=!runningTaskFlop;
                                 end
                             else if (taskWriteDone_pulse)
                                 begin
@@ -1604,9 +1622,15 @@ module scheduler_v1_0_S_AXI #
                                 taskReady<=1'b0;
                             end
                         end
-                    else if ( intr0en && HighestPriorityTaskDeadline!=32'hFFFF_FFFF && HighestPriorityTaskDeadline!=0 && runningTaskIndex!=HighestPriorityTaskIndex )
+                    else if ( intr0en && HighestPriorityTaskDeadline!=32'hFFFF_FFFF 
+                    && 
+//                    HighestPriorityTaskDeadline!=0 && 
+                    (runningTaskIndex!=HighestPriorityTaskIndex
+                    || 
+                    taskExecutionId!=executionIds [ HighestPriorityTaskIndex ]))
                     begin
                         nextRunningTaskIndex<=HighestPriorityTaskIndex;
+                        
                         taskPtr<=TCBPtrsList[HighestPriorityTaskIndex];
                         taskExecutionMode <= ( executionMode[HighestPriorityTaskIndex] == EXECMODE_NORMAL && executionTimes[HighestPriorityTaskIndex] == 32'h0 ) ? EXECMODE_NORMAL_NEWJOB : { 1'h0, executionMode[HighestPriorityTaskIndex] };
                         taskExecutionId <= executionIds [ HighestPriorityTaskIndex ];
