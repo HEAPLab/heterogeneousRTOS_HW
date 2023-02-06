@@ -1165,12 +1165,22 @@ module scheduler_v1_0_S_AXI #
 
     (* MARK_DEBUG = "TRUE" *) reg runningTaskStopped;
     reg nextRunningTaskStopped;
+    
+//    (* MARK_DEBUG = "TRUE" *) wire[31:0] execTime1;
+//    (* MARK_DEBUG = "TRUE" *) wire[31:0] execTime2;
+//    (* MARK_DEBUG = "TRUE" *) wire[31:0] partExecTime1;
+//    (* MARK_DEBUG = "TRUE" *) wire[31:0] partExecTime2;
+    
+    assign execTime1=executionTimes[0];
+    assign execTime2=executionTimes[1];
+    assign partExecTime1=partialExecutionTimes[0];
+    assign partExecTime2=partialExecutionTimes[1];
 
     (* MARK_DEBUG = "TRUE" *) wire[7:0] HighestPriorityTaskIndex;
     (* MARK_DEBUG = "TRUE" *) wire[31:0] HighestPriorityTaskDeadline;
     (* MARK_DEBUG = "TRUE" *) reg[7:0] runningTaskIndex;
-    reg [31:0] ctxSwitchCtr;
-    localparam [31:0] ctxSwitchTime=10;
+    (* MARK_DEBUG = "TRUE" *) reg [31:0] ctxSwitchCtr;
+    localparam [31:0] ctxSwitchTime=1;
 
     //control command supplied by the software
     (* MARK_DEBUG = "TRUE" *) wire [7:0] control_taskId;
@@ -1190,8 +1200,7 @@ module scheduler_v1_0_S_AXI #
     assign failedTask_taskId=failedTask[7:0];
     assign failedTask_executionId=failedTask[15:8];
     
-    reg [7:0] prevHighestPriorityTaskIndex;
-    reg [7:0] executionTimeIncreaseTarget;
+    (* MARK_DEBUG = "TRUE" *) reg [7:0] prevHighestPriorityTaskIndex;
 
     integer m;
     always @(posedge SCHEDULER_CLK)
@@ -1204,7 +1213,7 @@ module scheduler_v1_0_S_AXI #
 
             runningTaskStopped<=1'b1;
             nextRunningTaskStopped<=1'b0;
-            ctxSwitchCtr<=32'h0;
+            ctxSwitchCtr=32'h0;
 
             systemCriticalityLevel<=1'b0;
 
@@ -1261,6 +1270,8 @@ module scheduler_v1_0_S_AXI #
                     reg failedTask_taskId_unified;
                     reg failedTask_executionId_unified;
                     
+                    reg [7:0] executionTimeIncreaseTarget;
+                    
 //                    reg newRunningTaskDeadline;
 //                    reg modeSwitch_pulse;
                     
@@ -1268,12 +1279,10 @@ module scheduler_v1_0_S_AXI #
                     begin
                         systemCriticalityLevel=0;
                     end
-                    
-                    if (ctxSwitchCtr>0)
-                      begin
-                        ctxSwitchCtr<=ctxSwitchCtr-1;
-                      end
-                      else if (HighestPriorityTaskIndex != prevHighestPriorityTaskIndex)
+
+                    executionTimeIncreaseTarget=HighestPriorityTaskIndex;
+
+                      if (HighestPriorityTaskIndex != prevHighestPriorityTaskIndex && HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
                       begin
                         prevHighestPriorityTaskIndex<=HighestPriorityTaskIndex;
 
@@ -1289,6 +1298,15 @@ module scheduler_v1_0_S_AXI #
                         begin
                             executionTimeIncreaseTarget=HighestPriorityTaskIndex; //new activation
                         end
+                      end
+                      else if (ctxSwitchCtr>0)
+                      begin
+                        ctxSwitchCtr<=ctxSwitchCtr-1;
+                        executionTimeIncreaseTarget=prevHighestPriorityTaskIndex;
+                      end
+                      else //ctxSwitchCtr==0
+                      begin
+                        executionTimeIncreaseTarget=HighestPriorityTaskIndex; //new activation
                       end
 
 //                    modeSwitch_pulse=0;
@@ -1471,10 +1489,11 @@ module scheduler_v1_0_S_AXI #
                                         reExecutions [m] <= 0;
                                         executionIds [m] <= executionIds [m] + 1;
     
-                                        if ( failedTask_taskId_unified == executionTimeIncreaseTarget ) //&& !runningTaskStopped )
+                                        if ( m == executionTimeIncreaseTarget ) //&& !runningTaskStopped )
                                             runningTaskReactivated_pulse=1;
                                         else
-                                            executionTimes[failedTask_taskId_unified]<=0;
+                                            executionTimes[m]<=0;
+                                            partialExecutionTimes[m]<=0;
                                     end
                                 end
                             else if (AbsActivations[m]!=32'hFFFF_FFFF)
@@ -1485,20 +1504,20 @@ module scheduler_v1_0_S_AXI #
                       if (runningTaskReactivated_pulse)
                       begin
                            executionTimes[executionTimeIncreaseTarget]<=0;
-                      end      
+                      end
+                      else if (HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
+                           executionTimes[executionTimeIncreaseTarget]<=executionTimes[executionTimeIncreaseTarget]+1;
+                        
 
                       if (runningTaskReactivated_pulse || runningTaskRestarted_pulse)
                       begin
                             partialExecutionTimes[executionTimeIncreaseTarget]<=0;
-                      end      
-                      
-                      if (!(runningTaskReactivated_pulse || runningTaskReactivated_pulse || runningTaskRestarted_pulse || AbsDeadlines[executionTimeIncreaseTarget]!=32'hFFFF_FFFF))
-                      begin
-                            executionTimes[executionTimeIncreaseTarget]<=executionTimes[executionTimeIncreaseTarget]+1;
-                            if (ctxSwitchCtr==0)
-                                partialExecutionTimes[executionTimeIncreaseTarget]<=partialExecutionTimes[executionTimeIncreaseTarget]+1;
                       end
-                                            
+                      else if (HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
+                      begin
+                            partialExecutionTimes[executionTimeIncreaseTarget]<=partialExecutionTimes[executionTimeIncreaseTarget]+1;
+                      end
+           
 //                      else if (HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
 //                            partialExecutionTimes[HighestPriorityTaskIndex]<=partialExecutionTimes[HighestPriorityTaskIndex]+1;
 
@@ -1641,64 +1660,64 @@ module scheduler_v1_0_S_AXI #
 
     //_____________________________
 
-    (* MARK_DEBUG = "TRUE" *) reg waitingAck;
-    reg [7:0] nextRunningTaskIndex;
+//    (* MARK_DEBUG = "TRUE" *) reg waitingAck;
+//    reg [7:0] nextRunningTaskIndex;
 
-    always @(posedge S_AXI_ACLK)
-    begin
-        if ( !S_AXI_ARESETN )
-            begin
-                waitingAck<=1'b0;
-//                runningTaskIndex<=8'hFF;
-                nextRunningTaskIndex<=8'hFF;
+//    always @(posedge S_AXI_ACLK)
+//    begin
+//        if ( !S_AXI_ARESETN )
+//            begin
+//                waitingAck<=1'b0;
+////                runningTaskIndex<=8'hFF;
+//                nextRunningTaskIndex<=8'hFF;
 
-//                runningTaskFlop<=1'b0;
-            end
-        else
-            begin
-                if(slv_status_reg==state_running)
-                begin
-//                    if (runningTaskStopped_pulse)
-//                        runningTaskIndex=8'hFF;
+////                runningTaskFlop<=1'b0;
+//            end
+//        else
+//            begin
+//                if(slv_status_reg==state_running)
+//                begin
+////                    if (runningTaskStopped_pulse)
+////                        runningTaskIndex=8'hFF;
 
-                    if (waitingAck)
-                        begin
-                            if (intr_ack_pulse)
-                                begin
-                                    waitingAck<=1'b0;
-                                    runningTaskIndex = /*nextRunningTaskStopped ? 8'hFF :*/ nextRunningTaskIndex;
-                                    nextRunningTaskIndex <= 8'hFF;
-//                                    runningTaskFlop<=!runningTaskFlop;
-                                end
-                            else if (taskWriteDone_pulse)
-                                begin
-                                    runningTaskIndex = 8'hFF;
-                                end
-                            else if (taskWriteStarted)
-                            begin
-                                taskReady<=1'b0;
-                            end
-                        end
-                    else if ( intr0en && HighestPriorityTaskDeadline!=32'hFFFF_FFFF 
-                    && 
-//                    HighestPriorityTaskDeadline!=0 && 
-                    (runningTaskIndex!=HighestPriorityTaskIndex
-                    || 
-                    taskExecutionId!=executionIds [ HighestPriorityTaskIndex ]))
-                    begin
-                        nextRunningTaskIndex<=HighestPriorityTaskIndex;
+//                    if (waitingAck)
+//                        begin
+//                            if (intr_ack_pulse)
+//                                begin
+//                                    waitingAck<=1'b0;
+//                                    runningTaskIndex = /*nextRunningTaskStopped ? 8'hFF :*/ nextRunningTaskIndex;
+//                                    nextRunningTaskIndex <= 8'hFF;
+////                                    runningTaskFlop<=!runningTaskFlop;
+//                                end
+//                            else if (taskWriteDone_pulse)
+//                                begin
+//                                    runningTaskIndex = 8'hFF;
+//                                end
+//                            else if (taskWriteStarted)
+//                            begin
+//                                taskReady<=1'b0;
+//                            end
+//                        end
+//                    else if ( intr0en && HighestPriorityTaskDeadline!=32'hFFFF_FFFF 
+//                    && 
+////                    HighestPriorityTaskDeadline!=0 && 
+//                    (runningTaskIndex!=HighestPriorityTaskIndex
+//                    || 
+//                    taskExecutionId!=executionIds [ HighestPriorityTaskIndex ]))
+//                    begin
+//                        nextRunningTaskIndex<=HighestPriorityTaskIndex;
                         
-                        taskPtr<=TCBPtrsList[HighestPriorityTaskIndex];
-                        taskExecutionMode <= ( executionMode[HighestPriorityTaskIndex] == EXECMODE_NORMAL && executionTimes[HighestPriorityTaskIndex] == 32'h0 ) ? EXECMODE_NORMAL_NEWJOB : { 1'h0, executionMode[HighestPriorityTaskIndex] };
-                        taskExecutionId <= executionIds [ HighestPriorityTaskIndex ];
-                        taskReexecutions <= reExecutions [ HighestPriorityTaskIndex ];
-                        taskReady<=1'b1;
+//                        taskPtr<=TCBPtrsList[HighestPriorityTaskIndex];
+//                        taskExecutionMode <= ( executionMode[HighestPriorityTaskIndex] == EXECMODE_NORMAL && executionTimes[HighestPriorityTaskIndex] == 32'h0 ) ? EXECMODE_NORMAL_NEWJOB : { 1'h0, executionMode[HighestPriorityTaskIndex] };
+//                        taskExecutionId <= executionIds [ HighestPriorityTaskIndex ];
+//                        taskReexecutions <= reExecutions [ HighestPriorityTaskIndex ];
+//                        taskReady<=1'b1;
 
-                        waitingAck<=1'b1;
-                    end
-                end
-            end
-    end
+//                        waitingAck<=1'b1;
+//                    end
+//                end
+//            end
+//    end
 
     //   (* MARK_DEBUG = "TRUE" *)  wire[2:0] taskExecutionModeDbg;
     //   (* MARK_DEBUG = "TRUE" *) wire[31:0] HighestPriorityTaskExecutionTimeDbg;
