@@ -51,5 +51,5 @@ char FAULTDETECTOR_hasFault(XFaultdetector *InstancePtr, u8 taskId);
 void FAULTDETECTOR_resetFault(XFaultdetector *InstancePtr, u8 taskId);
 void FAULTDETECTOR_setTrainedRegion(XFaultdetector *InstancePtr, FAULTDETECTOR_region_t* region);
 FAULTDETECTOR_region_t FAULTDETECTOR_getTrainedRegion(XFaultdetector *InstancePtr);
-void FAULTDETECTOR_startCopy(XFaultdetector *InstancePtr);
+void FAULTDETECTOR_startCopy(XFaultdetector *InstancePtr, u8 taskId);
 char FAULTDETECTOR_isReadyForNextControl(XFaultdetector *InstancePtr);

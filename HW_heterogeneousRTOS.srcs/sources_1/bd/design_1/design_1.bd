@@ -22,7 +22,7 @@
           "auto_ds": "",
           "auto_pc": ""
         },
-        "s00_mmu": ""
+        "s01_mmu": ""
       },
       "ps7_0_axi_periph": {
         "xbar": "",
@@ -36,7 +36,9 @@
       "xlconcat_0": "",
       "axi_gpio_0": "",
       "processing_system7_0": "",
-      "rst_ps7_0_100M": "",
+      "clk_wiz_0": "",
+      "rst_clk_wiz_0_100M": "",
+      "proc_sys_reset_0": "",
       "FaultDetector_0": "",
       "scheduler_0": ""
     },
@@ -284,7 +286,9 @@
           },
           "ARESETN": {
             "type": "rst",
-            "direction": "I"
+            "direction": "I",
+            "left": "0",
+            "right": "0"
           },
           "S00_ACLK": {
             "type": "clk",
@@ -300,7 +304,9 @@
           },
           "S00_ARESETN": {
             "type": "rst",
-            "direction": "I"
+            "direction": "I",
+            "left": "0",
+            "right": "0"
           },
           "S01_ACLK": {
             "type": "clk",
@@ -316,7 +322,9 @@
           },
           "S01_ARESETN": {
             "type": "rst",
-            "direction": "I"
+            "direction": "I",
+            "left": "0",
+            "right": "0"
           },
           "M00_ACLK": {
             "type": "clk",
@@ -332,7 +340,9 @@
           },
           "M00_ARESETN": {
             "type": "rst",
-            "direction": "I"
+            "direction": "I",
+            "left": "0",
+            "right": "0"
           }
         },
         "components": {
@@ -447,7 +457,7 @@
                 "inst_hier_path": "axi_mem_intercon/s00_couplers/auto_us",
                 "parameters": {
                   "MI_DATA_WIDTH": {
-                    "value": "512"
+                    "value": "256"
                   },
                   "SI_DATA_WIDTH": {
                     "value": "32"
@@ -618,7 +628,7 @@
                     "value": "64"
                   },
                   "SI_DATA_WIDTH": {
-                    "value": "512"
+                    "value": "256"
                   }
                 },
                 "interface_ports": {
@@ -695,11 +705,11 @@
               }
             }
           },
-          "s00_mmu": {
+          "s01_mmu": {
             "vlnv": "xilinx.com:ip:axi_mmu:2.1",
-            "xci_name": "design_1_s00_mmu_0",
-            "xci_path": "ip/design_1_s00_mmu_0/design_1_s00_mmu_0.xci",
-            "inst_hier_path": "axi_mem_intercon/s00_mmu",
+            "xci_name": "design_1_s01_mmu_0",
+            "xci_path": "ip/design_1_s01_mmu_0/design_1_s01_mmu_0.xci",
+            "inst_hier_path": "axi_mem_intercon/s01_mmu",
             "interface_ports": {
               "S_AXI": {
                 "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
@@ -712,16 +722,16 @@
           }
         },
         "interface_nets": {
-          "S00_AXI_1": {
-            "interface_ports": [
-              "S00_AXI",
-              "s00_mmu/S_AXI"
-            ]
-          },
-          "axi_mem_intercon_to_s01_couplers": {
+          "S01_AXI_1": {
             "interface_ports": [
               "S01_AXI",
-              "s01_couplers/S_AXI"
+              "s01_mmu/S_AXI"
+            ]
+          },
+          "axi_mem_intercon_to_s00_couplers": {
+            "interface_ports": [
+              "S00_AXI",
+              "s00_couplers/S_AXI"
             ]
           },
           "m00_couplers_to_axi_mem_intercon": {
@@ -736,16 +746,16 @@
               "xbar/S00_AXI"
             ]
           },
-          "s00_mmu_M_AXI": {
-            "interface_ports": [
-              "s00_mmu/M_AXI",
-              "s00_couplers/S_AXI"
-            ]
-          },
           "s01_couplers_to_xbar": {
             "interface_ports": [
               "s01_couplers/M_AXI",
               "xbar/S01_AXI"
+            ]
+          },
+          "s01_mmu_M_AXI": {
+            "interface_ports": [
+              "s01_mmu/M_AXI",
+              "s01_couplers/S_AXI"
             ]
           },
           "xbar_to_m00_couplers": {
@@ -766,7 +776,7 @@
               "s01_couplers/M_ACLK",
               "m00_couplers/M_ACLK",
               "m00_couplers/S_ACLK",
-              "s00_mmu/aclk"
+              "s01_mmu/aclk"
             ]
           },
           "axi_mem_intercon_ARESETN_net": {
@@ -779,7 +789,7 @@
               "s01_couplers/M_ARESETN",
               "m00_couplers/M_ARESETN",
               "m00_couplers/S_ARESETN",
-              "s00_mmu/aresetn"
+              "s01_mmu/aresetn"
             ]
           }
         }
@@ -834,7 +844,9 @@
           },
           "ARESETN": {
             "type": "rst",
-            "direction": "I"
+            "direction": "I",
+            "left": "0",
+            "right": "0"
           },
           "S00_ACLK": {
             "type": "clk",
@@ -850,7 +862,9 @@
           },
           "S00_ARESETN": {
             "type": "rst",
-            "direction": "I"
+            "direction": "I",
+            "left": "0",
+            "right": "0"
           },
           "M00_ACLK": {
             "type": "clk",
@@ -866,7 +880,9 @@
           },
           "M00_ARESETN": {
             "type": "rst",
-            "direction": "I"
+            "direction": "I",
+            "left": "0",
+            "right": "0"
           },
           "M01_ACLK": {
             "type": "clk",
@@ -882,7 +898,9 @@
           },
           "M01_ARESETN": {
             "type": "rst",
-            "direction": "I"
+            "direction": "I",
+            "left": "0",
+            "right": "0"
           },
           "M02_ACLK": {
             "type": "clk",
@@ -898,7 +916,9 @@
           },
           "M02_ARESETN": {
             "type": "rst",
-            "direction": "I"
+            "direction": "I",
+            "left": "0",
+            "right": "0"
           }
         },
         "components": {
@@ -1346,7 +1366,7 @@
             "value": "10.000000"
           },
           "PCW_ACT_FPGA0_PERIPHERAL_FREQMHZ": {
-            "value": "25.000000"
+            "value": "100.000000"
           },
           "PCW_ACT_FPGA1_PERIPHERAL_FREQMHZ": {
             "value": "10.000000"
@@ -1436,7 +1456,7 @@
             "value": "0"
           },
           "PCW_CLK0_FREQ": {
-            "value": "25000000"
+            "value": "100000000"
           },
           "PCW_CLK1_FREQ": {
             "value": "10000000"
@@ -1751,10 +1771,10 @@
             "value": "TRUE"
           },
           "PCW_FPGA0_PERIPHERAL_FREQMHZ": {
-            "value": "25"
+            "value": "100"
           },
           "PCW_FPGA1_PERIPHERAL_FREQMHZ": {
-            "value": "50"
+            "value": "100"
           },
           "PCW_FPGA2_PERIPHERAL_FREQMHZ": {
             "value": "50"
@@ -3163,25 +3183,70 @@
           }
         }
       },
-      "rst_ps7_0_100M": {
+      "clk_wiz_0": {
+        "vlnv": "xilinx.com:ip:clk_wiz:6.0",
+        "xci_name": "design_1_clk_wiz_0_0",
+        "xci_path": "ip/design_1_clk_wiz_0_0/design_1_clk_wiz_0_0.xci",
+        "inst_hier_path": "clk_wiz_0",
+        "parameters": {
+          "CLKOUT1_JITTER": {
+            "value": "148.376"
+          },
+          "CLKOUT1_PHASE_ERROR": {
+            "value": "128.132"
+          },
+          "CLKOUT2_JITTER": {
+            "value": "270.159"
+          },
+          "CLKOUT2_PHASE_ERROR": {
+            "value": "128.132"
+          },
+          "CLKOUT2_REQUESTED_OUT_FREQ": {
+            "value": "5.000"
+          },
+          "CLKOUT2_USED": {
+            "value": "true"
+          },
+          "MMCM_CLKFBOUT_MULT_F": {
+            "value": "6.250"
+          },
+          "MMCM_CLKOUT0_DIVIDE_F": {
+            "value": "6.250"
+          },
+          "MMCM_CLKOUT1_DIVIDE": {
+            "value": "125"
+          },
+          "NUM_OUT_CLKS": {
+            "value": "2"
+          },
+          "PRIM_SOURCE": {
+            "value": "No_buffer"
+          },
+          "RESET_PORT": {
+            "value": "resetn"
+          },
+          "RESET_TYPE": {
+            "value": "ACTIVE_LOW"
+          }
+        }
+      },
+      "rst_clk_wiz_0_100M": {
         "vlnv": "xilinx.com:ip:proc_sys_reset:5.0",
-        "xci_name": "design_1_rst_ps7_0_100M_0",
-        "xci_path": "ip/design_1_rst_ps7_0_100M_0/design_1_rst_ps7_0_100M_0.xci",
-        "inst_hier_path": "rst_ps7_0_100M"
+        "xci_name": "design_1_rst_clk_wiz_0_100M_1",
+        "xci_path": "ip/design_1_rst_clk_wiz_0_100M_1/design_1_rst_clk_wiz_0_100M_1.xci",
+        "inst_hier_path": "rst_clk_wiz_0_100M"
+      },
+      "proc_sys_reset_0": {
+        "vlnv": "xilinx.com:ip:proc_sys_reset:5.0",
+        "xci_name": "design_1_proc_sys_reset_0_0",
+        "xci_path": "ip/design_1_proc_sys_reset_0_0/design_1_proc_sys_reset_0_0.xci",
+        "inst_hier_path": "proc_sys_reset_0"
       },
       "FaultDetector_0": {
         "vlnv": "xilinx.com:hls:FaultDetector:1.0",
-        "xci_name": "design_1_FaultDetector_0_1",
-        "xci_path": "ip/design_1_FaultDetector_0_1/design_1_FaultDetector_0_1.xci",
+        "xci_name": "design_1_FaultDetector_0_0",
+        "xci_path": "ip/design_1_FaultDetector_0_0/design_1_FaultDetector_0_0.xci",
         "inst_hier_path": "FaultDetector_0",
-        "parameters": {
-          "C_M_AXI_GMEM_DATA_WIDTH": {
-            "value": "512"
-          },
-          "C_M_AXI_GMEM_ENABLE_ID_PORTS": {
-            "value": "false"
-          }
-        },
         "interface_ports": {
           "m_axi_gmem": {
             "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
@@ -3210,9 +3275,6 @@
         "inst_hier_path": "scheduler_0",
         "parameters": {
           "criticalityLevels": {
-            "value": "3"
-          },
-          "maxReExecutions": {
             "value": "3"
           },
           "maxTasks": {
@@ -3298,13 +3360,13 @@
       }
     },
     "nets": {
-      "Net": {
+      "FaultDetector_0_failedTask": {
         "ports": [
           "FaultDetector_0/failedTask",
           "scheduler_0/failedTask"
         ]
       },
-      "Net1": {
+      "FaultDetector_0_failedTask_ap_vld": {
         "ports": [
           "FaultDetector_0/failedTask_ap_vld",
           "scheduler_0/failedTask_valid"
@@ -3316,6 +3378,21 @@
           "xlconcat_0/In0"
         ]
       },
+      "clk_wiz_0_clk_out2": {
+        "ports": [
+          "clk_wiz_0/clk_out2",
+          "proc_sys_reset_0/slowest_sync_clk",
+          "rst_clk_wiz_0_100M/slowest_sync_clk",
+          "scheduler_0/SCHEDULER_CLK"
+        ]
+      },
+      "clk_wiz_0_locked": {
+        "ports": [
+          "clk_wiz_0/locked",
+          "rst_clk_wiz_0_100M/dcm_locked",
+          "proc_sys_reset_0/dcm_locked"
+        ]
+      },
       "gpio_io_i_0_1": {
         "ports": [
           "fa2_ta2_eb1_SW1",
@@ -3323,24 +3400,34 @@
           "axi_gpio_0/gpio_io_i"
         ]
       },
+      "proc_sys_reset_0_peripheral_aresetn": {
+        "ports": [
+          "proc_sys_reset_0/peripheral_aresetn",
+          "scheduler_0/SCHEDULER_ARESETN"
+        ]
+      },
       "processing_system7_0_FCLK_CLK0": {
         "ports": [
           "processing_system7_0/FCLK_CLK0",
+          "clk_wiz_0/clk_in1"
+        ]
+      },
+      "processing_system7_0_FCLK_CLK1": {
+        "ports": [
+          "clk_wiz_0/clk_out1",
+          "axi_gpio_0/s_axi_aclk",
+          "ps7_0_axi_periph/M02_ACLK",
           "axi_mem_intercon/ACLK",
+          "axi_mem_intercon/M00_ACLK",
+          "processing_system7_0/S_AXI_HP0_ACLK",
           "axi_mem_intercon/S00_ACLK",
           "axi_mem_intercon/S01_ACLK",
-          "axi_mem_intercon/M00_ACLK",
-          "ps7_0_axi_periph/ACLK",
+          "processing_system7_0/M_AXI_GP0_ACLK",
           "ps7_0_axi_periph/S00_ACLK",
+          "ps7_0_axi_periph/ACLK",
           "ps7_0_axi_periph/M00_ACLK",
           "ps7_0_axi_periph/M01_ACLK",
-          "ps7_0_axi_periph/M02_ACLK",
-          "axi_gpio_0/s_axi_aclk",
-          "processing_system7_0/M_AXI_GP0_ACLK",
-          "processing_system7_0/S_AXI_HP0_ACLK",
-          "rst_ps7_0_100M/slowest_sync_clk",
           "FaultDetector_0/ap_clk",
-          "scheduler_0/SCHEDULER_CLK",
           "scheduler_0/s_axi_aclk",
           "scheduler_0/m_axi_aclk"
         ]
@@ -3348,24 +3435,25 @@
       "processing_system7_0_FCLK_RESET0_N": {
         "ports": [
           "processing_system7_0/FCLK_RESET0_N",
-          "rst_ps7_0_100M/ext_reset_in"
+          "proc_sys_reset_0/ext_reset_in",
+          "rst_clk_wiz_0_100M/ext_reset_in",
+          "clk_wiz_0/resetn"
         ]
       },
-      "rst_ps7_0_100M_peripheral_aresetn": {
+      "rst_clk_wiz_0_100M_peripheral_aresetn": {
         "ports": [
-          "rst_ps7_0_100M/peripheral_aresetn",
+          "rst_clk_wiz_0_100M/peripheral_aresetn",
+          "axi_gpio_0/s_axi_aresetn",
+          "ps7_0_axi_periph/M02_ARESETN",
           "axi_mem_intercon/ARESETN",
+          "axi_mem_intercon/M00_ARESETN",
           "axi_mem_intercon/S00_ARESETN",
           "axi_mem_intercon/S01_ARESETN",
-          "axi_mem_intercon/M00_ARESETN",
-          "ps7_0_axi_periph/ARESETN",
           "ps7_0_axi_periph/S00_ARESETN",
+          "ps7_0_axi_periph/ARESETN",
           "ps7_0_axi_periph/M00_ARESETN",
           "ps7_0_axi_periph/M01_ARESETN",
-          "ps7_0_axi_periph/M02_ARESETN",
-          "axi_gpio_0/s_axi_aresetn",
           "FaultDetector_0/ap_rst_n",
-          "scheduler_0/SCHEDULER_ARESETN",
           "scheduler_0/s_axi_aresetn",
           "scheduler_0/m_axi_aresetn"
         ]
@@ -3459,19 +3547,6 @@
           }
         }
       },
-      "/FaultDetector_0": {
-        "address_spaces": {
-          "Data_m_axi_gmem": {
-            "segments": {
-              "SEG_processing_system7_0_HP0_DDR_LOWOCM": {
-                "address_block": "/processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM",
-                "offset": "0x0000000000000000",
-                "range": "512M"
-              }
-            }
-          }
-        }
-      },
       "/scheduler_0": {
         "address_spaces": {
           "M_AXI": {
@@ -3479,7 +3554,7 @@
               "SEG_processing_system7_0_HP0_DDR_LOWOCM": {
                 "address_block": "/processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM",
                 "offset": "0x10000000",
-                "range": "4K"
+                "range": "64K"
               }
             }
           }

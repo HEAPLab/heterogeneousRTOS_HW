@@ -51,7 +51,7 @@ void FAULTDETECTOR_dumpRegions(XFaultdetector *InstancePtr, FAULTDETECTOR_region
 			XFaultdetector_Start(InstancePtr);
 			u8* stat=(u8*) (u32)(InstancePtr->Control_BaseAddress);
 			while (!XFaultdetector_IsIdle(InstancePtr)) {}
-			trainedRegions[i][j]=*((FAULTDETECTOR_region_t*) ((u32)(InstancePtr->Control_BaseAddress+XFAULTDETECTOR_CONTROL_ADDR_TRAINEDREGION_O_BASE)));
+			trainedRegions[i][j]=*((FAULTDETECTOR_region_t*) ((u32)(InstancePtr->Control_BaseAddress+XFAULTDETECTOR_CONTROL_ADDR_TRAINEDREGION_O_DATA)));
 			n_regions[i]=*((u8*) ((u32)(InstancePtr->Control_BaseAddress+XFAULTDETECTOR_CONTROL_ADDR_N_REGIONS_O_DATA)));
 			while (!XFaultdetector_IsReady(InstancePtr)) {}
 		}
@@ -60,11 +60,11 @@ void FAULTDETECTOR_dumpRegions(XFaultdetector *InstancePtr, FAULTDETECTOR_region
 }
 
 char FAULTDETECTOR_hasFault(XFaultdetector *InstancePtr, u8 taskId) {
-	return *((char*) ((u32)(InstancePtr->Control_BaseAddress+XFAULTDETECTOR_CONTROL_ADDR_ERRORINTASK_BASE+taskId*sizeof(char))));
+	return *((u8*) ((u32)(InstancePtr->Control_BaseAddress+XFAULTDETECTOR_CONTROL_ADDR_ERRORINTASK_BASE+taskId*sizeof(char))));
 }
 
 void FAULTDETECTOR_resetFault(XFaultdetector *InstancePtr, u8 taskId) {
-	*((char*) ((u32)(InstancePtr->Control_BaseAddress+XFAULTDETECTOR_CONTROL_ADDR_ERRORINTASK_BASE+taskId*sizeof(char))))=0x0;
+	*((u8*) ((u32)(InstancePtr->Control_BaseAddress+XFAULTDETECTOR_CONTROL_ADDR_ERRORINTASK_BASE+taskId*sizeof(char))))=0x0;
 }
 
 void FAULTDETECTOR_setTrainedRegion(XFaultdetector *InstancePtr, FAULTDETECTOR_region_t* region) {
@@ -72,14 +72,15 @@ void FAULTDETECTOR_setTrainedRegion(XFaultdetector *InstancePtr, FAULTDETECTOR_r
 }
 
 FAULTDETECTOR_region_t FAULTDETECTOR_getTrainedRegion(XFaultdetector *InstancePtr) {
-	return *((FAULTDETECTOR_region_t*) ((u32)(InstancePtr->Control_BaseAddress+XFAULTDETECTOR_CONTROL_ADDR_TRAINEDREGION_O_BASE)));
+	return *((FAULTDETECTOR_region_t*) ((u32)(InstancePtr->Control_BaseAddress+XFAULTDETECTOR_CONTROL_ADDR_TRAINEDREGION_O_DATA)));
 }
 
-void FAULTDETECTOR_startCopy(XFaultdetector *InstancePtr) {
-	*((char*) ((u32)(InstancePtr->Control_BaseAddress+XFAULTDETECTOR_CONTROL_ADDR_STARTCOPY_DATA)))=0xFF;
-    XFaultdetector_WriteReg(InstancePtr->Control_BaseAddress, XFAULTDETECTOR_CONTROL_ADDR_STARTCOPY_CTRL, 1);
+void FAULTDETECTOR_startCopy(XFaultdetector *InstancePtr, u8 taskId) {
+	*((u8*) ((u32)(InstancePtr->Control_BaseAddress+XFAULTDETECTOR_CONTROL_ADDR_TASKID_DATA)))=taskId;
+    XFaultdetector_WriteReg(InstancePtr->Control_BaseAddress, XFAULTDETECTOR_CONTROL_ADDR_TASKID_CTRL, 1);
 }
 
 char FAULTDETECTOR_isReadyForNextControl(XFaultdetector *InstancePtr) {
-	return  !(*((char*) ((u32)(InstancePtr->Control_BaseAddress+XFAULTDETECTOR_CONTROL_ADDR_COPYING_DATA)))) && ((*((char*) ((u32)(InstancePtr->Control_BaseAddress+XFAULTDETECTOR_CONTROL_ADDR_STARTCOPY_CTRL))) /*>> 1*/) & /*0x1*/0x3)==0x2;
+	return  !(*((u8*) ((u32)(InstancePtr->Control_BaseAddress+XFAULTDETECTOR_CONTROL_ADDR_COPYING_DATA))));
+//			&& ((*((u8*) ((u32)(InstancePtr->Control_BaseAddress+XFAULTDETECTOR_CONTROL_ADDR_STARTCOPY_CTRL))) /*>> 1*/) & /*0x1*/0x3)==0x2;
 }

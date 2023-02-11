@@ -5,8 +5,7 @@
 	(
     // Users to add parameters here
     parameter maxTasks = 4,
-    parameter [3:0] maxReExecutions=4'd2,
-    parameter [3:0] criticalityLevels=4'd2,
+    parameter [3:0] criticalityLevels=3,
 
     // User parameters ends
     // Do not modify the parameters beyond this line
@@ -121,15 +120,14 @@
     wire [7:0] taskExecutionMode_extended;
     assign taskExecutionMode_extended={5'h0, taskExecutionMode};
     wire [7:0] taskExecutionId;
-    wire [3:0] taskReexecutions;
-    wire [7:0] taskReexecutions_extended;
-    assign taskReexecutions_extended={4'h0, taskReexecutions};
+    wire taskRequiresFaultDetection;
+    wire [7:0] taskRequiresFaultDetection_extended;
+    assign taskRequiresFaultDetection_extended={4'h0, taskRequiresFaultDetection};
     wire [31:0] taskPtr;
 
     // Instantiation of Axi Bus Interface S_AXI
     scheduler_v1_0_S_AXI # (
     .maxTasks(maxTasks),
-    .maxReExecutions(maxReExecutions),
     .criticalityLevels(criticalityLevels),
     .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH),
     .C_S_AXI_ADDR_WIDTH(C_S_AXI_ADDR_WIDTH)
@@ -142,7 +140,7 @@
         .taskReady(taskReady),
         .taskExecutionMode(taskExecutionMode),
         .taskExecutionId(taskExecutionId),
-        .taskReexecutions(taskReexecutions),
+        .taskRequiresFaultDetection(taskRequiresFaultDetection),
         .taskPtr(taskPtr),
 
         .uninitializedLed(uninitializedLed),
@@ -196,7 +194,7 @@
         .INIT_AXI_TXN(taskReady),
         .taskExecutionMode(taskExecutionMode_extended),
         .taskExecutionId(taskExecutionId),
-        .taskReexecutions(taskReexecutions_extended),
+        .taskRequiresFaultDetection(taskRequiresFaultDetection_extended),
         .taskPtr(taskPtr),
 
         //.INIT_AXI_TXN(m_axi_init_axi_txn),

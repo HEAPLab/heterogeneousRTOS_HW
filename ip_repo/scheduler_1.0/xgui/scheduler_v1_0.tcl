@@ -13,7 +13,6 @@ proc init_gui { IPINST } {
 
   set maxTasks [ipgui::add_param $IPINST -name "maxTasks"]
   set_property tooltip {maximum number of tasks} ${maxTasks}
-  ipgui::add_param $IPINST -name "maxReExecutions"
   ipgui::add_param $IPINST -name "criticalityLevels"
 
 }
@@ -24,15 +23,6 @@ proc update_PARAM_VALUE.criticalityLevels { PARAM_VALUE.criticalityLevels } {
 
 proc validate_PARAM_VALUE.criticalityLevels { PARAM_VALUE.criticalityLevels } {
 	# Procedure called to validate criticalityLevels
-	return true
-}
-
-proc update_PARAM_VALUE.maxReExecutions { PARAM_VALUE.maxReExecutions } {
-	# Procedure called to update maxReExecutions when any of the dependent parameters in the arguments change
-}
-
-proc validate_PARAM_VALUE.maxReExecutions { PARAM_VALUE.maxReExecutions } {
-	# Procedure called to validate maxReExecutions
 	return true
 }
 
@@ -137,11 +127,6 @@ proc update_MODELPARAM_VALUE.C_S_AXI_ADDR_WIDTH { MODELPARAM_VALUE.C_S_AXI_ADDR_
 proc update_MODELPARAM_VALUE.maxTasks { MODELPARAM_VALUE.maxTasks PARAM_VALUE.maxTasks } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
 	set_property value [get_property value ${PARAM_VALUE.maxTasks}] ${MODELPARAM_VALUE.maxTasks}
-}
-
-proc update_MODELPARAM_VALUE.maxReExecutions { MODELPARAM_VALUE.maxReExecutions PARAM_VALUE.maxReExecutions } {
-	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
-	set_property value [get_property value ${PARAM_VALUE.maxReExecutions}] ${MODELPARAM_VALUE.maxReExecutions}
 }
 
 proc update_MODELPARAM_VALUE.criticalityLevels { MODELPARAM_VALUE.criticalityLevels PARAM_VALUE.criticalityLevels } {

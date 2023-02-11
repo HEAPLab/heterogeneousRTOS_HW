@@ -1,0 +1,486 @@
+#-----------------------------------------------------------
+# Vivado v2022.2 (64-bit)
+# SW Build 3671981 on Fri Oct 14 04:59:54 MDT 2022
+# IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
+# Start of session at: Thu Feb  9 17:55:42 2023
+# Process ID: 78074
+# Current directory: /home/bosp/workspace/ip_repo/edit_scheduler_v1_0.runs/synth_1
+# Command line: vivado -log scheduler_v1_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source scheduler_v1_0.tcl
+# Log file: /home/bosp/workspace/ip_repo/edit_scheduler_v1_0.runs/synth_1/scheduler_v1_0.vds
+# Journal file: /home/bosp/workspace/ip_repo/edit_scheduler_v1_0.runs/synth_1/vivado.jou
+# Running On: HeapAsus, OS: Linux, CPU Frequency: 1599.088 MHz, CPU Physical cores: 6, Host memory: 25114 MB
+#-----------------------------------------------------------
+source scheduler_v1_0.tcl -notrace
+create_project: Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 1261.992 ; gain = 0.023 ; free physical = 11872 ; free virtual = 19381
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/bosp/workspace/ip_repo/scheduler_1.0'.
+WARNING: [IP_Flow 19-2207] Repository '/home/bosp/workspace/ip_repo/scheduler_1.0' already exists; ignoring attempt to add it again.
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/bosp/workspace/ip_repo/scheduler_1.0'.
+WARNING: [IP_Flow 19-2248] Failed to load user IP repository '/home/bosp/workspace/ip_repo/next_task_handler_1.0'; Can't find the specified path.
+If this directory should no longer be in your list of user repositories, go to the IP Settings dialog and remove it.
+WARNING: [IP_Flow 19-2207] Repository '/home/bosp/workspace/ip_repo/next_task_handler_1.0' already exists; ignoring attempt to add it again.
+WARNING: [IP_Flow 19-2248] Failed to load user IP repository '/home/bosp/workspace/ip_repo/next_task_handler_1.0'; Can't find the specified path.
+If this directory should no longer be in your list of user repositories, go to the IP Settings dialog and remove it.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/tools/Xilinx/Vivado/2022.2/data/ip'.
+Command: read_checkpoint -auto_incremental -incremental /home/bosp/workspace/ip_repo/edit_scheduler_v1_0.srcs/utils_1/imports/synth_1/scheduler_v1_0.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from /home/bosp/workspace/ip_repo/edit_scheduler_v1_0.srcs/utils_1/imports/synth_1/scheduler_v1_0.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+Command: synth_design -top scheduler_v1_0 -part xc7z020clg484-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 78161
+INFO: [Synth 8-11241] undeclared symbol 'REGCCE', assumed default net type 'wire' [/opt/tools/Xilinx/Vivado/2022.2/data/verilog/src/unimacro/BRAM_SINGLE_MACRO.v:2170]
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 1639.699 ; gain = 377.707 ; free physical = 11371 ; free virtual = 18880
+Synthesis current peak Physical Memory [PSS] (MB): peak = 987.286; parent = 806.664; children = 180.622
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 2642.453; parent = 1639.703; children = 1002.750
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'scheduler_v1_0' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0.v:4]
+INFO: [Synth 8-6157] synthesizing module 'scheduler_v1_0_S_AXI' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:42]
+	Parameter maxTasks bound to: 4 - type: integer 
+	Parameter criticalityLevels bound to: 4'b0011 
+	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_S_AXI_ADDR_WIDTH bound to: 14 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'Comparator' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:16]
+INFO: [Synth 8-6155] done synthesizing module 'Comparator' (0#1) [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:16]
+WARNING: [Synth 8-7071] port 'criticalityX1' of module 'Comparator' is unconnected for instance 'cl1' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1480]
+WARNING: [Synth 8-7071] port 'criticalityX2' of module 'Comparator' is unconnected for instance 'cl1' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1480]
+WARNING: [Synth 8-7023] instance 'cl1' of module 'Comparator' has 8 connections declared, but only 6 given [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1480]
+WARNING: [Synth 8-7071] port 'criticalityX1' of module 'Comparator' is unconnected for instance 'cl1' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1480]
+WARNING: [Synth 8-7071] port 'criticalityX2' of module 'Comparator' is unconnected for instance 'cl1' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1480]
+WARNING: [Synth 8-7023] instance 'cl1' of module 'Comparator' has 8 connections declared, but only 6 given [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1480]
+WARNING: [Synth 8-7071] port 'criticalityX1' of module 'Comparator' is unconnected for instance 'cl1' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1469]
+WARNING: [Synth 8-7071] port 'criticalityX2' of module 'Comparator' is unconnected for instance 'cl1' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1469]
+WARNING: [Synth 8-7023] instance 'cl1' of module 'Comparator' has 8 connections declared, but only 6 given [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1469]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:480]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:563]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1198]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1601]
+INFO: [Synth 8-6155] done synthesizing module 'scheduler_v1_0_S_AXI' (0#1) [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:42]
+INFO: [Synth 8-6157] synthesizing module 'scheduler_v1_0_M_AXI' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_M_AXI.v:4]
+	Parameter C_M_TARGET_SLAVE_BASE_ADDR bound to: 268435456 - type: integer 
+	Parameter C_M_AXI_ADDR_WIDTH bound to: 32 - type: integer 
+	Parameter C_M_AXI_DATA_WIDTH bound to: 32 - type: integer 
+INFO: [Synth 8-155] case statement is not full and has no default [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_M_AXI.v:291]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_M_AXI.v:583]
+INFO: [Synth 8-6155] done synthesizing module 'scheduler_v1_0_M_AXI' (0#1) [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_M_AXI.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'scheduler_v1_0' (0#1) [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0.v:4]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'scheduler_v1_0_S_AXI_inst'. This will prevent further optimization [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0.v:134]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'Comp[0].InternalComp[2].cl1'. This will prevent further optimization [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1480]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'Comp[0].InternalComp[0].cl1'. This will prevent further optimization [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1480]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'Comp[1].InternalComp[0].cl1'. This will prevent further optimization [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1469]
+WARNING: [Synth 8-6014] Unused sequential element intr_all_ff_reg was removed.  [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:843]
+WARNING: [Synth 8-6014] Unused sequential element oldRunningTaskFlop_reg was removed.  [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1129]
+WARNING: [Synth 8-6014] Unused sequential element stateRunning.executionTimeIncreaseTarget_reg was removed.  [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1263]
+WARNING: [Synth 8-6014] Unused sequential element stateRunning.controlEndJob_pulse_reg was removed.  [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1292]
+WARNING: [Synth 8-6014] Unused sequential element stateRunning.WCETexceeded_pulse_reg was removed.  [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1296]
+WARNING: [Synth 8-6014] Unused sequential element stateRunning.WatchdogExceeded_pulse_reg was removed.  [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1298]
+WARNING: [Synth 8-6014] Unused sequential element stateRunning.controlRestartJobFault_pulse_reg was removed.  [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1300]
+WARNING: [Synth 8-6014] Unused sequential element stateRunning.failedTask_valid_unified_pulse_reg was removed.  [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1302]
+WARNING: [Synth 8-6014] Unused sequential element stateRunning.failedTask_taskId_unified_reg was removed.  [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1306]
+WARNING: [Synth 8-6014] Unused sequential element stateRunning.failedTask_executionId_unified_reg was removed.  [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1307]
+WARNING: [Synth 8-3848] Net led1 in module/entity scheduler_v1_0_S_AXI does not have driver. [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:84]
+WARNING: [Synth 8-3848] Net led2 in module/entity scheduler_v1_0_S_AXI does not have driver. [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:85]
+WARNING: [Synth 8-3848] Net led3 in module/entity scheduler_v1_0_S_AXI does not have driver. [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:86]
+WARNING: [Synth 8-3848] Net led4 in module/entity scheduler_v1_0_S_AXI does not have driver. [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:87]
+WARNING: [Synth 8-3848] Net led5 in module/entity scheduler_v1_0_S_AXI does not have driver. [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:88]
+WARNING: [Synth 8-6014] Unused sequential element start_single_read_reg was removed.  [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_M_AXI.v:575]
+WARNING: [Synth 8-6014] Unused sequential element read_issued_reg was removed.  [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_M_AXI.v:576]
+WARNING: [Synth 8-3848] Net axi_araddr in module/entity scheduler_v1_0_M_AXI does not have driver. [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_M_AXI.v:147]
+WARNING: [Synth 8-3848] Net axi_arvalid in module/entity scheduler_v1_0_M_AXI does not have driver. [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_M_AXI.v:137]
+WARNING: [Synth 8-3848] Net axi_rready in module/entity scheduler_v1_0_M_AXI does not have driver. [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_M_AXI.v:139]
+WARNING: [Synth 8-7129] Port M_AXI_ARVALID in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RREADY in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_BRESP[1] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_BRESP[0] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_ARREADY in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[31] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[30] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[29] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[28] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[27] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[26] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[25] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[24] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[23] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[22] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[21] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[20] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[19] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[18] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[17] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[16] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[15] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[14] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[13] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[12] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[11] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[10] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[9] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[8] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[7] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[6] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[5] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[4] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[3] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[2] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[1] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RDATA[0] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RRESP[1] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RRESP[0] in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXI_RVALID in module scheduler_v1_0_M_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port criticalityX1[3] in module Comparator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port criticalityX1[2] in module Comparator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port criticalityX1[1] in module Comparator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port criticalityX1[0] in module Comparator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port criticalityX2[3] in module Comparator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port criticalityX2[2] in module Comparator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port criticalityX2[1] in module Comparator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port criticalityX2[0] in module Comparator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port led1 in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port led2 in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port led3 in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port led4 in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port led5 in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[2] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[1] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[0] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[2] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[1] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[0] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:12 ; elapsed = 00:00:13 . Memory (MB): peak = 1735.668 ; gain = 473.676 ; free physical = 11421 ; free virtual = 18931
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1054.229; parent = 873.607; children = 180.622
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 2738.422; parent = 1735.672; children = 1002.750
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1750.512 ; gain = 488.520 ; free physical = 11613 ; free virtual = 19123
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1054.229; parent = 873.607; children = 180.622
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 2753.266; parent = 1750.516; children = 1002.750
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z020clg484-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1758.516 ; gain = 496.523 ; free physical = 11613 ; free virtual = 19123
+INFO: [Device 21-403] Loading part xc7z020clg484-1
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1054.229; parent = 873.607; children = 180.622
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 2761.270; parent = 1758.520; children = 1002.750
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'mst_exec_state_reg' in module 'scheduler_v1_0_M_AXI'
+WARNING: [Synth 8-327] inferring latch for variable 'uninitializedLed_reg' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1604]
+WARNING: [Synth 8-327] inferring latch for variable 'readyLed_reg' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1605]
+WARNING: [Synth 8-327] inferring latch for variable 'runningLed_reg' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:1606]
+WARNING: [Synth 8-327] inferring latch for variable 'reg_data_out_reg' [/home/bosp/workspace/ip_repo/scheduler_1.0/hdl/scheduler_v1_0_S_AXI.v:694]
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    IDLE |                                0 |                               00
+              INIT_WRITE |                                1 |                               01
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'mst_exec_state_reg' using encoding 'sequential' in module 'scheduler_v1_0_M_AXI'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:26 ; elapsed = 00:00:21 . Memory (MB): peak = 1793.516 ; gain = 531.523 ; free physical = 11367 ; free virtual = 18878
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1134.329; parent = 953.707; children = 180.622
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 2796.270; parent = 1793.520; children = 1002.750
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   32 Bit       Adders := 18    
+	   2 Input    8 Bit       Adders := 7     
+	   2 Input    4 Bit       Adders := 2     
+	   2 Input    3 Bit       Adders := 1     
+	   2 Input    2 Bit       Adders := 1     
+	   2 Input    1 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 66    
+	               14 Bit    Registers := 2     
+	                8 Bit    Registers := 8     
+	                4 Bit    Registers := 4     
+	                3 Bit    Registers := 2     
+	                2 Bit    Registers := 7     
+	                1 Bit    Registers := 43    
++---RAMs : 
+	              128 Bit	(4 X 32 bit)          RAMs := 1     
++---Muxes : 
+	   2 Input   32 Bit        Muxes := 202   
+	   4 Input   32 Bit        Muxes := 39    
+	   3 Input   32 Bit        Muxes := 1     
+	   2 Input    8 Bit        Muxes := 35    
+	   4 Input    8 Bit        Muxes := 6     
+	   2 Input    4 Bit        Muxes := 39    
+	   4 Input    4 Bit        Muxes := 5     
+	   2 Input    3 Bit        Muxes := 4     
+	   2 Input    2 Bit        Muxes := 44    
+	   4 Input    2 Bit        Muxes := 5     
+	   2 Input    1 Bit        Muxes := 182   
+	   4 Input    1 Bit        Muxes := 14    
+	   3 Input    1 Bit        Muxes := 2     
+	   5 Input    1 Bit        Muxes := 1     
+	   7 Input    1 Bit        Muxes := 6     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 220 (col length:60)
+BRAMs: 280 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-3917] design scheduler_v1_0 has port m_axi_awprot[2] driven by constant 0
+WARNING: [Synth 8-3917] design scheduler_v1_0 has port m_axi_awprot[1] driven by constant 0
+WARNING: [Synth 8-3917] design scheduler_v1_0 has port m_axi_awprot[0] driven by constant 0
+WARNING: [Synth 8-3917] design scheduler_v1_0 has port m_axi_wstrb[3] driven by constant 1
+WARNING: [Synth 8-3917] design scheduler_v1_0 has port m_axi_wstrb[2] driven by constant 1
+WARNING: [Synth 8-3917] design scheduler_v1_0 has port m_axi_wstrb[1] driven by constant 1
+WARNING: [Synth 8-3917] design scheduler_v1_0 has port m_axi_wstrb[0] driven by constant 1
+WARNING: [Synth 8-3917] design scheduler_v1_0 has port m_axi_arprot[2] driven by constant 0
+WARNING: [Synth 8-3917] design scheduler_v1_0 has port m_axi_arprot[1] driven by constant 0
+WARNING: [Synth 8-3917] design scheduler_v1_0 has port m_axi_arprot[0] driven by constant 1
+WARNING: [Synth 8-7129] Port criticalityX1[3] in module Comparator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port criticalityX1[2] in module Comparator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port criticalityX1[1] in module Comparator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port criticalityX1[0] in module Comparator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port criticalityX2[3] in module Comparator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port criticalityX2[2] in module Comparator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port criticalityX2[1] in module Comparator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port criticalityX2[0] in module Comparator is either unconnected or has no load
+WARNING: [Synth 8-7129] Port led1 in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port led2 in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port led3 in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port led4 in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port led5 in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[2] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[1] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[0] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[2] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[1] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[0] in module scheduler_v1_0_S_AXI is either unconnected or has no load
+WARNING: [Synth 8-7129] Port m_axi_arvalid in module scheduler_v1_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port m_axi_rready in module scheduler_v1_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port m_axi_bresp[1] in module scheduler_v1_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port m_axi_bresp[0] in module scheduler_v1_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port m_axi_arready in module scheduler_v1_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port m_axi_rdata[31] in module scheduler_v1_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port m_axi_rdata[30] in module scheduler_v1_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port m_axi_rdata[29] in module scheduler_v1_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port m_axi_rdata[28] in module scheduler_v1_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port m_axi_rdata[27] in module scheduler_v1_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port m_axi_rdata[26] in module scheduler_v1_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port m_axi_rdata[25] in module scheduler_v1_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port m_axi_rdata[24] in module scheduler_v1_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port m_axi_rdata[23] in module scheduler_v1_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port m_axi_rdata[22] in module scheduler_v1_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port m_axi_rdata[21] in module scheduler_v1_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port m_axi_rdata[20] in module scheduler_v1_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port m_axi_rdata[19] in module scheduler_v1_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port m_axi_rdata[18] in module scheduler_v1_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port m_axi_rdata[17] in module scheduler_v1_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port m_axi_rdata[16] in module scheduler_v1_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port m_axi_rdata[15] in module scheduler_v1_0 is either unconnected or has no load
+INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:54 ; elapsed = 00:00:51 . Memory (MB): peak = 2124.703 ; gain = 862.711 ; free physical = 11214 ; free virtual = 18728
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1331.949; parent = 1151.358; children = 180.622
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3127.457; parent = 2124.707; children = 1002.750
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Preliminary Mapping Report (see note below)
++--------------------------+-----------------+-----------+----------------------+--------------+
+|Module Name               | RTL Object      | Inference | Size (Depth x Width) | Primitives   | 
++--------------------------+-----------------+-----------+----------------------+--------------+
+|scheduler_v1_0_S_AXI_inst | TCBPtrsList_reg | Implied   | 4 x 32               | RAM32M x 12  | 
++--------------------------+-----------------+-----------+----------------------+--------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:55 ; elapsed = 00:00:52 . Memory (MB): peak = 2124.703 ; gain = 862.711 ; free physical = 11201 ; free virtual = 18716
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1331.949; parent = 1151.358; children = 180.622
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3127.457; parent = 2124.707; children = 1002.750
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Final Mapping Report
++--------------------------+-----------------+-----------+----------------------+--------------+
+|Module Name               | RTL Object      | Inference | Size (Depth x Width) | Primitives   | 
++--------------------------+-----------------+-----------+----------------------+--------------+
+|scheduler_v1_0_S_AXI_inst | TCBPtrsList_reg | Implied   | 4 x 32               | RAM32M x 12  | 
++--------------------------+-----------------+-----------+----------------------+--------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:59 ; elapsed = 00:00:56 . Memory (MB): peak = 2124.703 ; gain = 862.711 ; free physical = 11091 ; free virtual = 18605
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1331.949; parent = 1151.358; children = 180.622
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3127.457; parent = 2124.707; children = 1002.750
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:01:06 ; elapsed = 00:01:04 . Memory (MB): peak = 2124.703 ; gain = 862.711 ; free physical = 11050 ; free virtual = 18572
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1331.949; parent = 1151.358; children = 180.622
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3127.457; parent = 2124.707; children = 1002.750
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:07 ; elapsed = 00:01:04 . Memory (MB): peak = 2124.703 ; gain = 862.711 ; free physical = 11049 ; free virtual = 18571
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1331.949; parent = 1151.358; children = 180.622
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3127.457; parent = 2124.707; children = 1002.750
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:07 ; elapsed = 00:01:04 . Memory (MB): peak = 2124.703 ; gain = 862.711 ; free physical = 11047 ; free virtual = 18570
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1331.949; parent = 1151.358; children = 180.622
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3127.457; parent = 2124.707; children = 1002.750
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:07 ; elapsed = 00:01:04 . Memory (MB): peak = 2124.703 ; gain = 862.711 ; free physical = 11047 ; free virtual = 18569
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1331.949; parent = 1151.358; children = 180.622
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3127.457; parent = 2124.707; children = 1002.750
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:07 ; elapsed = 00:01:05 . Memory (MB): peak = 2124.703 ; gain = 862.711 ; free physical = 11044 ; free virtual = 18566
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1331.949; parent = 1151.358; children = 180.622
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3127.457; parent = 2124.707; children = 1002.750
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:07 ; elapsed = 00:01:05 . Memory (MB): peak = 2124.703 ; gain = 862.711 ; free physical = 11042 ; free virtual = 18565
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1331.949; parent = 1151.358; children = 180.622
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3127.457; parent = 2124.707; children = 1002.750
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+---------+------+
+|      |Cell     |Count |
++------+---------+------+
+|1     |BUFG     |     3|
+|2     |CARRY4   |   176|
+|3     |LUT1     |   308|
+|4     |LUT2     |   312|
+|5     |LUT3     |   453|
+|6     |LUT4     |   777|
+|7     |LUT5     |  1403|
+|8     |LUT6     |  1488|
+|9     |MUXF7    |    41|
+|10    |RAM32M   |    10|
+|11    |RAM32X1D |     4|
+|12    |FDRE     |  2228|
+|13    |FDSE     |    18|
+|14    |LD       |     3|
+|15    |LDC      |    32|
+|16    |IBUF     |    77|
+|17    |OBUF     |   156|
+|18    |OBUFT    |     7|
++------+---------+------+
+
+Report Instance Areas: 
++------+----------------------------------+---------------------+------+
+|      |Instance                          |Module               |Cells |
++------+----------------------------------+---------------------+------+
+|1     |top                               |                     |  7496|
+|2     |  scheduler_v1_0_S_AXI_inst       |scheduler_v1_0_S_AXI |  7162|
+|3     |    \Comp[0].InternalComp[0].cl1  |Comparator__1        |    69|
+|4     |    \Comp[0].InternalComp[2].cl1  |Comparator__2        |    69|
+|5     |    \Comp[1].InternalComp[0].cl1  |Comparator           |    70|
+|6     |  scheduler_v1_0_M_AXI_inst       |scheduler_v1_0_M_AXI |    91|
++------+----------------------------------+---------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:07 ; elapsed = 00:01:05 . Memory (MB): peak = 2124.703 ; gain = 862.711 ; free physical = 11040 ; free virtual = 18563
+Synthesis current peak Physical Memory [PSS] (MB): peak = 1331.949; parent = 1151.358; children = 180.622
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3127.457; parent = 2124.707; children = 1002.750
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 162 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:07 ; elapsed = 00:01:05 . Memory (MB): peak = 2124.703 ; gain = 862.711 ; free physical = 11041 ; free virtual = 18564
+Synthesis Optimization Complete : Time (s): cpu = 00:01:07 ; elapsed = 00:01:05 . Memory (MB): peak = 2124.711 ; gain = 862.711 ; free physical = 11041 ; free virtual = 18563
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.09 ; elapsed = 00:00:00.08 . Memory (MB): peak = 2124.711 ; gain = 0.000 ; free physical = 11124 ; free virtual = 18646
+INFO: [Netlist 29-17] Analyzing 266 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+WARNING: [Netlist 29-101] Netlist 'scheduler_v1_0' is not ideal for floorplanning, since the cellview 'scheduler_v1_0_S_AXI' contains a large number of primitives.  Please consider enabling hierarchy in synthesis if you want to do floorplanning.
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2156.719 ; gain = 0.000 ; free physical = 11024 ; free virtual = 18546
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 49 instances were transformed.
+  LD => LDCE: 3 instances
+  LDC => LDCE: 32 instances
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 10 instances
+  RAM32X1D => RAM32X1D (RAMD32(x2)): 4 instances
+
+Synth Design complete, checksum: b80c6c06
+INFO: [Common 17-83] Releasing license: Synthesis
+42 Infos, 149 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:01:20 ; elapsed = 00:01:12 . Memory (MB): peak = 2156.719 ; gain = 894.727 ; free physical = 11233 ; free virtual = 18755
+INFO: [Common 17-1381] The checkpoint '/home/bosp/workspace/ip_repo/edit_scheduler_v1_0.runs/synth_1/scheduler_v1_0.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file scheduler_v1_0_utilization_synth.rpt -pb scheduler_v1_0_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Thu Feb  9 17:57:13 2023...
