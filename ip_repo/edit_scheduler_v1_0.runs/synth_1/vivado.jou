@@ -2,12 +2,12 @@
 # Vivado v2022.2 (64-bit)
 # SW Build 3671981 on Fri Oct 14 04:59:54 MDT 2022
 # IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
-# Start of session at: Thu Feb  9 17:55:42 2023
-# Process ID: 78074
+# Start of session at: Mon Feb 13 17:35:23 2023
+# Process ID: 664754
 # Current directory: /home/bosp/workspace/ip_repo/edit_scheduler_v1_0.runs/synth_1
 # Command line: vivado -log scheduler_v1_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source scheduler_v1_0.tcl
 # Log file: /home/bosp/workspace/ip_repo/edit_scheduler_v1_0.runs/synth_1/scheduler_v1_0.vds
 # Journal file: /home/bosp/workspace/ip_repo/edit_scheduler_v1_0.runs/synth_1/vivado.jou
-# Running On: HeapAsus, OS: Linux, CPU Frequency: 1599.088 MHz, CPU Physical cores: 6, Host memory: 25114 MB
+# Running On: HeapAsus, OS: Linux, CPU Frequency: 1599.093 MHz, CPU Physical cores: 6, Host memory: 25114 MB
 #-----------------------------------------------------------
 source scheduler_v1_0.tcl -notrace

@@ -5,3 +5,4 @@ HW_heterogeneousRTOS.sim/
 ip_repo/faultdetector/
 ip_repo/export.zip
 design_1_wrapper.xsa
+*.xsa

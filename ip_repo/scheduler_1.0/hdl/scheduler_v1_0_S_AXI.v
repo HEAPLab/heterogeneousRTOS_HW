@@ -242,8 +242,7 @@ module scheduler_v1_0_S_AXI #
     localparam [OPT_MEM_ADDR_BITS:0] maxAddrPeriodsList=maxAddrDeadlinesList+(maxTasks*PERIODSIZEINWORDS);
     localparam [OPT_MEM_ADDR_BITS:0] maxAddrCriticalityLevelsList=maxAddrPeriodsList+(maxTasks*CRITICALITYLEVELSSIZEINWORDS);
 
-    localparam [1:0] EXECMODE_NORMAL = 2'h0, EXECMODE_WCETEXCEEDED = 2'h1, EXECMODE_FAULT = 2'h2, EXECMODE_DEADLINEMISS = 2'h3;
-    localparam [2:0] EXECMODE_NORMAL_NEWJOB = 3'h4;
+    localparam EXECMODE_NORMAL = 0, EXECMODE_NORMAL_NEWJOB = 1, EXECMODE_RESTART = 2, EXECMODE_CURRJOB_WCETEXCEEDED = 3, EXECMODE_CURRJOB_FAULT = 4;//, EXECMODE_KILLEDBYMODESWITCH = 4;
 
     reg[C_S_AXI_DATA_WIDTH-1:0] TCBPtrsList [(maxTasks*TCBPTRSIZEINWORDS)-1:0];
     reg[C_S_AXI_DATA_WIDTH-1:0] WCETsList [criticalityLevels-1:0][(maxTasks*WCETSIZEINWORDS)-1:0]; //ready queue index ordered by deadline ascending
@@ -325,6 +324,23 @@ module scheduler_v1_0_S_AXI #
     // axi_wready is asserted for one S_AXI_ACLK clock cycle when both
     // S_AXI_AWVALID and S_AXI_WVALID are asserted. axi_wready is 
     // de-asserted when reset is low. 
+    reg old_control_ack_rotating;
+    reg control_ack_rotating;
+
+    always @( posedge S_AXI_ACLK )
+        begin
+            if ( S_AXI_ARESETN == 1'b0 )
+            begin
+                old_control_ack_rotating<=0;
+            end
+            else
+            begin
+                old_control_ack_rotating<=control_ack_rotating;
+            end
+    end
+    
+    wire newcontrol_acceptable;
+    assign newcontrol_acceptable=!control_valid || control_ack_rotating!=old_control_ack_rotating;
 
     always @( posedge S_AXI_ACLK )
     begin
@@ -334,7 +350,7 @@ module scheduler_v1_0_S_AXI #
             end
         else
             begin
-                if (~axi_wready && S_AXI_WVALID && S_AXI_AWVALID && aw_en && !control_valid) //if control_valid is asserted, a control signal is still pending
+                if (~axi_wready && S_AXI_WVALID && S_AXI_AWVALID && aw_en && newcontrol_acceptable) //if control_valid is asserted, a control signal is still pending
                     begin
                         // slave is ready to accept write data when 
                         // there is a valid write address and write data
@@ -446,7 +462,6 @@ module scheduler_v1_0_S_AXI #
     reg DeadlinesListWritten;
     reg PeriodsListWritten;
     reg CriticalityLevelsListWritten;
-    reg control_ack;
 
     (* MARK_DEBUG = "TRUE" *) reg[C_S_AXI_DATA_WIDTH-1:0] AbsDeadlines [maxTasks-1:0];
     (* MARK_DEBUG = "TRUE" *) reg[C_S_AXI_DATA_WIDTH-1:0] AbsActivations [maxTasks-1:0];
@@ -473,6 +488,12 @@ module scheduler_v1_0_S_AXI #
                 CriticalityLevelsListWritten<=1'b0;
             end
         else begin
+            //control signal ACK system (from axi slave) and pulse generation
+            if (newcontrol_acceptable)
+            begin
+                    control_valid <= (slv_reg_wren && axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]==3'h5);
+            end
+        
             if (slv_reg_wren)
             begin
                 if (axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] < tasksOffset)
@@ -480,12 +501,12 @@ module scheduler_v1_0_S_AXI #
                         case ( axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] )
                             3'h5:
                             for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-                                if ( S_AXI_WSTRB[byte_index] == 1 && !control_valid ) begin
+                                if ( S_AXI_WSTRB[byte_index] == 1 && newcontrol_acceptable ) begin
                                     // Respective byte enables are asserted as per write strobes 
                                     // Slave register 5
                                     slv_control_reg[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
 
-                                    control_valid <= 1'b1;
+//                                    control_valid = 1'b1;
                                 end
                                 //                                3'h6:
                                 //                                begin
@@ -583,9 +604,7 @@ module scheduler_v1_0_S_AXI #
                     end
             end
 
-            //control signal ACK system (from axi slave) and pulse generation
-            if (control_valid && control_ack)
-                control_valid <= 1'b0;
+
         end
     end
 
@@ -1100,41 +1119,40 @@ module scheduler_v1_0_S_AXI #
 
 
     //control signal ACK system (from axi slave) and pulse generation
-    reg control_valid_old;
+//    reg control_valid_old;
     always @(posedge SCHEDULER_CLK)
     begin
         if ( ! SCHEDULER_ARESETN ) begin //reset
-            control_valid_old<=0;
-            control_ack<=0;
+//            control_valid_old<=0;
+            control_ack_rotating<=0;
         end
         else
             begin
-                control_valid_old<=control_valid;
+//                control_valid_old<=control_valid;
                 if (control_valid)
-                    control_ack<=1;
-                else
-                    control_ack<=0;
+                    control_ack_rotating<=!control_ack_rotating;
             end
     end
     wire control_valid_pulse;
-    assign control_valid_pulse= control_valid && !control_valid_old;
+//    assign control_valid_pulse= control_valid && !control_valid_old;
+    assign control_valid_pulse=control_valid; //scheduler clock always < wrt communication clock and always a submultiple
     //__________________________________________________________
 
     //PULSE generation for new running task from S_AXI
-    reg runningTaskFlop;
-    reg oldRunningTaskFlop;
-    always @(posedge SCHEDULER_CLK)
-    begin
-        if ( ! SCHEDULER_ARESETN ) begin //reset
-            oldRunningTaskFlop<=1'b0;
-        end
-        else
-            begin
-                oldRunningTaskFlop<=runningTaskFlop;
-            end
-    end
-    wire newRunningTask_pulse;
-    assign newRunningTask_pulse=runningTaskFlop!=oldRunningTaskFlop;
+//    reg runningTaskFlop;
+//    reg oldRunningTaskFlop;
+//    always @(posedge SCHEDULER_CLK)
+//    begin
+//        if ( ! SCHEDULER_ARESETN ) begin //reset
+//            oldRunningTaskFlop<=1'b0;
+//        end
+//        else
+//            begin
+//                oldRunningTaskFlop<=runningTaskFlop;
+//            end
+//    end
+//    wire newRunningTask_pulse;
+//    assign newRunningTask_pulse=runningTaskFlop!=oldRunningTaskFlop;
 
     //___________________________________
 
@@ -1144,7 +1162,7 @@ module scheduler_v1_0_S_AXI #
     (* MARK_DEBUG = "TRUE" *) reg systemCriticalityLevel;
     (* MARK_DEBUG = "TRUE" *) reg[31:0] executionTimes [maxTasks-1:0];
     (* MARK_DEBUG = "TRUE" *) reg[31:0] partialExecutionTimes [maxTasks-1:0];
-    (* MARK_DEBUG = "TRUE" *) reg [1:0] executionMode [maxTasks-1:0];
+    (* MARK_DEBUG = "TRUE" *) reg [2:0] executionMode [maxTasks-1:0];
     (* MARK_DEBUG = "TRUE" *) reg[3:0] reExecutions[ maxTasks-1 : 0 ];
     reg [7:0] executionIds [ maxTasks-1 : 0 ];
 
@@ -1218,7 +1236,7 @@ module scheduler_v1_0_S_AXI #
                             partialExecutionTimes[copyIterator]<=0;
                             reExecutions[copyIterator]<=0;
                             executionIds[ copyIterator ]<=0;
-                            executionMode[copyIterator]<=EXECMODE_NORMAL;
+                            executionMode[copyIterator]=EXECMODE_NORMAL;
 
                             copyIterator<=copyIterator+1;
                         end
@@ -1282,9 +1300,11 @@ module scheduler_v1_0_S_AXI #
                            executionTimes[executionTimeIncreaseTarget]=executionTimes[executionTimeIncreaseTarget]+1;
                         
                     if (HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
-//                      begin
                             partialExecutionTimes[executionTimeIncreaseTarget]=partialExecutionTimes[executionTimeIncreaseTarget]+1;
-//                      end
+                    
+                    //job has been already executed for the first time (exec time > 0)
+                    if (HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
+                        executionMode[HighestPriorityTaskIndex]=EXECMODE_NORMAL;
 
 
                     //what happens in this tick?
@@ -1315,7 +1335,7 @@ module scheduler_v1_0_S_AXI #
                    
                    if (controlEndJob_pulse)
                         begin
-                            executionMode[control_taskId]<=EXECMODE_NORMAL;
+                            executionMode[control_taskId]=EXECMODE_NORMAL_NEWJOB;
 //                            if (AbsActivations[control_taskId]!=0 || CriticalityLevelsList[control_taskId]<systemCriticalityLevel)
                                 AbsDeadlines[control_taskId]=32'hFFFF_FFFF;
                         end                  
@@ -1334,7 +1354,7 @@ module scheduler_v1_0_S_AXI #
                         end
 //                        else
 //                        begin
-//                            executionMode[HighestPriorityTaskIndex]<=EXECMODE_WCETEXCEEDED;
+//                            executionMode[HighestPriorityTaskIndex]=EXECMODE_CURRJOB_WCETEXCEEDED;
 //                            AbsDeadlines [ HighestPriorityTaskIndex ] = 32'hFFFF_FFFF;
 //                        end
                     end
@@ -1343,15 +1363,18 @@ module scheduler_v1_0_S_AXI #
                         //&& reExecutions[HighestPriorityTaskIndex]<CriticalityLevelsList[HighestPriorityTaskIndex]
                     )
                             begin
-                                    executionMode[HighestPriorityTaskIndex]<=EXECMODE_WCETEXCEEDED;                
                                     if (reExecutions[HighestPriorityTaskIndex]<CriticalityLevelsList[HighestPriorityTaskIndex])
                                     begin    
                                         reExecutions [ HighestPriorityTaskIndex ] <= reExecutions [ HighestPriorityTaskIndex ] + 1;
                                         executionIds [ HighestPriorityTaskIndex ] <= executionIds [ HighestPriorityTaskIndex ] + 1;   
                                         partialExecutionTimes[HighestPriorityTaskIndex]=0;
+                                        executionMode[ HighestPriorityTaskIndex ] = EXECMODE_CURRJOB_WCETEXCEEDED;
                                     end
                                     else
+                                    begin
                                         AbsDeadlines [ HighestPriorityTaskIndex ] = 32'hFFFF_FFFF;
+                                        executionMode[ HighestPriorityTaskIndex ] = EXECMODE_RESTART;
+                                    end
                             end             
                           
                    if (failedTask_valid_unified_pulse
@@ -1361,7 +1384,7 @@ module scheduler_v1_0_S_AXI #
                        && executionIds[ failedTask_taskId_unified ] == failedTask_executionId_unified
                     )
                     begin
-                        executionMode[failedTask_taskId_unified]<=EXECMODE_FAULT;
+                        executionMode[failedTask_taskId_unified]=EXECMODE_CURRJOB_FAULT;
                         reExecutions [ failedTask_taskId_unified ] <= reExecutions [ failedTask_taskId_unified ] + 1;
                         executionIds [ failedTask_taskId_unified ] <= executionIds [ failedTask_taskId_unified ] + 1;
 
@@ -1376,8 +1399,9 @@ module scheduler_v1_0_S_AXI #
                                 if (CriticalityLevelsList[m]<systemCriticalityLevel)
                                 //deadline miss or task has a criticality lower wrt current system criticality
                                     begin
-                                            executionMode[m]<=EXECMODE_DEADLINEMISS;
-                                            AbsDeadlines[m]=32'hFFFF_FFFF;
+                                        if (executionTimes[m]>0)
+                                            executionMode[m]=EXECMODE_RESTART;
+                                        AbsDeadlines[m]=32'hFFFF_FFFF;
                                     end
                                 else if (AbsActivations[m]!=0)
                                             AbsDeadlines[m]=AbsDeadlines[m]-1;
@@ -1391,6 +1415,7 @@ module scheduler_v1_0_S_AXI #
                                         AbsDeadlines[m]=DeadlinesList[systemCriticalityLevel][m];
                                         reExecutions [m] <= 0;
                                         executionIds [m] <= executionIds [m] + 1;
+                                        executionTimes[m]=0;
     
                                         executionTimes[m]=0;
                                         partialExecutionTimes[m]=0;
@@ -1586,8 +1611,8 @@ module scheduler_v1_0_S_AXI #
                         taskExecutionId <= executionIds [ HighestPriorityTaskIndex ];
                         
                         taskPtr<=TCBPtrsList[HighestPriorityTaskIndex];
-                        taskExecutionMode <= ( executionMode[HighestPriorityTaskIndex] == EXECMODE_NORMAL && executionTimes[HighestPriorityTaskIndex] == 32'h0 ) ? EXECMODE_NORMAL_NEWJOB : { 1'h0, executionMode[HighestPriorityTaskIndex] };
-                        taskRequiresFaultDetection <= reExecutions [ HighestPriorityTaskIndex ] < CriticalityLevelsList [ HighestPriorityTaskIndex ];
+                        taskExecutionMode <= executionMode[HighestPriorityTaskIndex];
+                        taskRequiresFaultDetection <= (reExecutions [ HighestPriorityTaskIndex ] < CriticalityLevelsList [ HighestPriorityTaskIndex ]) ? 1'b1 : 1'b0;
                         taskReady<=1'b1;
 
                         waitingAck<=1'b1;

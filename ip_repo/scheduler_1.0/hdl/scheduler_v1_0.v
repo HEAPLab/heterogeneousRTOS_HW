@@ -122,7 +122,7 @@
     wire [7:0] taskExecutionId;
     wire taskRequiresFaultDetection;
     wire [7:0] taskRequiresFaultDetection_extended;
-    assign taskRequiresFaultDetection_extended={4'h0, taskRequiresFaultDetection};
+    assign taskRequiresFaultDetection_extended={7'h0, taskRequiresFaultDetection};
     wire [31:0] taskPtr;
 
     // Instantiation of Axi Bus Interface S_AXI
