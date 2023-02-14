@@ -251,7 +251,7 @@ module scheduler_v1_0_S_AXI #
     reg[C_S_AXI_DATA_WIDTH-1:0] PeriodsList [(maxTasks*PERIODSIZEINWORDS)-1:0]; //ready queue ordered by deadline ascending
     reg[C_S_AXI_DATA_WIDTH-1:0] CriticalityLevelsList [(maxTasks*CRITICALITYLEVELSSIZEINWORDS)-1:0]; //ready queue ordered by deadline ascending
 
-    reg control_valid;
+    (* MARK_DEBUG="TRUE" *) reg control_valid;
 
     integer byte_index;
     //________________________
@@ -324,8 +324,8 @@ module scheduler_v1_0_S_AXI #
     // axi_wready is asserted for one S_AXI_ACLK clock cycle when both
     // S_AXI_AWVALID and S_AXI_WVALID are asserted. axi_wready is 
     // de-asserted when reset is low. 
-    reg old_control_ack_rotating;
-    reg control_ack_rotating;
+    (*MARK_DEBUG="TRUE" *) reg old_control_ack_rotating;
+    (*MARK_DEBUG="TRUE" *) reg control_ack_rotating;
 
     always @( posedge S_AXI_ACLK )
         begin
@@ -339,7 +339,7 @@ module scheduler_v1_0_S_AXI #
             end
     end
     
-    wire newcontrol_acceptable;
+    (* MARK_DEBUG="TRUE" *) wire newcontrol_acceptable;
     assign newcontrol_acceptable=!control_valid || control_ack_rotating!=old_control_ack_rotating;
 
     always @( posedge S_AXI_ACLK )
@@ -472,6 +472,9 @@ module scheduler_v1_0_S_AXI #
     //    assign led4=DLqWritten;
     //    assign led5=ACTqWritten;
 
+    (* MARK_DEBUG="TRUE" *) wire controlDbg;
+    assign controlDbg=(slv_reg_wren && axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]==3'h5);
+    
     always @( posedge S_AXI_ACLK )
     begin
         if ( S_AXI_ARESETN == 1'b0 )
@@ -1129,13 +1132,13 @@ module scheduler_v1_0_S_AXI #
         else
             begin
 //                control_valid_old<=control_valid;
-                if (control_valid)
+                if (!newcontrol_acceptable)
                     control_ack_rotating<=!control_ack_rotating;
             end
     end
     wire control_valid_pulse;
 //    assign control_valid_pulse= control_valid && !control_valid_old;
-    assign control_valid_pulse=control_valid; //scheduler clock always < wrt communication clock and always a submultiple
+    assign control_valid_pulse=!newcontrol_acceptable; //scheduler clock always < wrt communication clock and always a submultiple
     //__________________________________________________________
 
     //PULSE generation for new running task from S_AXI
