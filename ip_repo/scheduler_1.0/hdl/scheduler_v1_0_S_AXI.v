@@ -251,7 +251,7 @@ module scheduler_v1_0_S_AXI #
     reg[C_S_AXI_DATA_WIDTH-1:0] PeriodsList [(maxTasks*PERIODSIZEINWORDS)-1:0]; //ready queue ordered by deadline ascending
     reg[C_S_AXI_DATA_WIDTH-1:0] CriticalityLevelsList [(maxTasks*CRITICALITYLEVELSSIZEINWORDS)-1:0]; //ready queue ordered by deadline ascending
 
-    (* MARK_DEBUG="TRUE" *) reg control_valid;
+    /*(* MARK_DEBUG="TRUE" *)*/ reg control_valid;
 
     integer byte_index;
     //________________________
@@ -324,8 +324,8 @@ module scheduler_v1_0_S_AXI #
     // axi_wready is asserted for one S_AXI_ACLK clock cycle when both
     // S_AXI_AWVALID and S_AXI_WVALID are asserted. axi_wready is 
     // de-asserted when reset is low. 
-    (*MARK_DEBUG="TRUE" *) reg old_control_ack_rotating;
-    (*MARK_DEBUG="TRUE" *) reg control_ack_rotating;
+    /*(*MARK_DEBUG="TRUE" *)*/ reg old_control_ack_rotating;
+    /*(*MARK_DEBUG="TRUE" *)*/ reg control_ack_rotating;
 
     always @( posedge S_AXI_ACLK )
         begin
@@ -339,7 +339,7 @@ module scheduler_v1_0_S_AXI #
             end
     end
     
-    (* MARK_DEBUG="TRUE" *) wire newcontrol_acceptable;
+    /*(* MARK_DEBUG="TRUE" *)*/ wire newcontrol_acceptable;
     assign newcontrol_acceptable=!control_valid || control_ack_rotating!=old_control_ack_rotating;
 
     always @( posedge S_AXI_ACLK )
@@ -472,8 +472,8 @@ module scheduler_v1_0_S_AXI #
     //    assign led4=DLqWritten;
     //    assign led5=ACTqWritten;
 
-    (* MARK_DEBUG="TRUE" *) wire controlDbg;
-    assign controlDbg=(slv_reg_wren && axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]==3'h5);
+//    (* MARK_DEBUG="TRUE" *) wire controlDbg;
+//    assign controlDbg=(slv_reg_wren && axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]==3'h5);
     
     always @( posedge S_AXI_ACLK )
     begin
@@ -1176,7 +1176,8 @@ module scheduler_v1_0_S_AXI #
     (* MARK_DEBUG = "TRUE" *) wire[7:0] HighestPriorityTaskIndex;
     (* MARK_DEBUG = "TRUE" *) wire[31:0] HighestPriorityTaskDeadline;
     (* MARK_DEBUG = "TRUE" *) reg [31:0] ctxSwitchCtr;
-    localparam ctxSwitchTime=1;
+    localparam ctxSwitchTimeWithoutReexecution=10;
+    localparam ctxSwitchTimeWithReexecution=10;
 
     //control command supplied by the software
     (* MARK_DEBUG = "TRUE" *) wire [7:0] control_taskId;
@@ -1197,6 +1198,7 @@ module scheduler_v1_0_S_AXI #
     assign failedTask_executionId=failedTask[15:8];
     
     (* MARK_DEBUG = "TRUE" *) reg [7:0] prevHighestPriorityTaskIndex;
+    reg [7:0] prevHighestPriorityTaskExecutionId;
 
     integer m;
     always @(posedge SCHEDULER_CLK)
@@ -1206,7 +1208,7 @@ module scheduler_v1_0_S_AXI #
             startCommandPending<=1'b0;
             
             prevHighestPriorityTaskIndex<=8'hFF;
-
+            prevHighestPriorityTaskExecutionId<=0;
 //            runningTaskStopped<=1'b1;
 //            nextRunningTaskStopped<=1'b0;
             ctxSwitchCtr=32'h0;
@@ -1265,50 +1267,58 @@ module scheduler_v1_0_S_AXI #
                     
                     reg failedTask_taskId_unified;
                     reg failedTask_executionId_unified;
-                    
                     reg [7:0] executionTimeIncreaseTarget;
+
 
                     if (HighestPriorityTaskDeadline==32'hFFFF_FFFF) //&& !(WCETexceeded_pulse && AbsDeadlines[runningTaskIndex]!=0 && systemCriticalityLevel!=criticalityLevels-1))
                     begin
                         systemCriticalityLevel=0;
                     end
-
-
-                      if (HighestPriorityTaskIndex != prevHighestPriorityTaskIndex && HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
+                      
+                      if (ctxSwitchCtr==1) //ctxSwitchCtr==0
                       begin
-                        prevHighestPriorityTaskIndex<=HighestPriorityTaskIndex;
-
-                        if (partialExecutionTimes[HighestPriorityTaskIndex]>0) //highestprioritytask was pre-empted
-                        begin
-                            ctxSwitchCtr<=ctxSwitchTime;
-                            executionTimeIncreaseTarget=prevHighestPriorityTaskIndex;
-                        end
-                        else
-                        begin
+                        if (HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
+                            executionMode[prevHighestPriorityTaskIndex]=EXECMODE_NORMAL;
+                      end                      
+                      else if (ctxSwitchCtr==0) 
+                      begin
+                       if (( HighestPriorityTaskIndex != prevHighestPriorityTaskIndex || executionIds[HighestPriorityTaskIndex]!=prevHighestPriorityTaskExecutionId) && HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
+                          begin //ctx switch starts
+                            prevHighestPriorityTaskExecutionId<=executionIds[HighestPriorityTaskIndex];
+                            prevHighestPriorityTaskIndex<=HighestPriorityTaskIndex;
+                            
+                            if (partialExecutionTimes[HighestPriorityTaskIndex]>0) //highestprioritytask was pre-empted
+                            begin
+                                executionTimeIncreaseTarget=prevHighestPriorityTaskIndex;
+                                ctxSwitchCtr<=ctxSwitchTimeWithoutReexecution-1;
+                                if (ctxSwitchTimeWithoutReexecution==1)
+                                    executionMode[HighestPriorityTaskIndex]=EXECMODE_NORMAL;
+                            end
+                            else
+                            begin
+                                executionTimeIncreaseTarget=HighestPriorityTaskIndex; //new activation
+                                ctxSwitchCtr<=ctxSwitchTimeWithReexecution-1;
+                                if (ctxSwitchTimeWithReexecution==1)
+                                    executionMode[HighestPriorityTaskIndex]=EXECMODE_NORMAL;
+                            end
+                          end
+                          else
+                          begin
                             executionTimeIncreaseTarget=HighestPriorityTaskIndex; //new activation
-                        end
-                      end
-                      else if (ctxSwitchCtr>0)
+                          end    
+                    end
+                         
+                    if (ctxSwitchCtr>0) //ctx switch happening
                       begin
                         ctxSwitchCtr<=ctxSwitchCtr-1;
-                        executionTimeIncreaseTarget=prevHighestPriorityTaskIndex;
                       end
-                      else //ctxSwitchCtr==0
-                      begin
-                        executionTimeIncreaseTarget=HighestPriorityTaskIndex; //new activation
-                      end
-                    
 
                     if (HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
                            executionTimes[executionTimeIncreaseTarget]=executionTimes[executionTimeIncreaseTarget]+1;
                         
                     if (HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
                             partialExecutionTimes[executionTimeIncreaseTarget]=partialExecutionTimes[executionTimeIncreaseTarget]+1;
-                    
-                    //job has been already executed for the first time (exec time > 0)
-                    if (HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
-                        executionMode[HighestPriorityTaskIndex]=EXECMODE_NORMAL;
-
+                   
 
                     //what happens in this tick?
                                         
@@ -1318,7 +1328,7 @@ module scheduler_v1_0_S_AXI #
                                         
                     WCETexceeded_pulse = (HighestPriorityTaskDeadline==32'hFFFF_FFFF || (controlEndJob_pulse && control_taskId==HighestPriorityTaskIndex)) ? 0 : executionTimes[HighestPriorityTaskIndex]>=WCETsList[systemCriticalityLevel][HighestPriorityTaskIndex];
 
-                    WatchdogExceeded_pulse = (HighestPriorityTaskDeadline==32'hFFFF_FFFF || (controlEndJob_pulse && control_taskId==HighestPriorityTaskIndex)) ? 0 : partialExecutionTimes[HighestPriorityTaskIndex]>=(WCETsList[0][HighestPriorityTaskIndex]-ctxSwitchTime);
+                    WatchdogExceeded_pulse = (HighestPriorityTaskDeadline==32'hFFFF_FFFF || (controlEndJob_pulse && control_taskId==HighestPriorityTaskIndex)) ? 0 : partialExecutionTimes[HighestPriorityTaskIndex]>=(WCETsList[0][HighestPriorityTaskIndex]-ctxSwitchTimeWithoutReexecution);
 
                     controlRestartJobFault_pulse=control_valid_pulse && control_command==control_restartFault;
                     
@@ -1602,7 +1612,7 @@ module scheduler_v1_0_S_AXI #
                                 taskReady<=1'b0;
                             end
                         end
-                    else if ( intr0en && HighestPriorityTaskDeadline!=32'hFFFF_FFFF 
+                    else if ( ctxSwitchCtr==0 && intr0en && HighestPriorityTaskDeadline!=32'hFFFF_FFFF 
                     && 
 //                    HighestPriorityTaskDeadline!=0 && 
                     (runningTaskIndex!=HighestPriorityTaskIndex
