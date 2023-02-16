@@ -1576,6 +1576,8 @@ module scheduler_v1_0_S_AXI #
 //    reg [7:0] nextRunningTaskIndex;
     (* MARK_DEBUG = "TRUE" *) reg[7:0] runningTaskIndex;
 
+    (* MARK_DEBUG = "TRUE" *) reg[31:0] waitingAckCtr;
+    (* MARK_DEBUG = "TRUE" *) reg[31:0] taskWriteCtr;
     
     always @(posedge S_AXI_ACLK)
     begin
@@ -1583,19 +1585,22 @@ module scheduler_v1_0_S_AXI #
             begin
                 waitingAck<=1'b0;
                 runningTaskIndex<=8'hFF;
+                waitingAckCtr<=0;
+                taskWriteCtr<=0;
 //                nextRunningTaskIndex<=8'hFF;
 
 //                runningTaskFlop<=1'b0;
             end
         else
             begin
+            
                 if(slv_status_reg==state_running)
                 begin
 //                    if (runningTaskStopped_pulse)
 //                        runningTaskIndex=8'hFF;
 
                     if (waitingAck)
-                        begin
+                    begin
                             if (intr_ack_pulse)
                                 begin
                                     waitingAck<=1'b0;
@@ -1607,11 +1612,17 @@ module scheduler_v1_0_S_AXI #
 //                                begin
 //                                    runningTaskIndex = 8'hFF;
 //                                end
-                            else if (taskWriteStarted)
+                            else
                             begin
-                                taskReady<=1'b0;
-                            end
-                        end
+                                if (taskWriteDone_pulse)
+                                    taskWriteCtr<=waitingAckCtr;
+                                waitingAckCtr<=waitingAckCtr+1;
+                                if (taskWriteStarted)
+                                begin
+                                    taskReady<=1'b0;
+                                end
+                             end
+                    end
                     else if ( ctxSwitchCtr==0 && intr0en && HighestPriorityTaskDeadline!=32'hFFFF_FFFF 
                     && 
 //                    HighestPriorityTaskDeadline!=0 && 
@@ -1619,6 +1630,10 @@ module scheduler_v1_0_S_AXI #
                     || 
                     taskExecutionId!=executionIds [ HighestPriorityTaskIndex ]))
                     begin
+                        waitingAckCtr<=0;
+                        taskWriteCtr<=0;
+                    
+                    
                         //nextRunningTaskIndex<=HighestPriorityTaskIndex;
                         runningTaskIndex<=HighestPriorityTaskIndex;
                         taskExecutionId <= executionIds [ HighestPriorityTaskIndex ];
