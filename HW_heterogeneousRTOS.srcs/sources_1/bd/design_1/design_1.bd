@@ -7,7 +7,8 @@
       "name": "design_1",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
       "synth_flow_mode": "Hierarchical",
-      "tool_version": "2022.2"
+      "tool_version": "2022.2",
+      "validated": "true"
     },
     "design_tree": {
       "axi_mem_intercon": {
@@ -3377,14 +3378,6 @@
           "xlconcat_0/In0"
         ]
       },
-      "clk_wiz_0_clk_out2": {
-        "ports": [
-          "clk_wiz_0/clk_out2",
-          "proc_sys_reset_0/slowest_sync_clk",
-          "rst_clk_wiz_0_100M/slowest_sync_clk",
-          "scheduler_0/SCHEDULER_CLK"
-        ]
-      },
       "clk_wiz_0_locked": {
         "ports": [
           "clk_wiz_0/locked",
@@ -3426,7 +3419,10 @@
           "ps7_0_axi_periph/ACLK",
           "ps7_0_axi_periph/M00_ACLK",
           "ps7_0_axi_periph/M01_ACLK",
+          "proc_sys_reset_0/slowest_sync_clk",
+          "rst_clk_wiz_0_100M/slowest_sync_clk",
           "FaultDetector_0/ap_clk",
+          "scheduler_0/SCHEDULER_CLK",
           "scheduler_0/s_axi_aclk",
           "scheduler_0/m_axi_aclk"
         ]

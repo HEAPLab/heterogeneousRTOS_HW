@@ -158,7 +158,7 @@ module scheduler_v1_0_S_AXI #
     // accept the read data and response information.
     input wire  S_AXI_RREADY,
     // interrupt out port
-    output wire  irq
+    (* MARK_DEBUG = "TRUE" *) output wire  irq
 );
 
     integer c;
@@ -340,7 +340,7 @@ module scheduler_v1_0_S_AXI #
     end
     
     /*(* MARK_DEBUG="TRUE" *)*/ wire newcontrol_acceptable;
-    assign newcontrol_acceptable=!control_valid || control_ack_rotating!=old_control_ack_rotating;
+    assign newcontrol_acceptable=1;//!control_valid || control_ack_rotating!=old_control_ack_rotating;
 
     always @( posedge S_AXI_ACLK )
     begin
@@ -492,10 +492,10 @@ module scheduler_v1_0_S_AXI #
             end
         else begin
             //control signal ACK system (from axi slave) and pulse generation
-            if (newcontrol_acceptable)
-            begin
+//            if (newcontrol_acceptable)
+//            begin
                     control_valid <= (slv_reg_wren && axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]==3'h5);
-            end
+//            end
         
             if (slv_reg_wren)
             begin
@@ -1121,24 +1121,24 @@ module scheduler_v1_0_S_AXI #
     //___________________________________________________
 
 
-    //control signal ACK system (from axi slave) and pulse generation
-//    reg control_valid_old;
-    always @(posedge SCHEDULER_CLK)
-    begin
-        if ( ! SCHEDULER_ARESETN ) begin //reset
-//            control_valid_old<=0;
-            control_ack_rotating<=0;
-        end
-        else
-            begin
-//                control_valid_old<=control_valid;
-                if (!newcontrol_acceptable)
-                    control_ack_rotating<=!control_ack_rotating;
-            end
-    end
+//    //control signal ACK system (from axi slave) and pulse generation
+////    reg control_valid_old;
+//    always @(posedge SCHEDULER_CLK)
+//    begin
+//        if ( ! SCHEDULER_ARESETN ) begin //reset
+////            control_valid_old<=0;
+//            control_ack_rotating<=0;
+//        end
+//        else
+//            begin
+////                control_valid_old<=control_valid;
+//                if (!newcontrol_acceptable)
+//                    control_ack_rotating<=!control_ack_rotating;
+//            end
+//    end
     wire control_valid_pulse;
 //    assign control_valid_pulse= control_valid && !control_valid_old;
-    assign control_valid_pulse=!newcontrol_acceptable; //scheduler clock always < wrt communication clock and always a submultiple
+    assign control_valid_pulse=control_valid; //scheduler clock always < wrt communication clock and always a submultiple
     //__________________________________________________________
 
     //PULSE generation for new running task from S_AXI
@@ -1251,293 +1251,293 @@ module scheduler_v1_0_S_AXI #
                         startCommandPending<=1'b0;
                     end
                 end
-                state_running:
+//                state_running:
 
                 //update deadlines, activations, deadline misses
-                begin: stateRunning
-                    reg runningTaskReactivated_pulse; //used for tasks which are both killed or end in the current CC and are reactivated or reexecuted in the same CC
-                    reg runningTaskRestarted_pulse;
-                    reg WCETexceeded_pulse;
-                    reg WatchdogExceeded_pulse;
-//                    reg deadlineMiss_runningTask_pulse;
-                    reg controlEndJob_pulse;
-                    reg controlRestartJobFault_pulse;
-                    reg failedTask_valid_unified_pulse;
-//                    reg criticalityLevelIncrease_pulse;
+//                begin: stateRunning
+//                    reg runningTaskReactivated_pulse; //used for tasks which are both killed or end in the current CC and are reactivated or reexecuted in the same CC
+//                    reg runningTaskRestarted_pulse;
+//                    reg WCETexceeded_pulse;
+//                    reg WatchdogExceeded_pulse;
+////                    reg deadlineMiss_runningTask_pulse;
+//                    reg controlEndJob_pulse;
+//                    reg controlRestartJobFault_pulse;
+//                    reg failedTask_valid_unified_pulse;
+////                    reg criticalityLevelIncrease_pulse;
                     
-                    reg failedTask_taskId_unified;
-                    reg failedTask_executionId_unified;
-                    reg [7:0] executionTimeIncreaseTarget;
+//                    reg failedTask_taskId_unified;
+//                    reg failedTask_executionId_unified;
+//                    reg [7:0] executionTimeIncreaseTarget;
 
 
-                    if (HighestPriorityTaskDeadline==32'hFFFF_FFFF) //&& !(WCETexceeded_pulse && AbsDeadlines[runningTaskIndex]!=0 && systemCriticalityLevel!=criticalityLevels-1))
-                    begin
-                        systemCriticalityLevel=0;
-                    end
+//                    if (HighestPriorityTaskDeadline==32'hFFFF_FFFF) //&& !(WCETexceeded_pulse && AbsDeadlines[runningTaskIndex]!=0 && systemCriticalityLevel!=criticalityLevels-1))
+//                    begin
+//                        systemCriticalityLevel=0;
+//                    end
                       
-                      if (ctxSwitchCtr==1) //ctxSwitchCtr==0
-                      begin
-                        if (HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
-                            executionMode[prevHighestPriorityTaskIndex]=EXECMODE_NORMAL;
-                      end                      
-                      else if (ctxSwitchCtr==0) 
-                      begin
-                       if (( HighestPriorityTaskIndex != prevHighestPriorityTaskIndex || executionIds[HighestPriorityTaskIndex]!=prevHighestPriorityTaskExecutionId) && HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
-                          begin //ctx switch starts
-                            prevHighestPriorityTaskExecutionId<=executionIds[HighestPriorityTaskIndex];
-                            prevHighestPriorityTaskIndex<=HighestPriorityTaskIndex;
+//                      if (ctxSwitchCtr==1) //ctxSwitchCtr==0
+//                      begin
+//                        if (HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
+//                            executionMode[prevHighestPriorityTaskIndex]=EXECMODE_NORMAL;
+//                      end                      
+//                      else if (ctxSwitchCtr==0) 
+//                      begin
+//                       if (( HighestPriorityTaskIndex != prevHighestPriorityTaskIndex || executionIds[HighestPriorityTaskIndex]!=prevHighestPriorityTaskExecutionId) && HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
+//                          begin //ctx switch starts
+//                            prevHighestPriorityTaskExecutionId<=executionIds[HighestPriorityTaskIndex];
+//                            prevHighestPriorityTaskIndex<=HighestPriorityTaskIndex;
                             
-                            if (partialExecutionTimes[HighestPriorityTaskIndex]>0) //highestprioritytask was pre-empted
-                            begin
-                                executionTimeIncreaseTarget=prevHighestPriorityTaskIndex;
-                                ctxSwitchCtr<=ctxSwitchTimeWithoutReexecution-1;
-                                if (ctxSwitchTimeWithoutReexecution==1)
-                                    executionMode[HighestPriorityTaskIndex]=EXECMODE_NORMAL;
-                            end
-                            else
-                            begin
-                                executionTimeIncreaseTarget=HighestPriorityTaskIndex; //new activation
-                                ctxSwitchCtr<=ctxSwitchTimeWithReexecution-1;
-                                if (ctxSwitchTimeWithReexecution==1)
-                                    executionMode[HighestPriorityTaskIndex]=EXECMODE_NORMAL;
-                            end
-                          end
-                          else
-                          begin
-                            executionTimeIncreaseTarget=HighestPriorityTaskIndex; //new activation
-                          end    
-                    end
+//                            if (partialExecutionTimes[HighestPriorityTaskIndex]>0) //highestprioritytask was pre-empted
+//                            begin
+//                                executionTimeIncreaseTarget=prevHighestPriorityTaskIndex;
+//                                ctxSwitchCtr<=ctxSwitchTimeWithoutReexecution-1;
+//                                if (ctxSwitchTimeWithoutReexecution==1)
+//                                    executionMode[HighestPriorityTaskIndex]=EXECMODE_NORMAL;
+//                            end
+//                            else
+//                            begin
+//                                executionTimeIncreaseTarget=HighestPriorityTaskIndex; //new activation
+//                                ctxSwitchCtr<=ctxSwitchTimeWithReexecution-1;
+//                                if (ctxSwitchTimeWithReexecution==1)
+//                                    executionMode[HighestPriorityTaskIndex]=EXECMODE_NORMAL;
+//                            end
+//                          end
+//                          else
+//                          begin
+//                            executionTimeIncreaseTarget=HighestPriorityTaskIndex; //new activation
+//                          end    
+//                    end
                          
-                    if (ctxSwitchCtr>0) //ctx switch happening
-                      begin
-                        ctxSwitchCtr<=ctxSwitchCtr-1;
-                      end
+//                    if (ctxSwitchCtr>0) //ctx switch happening
+//                      begin
+//                        ctxSwitchCtr<=ctxSwitchCtr-1;
+//                      end
 
-                    if (HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
-                           executionTimes[executionTimeIncreaseTarget]=executionTimes[executionTimeIncreaseTarget]+1;
+//                    if (HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
+//                           executionTimes[executionTimeIncreaseTarget]=executionTimes[executionTimeIncreaseTarget]+1;
                         
-                    if (HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
-                            partialExecutionTimes[executionTimeIncreaseTarget]=partialExecutionTimes[executionTimeIncreaseTarget]+1;
+//                    if (HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
+//                            partialExecutionTimes[executionTimeIncreaseTarget]=partialExecutionTimes[executionTimeIncreaseTarget]+1;
                    
 
-                    //what happens in this tick?
+//                    //what happens in this tick?
                                         
-                    controlEndJob_pulse=control_valid_pulse && control_command==control_jobEnded 
-                    && AbsDeadlines[control_taskId]!=32'hFFFF_FFFF       
-                    && executionIds[control_taskId]==control_executionId; //check if command is related to same execution 
+//                    controlEndJob_pulse=control_valid_pulse && control_command==control_jobEnded 
+//                    && AbsDeadlines[control_taskId]!=32'hFFFF_FFFF       
+//                    && executionIds[control_taskId]==control_executionId; //check if command is related to same execution 
                                         
-                    WCETexceeded_pulse = (HighestPriorityTaskDeadline==32'hFFFF_FFFF || (controlEndJob_pulse && control_taskId==HighestPriorityTaskIndex)) ? 0 : executionTimes[HighestPriorityTaskIndex]>=WCETsList[systemCriticalityLevel][HighestPriorityTaskIndex];
+//                    WCETexceeded_pulse = (HighestPriorityTaskDeadline==32'hFFFF_FFFF || (controlEndJob_pulse && control_taskId==HighestPriorityTaskIndex)) ? 0 : executionTimes[HighestPriorityTaskIndex]>=WCETsList[systemCriticalityLevel][HighestPriorityTaskIndex];
 
-                    WatchdogExceeded_pulse = (HighestPriorityTaskDeadline==32'hFFFF_FFFF || (controlEndJob_pulse && control_taskId==HighestPriorityTaskIndex)) ? 0 : partialExecutionTimes[HighestPriorityTaskIndex]>=(WCETsList[0][HighestPriorityTaskIndex]-ctxSwitchTimeWithoutReexecution);
+//                    WatchdogExceeded_pulse = (HighestPriorityTaskDeadline==32'hFFFF_FFFF || (controlEndJob_pulse && control_taskId==HighestPriorityTaskIndex)) ? 0 : partialExecutionTimes[HighestPriorityTaskIndex]>=(WCETsList[0][HighestPriorityTaskIndex]-ctxSwitchTimeWithoutReexecution);
 
-                    controlRestartJobFault_pulse=control_valid_pulse && control_command==control_restartFault;
+//                    controlRestartJobFault_pulse=control_valid_pulse && control_command==control_restartFault;
                     
-                    failedTask_valid_unified_pulse=failedTask_valid_pulse || controlRestartJobFault_pulse;
+//                    failedTask_valid_unified_pulse=failedTask_valid_pulse || controlRestartJobFault_pulse;
                     
-                    if (failedTask_valid_pulse)
-                    begin
-                        failedTask_taskId_unified=failedTask_taskId;
-                        failedTask_executionId_unified=failedTask_executionId;
-                    end
-                    else
-                    begin
-                        failedTask_taskId_unified=control_taskId;
-                        failedTask_executionId_unified=control_executionId;
-                    end
-                    //____________________________	
+//                    if (failedTask_valid_pulse)
+//                    begin
+//                        failedTask_taskId_unified=failedTask_taskId;
+//                        failedTask_executionId_unified=failedTask_executionId;
+//                    end
+//                    else
+//                    begin
+//                        failedTask_taskId_unified=control_taskId;
+//                        failedTask_executionId_unified=control_executionId;
+//                    end
+//                    //____________________________	
                    
-                   if (controlEndJob_pulse)
-                        begin
-                            executionMode[control_taskId]=EXECMODE_NORMAL_NEWJOB;
-//                            if (AbsActivations[control_taskId]!=0 || CriticalityLevelsList[control_taskId]<systemCriticalityLevel)
-                                AbsDeadlines[control_taskId]=32'hFFFF_FFFF;
-                        end                  
- 
-                   if (WCETexceeded_pulse)
-                    begin
-                        if (CriticalityLevelsList[HighestPriorityTaskIndex]>systemCriticalityLevel)
-                        begin
-                                systemCriticalityLevel=systemCriticalityLevel+1;
-                                for (m=0; m<maxTasks; m=m+1)
-                                    begin
-                                        if (AbsDeadlines[m]!=32'hFFFF_FFFF)
-                                            AbsDeadlines[m]=AbsDeadlines[m]+DeadlinesDerivativeList[systemCriticalityLevel][m];  //extend the deadline
-                                    end
-                         //   end              
-                        end
-//                        else
+//                   if (controlEndJob_pulse)
 //                        begin
-//                            executionMode[HighestPriorityTaskIndex]=EXECMODE_CURRJOB_WCETEXCEEDED;
-//                            AbsDeadlines [ HighestPriorityTaskIndex ] = 32'hFFFF_FFFF;
+//                            executionMode[control_taskId]=EXECMODE_NORMAL_NEWJOB;
+////                            if (AbsActivations[control_taskId]!=0 || CriticalityLevelsList[control_taskId]<systemCriticalityLevel)
+//                                AbsDeadlines[control_taskId]=32'hFFFF_FFFF;
+//                        end                  
+ 
+//                   if (WCETexceeded_pulse)
+//                    begin
+//                        if (CriticalityLevelsList[HighestPriorityTaskIndex]>systemCriticalityLevel)
+//                        begin
+//                                systemCriticalityLevel=systemCriticalityLevel+1;
+//                                for (m=0; m<maxTasks; m=m+1)
+//                                    begin
+//                                        if (AbsDeadlines[m]!=32'hFFFF_FFFF)
+//                                            AbsDeadlines[m]=AbsDeadlines[m]+DeadlinesDerivativeList[systemCriticalityLevel][m];  //extend the deadline
+//                                    end
+//                         //   end              
 //                        end
-                    end
+////                        else
+////                        begin
+////                            executionMode[HighestPriorityTaskIndex]=EXECMODE_CURRJOB_WCETEXCEEDED;
+////                            AbsDeadlines [ HighestPriorityTaskIndex ] = 32'hFFFF_FFFF;
+////                        end
+//                    end
 
-                    if (WatchdogExceeded_pulse 
-                        //&& reExecutions[HighestPriorityTaskIndex]<CriticalityLevelsList[HighestPriorityTaskIndex]
-                    )
-                            begin
-                                    if (reExecutions[HighestPriorityTaskIndex]<CriticalityLevelsList[HighestPriorityTaskIndex])
-                                    begin    
-                                        reExecutions [ HighestPriorityTaskIndex ] <= reExecutions [ HighestPriorityTaskIndex ] + 1;
-                                        executionIds [ HighestPriorityTaskIndex ] <= executionIds [ HighestPriorityTaskIndex ] + 1;   
-                                        partialExecutionTimes[HighestPriorityTaskIndex]=0;
-                                        executionMode[ HighestPriorityTaskIndex ] = EXECMODE_CURRJOB_WCETEXCEEDED;
-                                    end
-                                    else
-                                    begin
-                                        AbsDeadlines [ HighestPriorityTaskIndex ] = 32'hFFFF_FFFF;
-                                        executionMode[ HighestPriorityTaskIndex ] = EXECMODE_RESTART;
-                                    end
-                            end             
+//                    if (WatchdogExceeded_pulse 
+//                        //&& reExecutions[HighestPriorityTaskIndex]<CriticalityLevelsList[HighestPriorityTaskIndex]
+//                    )
+//                            begin
+//                                    if (reExecutions[HighestPriorityTaskIndex]<CriticalityLevelsList[HighestPriorityTaskIndex])
+//                                    begin    
+//                                        reExecutions [ HighestPriorityTaskIndex ] <= reExecutions [ HighestPriorityTaskIndex ] + 1;
+//                                        executionIds [ HighestPriorityTaskIndex ] <= executionIds [ HighestPriorityTaskIndex ] + 1;   
+//                                        partialExecutionTimes[HighestPriorityTaskIndex]=0;
+//                                        executionMode[ HighestPriorityTaskIndex ] = EXECMODE_CURRJOB_WCETEXCEEDED;
+//                                    end
+//                                    else
+//                                    begin
+//                                        AbsDeadlines [ HighestPriorityTaskIndex ] = 32'hFFFF_FFFF;
+//                                        executionMode[ HighestPriorityTaskIndex ] = EXECMODE_RESTART;
+//                                    end
+//                            end             
                           
-                   if (failedTask_valid_unified_pulse
-                        && reExecutions [ failedTask_taskId_unified ] < CriticalityLevelsList[failedTask_taskId_unified] //if #reexecutions doesn't exceed the max 
-                        && !(WatchdogExceeded_pulse && failedTask_taskId_unified == HighestPriorityTaskIndex) //not WCET exceeded if the faulty task is the running task
-                        && AbsDeadlines[ failedTask_taskId_unified ] != 32'hFFFF_FFFF //hasn't already been killed for any reason
-                       && executionIds[ failedTask_taskId_unified ] == failedTask_executionId_unified
-                    )
-                    begin
-                        executionMode[failedTask_taskId_unified]=EXECMODE_CURRJOB_FAULT;
-                        reExecutions [ failedTask_taskId_unified ] <= reExecutions [ failedTask_taskId_unified ] + 1;
-                        executionIds [ failedTask_taskId_unified ] <= executionIds [ failedTask_taskId_unified ] + 1;
+//                   if (failedTask_valid_unified_pulse
+//                        && reExecutions [ failedTask_taskId_unified ] < CriticalityLevelsList[failedTask_taskId_unified] //if #reexecutions doesn't exceed the max 
+//                        && !(WatchdogExceeded_pulse && failedTask_taskId_unified == HighestPriorityTaskIndex) //not WCET exceeded if the faulty task is the running task
+//                        && AbsDeadlines[ failedTask_taskId_unified ] != 32'hFFFF_FFFF //hasn't already been killed for any reason
+//                       && executionIds[ failedTask_taskId_unified ] == failedTask_executionId_unified
+//                    )
+//                    begin
+//                        executionMode[failedTask_taskId_unified]=EXECMODE_CURRJOB_FAULT;
+//                        reExecutions [ failedTask_taskId_unified ] <= reExecutions [ failedTask_taskId_unified ] + 1;
+//                        executionIds [ failedTask_taskId_unified ] <= executionIds [ failedTask_taskId_unified ] + 1;
 
-                        partialExecutionTimes[failedTask_taskId_unified]=0;
-                    end
+//                        partialExecutionTimes[failedTask_taskId_unified]=0;
+//                    end
                    
 
-                    for (m=0; m<maxTasks; m=m+1)
-                        begin
-                            if (AbsDeadlines[m]!=32'hFFFF_FFFF)
-                            begin
-                                if (CriticalityLevelsList[m]<systemCriticalityLevel)
-                                //deadline miss or task has a criticality lower wrt current system criticality
-                                    begin
-                                        if (executionTimes[m]>0)
-                                            executionMode[m]=EXECMODE_RESTART;
-                                        AbsDeadlines[m]=32'hFFFF_FFFF;
-                                    end
-                                else if (AbsActivations[m]!=0)
-                                            AbsDeadlines[m]=AbsDeadlines[m]-1;
-                            end
-                            if (AbsActivations[m]==0)
-                                //new activation
-                                begin
-                                    AbsActivations[m]=PeriodsList[m];
-                                    if (!(CriticalityLevelsList[m]<systemCriticalityLevel))
-                                    begin
-                                        AbsDeadlines[m]=DeadlinesList[systemCriticalityLevel][m];
-                                        reExecutions [m] <= 0;
-                                        executionIds [m] <= executionIds [m] + 1;
-                                        executionTimes[m]=0;
+//                    for (m=0; m<maxTasks; m=m+1)
+//                        begin
+//                            if (AbsDeadlines[m]!=32'hFFFF_FFFF)
+//                            begin
+//                                if (CriticalityLevelsList[m]<systemCriticalityLevel)
+//                                //deadline miss or task has a criticality lower wrt current system criticality
+//                                    begin
+//                                        if (executionTimes[m]>0)
+//                                            executionMode[m]=EXECMODE_RESTART;
+//                                        AbsDeadlines[m]=32'hFFFF_FFFF;
+//                                    end
+//                                else if (AbsActivations[m]!=0)
+//                                            AbsDeadlines[m]=AbsDeadlines[m]-1;
+//                            end
+//                            if (AbsActivations[m]==0)
+//                                //new activation
+//                                begin
+//                                    AbsActivations[m]=PeriodsList[m];
+//                                    if (!(CriticalityLevelsList[m]<systemCriticalityLevel))
+//                                    begin
+//                                        AbsDeadlines[m]=DeadlinesList[systemCriticalityLevel][m];
+//                                        reExecutions [m] <= 0;
+//                                        executionIds [m] <= executionIds [m] + 1;
+//                                        executionTimes[m]=0;
     
-                                        executionTimes[m]=0;
-                                        partialExecutionTimes[m]=0;
-                                    end
-                                end
-                            else if (AbsActivations[m]!=32'hFFFF_FFFF)
-                                //update activation counter
-                                AbsActivations[m]=AbsActivations[m]-1;
-                        end
-    end  
+//                                        executionTimes[m]=0;
+//                                        partialExecutionTimes[m]=0;
+//                                    end
+//                                end
+//                            else if (AbsActivations[m]!=32'hFFFF_FFFF)
+//                                //update activation counter
+//                                AbsActivations[m]=AbsActivations[m]-1;
+//                        end
+//    end  
                 endcase
         end
     end
     
     
-    //comparators
+//    //comparators
 
-    function integer outSize;
-        input integer level;
-        //input integer maxTasks;
-        integer iter;
+//    function integer outSize;
+//        input integer level;
+//        //input integer maxTasks;
+//        integer iter;
 
-        begin
-            outSize=maxTasks;
-            for (iter = 0; iter < level; iter = iter + 1)
-                begin
-                    outSize = (outSize%2==0) ? outSize/2 : ((outSize/2)+1);
-                end
-        end
-    endfunction
+//        begin
+//            outSize=maxTasks;
+//            for (iter = 0; iter < level; iter = iter + 1)
+//                begin
+//                    outSize = (outSize%2==0) ? outSize/2 : ((outSize/2)+1);
+//                end
+//        end
+//    endfunction
 
-    function integer remainderInInput;
-        input integer level;
+//    function integer remainderInInput;
+//        input integer level;
 
-        integer outSize;
-        integer iter;
+//        integer outSize;
+//        integer iter;
 
-        begin
-            outSize=maxTasks;
-            if (level>1)
-            begin
-                for (iter = 0; iter < level-1; iter = iter + 1)
-                    begin
-                        outSize = (outSize%2==0) ? outSize/2 : (outSize/2)+1;
-                    end
-            end
-            remainderInInput=outSize%2; //or oldoutsize[0:0]
-        end
-    endfunction
+//        begin
+//            outSize=maxTasks;
+//            if (level>1)
+//            begin
+//                for (iter = 0; iter < level-1; iter = iter + 1)
+//                    begin
+//                        outSize = (outSize%2==0) ? outSize/2 : (outSize/2)+1;
+//                    end
+//            end
+//            remainderInInput=outSize%2; //or oldoutsize[0:0]
+//        end
+//    endfunction
 
-    genvar l, j;
-    generate
-        for (l=0; l<$clog2(maxTasks); l=l+1)
-        begin: Comp
-            wire [7:0] outputIndex[outSize(l+1)-1:0];
-            wire [31:0] outputValue[outSize(l+1)-1:0];
+//    genvar l, j;
+//    generate
+//        for (l=0; l<$clog2(maxTasks); l=l+1)
+//        begin: Comp
+//            wire [7:0] outputIndex[outSize(l+1)-1:0];
+//            wire [31:0] outputValue[outSize(l+1)-1:0];
 
-            if (remainderInInput(l+1)!=0)
-            begin
-                if (l == 0)
-                begin
-                    assign outputIndex[outSize(l+1)-1]=(maxTasks-1);
-                    assign outputValue[outSize(l+1)-1]=AbsDeadlines[maxTasks-1];
-                end
-                else
-                begin
-                    assign outputIndex[outSize(l+1)-1]=Comp[l-1].outputIndex[outSize(l)-1];
-                    assign outputValue[outSize(l+1)-1]=Comp[l-1].outputValue[outSize(l)-1];
-                end
-            end
+//            if (remainderInInput(l+1)!=0)
+//            begin
+//                if (l == 0)
+//                begin
+//                    assign outputIndex[outSize(l+1)-1]=(maxTasks-1);
+//                    assign outputValue[outSize(l+1)-1]=AbsDeadlines[maxTasks-1];
+//                end
+//                else
+//                begin
+//                    assign outputIndex[outSize(l+1)-1]=Comp[l-1].outputIndex[outSize(l)-1];
+//                    assign outputValue[outSize(l+1)-1]=Comp[l-1].outputValue[outSize(l)-1];
+//                end
+//            end
 
-            for (j=0; j<outSize(l); j=j+2)
-            begin: InternalComp
-                if (l==($clog2(maxTasks)-1))
-                begin
-                    Comparator cl1 (
-                        .X1(Comp[l-1].outputValue[j]),
-                        .indexX1(Comp[l-1].outputIndex[j]),
-                        .X2(Comp[l-1].outputValue[j+1]),
-                        .indexX2(Comp[l-1].outputIndex[j+1]),
-                        .Y(HighestPriorityTaskDeadline),
-                        .indexY(HighestPriorityTaskIndex)
-                    );
-                end
-                else if (l == 0)
-                begin
-                    Comparator cl1 (
-                        .X1(AbsDeadlines[j]),
-                        .indexX1(j),
-                        .X2(AbsDeadlines[j+1]),
-                        .indexX2(j+1),
-                        .Y(outputValue[j/2]),
-                        .indexY(outputIndex[j/2])
-                    );
-                end
-                else
-                begin
-                    Comparator cl1 (
-                        .X1(Comp[l-1].outputValue[j]),
-                        .indexX1(Comp[l-1].outputIndex[j]),
-                        .X2(Comp[l-1].outputValue[j+1]),
-                        .indexX2(Comp[l-1].outputIndex[j+1]),
-                        .Y(outputValue[j/2]),
-                        .indexY(outputIndex[j/2])
-                    );
-                end
-            end
-        end
-    endgenerate
+//            for (j=0; j<outSize(l); j=j+2)
+//            begin: InternalComp
+//                if (l==($clog2(maxTasks)-1))
+//                begin
+//                    Comparator cl1 (
+//                        .X1(Comp[l-1].outputValue[j]),
+//                        .indexX1(Comp[l-1].outputIndex[j]),
+//                        .X2(Comp[l-1].outputValue[j+1]),
+//                        .indexX2(Comp[l-1].outputIndex[j+1]),
+//                        .Y(HighestPriorityTaskDeadline),
+//                        .indexY(HighestPriorityTaskIndex)
+//                    );
+//                end
+//                else if (l == 0)
+//                begin
+//                    Comparator cl1 (
+//                        .X1(AbsDeadlines[j]),
+//                        .indexX1(j),
+//                        .X2(AbsDeadlines[j+1]),
+//                        .indexX2(j+1),
+//                        .Y(outputValue[j/2]),
+//                        .indexY(outputIndex[j/2])
+//                    );
+//                end
+//                else
+//                begin
+//                    Comparator cl1 (
+//                        .X1(Comp[l-1].outputValue[j]),
+//                        .indexX1(Comp[l-1].outputIndex[j]),
+//                        .X2(Comp[l-1].outputValue[j+1]),
+//                        .indexX2(Comp[l-1].outputIndex[j+1]),
+//                        .Y(outputValue[j/2]),
+//                        .indexY(outputIndex[j/2])
+//                    );
+//                end
+//            end
+//        end
+//    endgenerate
 
     //PULSE generations for AXI slave
     reg oldIntrStatus;
@@ -1623,24 +1623,19 @@ module scheduler_v1_0_S_AXI #
                                 end
                              end
                     end
-                    else if ( ctxSwitchCtr==0 && intr0en && HighestPriorityTaskDeadline!=32'hFFFF_FFFF 
-                    && 
-//                    HighestPriorityTaskDeadline!=0 && 
-                    (runningTaskIndex!=HighestPriorityTaskIndex
-                    || 
-                    taskExecutionId!=executionIds [ HighestPriorityTaskIndex ]))
+                    else if ( (control_valid_pulse && control_command==control_jobEnded) || runningTaskIndex==8'hFF)
                     begin
                         waitingAckCtr<=0;
                         taskWriteCtr<=0;
                     
                     
                         //nextRunningTaskIndex<=HighestPriorityTaskIndex;
-                        runningTaskIndex<=HighestPriorityTaskIndex;
-                        taskExecutionId <= executionIds [ HighestPriorityTaskIndex ];
+                        runningTaskIndex<=0;
+                        taskExecutionId <= executionIds [ 0 ];
                         
-                        taskPtr<=TCBPtrsList[HighestPriorityTaskIndex];
-                        taskExecutionMode <= executionMode[HighestPriorityTaskIndex];
-                        taskRequiresFaultDetection <= (reExecutions [ HighestPriorityTaskIndex ] < CriticalityLevelsList [ HighestPriorityTaskIndex ]) ? 1'b1 : 1'b0;
+                        taskPtr<=TCBPtrsList[0];
+                        taskExecutionMode <= 1;
+                        taskRequiresFaultDetection <= (reExecutions [ 0 ] < CriticalityLevelsList [ 0 ]) ? 1'b1 : 1'b0;
                         taskReady<=1'b1;
 
                         waitingAck<=1'b1;
