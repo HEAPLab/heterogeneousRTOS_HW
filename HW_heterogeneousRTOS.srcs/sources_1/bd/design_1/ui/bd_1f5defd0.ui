@@ -1,7 +1,7 @@
 {
    "ActiveEmotionalView":"Default View",
    "Default View_ScaleFactor":"0.717933",
-   "Default View_TopLeft":"116,260",
+   "Default View_TopLeft":"476,493",
    "ExpandedHierarchyInLayout":"",
    "PinnedBlocks":"",
    "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
@@ -23,9 +23,9 @@ preplace inst xlconcat_0 -pg 1 -lvl 5 -x 1720 -y 1320 -defaultsOSRD
 preplace inst axi_gpio_0 -pg 1 -lvl 2 -x 550 -y 820 -defaultsOSRD
 preplace inst processing_system7_0 -pg 1 -lvl 6 -x 2250 -y 890 -defaultsOSRD
 preplace inst clk_wiz_0 -pg 1 -lvl 3 -x 900 -y 1080 -defaultsOSRD
-preplace inst rst_clk_wiz_0_100M -pg 1 -lvl 5 -x 1720 -y 1180 -defaultsOSRD
-preplace inst proc_sys_reset_0 -pg 1 -lvl 4 -x 1300 -y 700 -defaultsOSRD
 preplace inst FaultDetector_0 -pg 1 -lvl 2 -x 550 -y 580 -defaultsOSRD
+preplace inst proc_sys_reset_0 -pg 1 -lvl 4 -x 1300 -y 700 -defaultsOSRD
+preplace inst rst_clk_wiz_0_100M -pg 1 -lvl 5 -x 1720 -y 1180 -defaultsOSRD
 preplace inst scheduler_0 -pg 1 -lvl 5 -x 1720 -y 910 -defaultsOSRD
 preplace netloc FaultDetector_0_failedTask 1 2 3 750J 600 NJ 600 1510
 preplace netloc FaultDetector_0_failedTask_ap_vld 1 2 3 NJ 570 NJ 570 1520

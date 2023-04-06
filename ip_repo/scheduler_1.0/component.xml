@@ -1714,8 +1714,8 @@
         <xilinx:taxonomy>AXI_Peripheral</xilinx:taxonomy>
       </xilinx:taxonomies>
       <xilinx:displayName>scheduler_v1.0</xilinx:displayName>
-      <xilinx:coreRevision>221</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2023-02-16T18:39:29Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>222</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2023-02-20T13:08:06Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.df@3f74a083_ARCHIVE_LOCATION">/home/bosp/workspace/ip_repo/scheduler_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.df@4e37f1b3_ARCHIVE_LOCATION">/home/bosp/workspace/ip_repo/scheduler_1.0</xilinx:tag>

@@ -7,7 +7,8 @@
       "name": "design_1",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
       "synth_flow_mode": "Hierarchical",
-      "tool_version": "2022.2"
+      "tool_version": "2022.2",
+      "validated": "true"
     },
     "design_tree": {
       "axi_mem_intercon": {
@@ -36,9 +37,9 @@
       "axi_gpio_0": "",
       "processing_system7_0": "",
       "clk_wiz_0": "",
-      "rst_clk_wiz_0_100M": "",
-      "proc_sys_reset_0": "",
       "FaultDetector_0": "",
+      "proc_sys_reset_0": "",
+      "rst_clk_wiz_0_100M": "",
       "scheduler_0": ""
     },
     "interface_ports": {
@@ -3229,18 +3230,6 @@
           }
         }
       },
-      "rst_clk_wiz_0_100M": {
-        "vlnv": "xilinx.com:ip:proc_sys_reset:5.0",
-        "xci_name": "design_1_rst_clk_wiz_0_100M_1",
-        "xci_path": "ip/design_1_rst_clk_wiz_0_100M_1/design_1_rst_clk_wiz_0_100M_1.xci",
-        "inst_hier_path": "rst_clk_wiz_0_100M"
-      },
-      "proc_sys_reset_0": {
-        "vlnv": "xilinx.com:ip:proc_sys_reset:5.0",
-        "xci_name": "design_1_proc_sys_reset_0_0",
-        "xci_path": "ip/design_1_proc_sys_reset_0_0/design_1_proc_sys_reset_0_0.xci",
-        "inst_hier_path": "proc_sys_reset_0"
-      },
       "FaultDetector_0": {
         "vlnv": "xilinx.com:hls:FaultDetector:1.0",
         "xci_name": "design_1_FaultDetector_0_0",
@@ -3266,6 +3255,18 @@
             }
           }
         }
+      },
+      "proc_sys_reset_0": {
+        "vlnv": "xilinx.com:ip:proc_sys_reset:5.0",
+        "xci_name": "design_1_proc_sys_reset_0_0",
+        "xci_path": "ip/design_1_proc_sys_reset_0_0/design_1_proc_sys_reset_0_0.xci",
+        "inst_hier_path": "proc_sys_reset_0"
+      },
+      "rst_clk_wiz_0_100M": {
+        "vlnv": "xilinx.com:ip:proc_sys_reset:5.0",
+        "xci_name": "design_1_rst_clk_wiz_0_100M_1",
+        "xci_path": "ip/design_1_rst_clk_wiz_0_100M_1/design_1_rst_clk_wiz_0_100M_1.xci",
+        "inst_hier_path": "rst_clk_wiz_0_100M"
       },
       "scheduler_0": {
         "vlnv": "user.org:user:scheduler:1.0",
@@ -3388,8 +3389,8 @@
       "clk_wiz_0_locked": {
         "ports": [
           "clk_wiz_0/locked",
-          "rst_clk_wiz_0_100M/dcm_locked",
-          "proc_sys_reset_0/dcm_locked"
+          "proc_sys_reset_0/dcm_locked",
+          "rst_clk_wiz_0_100M/dcm_locked"
         ]
       },
       "gpio_io_i_0_1": {
@@ -3434,9 +3435,9 @@
       "processing_system7_0_FCLK_RESET0_N": {
         "ports": [
           "processing_system7_0/FCLK_RESET0_N",
+          "clk_wiz_0/resetn",
           "proc_sys_reset_0/ext_reset_in",
-          "rst_clk_wiz_0_100M/ext_reset_in",
-          "clk_wiz_0/resetn"
+          "rst_clk_wiz_0_100M/ext_reset_in"
         ]
       },
       "rst_clk_wiz_0_100M_peripheral_aresetn": {
