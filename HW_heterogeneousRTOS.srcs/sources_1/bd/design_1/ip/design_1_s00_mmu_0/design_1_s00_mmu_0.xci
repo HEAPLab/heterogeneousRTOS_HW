@@ -4,8 +4,8 @@
     "xci_name": "design_1_s00_mmu_0",
     "cell_name": "axi_mem_intercon/s00_mmu",
     "component_reference": "xilinx.com:ip:axi_mmu:2.1",
-    "ip_revision": "25",
-    "gen_directory": "../../../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ip/design_1_s00_mmu_0_1",
+    "ip_revision": "26",
+    "gen_directory": "../../../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ip/design_1_s00_mmu_0",
     "parameters": {
       "component_parameters": {
         "NUM_RANGES": [ { "value": "1", "value_src": "propagated", "resolve_type": "user", "format": "long", "usage": "all" } ],
@@ -21,7 +21,7 @@
         "RUSER_WIDTH": [ { "value": "0", "value_permission": "bd_and_user", "resolve_type": "user", "format": "long", "enabled": false, "usage": "all" } ],
         "BUSER_WIDTH": [ { "value": "0", "value_permission": "bd_and_user", "resolve_type": "user", "format": "long", "enabled": false, "usage": "all" } ],
         "D000_BASE_ADDR": [ { "value": "0x0000000010000000", "value_src": "propagated", "resolve_type": "user", "format": "bitString", "usage": "all" } ],
-        "D000_ADDR_WIDTH": [ { "value": "16", "value_src": "propagated", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "D000_ADDR_WIDTH": [ { "value": "12", "value_src": "propagated", "resolve_type": "user", "format": "long", "usage": "all" } ],
         "D000_READ_WRITE_MODE": [ { "value": "READ_WRITE", "resolve_type": "user", "usage": "all" } ],
         "D001_BASE_ADDR": [ { "value": "0x0000000000010000", "resolve_type": "user", "format": "bitString", "usage": "all" } ],
         "D001_ADDR_WIDTH": [ { "value": "16", "resolve_type": "user", "format": "long", "usage": "all" } ],
@@ -805,7 +805,7 @@
         "C_AXI_BUSER_WIDTH": [ { "value": "1", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_NUM_RANGES": [ { "value": "1", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_BASE_ADDR": [ { "value": "0x0000000010000000", "resolve_type": "generated", "format": "bitString", "usage": "all" } ],
-        "C_RANGE_SIZE": [ { "value": "0x0000000000000010", "resolve_type": "generated", "format": "bitString", "usage": "all" } ],
+        "C_RANGE_SIZE": [ { "value": "0x0000000c", "resolve_type": "generated", "format": "bitString", "usage": "all" } ],
         "C_USES_DEST": [ { "value": "0", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_DEST_WIDTH": [ { "value": "1", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_DEST": [ { "value": "0x0000000000000000", "resolve_type": "generated", "format": "bitString", "usage": "all" } ],
@@ -818,27 +818,25 @@
       },
       "project_parameters": {
         "ARCHITECTURE": [ { "value": "zynq" } ],
-        "BASE_BOARD_PART": [ { "value": "" } ],
+        "BASE_BOARD_PART": [ { "value": "tul.com.tw:pynq-z2:part0:1.0" } ],
         "BOARD_CONNECTIONS": [ { "value": "" } ],
-        "DEVICE": [ { "value": "xc7z100" } ],
-        "PACKAGE": [ { "value": "ffg900" } ],
+        "DEVICE": [ { "value": "xc7z020" } ],
+        "PACKAGE": [ { "value": "clg400" } ],
         "PREFHDL": [ { "value": "VERILOG" } ],
         "SILICON_REVISION": [ { "value": "" } ],
         "SIMULATOR_LANGUAGE": [ { "value": "MIXED" } ],
         "SPEEDGRADE": [ { "value": "-1" } ],
         "STATIC_POWER": [ { "value": "" } ],
-        "TEMPERATURE_GRADE": [ { "value": "" } ],
-        "USE_RDI_CUSTOMIZATION": [ { "value": "TRUE" } ],
-        "USE_RDI_GENERATION": [ { "value": "TRUE" } ]
+        "TEMPERATURE_GRADE": [ { "value": "" } ]
       },
       "runtime_parameters": {
         "IPCONTEXT": [ { "value": "IP_Integrator" } ],
-        "IPREVISION": [ { "value": "25" } ],
+        "IPREVISION": [ { "value": "26" } ],
         "MANAGED": [ { "value": "TRUE" } ],
-        "OUTPUTDIR": [ { "value": "../../../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ip/design_1_s00_mmu_0_1" } ],
+        "OUTPUTDIR": [ { "value": "../../../../../../HW_heterogeneousRTOS.gen/sources_1/bd/design_1/ip/design_1_s00_mmu_0" } ],
         "SELECTEDSIMMODEL": [ { "value": "rtl" } ],
         "SHAREDDIR": [ { "value": "../../ipshared" } ],
-        "SWVERSION": [ { "value": "2022.2" } ],
+        "SWVERSION": [ { "value": "2023.1.1" } ],
         "SYNTHESISFLOW": [ { "value": "OUT_OF_CONTEXT" } ]
       }
     },
@@ -1029,7 +1027,7 @@
           "parameters": {
             "POLARITY": [ { "value": "ACTIVE_LOW", "value_src": "constant", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
             "INSERT_VIP": [ { "value": "0", "resolve_type": "user", "format": "long", "usage": "simulation.rtl", "is_ips_inferred": true, "is_static_object": false } ],
-            "TYPE": [ { "value": "INTERCONNECT", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ]
+            "TYPE": [ { "value": "INTERCONNECT", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ]
           },
           "port_maps": {
             "RST": [ { "physical_name": "aresetn" } ]
