@@ -41,8 +41,8 @@
         "m02_couplers": {}
       },
       "rst_clk_wiz_0_100M": "",
-      "scheduler_0": "",
-      "xlconcat_0": ""
+      "xlconcat_0": "",
+      "scheduler_0": ""
     },
     "interface_ports": {
       "DDR": {
@@ -3237,6 +3237,20 @@
         "xci_path": "ip/design_1_rst_clk_wiz_0_100M_1/design_1_rst_clk_wiz_0_100M_1.xci",
         "inst_hier_path": "rst_clk_wiz_0_100M"
       },
+      "xlconcat_0": {
+        "vlnv": "xilinx.com:ip:xlconcat:2.1",
+        "xci_name": "design_1_xlconcat_0_0",
+        "xci_path": "ip/design_1_xlconcat_0_0/design_1_xlconcat_0_0.xci",
+        "inst_hier_path": "xlconcat_0",
+        "parameters": {
+          "NUM_PORTS": {
+            "value": "1"
+          },
+          "dout_width": {
+            "value": "1"
+          }
+        }
+      },
       "scheduler_0": {
         "vlnv": "user.org:user:scheduler:1.0",
         "xci_name": "design_1_scheduler_0_0",
@@ -3268,20 +3282,6 @@
               "range": "4G",
               "width": "32"
             }
-          }
-        }
-      },
-      "xlconcat_0": {
-        "vlnv": "xilinx.com:ip:xlconcat:2.1",
-        "xci_name": "design_1_xlconcat_0_0",
-        "xci_path": "ip/design_1_xlconcat_0_0/design_1_xlconcat_0_0.xci",
-        "inst_hier_path": "xlconcat_0",
-        "parameters": {
-          "NUM_PORTS": {
-            "value": "1"
-          },
-          "dout_width": {
-            "value": "1"
           }
         }
       }
@@ -3452,28 +3452,22 @@
           "processing_system7_0/Core0_nFIQ"
         ]
       },
-      "scheduler_0_led1": {
+      "scheduler_0_readyLed": {
         "ports": [
-          "scheduler_0/led1",
-          "xlconcat_1/In0"
-        ]
-      },
-      "scheduler_0_led2": {
-        "ports": [
-          "scheduler_0/led2",
+          "scheduler_0/readyLed",
           "xlconcat_1/In1"
         ]
       },
-      "scheduler_0_led3": {
+      "scheduler_0_runningLed": {
         "ports": [
-          "scheduler_0/led3",
+          "scheduler_0/runningLed",
           "xlconcat_1/In2"
         ]
       },
-      "scheduler_0_led4": {
+      "scheduler_0_uninitializedLed": {
         "ports": [
-          "scheduler_0/led4",
-          "xlconcat_1/In3"
+          "scheduler_0/uninitializedLed",
+          "xlconcat_1/In0"
         ]
       },
       "xlconcat_0_dout": {

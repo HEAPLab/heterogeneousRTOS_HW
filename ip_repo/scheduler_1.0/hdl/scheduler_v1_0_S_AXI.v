@@ -42,8 +42,10 @@ endmodule
 module scheduler_v1_0_S_AXI #
 	(
     // Users to add parameters here
-    parameter[7:0] maxTasks = 4,
-    parameter [3:0] criticalityLevels=3,
+    parameter integer maxTasks = 4,
+    parameter integer criticalityLevels=3,
+    parameter integer ctxSwitchTimeWithoutReexecution=10,
+    parameter integer ctxSwitchTimeWithReexecution=10,
 
     // User parameters ends
     // Do not modify the parameters beyond this line
@@ -249,7 +251,7 @@ module scheduler_v1_0_S_AXI #
     reg[C_S_AXI_DATA_WIDTH-1:0] DeadlinesDerivativeList [criticalityLevels-1:0][(maxTasks*DEADLINESIZEINWORDS)-1:0]; //activation queue index ordered by next activation ascending
     reg[C_S_AXI_DATA_WIDTH-1:0] DeadlinesList [criticalityLevels-1:0][(maxTasks*DEADLINESIZEINWORDS)-1:0]; //activation queue index ordered by next activation ascending
     reg[C_S_AXI_DATA_WIDTH-1:0] PeriodsList [(maxTasks*PERIODSIZEINWORDS)-1:0]; //ready queue ordered by deadline ascending
-    reg[C_S_AXI_DATA_WIDTH-1:0] CriticalityLevelsList [(maxTasks*CRITICALITYLEVELSSIZEINWORDS)-1:0]; //ready queue ordered by deadline ascending
+    reg[$clog2(criticalityLevels)-1:0] CriticalityLevelsList [(maxTasks*CRITICALITYLEVELSSIZEINWORDS)-1:0]; //ready queue ordered by deadline ascending
 
     /*(* MARK_DEBUG="TRUE" *)*/ reg control_valid;
 
@@ -1162,7 +1164,7 @@ module scheduler_v1_0_S_AXI #
     reg[7:0] copyIterator;
     reg startCommandPending;
 
-    (* MARK_DEBUG = "TRUE" *) reg systemCriticalityLevel;
+    (* MARK_DEBUG = "TRUE" *) reg[$clog2(criticalityLevels)-1:0] systemCriticalityLevel;
     (* MARK_DEBUG = "TRUE" *) reg[31:0] executionTimes [maxTasks-1:0];
     (* MARK_DEBUG = "TRUE" *) reg[31:0] partialExecutionTimes [maxTasks-1:0];
     (* MARK_DEBUG = "TRUE" *) reg [2:0] executionMode [maxTasks-1:0];
@@ -1175,9 +1177,7 @@ module scheduler_v1_0_S_AXI #
 
     (* MARK_DEBUG = "TRUE" *) wire[7:0] HighestPriorityTaskIndex;
     (* MARK_DEBUG = "TRUE" *) wire[31:0] HighestPriorityTaskDeadline;
-    (* MARK_DEBUG = "TRUE" *) reg [31:0] ctxSwitchCtr;
-    localparam ctxSwitchTimeWithoutReexecution=10;
-    localparam ctxSwitchTimeWithReexecution=10;
+    (* MARK_DEBUG = "TRUE" *) reg [7:0] ctxSwitchCtr;
 
     //control command supplied by the software
     (* MARK_DEBUG = "TRUE" *) wire [7:0] control_taskId;
@@ -1255,8 +1255,8 @@ module scheduler_v1_0_S_AXI #
 
                 //update deadlines, activations, deadline misses
                 begin: stateRunning
-                    reg runningTaskReactivated_pulse; //used for tasks which are both killed or end in the current CC and are reactivated or reexecuted in the same CC
-                    reg runningTaskRestarted_pulse;
+//                    reg runningTaskReactivated_pulse; //used for tasks which are both killed or end in the current CC and are reactivated or reexecuted in the same CC
+//                    reg runningTaskRestarted_pulse;
                     reg WCETexceeded_pulse;
                     reg WatchdogExceeded_pulse;
 //                    reg deadlineMiss_runningTask_pulse;
@@ -1277,45 +1277,42 @@ module scheduler_v1_0_S_AXI #
                       
                       if (ctxSwitchCtr==1) //ctxSwitchCtr==0
                       begin
-                        if (HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
+//                        if (HighestPriorityTaskDeadline!=32'hFFFF_FFFF) //!!! TAKE CARE
                             executionMode[prevHighestPriorityTaskIndex]=EXECMODE_NORMAL;
                       end                      
                       else if (ctxSwitchCtr==0) 
                       begin
-                       if (( HighestPriorityTaskIndex != prevHighestPriorityTaskIndex || executionIds[HighestPriorityTaskIndex]!=prevHighestPriorityTaskExecutionId) && HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
+                       if (( HighestPriorityTaskIndex != prevHighestPriorityTaskIndex || executionIds[HighestPriorityTaskIndex]!=prevHighestPriorityTaskExecutionId ) && HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
                           begin //ctx switch starts
                             prevHighestPriorityTaskExecutionId<=executionIds[HighestPriorityTaskIndex];
                             prevHighestPriorityTaskIndex<=HighestPriorityTaskIndex;
                             
-                            if (partialExecutionTimes[HighestPriorityTaskIndex]>0) //highestprioritytask was pre-empted
+                            if (ctxSwitchTimeWithoutReexecution==1)
+                                executionMode[HighestPriorityTaskIndex]=EXECMODE_NORMAL;
+                            
+                            if (partialExecutionTimes[HighestPriorityTaskIndex]>0) //highestprioritytask has been pre-empted earlier
                             begin
-                                executionTimeIncreaseTarget=prevHighestPriorityTaskIndex;
                                 ctxSwitchCtr<=ctxSwitchTimeWithoutReexecution-1;
-                                if (ctxSwitchTimeWithoutReexecution==1)
-                                    executionMode[HighestPriorityTaskIndex]=EXECMODE_NORMAL;
+                                executionTimeIncreaseTarget=prevHighestPriorityTaskIndex;
                             end
                             else
                             begin
+                                ctxSwitchCtr<=ctxSwitchTimeWithReexecution-1; //always assume a re-execution since the WCET includes time enough for this case; otherwise should have checked the execution mode, but this allows for a practical higher utilisation.
                                 executionTimeIncreaseTarget=HighestPriorityTaskIndex; //new activation
-                                ctxSwitchCtr<=ctxSwitchTimeWithReexecution-1;
-                                if (ctxSwitchTimeWithReexecution==1)
-                                    executionMode[HighestPriorityTaskIndex]=EXECMODE_NORMAL;
                             end
                           end
-                          else
-                          begin
+                        else
+                        begin
                             executionTimeIncreaseTarget=HighestPriorityTaskIndex; //new activation
-                          end    
+                        end    
                     end
                          
                     if (ctxSwitchCtr>0) //ctx switch happening
-                      begin
                         ctxSwitchCtr<=ctxSwitchCtr-1;
-                      end
 
+//increase execution times
                     if (HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
                            executionTimes[executionTimeIncreaseTarget]=executionTimes[executionTimeIncreaseTarget]+1;
-                        
                     if (HighestPriorityTaskDeadline!=32'hFFFF_FFFF)
                             partialExecutionTimes[executionTimeIncreaseTarget]=partialExecutionTimes[executionTimeIncreaseTarget]+1;
                    
@@ -1331,28 +1328,27 @@ module scheduler_v1_0_S_AXI #
                     WatchdogExceeded_pulse = (HighestPriorityTaskDeadline==32'hFFFF_FFFF || (controlEndJob_pulse && control_taskId==HighestPriorityTaskIndex)) ? 0 : partialExecutionTimes[HighestPriorityTaskIndex]>=(WCETsList[0][HighestPriorityTaskIndex]-ctxSwitchTimeWithoutReexecution);
 
                     controlRestartJobFault_pulse=control_valid_pulse && control_command==control_restartFault;
-                    
-                    failedTask_valid_unified_pulse=failedTask_valid_pulse || controlRestartJobFault_pulse;
-                    
+                                        
                     if (failedTask_valid_pulse)
                     begin
                         failedTask_taskId_unified=failedTask_taskId;
                         failedTask_executionId_unified=failedTask_executionId;
+                        failedTask_valid_unified_pulse=1'b1;                        
                     end
-                    else
+                    else if (controlRestartJobFault_pulse)
                     begin
                         failedTask_taskId_unified=control_taskId;
                         failedTask_executionId_unified=control_executionId;
+                        failedTask_valid_unified_pulse=1'b1;                        
                     end
                     //____________________________	
                    
                    if (controlEndJob_pulse)
                         begin
                             executionMode[control_taskId]=EXECMODE_NORMAL_NEWJOB;
-//                            if (AbsActivations[control_taskId]!=0 || CriticalityLevelsList[control_taskId]<systemCriticalityLevel)
-                                AbsDeadlines[control_taskId]=32'hFFFF_FFFF;
+                            AbsDeadlines[control_taskId]=32'hFFFF_FFFF;
                         end                  
- 
+//                 WCET exceeded, mode switch 
                    if (WCETexceeded_pulse)
                     begin
                         if (CriticalityLevelsList[HighestPriorityTaskIndex]>systemCriticalityLevel)
@@ -1360,21 +1356,24 @@ module scheduler_v1_0_S_AXI #
                                 systemCriticalityLevel=systemCriticalityLevel+1;
                                 for (m=0; m<maxTasks; m=m+1)
                                     begin
-                                        if (AbsDeadlines[m]!=32'hFFFF_FFFF)
-                                            AbsDeadlines[m]=AbsDeadlines[m]+DeadlinesDerivativeList[systemCriticalityLevel][m];  //extend the deadline
+                                        if (AbsDeadlines[m]!=32'hFFFF_FFFF) //task is ready/running
+                                        begin
+                                            if (CriticalityLevelsList[m]>=systemCriticalityLevel)
+                                            begin
+                                                AbsDeadlines[m]=AbsDeadlines[m]+DeadlinesDerivativeList[systemCriticalityLevel][m];  //extend the deadline
+                                            end
+                                            else
+                                            begin
+                                                //if partialexecutiontimes[m]>0
+                                                executionMode[m]=EXECMODE_RESTART;
+                                                AbsDeadlines[m]=32'hFFFF_FFFF;
+                                            end
+                                        end
                                     end
-                         //   end              
                         end
-//                        else
-//                        begin
-//                            executionMode[HighestPriorityTaskIndex]=EXECMODE_CURRJOB_WCETEXCEEDED;
-//                            AbsDeadlines [ HighestPriorityTaskIndex ] = 32'hFFFF_FFFF;
-//                        end
                     end
 
-                    if (WatchdogExceeded_pulse 
-                        //&& reExecutions[HighestPriorityTaskIndex]<CriticalityLevelsList[HighestPriorityTaskIndex]
-                    )
+                    if (WatchdogExceeded_pulse)
                             begin
                                     if (reExecutions[HighestPriorityTaskIndex]<CriticalityLevelsList[HighestPriorityTaskIndex])
                                     begin    
@@ -1384,7 +1383,7 @@ module scheduler_v1_0_S_AXI #
                                         executionMode[ HighestPriorityTaskIndex ] = EXECMODE_CURRJOB_WCETEXCEEDED;
                                     end
                                     else
-                                    begin
+                                    begin //potrebbe essere rimosso se tenessimo conto dell'ovh del context switch appena prima della scadenza della deadline e killassimo il task in quel momento, ma va comunque bene
                                         AbsDeadlines [ HighestPriorityTaskIndex ] = 32'hFFFF_FFFF;
                                         executionMode[ HighestPriorityTaskIndex ] = EXECMODE_RESTART;
                                     end
@@ -1400,43 +1399,39 @@ module scheduler_v1_0_S_AXI #
                         executionMode[failedTask_taskId_unified]=EXECMODE_CURRJOB_FAULT;
                         reExecutions [ failedTask_taskId_unified ] <= reExecutions [ failedTask_taskId_unified ] + 1;
                         executionIds [ failedTask_taskId_unified ] <= executionIds [ failedTask_taskId_unified ] + 1;
-
                         partialExecutionTimes[failedTask_taskId_unified]=0;
                     end
                    
 
                     for (m=0; m<maxTasks; m=m+1)
                         begin
-                            if (AbsDeadlines[m]!=32'hFFFF_FFFF)
-                            begin
-                                if (CriticalityLevelsList[m]<systemCriticalityLevel)
-                                //deadline miss or task has a criticality lower wrt current system criticality
-                                    begin
-                                        if (executionTimes[m]>0)
-                                            executionMode[m]=EXECMODE_RESTART;
-                                        AbsDeadlines[m]=32'hFFFF_FFFF;
-                                    end
-                                else if (AbsActivations[m]!=0)
-                                            AbsDeadlines[m]=AbsDeadlines[m]-1;
-                            end
                             if (AbsActivations[m]==0)
                                 //new activation
                                 begin
                                     AbsActivations[m]=PeriodsList[m];
-                                    if (!(CriticalityLevelsList[m]<systemCriticalityLevel))
+                                    reExecutions [m] <= 0;
+                                    executionIds [m] <= executionIds [m] + 1;
+    
+                                    executionTimes[m]=0;
+                                    partialExecutionTimes[m]=0;
+                                    if (CriticalityLevelsList[m]>=systemCriticalityLevel)
                                     begin
                                         AbsDeadlines[m]=DeadlinesList[systemCriticalityLevel][m];
-                                        reExecutions [m] <= 0;
-                                        executionIds [m] <= executionIds [m] + 1;
-                                        executionTimes[m]=0;
-    
-                                        executionTimes[m]=0;
-                                        partialExecutionTimes[m]=0;
                                     end
                                 end
-                            else if (AbsActivations[m]!=32'hFFFF_FFFF)
-                                //update activation counter
-                                AbsActivations[m]=AbsActivations[m]-1;
+                            else //no new activation
+                            begin
+                                if (AbsActivations[m]!=32'hFFFF_FFFF) //task not present
+                                begin
+                                    //update activation counter
+                                    AbsActivations[m]=AbsActivations[m]-1;
+                                end
+                                if (AbsDeadlines[m]!=32'hFFFF_FFFF) //task not ready/running
+                                begin
+                                    //update deadline counter
+                                    AbsDeadlines[m]=AbsDeadlines[m]-1;
+                                end
+                            end
                         end
     end  
                 endcase
@@ -1576,8 +1571,9 @@ module scheduler_v1_0_S_AXI #
 //    reg [7:0] nextRunningTaskIndex;
     (* MARK_DEBUG = "TRUE" *) reg[7:0] runningTaskIndex;
 
-    (* MARK_DEBUG = "TRUE" *) reg[31:0] waitingAckCtr;
-    (* MARK_DEBUG = "TRUE" *) reg[31:0] taskWriteCtr;
+//                            COUNTING for measurements
+//    (* MARK_DEBUG = "TRUE" *) reg[31:0] waitingAckCtr;
+//    (* MARK_DEBUG = "TRUE" *) reg[31:0] taskWriteCtr;
     
     always @(posedge S_AXI_ACLK)
     begin
@@ -1585,8 +1581,11 @@ module scheduler_v1_0_S_AXI #
             begin
                 waitingAck<=1'b0;
                 runningTaskIndex<=8'hFF;
-                waitingAckCtr<=0;
-                taskWriteCtr<=0;
+                
+//                            COUNTING for measurements
+//                waitingAckCtr<=0;
+//                taskWriteCtr<=0;
+                
 //                nextRunningTaskIndex<=8'hFF;
 
 //                runningTaskFlop<=1'b0;
@@ -1614,24 +1613,27 @@ module scheduler_v1_0_S_AXI #
 //                                end
                             else
                             begin
-                                if (taskWriteDone_pulse)
-                                    taskWriteCtr<=waitingAckCtr;
-                                waitingAckCtr<=waitingAckCtr+1;
+//                            COUNTING for measurements
+//                                if (taskWriteDone_pulse)
+//                                    taskWriteCtr<=waitingAckCtr;
+//                                waitingAckCtr<=waitingAckCtr+1;
                                 if (taskWriteStarted)
                                 begin
-                                    taskReady<=1'b0;
+                                    taskReady<=1'b0; //to AXI master ouput
                                 end
                              end
                     end
-                    else if ( ctxSwitchCtr==0 && intr0en && HighestPriorityTaskDeadline!=32'hFFFF_FFFF 
-                    && 
+                    else if ( ctxSwitchCtr==0 //previous context switch completed
+                    && intr0en //interrupts enabled 
+                    && HighestPriorityTaskDeadline!=32'hFFFF_FFFF //a task is running
+                    && //a new task is available
 //                    HighestPriorityTaskDeadline!=0 && 
                     (runningTaskIndex!=HighestPriorityTaskIndex
                     || 
                     taskExecutionId!=executionIds [ HighestPriorityTaskIndex ]))
                     begin
-                        waitingAckCtr<=0;
-                        taskWriteCtr<=0;
+//                        waitingAckCtr<=0;
+//                        taskWriteCtr<=0;
                     
                     
                         //nextRunningTaskIndex<=HighestPriorityTaskIndex;
@@ -1641,7 +1643,7 @@ module scheduler_v1_0_S_AXI #
                         taskPtr<=TCBPtrsList[HighestPriorityTaskIndex];
                         taskExecutionMode <= executionMode[HighestPriorityTaskIndex];
                         taskRequiresFaultDetection <= (reExecutions [ HighestPriorityTaskIndex ] < CriticalityLevelsList [ HighestPriorityTaskIndex ]) ? 1'b1 : 1'b0;
-                        taskReady<=1'b1;
+                        taskReady<=1'b1;  //to AXI master ouput
 
                         waitingAck<=1'b1;
                     end

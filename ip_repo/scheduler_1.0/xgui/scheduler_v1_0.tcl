@@ -14,6 +14,8 @@ proc init_gui { IPINST } {
   set maxTasks [ipgui::add_param $IPINST -name "maxTasks"]
   set_property tooltip {maximum number of tasks} ${maxTasks}
   ipgui::add_param $IPINST -name "criticalityLevels"
+  ipgui::add_param $IPINST -name "ctxSwitchTimeWithoutReexecution"
+  ipgui::add_param $IPINST -name "ctxSwitchTimeWithReexecution"
 
 }
 
@@ -23,6 +25,24 @@ proc update_PARAM_VALUE.criticalityLevels { PARAM_VALUE.criticalityLevels } {
 
 proc validate_PARAM_VALUE.criticalityLevels { PARAM_VALUE.criticalityLevels } {
 	# Procedure called to validate criticalityLevels
+	return true
+}
+
+proc update_PARAM_VALUE.ctxSwitchTimeWithReexecution { PARAM_VALUE.ctxSwitchTimeWithReexecution } {
+	# Procedure called to update ctxSwitchTimeWithReexecution when any of the dependent parameters in the arguments change
+}
+
+proc validate_PARAM_VALUE.ctxSwitchTimeWithReexecution { PARAM_VALUE.ctxSwitchTimeWithReexecution } {
+	# Procedure called to validate ctxSwitchTimeWithReexecution
+	return true
+}
+
+proc update_PARAM_VALUE.ctxSwitchTimeWithoutReexecution { PARAM_VALUE.ctxSwitchTimeWithoutReexecution } {
+	# Procedure called to update ctxSwitchTimeWithoutReexecution when any of the dependent parameters in the arguments change
+}
+
+proc validate_PARAM_VALUE.ctxSwitchTimeWithoutReexecution { PARAM_VALUE.ctxSwitchTimeWithoutReexecution } {
+	# Procedure called to validate ctxSwitchTimeWithoutReexecution
 	return true
 }
 
@@ -132,5 +152,15 @@ proc update_MODELPARAM_VALUE.maxTasks { MODELPARAM_VALUE.maxTasks PARAM_VALUE.ma
 proc update_MODELPARAM_VALUE.criticalityLevels { MODELPARAM_VALUE.criticalityLevels PARAM_VALUE.criticalityLevels } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
 	set_property value [get_property value ${PARAM_VALUE.criticalityLevels}] ${MODELPARAM_VALUE.criticalityLevels}
+}
+
+proc update_MODELPARAM_VALUE.ctxSwitchTimeWithoutReexecution { MODELPARAM_VALUE.ctxSwitchTimeWithoutReexecution PARAM_VALUE.ctxSwitchTimeWithoutReexecution } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.ctxSwitchTimeWithoutReexecution}] ${MODELPARAM_VALUE.ctxSwitchTimeWithoutReexecution}
+}
+
+proc update_MODELPARAM_VALUE.ctxSwitchTimeWithReexecution { MODELPARAM_VALUE.ctxSwitchTimeWithReexecution PARAM_VALUE.ctxSwitchTimeWithReexecution } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.ctxSwitchTimeWithReexecution}] ${MODELPARAM_VALUE.ctxSwitchTimeWithReexecution}
 }
 

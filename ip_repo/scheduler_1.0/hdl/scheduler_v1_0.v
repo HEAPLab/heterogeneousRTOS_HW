@@ -4,8 +4,10 @@
 	module scheduler_v1_0 #
 	(
     // Users to add parameters here
-    parameter maxTasks = 4,
-    parameter [3:0] criticalityLevels=3,
+    parameter integer maxTasks = 4,
+    parameter integer criticalityLevels=3,
+    parameter integer ctxSwitchTimeWithoutReexecution=10,
+    parameter integer ctxSwitchTimeWithReexecution=10,
 
     // User parameters ends
     // Do not modify the parameters beyond this line
