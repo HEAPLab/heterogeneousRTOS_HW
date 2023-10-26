@@ -20,13 +20,13 @@ typedef struct {
 	u16 uniId;
 	u8 executionId;
 	float AOV[FAULTDETECTOR_MAX_AOV_DIM];
-} __attribute__((packed)) FAULTDETECTOR_testpointDescriptorStr;
+} __attribute__((packed, aligned(4))) FAULTDETECTOR_testpointDescriptorStr;
 
 typedef struct {
 	u8 checkId;
 	u16 uniId;
 	u8 executionId;
-} __attribute__((packed)) FAULTDETECTOR_testpointShortDescriptorStr;
+} __attribute__((packed, aligned(4))) FAULTDETECTOR_testpointShortDescriptorStr;
 
 typedef struct {
 	u8 checkId;
@@ -36,7 +36,7 @@ typedef struct {
 	u8 taskId;
 	char command;
 	char gap0[2];
-} FAULTDETECTOR_controlStr;
+}  __attribute__((packed, aligned(4))) FAULTDETECTOR_controlStr;
 
 //custom drivers:
 void FAULTDETECTOR_getLastTestedPoint(XFaultdetector *InstancePtr, u8 taskId, FAULTDETECTOR_testpointDescriptorStr* dest);
