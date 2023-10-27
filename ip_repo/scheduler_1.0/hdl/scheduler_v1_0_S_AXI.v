@@ -163,6 +163,9 @@ module scheduler_v1_0_S_AXI #
     output wire  irq
 );
 
+    (* MARK_DEBUG = "TRUE" *) wire taskRequiresFaultDetection_dbg;
+    assign taskRequiresFaultDetection_dbg=taskRequiresFaultDetection;
+
     integer c;
 
     // AXI4LITE signals
@@ -214,8 +217,7 @@ module scheduler_v1_0_S_AXI #
     // ADDR_LSB = 2 for 32 bits (n downto 2)
     // ADDR_LSB = 3 for 64 bits (n downto 3)
     localparam integer ADDR_LSB = (C_S_AXI_DATA_WIDTH/32) + 1;
-    //-1 wrt real one
-    localparam integer OPT_MEM_ADDR_BITS = 11;
+    localparam integer OPT_MEM_ADDR_BITS = C_S_AXI_ADDR_WIDTH-ADDR_LSB-1;
     //----------------------------------------------
     /* //-- Signals for user logic register space example*/
     //------------------------------------------------
@@ -237,12 +239,12 @@ module scheduler_v1_0_S_AXI #
     localparam PERIODSIZEINWORDS=1;
     localparam CRITICALITYLEVELSSIZEINWORDS=1;
 
-    localparam [OPT_MEM_ADDR_BITS:0] maxAddrTCBPtrsList=(maxTasks*TCBPTRSIZEINWORDS);
-    localparam [OPT_MEM_ADDR_BITS:0] maxAddrWCETsList=maxAddrTCBPtrsList+(maxTasks*WCETSIZEINWORDS*criticalityLevels);
-    localparam [OPT_MEM_ADDR_BITS:0] maxAddrDeadlinesDerivativeList=maxAddrWCETsList+(maxTasks*DEADLINESIZEINWORDS*criticalityLevels);
-    localparam [OPT_MEM_ADDR_BITS:0] maxAddrDeadlinesList=maxAddrDeadlinesDerivativeList+(maxTasks*DEADLINESIZEINWORDS*criticalityLevels);
-    localparam [OPT_MEM_ADDR_BITS:0] maxAddrPeriodsList=maxAddrDeadlinesList+(maxTasks*PERIODSIZEINWORDS);
-    localparam [OPT_MEM_ADDR_BITS:0] maxAddrCriticalityLevelsList=maxAddrPeriodsList+(maxTasks*CRITICALITYLEVELSSIZEINWORDS);
+    localparam maxAddrTCBPtrsList=(maxTasks*TCBPTRSIZEINWORDS);
+    localparam maxAddrWCETsList=maxAddrTCBPtrsList+(maxTasks*WCETSIZEINWORDS*criticalityLevels);
+    localparam maxAddrDeadlinesDerivativeList=maxAddrWCETsList+(maxTasks*DEADLINESIZEINWORDS*criticalityLevels);
+    localparam maxAddrDeadlinesList=maxAddrDeadlinesDerivativeList+(maxTasks*DEADLINESIZEINWORDS*criticalityLevels);
+    localparam maxAddrPeriodsList=maxAddrDeadlinesList+(maxTasks*PERIODSIZEINWORDS);
+    localparam maxAddrCriticalityLevelsList=maxAddrPeriodsList+(maxTasks*CRITICALITYLEVELSSIZEINWORDS);
 
     localparam EXECMODE_NORMAL = 0, EXECMODE_NORMAL_NEWJOB = 1, EXECMODE_RESTART = 2, EXECMODE_CURRJOB_WCETEXCEEDED = 3, EXECMODE_CURRJOB_FAULT = 4;//, EXECMODE_KILLEDBYMODESWITCH = 4;
 
@@ -251,7 +253,7 @@ module scheduler_v1_0_S_AXI #
     reg[C_S_AXI_DATA_WIDTH-1:0] DeadlinesDerivativeList [criticalityLevels-1:0][(maxTasks*DEADLINESIZEINWORDS)-1:0]; //activation queue index ordered by next activation ascending
     reg[C_S_AXI_DATA_WIDTH-1:0] DeadlinesList [criticalityLevels-1:0][(maxTasks*DEADLINESIZEINWORDS)-1:0]; //activation queue index ordered by next activation ascending
     reg[C_S_AXI_DATA_WIDTH-1:0] PeriodsList [(maxTasks*PERIODSIZEINWORDS)-1:0]; //ready queue ordered by deadline ascending
-    reg[$clog2(criticalityLevels)-1:0] CriticalityLevelsList [(maxTasks*CRITICALITYLEVELSSIZEINWORDS)-1:0]; //ready queue ordered by deadline ascending
+    (* MARK_DEBUG = "TRUE" *) reg[$clog2(criticalityLevels)-1:0] CriticalityLevelsList [(maxTasks*CRITICALITYLEVELSSIZEINWORDS)-1:0]; //ready queue ordered by deadline ascending
 
     /*(* MARK_DEBUG="TRUE" *)*/ reg control_valid;
 
@@ -455,7 +457,7 @@ module scheduler_v1_0_S_AXI #
     // These registers are cleared when reset (active low) is applied.
     // Slave register write enable is asserted when valid address and data are available
     // and the slave is ready to accept the write address and write data.
-    localparam [OPT_MEM_ADDR_BITS:0] tasksOffset= 8;
+    localparam tasksOffset= 8;
     //    wire [OPT_MEM_ADDR_BITS:0] addrInWords;
     //    assign addrInWords=axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset;
     reg TCBPtrsListWritten;
@@ -584,7 +586,7 @@ module scheduler_v1_0_S_AXI #
                             else if (axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] < tasksOffset+maxAddrPeriodsList)
                                 PeriodsList[axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-(tasksOffset+maxAddrDeadlinesList)]<= S_AXI_WDATA;
                             else if (axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] < tasksOffset+maxAddrCriticalityLevelsList)
-                                CriticalityLevelsList[axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-(tasksOffset+maxAddrPeriodsList)]<= S_AXI_WDATA;
+                                CriticalityLevelsList[axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-(tasksOffset+maxAddrPeriodsList)]<= S_AXI_WDATA[$clog2(criticalityLevels)-1:0];
 
                             case (axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]-tasksOffset)
                                 (maxAddrTCBPtrsList-1):
@@ -1261,12 +1263,12 @@ module scheduler_v1_0_S_AXI #
                     reg WatchdogExceeded_pulse;
 //                    reg deadlineMiss_runningTask_pulse;
                     reg controlEndJob_pulse;
-                    reg controlRestartJobFault_pulse;
-                    reg failedTask_valid_unified_pulse;
+                    (* MARK_DEBUG = "TRUE" *) reg controlRestartJobFault_pulse;
+                    (* MARK_DEBUG = "TRUE" *) reg failedTask_valid_unified_pulse;
 //                    reg criticalityLevelIncrease_pulse;
                     
-                    reg failedTask_taskId_unified;
-                    reg failedTask_executionId_unified;
+                    (* MARK_DEBUG = "TRUE" *) reg [7:0] failedTask_taskId_unified;
+                    (* MARK_DEBUG = "TRUE" *) reg [7:0] failedTask_executionId_unified;
                     reg [7:0] executionTimeIncreaseTarget;
 
 
@@ -1329,17 +1331,17 @@ module scheduler_v1_0_S_AXI #
 
                     controlRestartJobFault_pulse=control_valid_pulse && control_command==control_restartFault;
                                         
+                    failedTask_valid_unified_pulse = failedTask_valid_pulse || controlRestartJobFault_pulse;
+                    
                     if (failedTask_valid_pulse)
                     begin
                         failedTask_taskId_unified=failedTask_taskId;
                         failedTask_executionId_unified=failedTask_executionId;
-                        failedTask_valid_unified_pulse=1'b1;                        
                     end
-                    else if (controlRestartJobFault_pulse)
+                    else //if (controlRestartJobFault_pulse)
                     begin
                         failedTask_taskId_unified=control_taskId;
                         failedTask_executionId_unified=control_executionId;
-                        failedTask_valid_unified_pulse=1'b1;                        
                     end
                     //____________________________	
                    
@@ -1390,13 +1392,13 @@ module scheduler_v1_0_S_AXI #
                             end             
                           
                    if (failedTask_valid_unified_pulse
-                        && reExecutions [ failedTask_taskId_unified ] < CriticalityLevelsList[failedTask_taskId_unified] //if #reexecutions doesn't exceed the max 
+                        && reExecutions [ failedTask_taskId_unified ] < CriticalityLevelsList[ failedTask_taskId_unified ] //if #reexecutions doesn't exceed the max 
                         && !(WatchdogExceeded_pulse && failedTask_taskId_unified == HighestPriorityTaskIndex) //not WCET exceeded if the faulty task is the running task
                         && AbsDeadlines[ failedTask_taskId_unified ] != 32'hFFFF_FFFF //hasn't already been killed for any reason
                        && executionIds[ failedTask_taskId_unified ] == failedTask_executionId_unified
                     )
                     begin
-                        executionMode[failedTask_taskId_unified]=EXECMODE_CURRJOB_FAULT;
+                        executionMode[ failedTask_taskId_unified ]=EXECMODE_CURRJOB_FAULT;
                         reExecutions [ failedTask_taskId_unified ] <= reExecutions [ failedTask_taskId_unified ] + 1;
                         executionIds [ failedTask_taskId_unified ] <= executionIds [ failedTask_taskId_unified ] + 1;
                         partialExecutionTimes[failedTask_taskId_unified]=0;

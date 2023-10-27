@@ -131,6 +131,8 @@
     scheduler_v1_0_S_AXI # (
     .maxTasks(maxTasks),
     .criticalityLevels(criticalityLevels),
+    .ctxSwitchTimeWithoutReexecution(ctxSwitchTimeWithoutReexecution),
+    .ctxSwitchTimeWithReexecution(ctxSwitchTimeWithReexecution),
     .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH),
     .C_S_AXI_ADDR_WIDTH(C_S_AXI_ADDR_WIDTH)
     ) scheduler_v1_0_S_AXI_inst (
